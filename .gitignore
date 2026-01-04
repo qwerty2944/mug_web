@@ -36,6 +36,11 @@ yarn-error.log*
 # vercel
 .vercel
 
+# Unity WebGL builds (large files)
+/public/unity/*.br
+/public/unity/*.data
+/public/unity/*.wasm
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts
