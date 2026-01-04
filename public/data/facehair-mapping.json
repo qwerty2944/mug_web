@@ -2,6 +2,7 @@
   "version": "1.0.0",
   "generatedAt": "2026-01-04T00:00:00.000Z",
   "facehairs": [
+    { "index": -1, "fileName": "", "ko": "수염없음", "en": "No Beard" },
     { "index": 0, "fileName": "Beard_01", "ko": "짧은 수염", "en": "Short Beard" },
     { "index": 1, "fileName": "Beard_02", "ko": "턱수염", "en": "Goatee" },
     { "index": 2, "fileName": "Beard_03", "ko": "콧수염", "en": "Mustache" },

@@ -2,6 +2,7 @@
   "version": "1.0.0",
   "generatedAt": "2026-01-04T00:00:00.000Z",
   "hairs": [
+    { "index": -1, "fileName": "", "ko": "민머리", "en": "Bald", "race": "None" },
     { "index": 0, "fileName": "Elf_Hair_01", "ko": "엘프 숏컷", "en": "Elf Short", "race": "Elf" },
     { "index": 1, "fileName": "Elf_Hair_02", "ko": "엘프 롱헤어", "en": "Elf Long", "race": "Elf" },
     { "index": 2, "fileName": "Elf_Hair_03", "ko": "엘프 포니테일", "en": "Elf Ponytail", "race": "Elf" },

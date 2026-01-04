@@ -2,7 +2,7 @@
 
 import { useEffect } from "react";
 import { useUnityContext } from "react-unity-webgl";
-import { useCharacterStore } from "./store";
+import { useCharacterStore } from "./characterStore";
 
 const UNITY_OBJECT_NAME = "SPUM_20260103203421028";
 

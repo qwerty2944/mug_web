@@ -1,21 +1,16 @@
 "use client";
 
-import { useState, useMemo } from "react";
 import { useRouter } from "next/navigation";
 import {
   useCharacterStore,
+  useCharacterCreateStore,
   STARTER_PRESETS,
   GENDERS,
   RACES,
   BASE_STATS,
-  BONUS_POINTS,
-  MAX_STAT,
   MIN_STAT,
+  MAX_STAT,
   STAT_NAMES,
-  type Gender,
-  type Race,
-  type BodyType,
-  type StarterPreset,
   type CharacterStats,
 } from "@/features/character";
 import { CharacterCreator } from "@/widgets/character-creator";
@@ -26,111 +21,33 @@ import { useAuthStore } from "@/features/auth";
 export default function CharacterCreatePage() {
   const router = useRouter();
   const { session } = useAuthStore();
-  const { characterState, callUnity } = useCharacterStore();
+  const { characterState } = useCharacterStore();
 
-  const [step, setStep] = useState<"info" | "customize">("info");
-  const [name, setName] = useState("");
-  const [gender, setGender] = useState<Gender>("male");
-  const [race, setRace] = useState<Race>(RACES[0]);
-  const [bodyType, setBodyType] = useState<BodyType>(RACES[0].bodyTypes[0]);
-  const [preset, setPreset] = useState<StarterPreset>(STARTER_PRESETS[0]);
-  const [saving, setSaving] = useState(false);
+  const {
+    step,
+    name,
+    gender,
+    race,
+    bodyType,
+    preset,
+    allocatedStats,
+    saving,
+    setStep,
+    setName,
+    setGender,
+    setRace,
+    setBodyType,
+    setPreset,
+    setSaving,
+    increaseStat,
+    decreaseStat,
+    resetStats,
+    getRemainingPoints,
+    getFinalStats,
+    getStatBonus,
+  } = useCharacterCreateStore();
 
-  // 스탯 배분 (기본값에서 +/- 한 값)
-  const [allocatedStats, setAllocatedStats] = useState<CharacterStats>({ ...BASE_STATS });
-
-  // 사용한 포인트 계산
-  const usedPoints = useMemo(() => {
-    return Object.keys(BASE_STATS).reduce((sum, key) => {
-      const k = key as keyof CharacterStats;
-      return sum + (allocatedStats[k] - BASE_STATS[k]);
-    }, 0);
-  }, [allocatedStats]);
-
-  const remainingPoints = BONUS_POINTS - usedPoints;
-
-  // 최종 스탯 계산 (종족 + 프리셋 보너스 포함)
-  const finalStats = useMemo(() => {
-    const result = { ...allocatedStats };
-
-    // 종족 보너스 적용
-    for (const [key, value] of Object.entries(race.statBonus)) {
-      result[key as keyof CharacterStats] += value;
-    }
-
-    // 프리셋 보너스 적용
-    if (preset.bonusStats) {
-      for (const [key, value] of Object.entries(preset.bonusStats)) {
-        result[key as keyof CharacterStats] += value;
-      }
-    }
-
-    return result;
-  }, [allocatedStats, race.statBonus, preset.bonusStats]);
-
-  // 스탯 증가
-  const increaseStat = (stat: keyof CharacterStats) => {
-    if (remainingPoints <= 0) return;
-    if (allocatedStats[stat] >= MAX_STAT) return;
-
-    setAllocatedStats((prev) => ({
-      ...prev,
-      [stat]: prev[stat] + 1,
-    }));
-  };
-
-  // 스탯 감소
-  const decreaseStat = (stat: keyof CharacterStats) => {
-    if (allocatedStats[stat] <= MIN_STAT) return;
-
-    setAllocatedStats((prev) => ({
-      ...prev,
-      [stat]: prev[stat] - 1,
-    }));
-  };
-
-  // 스탯 리셋
-  const resetStats = () => {
-    setAllocatedStats({ ...BASE_STATS });
-  };
-
-  // 종족 선택 시 첫 번째 바디 타입 선택
-  const handleRaceChange = (r: Race) => {
-    setRace(r);
-    setBodyType(r.bodyTypes[0]);
-    callUnity("JS_SetBody", r.bodyTypes[0].index.toString());
-  };
-
-  // 바디 타입 선택
-  const handleBodyTypeChange = (bt: BodyType) => {
-    setBodyType(bt);
-    callUnity("JS_SetBody", bt.index.toString());
-  };
-
-  // 프리셋 선택 시 장비 적용
-  const handlePresetChange = (p: StarterPreset) => {
-    setPreset(p);
-    // 장비 초기화 후 프리셋 적용
-    callUnity("JS_ClearAll");
-    callUnity("JS_SetBody", bodyType.index.toString());
-
-    const { appearance } = p;
-    if (appearance.clothIndex !== undefined) {
-      callUnity("JS_SetCloth", appearance.clothIndex.toString());
-    }
-    if (appearance.armorIndex !== undefined) {
-      callUnity("JS_SetArmor", appearance.armorIndex.toString());
-    }
-    if (appearance.pantIndex !== undefined) {
-      callUnity("JS_SetPant", appearance.pantIndex.toString());
-    }
-    if (appearance.helmetIndex !== undefined) {
-      callUnity("JS_SetHelmet", appearance.helmetIndex.toString());
-    }
-    if (appearance.backIndex !== undefined) {
-      callUnity("JS_SetBack", appearance.backIndex.toString());
-    }
-  };
+  const remainingPoints = getRemainingPoints();
 
   // 캐릭터 저장
   const handleSave = async () => {
@@ -138,6 +55,7 @@ export default function CharacterCreatePage() {
 
     setSaving(true);
     try {
+      const finalStats = getFinalStats();
       const character = {
         name: name.trim(),
         isMain: true,
@@ -184,15 +102,13 @@ export default function CharacterCreatePage() {
     }
   };
 
-  // 보너스 표시 (종족 + 프리셋)
-  const getBonusDisplay = (stat: keyof CharacterStats) => {
-    const raceBonus = race.statBonus[stat] ?? 0;
-    const presetBonus = preset.bonusStats?.[stat] ?? 0;
-    const total = raceBonus + presetBonus;
-    if (total === 0) return null;
+  // 보너스 표시 컴포넌트
+  const BonusDisplay = ({ stat }: { stat: keyof CharacterStats }) => {
+    const bonus = getStatBonus(stat);
+    if (bonus === 0) return null;
     return (
-      <span className={total > 0 ? "text-green-400" : "text-red-400"}>
-        {total > 0 ? `+${total}` : total}
+      <span className={bonus > 0 ? "text-green-400" : "text-red-400"}>
+        {bonus > 0 ? `+${bonus}` : bonus}
       </span>
     );
   };
@@ -254,7 +170,7 @@ export default function CharacterCreatePage() {
               {RACES.map((r) => (
                 <button
                   key={r.id}
-                  onClick={() => handleRaceChange(r)}
+                  onClick={() => setRace(r)}
                   className={`p-3 rounded-lg border-2 text-left transition-colors ${
                     race.id === r.id
                       ? "border-blue-500 bg-blue-500/20"
@@ -278,7 +194,7 @@ export default function CharacterCreatePage() {
                 {race.bodyTypes.map((bt) => (
                   <button
                     key={bt.index}
-                    onClick={() => handleBodyTypeChange(bt)}
+                    onClick={() => setBodyType(bt)}
                     className={`px-4 py-2 rounded-lg border-2 transition-colors ${
                       bodyType.index === bt.index
                         ? "border-blue-500 bg-blue-500/20"
@@ -301,7 +217,7 @@ export default function CharacterCreatePage() {
               {STARTER_PRESETS.map((p) => (
                 <button
                   key={p.id}
-                  onClick={() => handlePresetChange(p)}
+                  onClick={() => setPreset(p)}
                   className={`p-3 rounded-lg border-2 text-center transition-colors ${
                     preset.id === p.id
                       ? "border-blue-500 bg-blue-500/20"
@@ -326,7 +242,14 @@ export default function CharacterCreatePage() {
               </label>
               <div className="flex items-center gap-2">
                 <span className="text-xs text-gray-500">
-                  남은 포인트: <span className={remainingPoints > 0 ? "text-blue-400" : "text-gray-400"}>{remainingPoints}</span>
+                  남은 포인트:{" "}
+                  <span
+                    className={
+                      remainingPoints > 0 ? "text-blue-400" : "text-gray-400"
+                    }
+                  >
+                    {remainingPoints}
+                  </span>
                 </span>
                 <button
                   onClick={resetStats}
@@ -338,43 +261,51 @@ export default function CharacterCreatePage() {
             </div>
 
             <div className="space-y-2">
-              {(Object.keys(BASE_STATS) as (keyof CharacterStats)[]).map((stat) => (
-                <div
-                  key={stat}
-                  className="flex items-center gap-2 p-2 bg-gray-800 rounded-lg"
-                >
-                  <div className="w-12 text-center">
-                    <div className="text-sm font-medium">{STAT_NAMES[stat].ko}</div>
-                  </div>
-
-                  <button
-                    onClick={() => decreaseStat(stat)}
-                    disabled={allocatedStats[stat] <= MIN_STAT}
-                    className="w-8 h-8 rounded bg-gray-700 hover:bg-gray-600 disabled:opacity-30 disabled:cursor-not-allowed text-lg font-bold"
+              {(Object.keys(BASE_STATS) as (keyof CharacterStats)[]).map(
+                (stat) => (
+                  <div
+                    key={stat}
+                    className="flex items-center gap-2 p-2 bg-gray-800 rounded-lg"
                   >
-                    -
-                  </button>
+                    <div className="w-12 text-center">
+                      <div className="text-sm font-medium">
+                        {STAT_NAMES[stat].ko}
+                      </div>
+                    </div>
 
-                  <div className="w-16 text-center">
-                    <span className="text-lg font-bold">{allocatedStats[stat]}</span>
-                    {getBonusDisplay(stat) && (
-                      <span className="ml-1 text-sm">{getBonusDisplay(stat)}</span>
-                    )}
+                    <button
+                      onClick={() => decreaseStat(stat)}
+                      disabled={allocatedStats[stat] <= MIN_STAT}
+                      className="w-8 h-8 rounded bg-gray-700 hover:bg-gray-600 disabled:opacity-30 disabled:cursor-not-allowed text-lg font-bold"
+                    >
+                      -
+                    </button>
+
+                    <div className="w-16 text-center">
+                      <span className="text-lg font-bold">
+                        {allocatedStats[stat]}
+                      </span>
+                      <span className="ml-1 text-sm">
+                        <BonusDisplay stat={stat} />
+                      </span>
+                    </div>
+
+                    <button
+                      onClick={() => increaseStat(stat)}
+                      disabled={
+                        remainingPoints <= 0 || allocatedStats[stat] >= MAX_STAT
+                      }
+                      className="w-8 h-8 rounded bg-gray-700 hover:bg-gray-600 disabled:opacity-30 disabled:cursor-not-allowed text-lg font-bold"
+                    >
+                      +
+                    </button>
+
+                    <div className="flex-1 text-xs text-gray-500 text-right">
+                      {STAT_NAMES[stat].desc}
+                    </div>
                   </div>
-
-                  <button
-                    onClick={() => increaseStat(stat)}
-                    disabled={remainingPoints <= 0 || allocatedStats[stat] >= MAX_STAT}
-                    className="w-8 h-8 rounded bg-gray-700 hover:bg-gray-600 disabled:opacity-30 disabled:cursor-not-allowed text-lg font-bold"
-                  >
-                    +
-                  </button>
-
-                  <div className="flex-1 text-xs text-gray-500 text-right">
-                    {STAT_NAMES[stat].desc}
-                  </div>
-                </div>
-              ))}
+                )
+              )}
             </div>
 
             <p className="text-xs text-gray-500 mt-2">

@@ -10,6 +10,7 @@ import {
 // Model (stores, hooks)
 export {
   useCharacterStore,
+  useCharacterCreateStore,
   useCharacterPart,
   useCharacterAnimation,
   useCharacterColor,

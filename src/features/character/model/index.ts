@@ -1,3 +1,4 @@
+// 캐릭터 런타임 스토어 (Unity 연동)
 export {
   useCharacterStore,
   useCharacterPart,
@@ -9,10 +10,15 @@ export {
   type CharacterState,
   type SpriteCounts,
   type AnimationState,
-} from "./store";
+} from "./characterStore";
 
+// 캐릭터 생성 스토어
+export { useCharacterCreateStore } from "./creationStore";
+
+// Unity 브릿지
 export { useUnityBridge } from "./useUnityBridge";
 
+// 프리셋 및 상수
 export {
   STARTER_PRESETS,
   GENDERS,

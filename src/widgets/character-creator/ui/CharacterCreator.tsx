@@ -66,9 +66,11 @@ export function CharacterCreator({ className = "" }: CharacterCreatorProps) {
       .catch(console.error);
   }, []);
 
-  const currentEyeName = eyeMappings[eyeIndex]?.ko ?? `눈 ${eyeIndex + 1}`;
-  const currentHairName = hairMappings[hairIndex]?.ko ?? (hairIndex >= 0 ? `머리 ${hairIndex + 1}` : "없음");
-  const currentFacehairName = facehairMappings[facehairIndex]?.ko ?? (facehairIndex >= 0 ? `수염 ${facehairIndex + 1}` : "없음");
+  const currentEyeName = eyeMappings.find(m => m.index === eyeIndex)?.ko ?? `눈 ${eyeIndex + 1}`;
+  const currentHairName = hairMappings.find(m => m.index === hairIndex)?.ko
+    ?? (hairIndex >= 0 ? `머리 ${hairIndex + 1}` : "민머리");
+  const currentFacehairName = facehairMappings.find(m => m.index === facehairIndex)?.ko
+    ?? (facehairIndex >= 0 ? `수염 ${facehairIndex + 1}` : "수염없음");
 
   // 색상 변경 시 Unity에 적용
   useEffect(() => {
@@ -169,6 +171,13 @@ export function CharacterCreator({ className = "" }: CharacterCreatorProps) {
                 {hairIndex >= 0 ? hairIndex + 1 : "-"}/{hairCount}
               </span>
               <button onClick={() => callUnity("JS_NextHair")} className="btn-icon">&gt;</button>
+              <button
+                onClick={() => callUnity("JS_SetHair", "-1")}
+                className="btn-icon text-red-400 hover:text-red-300"
+                title="민머리"
+              >
+                X
+              </button>
             </div>
           </div>
 
@@ -200,6 +209,13 @@ export function CharacterCreator({ className = "" }: CharacterCreatorProps) {
                 {facehairIndex >= 0 ? facehairIndex + 1 : "-"}/{facehairCount}
               </span>
               <button onClick={() => callUnity("JS_NextFacehair")} className="btn-icon">&gt;</button>
+              <button
+                onClick={() => callUnity("JS_SetFacehair", "-1")}
+                className="btn-icon text-red-400 hover:text-red-300"
+                title="수염없음"
+              >
+                X
+              </button>
             </div>
           </div>
 
