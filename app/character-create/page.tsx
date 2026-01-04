@@ -3,7 +3,6 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import {
-  characterPanelHooks,
   useCharacterStore,
   STARTER_PRESETS,
   GENDERS,
@@ -12,7 +11,7 @@ import {
   type Race,
   type StarterPreset,
 } from "@/features/character";
-import { CharacterView } from "@/widgets/character-view";
+import { CharacterCreator } from "@/widgets/character-creator";
 import { globalStyles } from "@/shared/ui";
 import { supabase } from "@/shared/api";
 import { useAuthStore } from "@/features/auth";
@@ -215,13 +214,9 @@ export default function CharacterCreatePage() {
           </button>
         </div>
       ) : (
-        // Step 2: 커스터마이징
+        // Step 2: 커스터마이징 (눈, 머리만)
         <div className="flex-1 flex flex-col min-h-0">
-          <CharacterView
-            hooks={characterPanelHooks}
-            showPanel={true}
-            allowToggle={true}
-          />
+          <CharacterCreator className="flex-1" />
 
           {/* 하단 버튼 */}
           <div className="flex-none p-3 border-t border-gray-700 flex gap-2 safe-area-bottom">
