@@ -6,6 +6,8 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { supabase } from "@/shared/api";
+import { useThemeStore, type Theme } from "@/shared/config";
+import { ThemeSettingsModal } from "@/shared/ui";
 
 // ============ 상수 ============
 
@@ -87,8 +89,9 @@ function EyeIcon({ visible }: { visible: boolean }) {
 function PasswordInput({
   placeholder,
   error,
+  theme,
   ...props
-}: React.InputHTMLAttributes<HTMLInputElement> & { error?: string }) {
+}: React.InputHTMLAttributes<HTMLInputElement> & { error?: string; theme: Theme }) {
   const [showPassword, setShowPassword] = useState(false);
 
   return (
@@ -97,20 +100,28 @@ function PasswordInput({
         <input
           type={showPassword ? "text" : "password"}
           placeholder={placeholder}
-          className={`w-full px-4 py-3 pr-12 bg-black/50 border-2 text-amber-100 placeholder-amber-700 focus:outline-none focus:border-amber-400 font-mono ${
-            error ? "border-red-500" : "border-amber-900"
-          }`}
+          className="w-full px-4 py-3 pr-12 font-mono focus:outline-none"
+          style={{
+            background: theme.colors.bgDark,
+            border: `2px solid ${error ? theme.colors.error : theme.colors.border}`,
+            color: theme.colors.text,
+          }}
           {...props}
         />
         <button
           type="button"
           onClick={() => setShowPassword(!showPassword)}
-          className="absolute right-3 top-1/2 -translate-y-1/2 text-amber-700 hover:text-amber-400 transition-colors"
+          className="absolute right-3 top-1/2 -translate-y-1/2 transition-colors"
+          style={{ color: theme.colors.textMuted }}
         >
           <EyeIcon visible={showPassword} />
         </button>
       </div>
-      {error && <p className="mt-1 text-sm text-red-400 font-mono">&gt; {error}</p>}
+      {error && (
+        <p className="mt-1 text-sm font-mono" style={{ color: theme.colors.error }}>
+          &gt; {error}
+        </p>
+      )}
     </div>
   );
 }
@@ -121,9 +132,10 @@ interface EmailInputProps {
   savedEmails: string[];
   onRemoveEmail: (email: string) => void;
   error?: string;
+  theme: Theme;
 }
 
-function EmailInput({ value, onChange, savedEmails, onRemoveEmail, error }: EmailInputProps) {
+function EmailInput({ value, onChange, savedEmails, onRemoveEmail, error, theme }: EmailInputProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [isTyping, setIsTyping] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -166,15 +178,19 @@ function EmailInput({ value, onChange, savedEmails, onRemoveEmail, error }: Emai
           onChange={handleInputChange}
           onFocus={handleInputFocus}
           placeholder="이메일 입력 또는 선택"
-          className={`w-full px-4 py-3 pr-10 bg-black/50 border-2 text-amber-100 placeholder-amber-700 focus:outline-none focus:border-amber-400 font-mono ${
-            error ? "border-red-500" : "border-amber-900"
-          }`}
+          className="w-full px-4 py-3 pr-10 font-mono focus:outline-none"
+          style={{
+            background: theme.colors.bgDark,
+            border: `2px solid ${error ? theme.colors.error : theme.colors.border}`,
+            color: theme.colors.text,
+          }}
         />
         {savedEmails.length > 0 && (
           <button
             type="button"
             onClick={() => setIsOpen(!isOpen)}
-            className="absolute right-3 top-1/2 -translate-y-1/2 text-amber-700 hover:text-amber-400 transition-colors"
+            className="absolute right-3 top-1/2 -translate-y-1/2 transition-colors"
+            style={{ color: theme.colors.textMuted }}
           >
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className={`w-5 h-5 transition-transform ${isOpen ? "rotate-180" : ""}`}>
               <path strokeLinecap="round" strokeLinejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
@@ -183,22 +199,39 @@ function EmailInput({ value, onChange, savedEmails, onRemoveEmail, error }: Emai
         )}
       </div>
 
-      {error && <p className="mt-1 text-sm text-red-400 font-mono">&gt; {error}</p>}
+      {error && (
+        <p className="mt-1 text-sm font-mono" style={{ color: theme.colors.error }}>
+          &gt; {error}
+        </p>
+      )}
 
       {isOpen && savedEmails.length > 0 && (
-        <div className="absolute z-10 w-full mt-1 bg-gray-900 border-2 border-amber-900 shadow-lg max-h-48 overflow-y-auto">
-          <div className="px-3 py-2 text-xs text-amber-600 border-b border-amber-900/50 font-mono">
+        <div
+          className="absolute z-10 w-full mt-1 shadow-lg max-h-48 overflow-y-auto"
+          style={{
+            background: theme.colors.bg,
+            border: `2px solid ${theme.colors.border}`,
+          }}
+        >
+          <div
+            className="px-3 py-2 text-xs font-mono border-b"
+            style={{ color: theme.colors.textDim, borderColor: theme.colors.borderDim }}
+          >
             [ 최근 로그인 ]
           </div>
           {savedEmails.map((email) => (
             <div
               key={email}
-              className="flex items-center justify-between px-3 py-2 hover:bg-amber-900/30 cursor-pointer group"
+              className="flex items-center justify-between px-3 py-2 cursor-pointer group"
+              style={{ background: "transparent" }}
+              onMouseEnter={(e) => (e.currentTarget.style.background = theme.colors.bgLight)}
+              onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
             >
               <button
                 type="button"
                 onClick={() => handleSelect(email)}
-                className="flex-1 text-left text-amber-100 font-mono text-sm truncate"
+                className="flex-1 text-left font-mono text-sm truncate"
+                style={{ color: theme.colors.text }}
               >
                 &gt; {email}
               </button>
@@ -208,7 +241,8 @@ function EmailInput({ value, onChange, savedEmails, onRemoveEmail, error }: Emai
                   e.stopPropagation();
                   onRemoveEmail(email);
                 }}
-                className="ml-2 text-amber-700 hover:text-red-400 opacity-0 group-hover:opacity-100 transition-opacity"
+                className="ml-2 opacity-0 group-hover:opacity-100 transition-opacity"
+                style={{ color: theme.colors.textMuted }}
               >
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-4 h-4">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12" />
@@ -223,7 +257,11 @@ function EmailInput({ value, onChange, savedEmails, onRemoveEmail, error }: Emai
               setIsTyping(true);
               inputRef.current?.focus();
             }}
-            className="w-full px-3 py-2 text-left text-amber-600 hover:bg-amber-900/30 font-mono text-sm border-t border-amber-900/50"
+            className="w-full px-3 py-2 text-left font-mono text-sm border-t"
+            style={{
+              color: theme.colors.textDim,
+              borderColor: theme.colors.borderDim,
+            }}
           >
             + 직접 입력
           </button>
@@ -237,11 +275,13 @@ function EmailInput({ value, onChange, savedEmails, onRemoveEmail, error }: Emai
 
 export default function LoginPage() {
   const router = useRouter();
+  const { theme } = useThemeStore();
   const [mode, setMode] = useState<AuthMode>("login");
   const [loading, setLoading] = useState(false);
   const [apiError, setApiError] = useState<string | null>(null);
   const [message, setMessage] = useState<string | null>(null);
   const [savedEmails, setSavedEmails] = useState<string[]>([]);
+  const [showThemeModal, setShowThemeModal] = useState(false);
 
   useEffect(() => {
     setSavedEmails(getSavedEmails());
@@ -257,7 +297,6 @@ export default function LoginPage() {
     defaultValues: { email: "", password: "", confirmPassword: "" },
   });
 
-  // 저장된 이메일이 있으면 첫번째 이메일로 초기화
   useEffect(() => {
     if (savedEmails.length > 0 && !loginForm.getValues("email")) {
       loginForm.setValue("email", savedEmails[0]);
@@ -280,7 +319,6 @@ export default function LoginPage() {
       });
       if (error) throw error;
 
-      // 로그인 성공 시 이메일 저장
       saveEmail(data.email);
 
       const { data: profile } = await supabase
@@ -330,30 +368,65 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="h-dvh w-full bg-gradient-to-b from-gray-950 via-gray-900 to-black flex items-center justify-center p-4">
+    <div className="h-dvh w-full flex items-center justify-center p-4 bg-gradient-to-b from-gray-950 via-gray-900 to-black">
       {/* 배경 효과 */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-0 left-1/4 w-96 h-96 bg-amber-900/10 rounded-full blur-3xl" />
-        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-amber-800/10 rounded-full blur-3xl" />
+        <div
+          className="absolute top-0 left-1/4 w-96 h-96 rounded-full blur-3xl"
+          style={{ background: `${theme.colors.primaryMuted}20` }}
+        />
+        <div
+          className="absolute bottom-0 right-1/4 w-96 h-96 rounded-full blur-3xl"
+          style={{ background: `${theme.colors.primaryDim}20` }}
+        />
       </div>
 
       <div className="relative w-full max-w-md">
         {/* 터미널 스타일 프레임 */}
-        <div className="border-2 border-amber-900 bg-black/80 shadow-2xl shadow-amber-900/20">
+        <div
+          className="shadow-2xl"
+          style={{
+            background: theme.colors.bg,
+            border: `2px solid ${theme.colors.border}`,
+            boxShadow: `0 25px 50px -12px ${theme.colors.primaryMuted}40`,
+          }}
+        >
           {/* 헤더 바 */}
-          <div className="flex items-center justify-between px-4 py-2 bg-amber-900/30 border-b border-amber-900">
+          <div
+            className="flex items-center justify-between px-4 py-2 border-b"
+            style={{
+              background: theme.colors.bgLight,
+              borderColor: theme.colors.border,
+            }}
+          >
             <div className="flex items-center gap-2">
               <div className="w-3 h-3 rounded-full bg-red-500" />
               <div className="w-3 h-3 rounded-full bg-yellow-500" />
               <div className="w-3 h-3 rounded-full bg-green-500" />
             </div>
-            <span className="text-amber-600 font-mono text-sm">mud.connect</span>
+            <span className="font-mono text-sm" style={{ color: theme.colors.textDim }}>
+              mud.connect
+            </span>
+            <button
+              onClick={() => setShowThemeModal(true)}
+              className="flex items-center gap-1 px-2 py-1 font-mono text-xs transition-colors"
+              style={{ color: theme.colors.textMuted }}
+            >
+              <span
+                className="w-3 h-3 rounded-full"
+                style={{ background: theme.colors.primary }}
+              />
+              테마
+            </button>
           </div>
 
           <div className="p-6">
             {/* ASCII 아트 타이틀 */}
             <div className="text-center mb-6">
-              <pre className="text-amber-500 font-mono text-xs leading-tight inline-block">
+              <pre
+                className="font-mono text-xs leading-tight inline-block"
+                style={{ color: theme.colors.primary }}
+              >
 {`
  ███╗   ███╗██╗   ██╗██████╗
  ████╗ ████║██║   ██║██╔══██╗
@@ -363,13 +436,13 @@ export default function LoginPage() {
  ╚═╝     ╚═╝ ╚═════╝ ╚═════╝
 `}
               </pre>
-              <p className="text-amber-700 font-mono text-sm mt-2">
+              <p className="font-mono text-sm mt-2" style={{ color: theme.colors.textMuted }}>
                 ~ Fantasy Multi-User Dungeon ~
               </p>
             </div>
 
             {/* 시스템 메시지 */}
-            <div className="mb-6 text-amber-600 font-mono text-sm">
+            <div className="mb-6 font-mono text-sm" style={{ color: theme.colors.textDim }}>
               <p>&gt; {mode === "login" ? "모험가여, 접속하시오..." : "새로운 모험가를 등록합니다..."}</p>
               <p className="animate-pulse">_</p>
             </div>
@@ -377,27 +450,40 @@ export default function LoginPage() {
             {mode === "login" ? (
               <form onSubmit={loginForm.handleSubmit(handleLogin)} className="space-y-4">
                 <div>
-                  <label className="block text-amber-600 font-mono text-sm mb-1">[EMAIL]</label>
+                  <label className="block font-mono text-sm mb-1" style={{ color: theme.colors.textDim }}>
+                    [EMAIL]
+                  </label>
                   <EmailInput
                     value={loginForm.watch("email")}
                     onChange={(value) => loginForm.setValue("email", value)}
                     savedEmails={savedEmails}
                     onRemoveEmail={handleRemoveEmail}
                     error={loginForm.formState.errors.email?.message}
+                    theme={theme}
                   />
                 </div>
 
                 <div>
-                  <label className="block text-amber-600 font-mono text-sm mb-1">[PASSWORD]</label>
+                  <label className="block font-mono text-sm mb-1" style={{ color: theme.colors.textDim }}>
+                    [PASSWORD]
+                  </label>
                   <PasswordInput
                     placeholder="비밀번호"
                     {...loginForm.register("password")}
                     error={loginForm.formState.errors.password?.message}
+                    theme={theme}
                   />
                 </div>
 
                 {apiError && (
-                  <div className="p-3 bg-red-900/30 border border-red-700 text-red-400 text-sm font-mono">
+                  <div
+                    className="p-3 text-sm font-mono"
+                    style={{
+                      background: `${theme.colors.error}20`,
+                      border: `1px solid ${theme.colors.error}`,
+                      color: theme.colors.error,
+                    }}
+                  >
                     &gt; ERROR: {apiError}
                   </div>
                 )}
@@ -405,7 +491,12 @@ export default function LoginPage() {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="w-full py-3 bg-amber-900/50 hover:bg-amber-800/50 disabled:bg-gray-800 disabled:cursor-not-allowed border-2 border-amber-700 hover:border-amber-500 text-amber-100 font-mono font-bold transition-all"
+                  className="w-full py-3 font-mono font-bold transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                  style={{
+                    background: theme.colors.bgLight,
+                    border: `2px solid ${theme.colors.textMuted}`,
+                    color: theme.colors.text,
+                  }}
                 >
                   {loading ? "[ 접속 중... ]" : "[ 접속하기 ]"}
                 </button>
@@ -413,48 +504,73 @@ export default function LoginPage() {
             ) : (
               <form onSubmit={signupForm.handleSubmit(handleSignup)} className="space-y-4">
                 <div>
-                  <label className="block text-amber-600 font-mono text-sm mb-1">[EMAIL]</label>
+                  <label className="block font-mono text-sm mb-1" style={{ color: theme.colors.textDim }}>
+                    [EMAIL]
+                  </label>
                   <input
                     type="email"
                     placeholder="이메일"
                     {...signupForm.register("email")}
-                    className={`w-full px-4 py-3 bg-black/50 border-2 text-amber-100 placeholder-amber-700 focus:outline-none focus:border-amber-400 font-mono ${
-                      signupForm.formState.errors.email ? "border-red-500" : "border-amber-900"
-                    }`}
+                    className="w-full px-4 py-3 font-mono focus:outline-none"
+                    style={{
+                      background: theme.colors.bgDark,
+                      border: `2px solid ${signupForm.formState.errors.email ? theme.colors.error : theme.colors.border}`,
+                      color: theme.colors.text,
+                    }}
                   />
                   {signupForm.formState.errors.email && (
-                    <p className="mt-1 text-sm text-red-400 font-mono">
+                    <p className="mt-1 text-sm font-mono" style={{ color: theme.colors.error }}>
                       &gt; {signupForm.formState.errors.email.message}
                     </p>
                   )}
                 </div>
 
                 <div>
-                  <label className="block text-amber-600 font-mono text-sm mb-1">[PASSWORD]</label>
+                  <label className="block font-mono text-sm mb-1" style={{ color: theme.colors.textDim }}>
+                    [PASSWORD]
+                  </label>
                   <PasswordInput
                     placeholder="비밀번호 (6자 이상)"
                     {...signupForm.register("password")}
                     error={signupForm.formState.errors.password?.message}
+                    theme={theme}
                   />
                 </div>
 
                 <div>
-                  <label className="block text-amber-600 font-mono text-sm mb-1">[CONFIRM]</label>
+                  <label className="block font-mono text-sm mb-1" style={{ color: theme.colors.textDim }}>
+                    [CONFIRM]
+                  </label>
                   <PasswordInput
                     placeholder="비밀번호 확인"
                     {...signupForm.register("confirmPassword")}
                     error={signupForm.formState.errors.confirmPassword?.message}
+                    theme={theme}
                   />
                 </div>
 
                 {apiError && (
-                  <div className="p-3 bg-red-900/30 border border-red-700 text-red-400 text-sm font-mono">
+                  <div
+                    className="p-3 text-sm font-mono"
+                    style={{
+                      background: `${theme.colors.error}20`,
+                      border: `1px solid ${theme.colors.error}`,
+                      color: theme.colors.error,
+                    }}
+                  >
                     &gt; ERROR: {apiError}
                   </div>
                 )}
 
                 {message && (
-                  <div className="p-3 bg-green-900/30 border border-green-700 text-green-400 text-sm font-mono">
+                  <div
+                    className="p-3 text-sm font-mono"
+                    style={{
+                      background: `${theme.colors.success}20`,
+                      border: `1px solid ${theme.colors.success}`,
+                      color: theme.colors.success,
+                    }}
+                  >
                     &gt; SUCCESS: {message}
                   </div>
                 )}
@@ -462,7 +578,12 @@ export default function LoginPage() {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="w-full py-3 bg-amber-900/50 hover:bg-amber-800/50 disabled:bg-gray-800 disabled:cursor-not-allowed border-2 border-amber-700 hover:border-amber-500 text-amber-100 font-mono font-bold transition-all"
+                  className="w-full py-3 font-mono font-bold transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                  style={{
+                    background: theme.colors.bgLight,
+                    border: `2px solid ${theme.colors.textMuted}`,
+                    color: theme.colors.text,
+                  }}
                 >
                   {loading ? "[ 등록 중... ]" : "[ 등록하기 ]"}
                 </button>
@@ -473,7 +594,8 @@ export default function LoginPage() {
             <div className="mt-6 text-center">
               <button
                 onClick={switchMode}
-                className="text-amber-700 hover:text-amber-400 font-mono text-sm transition-colors"
+                className="font-mono text-sm transition-colors"
+                style={{ color: theme.colors.textMuted }}
               >
                 {mode === "login"
                   ? "> 새로운 모험가 등록"
@@ -482,14 +604,20 @@ export default function LoginPage() {
             </div>
 
             {/* 푸터 */}
-            <div className="mt-6 pt-4 border-t border-amber-900/50 text-center">
-              <p className="text-amber-800 font-mono text-xs">
+            <div
+              className="mt-6 pt-4 text-center border-t"
+              style={{ borderColor: theme.colors.borderDim }}
+            >
+              <p className="font-mono text-xs" style={{ color: theme.colors.textMuted }}>
                 MUD v1.0.0 | Est. 2026
               </p>
             </div>
           </div>
         </div>
       </div>
+
+      {/* 테마 설정 모달 */}
+      <ThemeSettingsModal open={showThemeModal} onClose={() => setShowThemeModal(false)} />
     </div>
   );
 }

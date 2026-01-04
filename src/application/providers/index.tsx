@@ -6,6 +6,7 @@ import { Toaster } from "react-hot-toast";
 import { supabase } from "@/shared/api/supabase";
 import { useAuthStore } from "@/features/auth";
 import { UnityContextProvider } from "@/features/character/model";
+import { useThemeStore } from "@/shared/config";
 
 function AuthProvider({ children }: { children: React.ReactNode }) {
   const { setSession, setLoading } = useAuthStore();
@@ -34,6 +35,16 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
   return <>{children}</>;
 }
 
+function ThemeProvider({ children }: { children: React.ReactNode }) {
+  const { initTheme } = useThemeStore();
+
+  useEffect(() => {
+    initTheme();
+  }, [initTheme]);
+
+  return <>{children}</>;
+}
+
 export function Providers({ children }: { children: React.ReactNode }) {
   const [queryClient] = useState(
     () =>
@@ -49,8 +60,9 @@ export function Providers({ children }: { children: React.ReactNode }) {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <AuthProvider>
-        <UnityContextProvider>
+      <ThemeProvider>
+        <AuthProvider>
+          <UnityContextProvider>
           {children}
           <Toaster
             position="top-center"
@@ -75,8 +87,9 @@ export function Providers({ children }: { children: React.ReactNode }) {
               },
             }}
           />
-        </UnityContextProvider>
-      </AuthProvider>
+          </UnityContextProvider>
+        </AuthProvider>
+      </ThemeProvider>
     </QueryClientProvider>
   );
 }
