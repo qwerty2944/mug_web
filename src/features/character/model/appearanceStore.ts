@@ -213,28 +213,30 @@ export const useAppearanceStore = create<AppearanceStore>((set, get) => ({
 
   // 저장된 캐릭터 외형 로드
   loadAppearance: (appearance, colors) => {
-    const { setPart, setColor, isUnityLoaded } = get();
+    const { callUnity, isUnityLoaded } = get();
     if (!isUnityLoaded) return;
 
-    // 파츠 설정
-    if (appearance.bodyIndex >= 0) setPart("body", appearance.bodyIndex);
-    if (appearance.eyeIndex >= 0) setPart("eye", appearance.eyeIndex);
-    if (appearance.hairIndex >= 0) setPart("hair", appearance.hairIndex);
-    if (appearance.facehairIndex >= 0) setPart("facehair", appearance.facehairIndex);
-    if (appearance.clothIndex >= 0) setPart("cloth", appearance.clothIndex);
-    if (appearance.armorIndex >= 0) setPart("armor", appearance.armorIndex);
-    if (appearance.pantIndex >= 0) setPart("pant", appearance.pantIndex);
-    if (appearance.helmetIndex >= 0) setPart("helmet", appearance.helmetIndex);
-    if (appearance.backIndex >= 0) setPart("back", appearance.backIndex);
+    // 파츠 설정 (Unity에 존재하는 메서드만 호출)
+    // 주의: JS_SetEye는 Unity에 없음 - 눈은 body와 함께 설정됨
+    if (appearance.bodyIndex >= 0) callUnity("JS_SetBody", appearance.bodyIndex.toString());
+    if (appearance.hairIndex >= 0) callUnity("JS_SetHair", appearance.hairIndex.toString());
+    if (appearance.facehairIndex >= 0) callUnity("JS_SetFacehair", appearance.facehairIndex.toString());
+    if (appearance.clothIndex >= 0) callUnity("JS_SetCloth", appearance.clothIndex.toString());
+    if (appearance.armorIndex >= 0) callUnity("JS_SetArmor", appearance.armorIndex.toString());
+    if (appearance.pantIndex >= 0) callUnity("JS_SetPant", appearance.pantIndex.toString());
+    if (appearance.helmetIndex >= 0) callUnity("JS_SetHelmet", appearance.helmetIndex.toString());
+    if (appearance.backIndex >= 0) callUnity("JS_SetBack", appearance.backIndex.toString());
 
     // 색상 설정
-    if (colors.body) setColor("body", colors.body);
-    if (colors.eye) setColor("eye", colors.eye);
-    if (colors.hair) setColor("hair", colors.hair);
-    if (colors.facehair) setColor("facehair", colors.facehair);
-    if (colors.cloth) setColor("cloth", colors.cloth);
-    if (colors.armor) setColor("armor", colors.armor);
-    if (colors.pant) setColor("pant", colors.pant);
+    if (colors.hair) callUnity("JS_SetHairColor", colors.hair.replace("#", ""));
+    if (colors.facehair) callUnity("JS_SetFacehairColor", colors.facehair.replace("#", ""));
+    if (colors.cloth) callUnity("JS_SetClothColor", colors.cloth.replace("#", ""));
+    if (colors.armor) callUnity("JS_SetArmorColor", colors.armor.replace("#", ""));
+    // 눈 색상은 좌우 분리되어 있음
+    if (colors.eye) {
+      callUnity("JS_SetLeftEyeColor", colors.eye.replace("#", ""));
+      callUnity("JS_SetRightEyeColor", colors.eye.replace("#", ""));
+    }
   },
 
   // Computed
