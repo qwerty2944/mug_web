@@ -1,4 +1,7 @@
+"use client";
+
 import { ReactNode } from "react";
+import { UnityPortalProvider } from "@/features/character";
 
 interface GameLayoutProps {
   children: ReactNode;
@@ -7,9 +10,9 @@ interface GameLayoutProps {
 
 export default function GameLayout({ children, modal }: GameLayoutProps) {
   return (
-    <>
+    <UnityPortalProvider>
       {children}
       {modal}
-    </>
+    </UnityPortalProvider>
   );
 }
