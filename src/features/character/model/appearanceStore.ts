@@ -150,7 +150,11 @@ export const useAppearanceStore = create<AppearanceStore>((set, get) => ({
   callUnity: (method, param) => {
     const { sendMessage, unityObjectName, isUnityLoaded } = get();
     if (!isUnityLoaded || !sendMessage) return;
-    sendMessage(unityObjectName, method, param ?? "");
+    try {
+      sendMessage(unityObjectName, method, param ?? "");
+    } catch (err) {
+      console.warn(`Unity method not found: ${method}`, err);
+    }
   },
 
   // 파츠 조작
