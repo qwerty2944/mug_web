@@ -26,9 +26,9 @@ export function UnityContextProvider({ children }: { children: ReactNode }) {
 
   const { unityProvider, sendMessage, isLoaded, loadingProgression } = useUnityContext({
     loaderUrl: "/unity/characterbuilder.loader.js",
-    dataUrl: "/unity/characterbuilder.data.br",
-    frameworkUrl: "/unity/characterbuilder.framework.js.br",
-    codeUrl: "/unity/characterbuilder.wasm.br",
+    dataUrl: "/unity/characterbuilder.data",
+    frameworkUrl: "/unity/characterbuilder.framework.js",
+    codeUrl: "/unity/characterbuilder.wasm",
     webglContextAttributes: {
       alpha: true,
       premultipliedAlpha: false,
