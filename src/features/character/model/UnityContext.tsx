@@ -1,12 +1,20 @@
 "use client";
 
-import { useEffect } from "react";
+import { createContext, useContext, useEffect, ReactNode } from "react";
 import { useUnityContext } from "react-unity-webgl";
 import { useAppearanceStore } from "./appearanceStore";
 
 const UNITY_OBJECT_NAME = "SPUM_20260103203421028";
 
-export function useUnityBridge() {
+interface UnityContextValue {
+  unityProvider: ReturnType<typeof useUnityContext>["unityProvider"];
+  isLoaded: boolean;
+  loadingProgression: number;
+}
+
+const UnityCtx = createContext<UnityContextValue | null>(null);
+
+export function UnityContextProvider({ children }: { children: ReactNode }) {
   const {
     setUnityLoaded,
     setSendMessage,
@@ -55,9 +63,25 @@ export function useUnityBridge() {
     };
   }, [setCharacterState, setSpriteCounts, setAnimationCounts, setAnimationState]);
 
-  return {
-    unityProvider,
-    isLoaded,
-    loadingProgression,
-  };
+  return (
+    <UnityCtx.Provider value={{ unityProvider, isLoaded, loadingProgression }}>
+      {children}
+    </UnityCtx.Provider>
+  );
+}
+
+export function useUnityBridge(): UnityContextValue {
+  const context = useContext(UnityCtx);
+
+  // Context 없이 사용하는 경우 (fallback)
+  if (!context) {
+    console.warn("useUnityBridge called outside UnityContextProvider");
+    return {
+      unityProvider: null as unknown as UnityContextValue["unityProvider"],
+      isLoaded: false,
+      loadingProgression: 0,
+    };
+  }
+
+  return context;
 }

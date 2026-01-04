@@ -15,8 +15,8 @@ export {
 // 프로필 스토어 (캐릭터 생성 설정)
 export { useProfileStore } from "./profileStore";
 
-// Unity 브릿지
-export { useUnityBridge } from "./useUnityBridge";
+// Unity 브릿지 (전역 Context)
+export { UnityContextProvider, useUnityBridge } from "./UnityContext";
 
 // 프리셋 및 상수
 export {

@@ -4,6 +4,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { useState, useEffect } from "react";
 import { supabase } from "@/shared/api/supabase";
 import { useAuthStore } from "@/features/auth";
+import { UnityContextProvider } from "@/features/character/model";
 
 function AuthProvider({ children }: { children: React.ReactNode }) {
   const { setSession, setLoading } = useAuthStore();
@@ -47,7 +48,9 @@ export function Providers({ children }: { children: React.ReactNode }) {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <AuthProvider>{children}</AuthProvider>
+      <AuthProvider>
+        <UnityContextProvider>{children}</UnityContextProvider>
+      </AuthProvider>
     </QueryClientProvider>
   );
 }
