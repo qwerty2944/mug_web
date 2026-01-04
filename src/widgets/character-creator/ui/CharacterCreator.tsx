@@ -22,29 +22,6 @@ interface HairMapping {
   race: string;
 }
 
-// 프리셋 색상
-const EYE_COLORS = [
-  "#4169E1", // 파랑
-  "#228B22", // 초록
-  "#8B4513", // 갈색
-  "#2F4F4F", // 회색
-  "#800000", // 적갈색
-  "#FFD700", // 금색
-  "#9400D3", // 보라
-  "#000000", // 검정
-];
-
-const HAIR_COLORS = [
-  "#2C1810", // 갈색
-  "#1A1A1A", // 검정
-  "#8B4513", // 밤색
-  "#D4A574", // 금발
-  "#C0C0C0", // 은발
-  "#8B0000", // 적갈색
-  "#FFD700", // 황금
-  "#4B0082", // 보라
-];
-
 export function CharacterCreator({ className = "" }: CharacterCreatorProps) {
   const { characterState, spriteCounts, callUnity } = useCharacterStore();
 
@@ -118,57 +95,33 @@ export function CharacterCreator({ className = "" }: CharacterCreatorProps) {
             </div>
           </div>
 
-          {/* 왼쪽 눈 */}
-          <div className="flex items-center gap-2">
-            <span className="text-xs text-gray-400 w-14">왼쪽 눈</span>
+          {/* 왼쪽 눈 색상 */}
+          <div className="flex items-center gap-3">
+            <span className="text-xs text-gray-400 w-16">왼쪽 눈</span>
             <input
               type="color"
               value={leftEyeColor}
               onChange={(e) => setLeftEyeColor(e.target.value)}
-              className="w-8 h-8 rounded cursor-pointer border-0"
+              className="w-10 h-10 rounded cursor-pointer border-2 border-gray-600 hover:border-gray-400 transition-colors"
             />
-            <div className="flex gap-1 flex-wrap flex-1">
-              {EYE_COLORS.map((color) => (
-                <button
-                  key={`left-${color}`}
-                  onClick={() => setLeftEyeColor(color)}
-                  className={`w-6 h-6 rounded border-2 transition-colors ${
-                    leftEyeColor === color ? "border-white" : "border-gray-600"
-                  }`}
-                  style={{ backgroundColor: color }}
-                />
-              ))}
-            </div>
+            <span className="text-xs text-gray-500 font-mono">{leftEyeColor.toUpperCase()}</span>
           </div>
 
-          {/* 오른쪽 눈 */}
-          <div className="flex items-center gap-2">
-            <span className="text-xs text-gray-400 w-14">오른쪽 눈</span>
+          {/* 오른쪽 눈 색상 */}
+          <div className="flex items-center gap-3">
+            <span className="text-xs text-gray-400 w-16">오른쪽 눈</span>
             <input
               type="color"
               value={rightEyeColor}
               onChange={(e) => setRightEyeColor(e.target.value)}
-              className="w-8 h-8 rounded cursor-pointer border-0"
+              className="w-10 h-10 rounded cursor-pointer border-2 border-gray-600 hover:border-gray-400 transition-colors"
             />
-            <div className="flex gap-1 flex-wrap flex-1">
-              {EYE_COLORS.map((color) => (
-                <button
-                  key={`right-${color}`}
-                  onClick={() => setRightEyeColor(color)}
-                  className={`w-6 h-6 rounded border-2 transition-colors ${
-                    rightEyeColor === color ? "border-white" : "border-gray-600"
-                  }`}
-                  style={{ backgroundColor: color }}
-                />
-              ))}
-            </div>
+            <span className="text-xs text-gray-500 font-mono">{rightEyeColor.toUpperCase()}</span>
           </div>
 
           {/* 양쪽 동시 적용 버튼 */}
           <button
-            onClick={() => {
-              setRightEyeColor(leftEyeColor);
-            }}
+            onClick={() => setRightEyeColor(leftEyeColor)}
             className="w-full py-1.5 bg-gray-700 hover:bg-gray-600 rounded text-xs transition-colors"
           >
             왼쪽 색상을 오른쪽에도 적용
@@ -194,26 +147,15 @@ export function CharacterCreator({ className = "" }: CharacterCreatorProps) {
           </div>
 
           {/* 머리 색상 */}
-          <div className="flex items-center gap-2">
-            <span className="text-xs text-gray-400 w-14">색상</span>
+          <div className="flex items-center gap-3">
+            <span className="text-xs text-gray-400 w-16">색상</span>
             <input
               type="color"
               value={hairColor}
               onChange={(e) => setHairColor(e.target.value)}
-              className="w-8 h-8 rounded cursor-pointer border-0"
+              className="w-10 h-10 rounded cursor-pointer border-2 border-gray-600 hover:border-gray-400 transition-colors"
             />
-            <div className="flex gap-1 flex-wrap flex-1">
-              {HAIR_COLORS.map((color) => (
-                <button
-                  key={`hair-${color}`}
-                  onClick={() => setHairColor(color)}
-                  className={`w-6 h-6 rounded border-2 transition-colors ${
-                    hairColor === color ? "border-white" : "border-gray-600"
-                  }`}
-                  style={{ backgroundColor: color }}
-                />
-              ))}
-            </div>
+            <span className="text-xs text-gray-500 font-mono">{hairColor.toUpperCase()}</span>
           </div>
         </section>
 

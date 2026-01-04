@@ -11,8 +11,43 @@ export interface StarterPreset {
     helmetIndex?: number;
     backIndex?: number;
   };
-  // TODO: 시작 무기/아이템 추가
+  // 프리셋별 보너스 스탯
+  bonusStats?: Partial<CharacterStats>;
 }
+
+// 능력치 시스템
+export interface CharacterStats {
+  str: number; // 힘 - 물리 공격력, 무게 제한
+  dex: number; // 민첩 - 명중, 회피, 치명타
+  con: number; // 체력 - HP, 방어력
+  int: number; // 지능 - 마법 공격력, 마나
+  wis: number; // 지혜 - 마법 방어, 마나 회복
+  cha: number; // 매력 - 상점 가격, NPC 호감도
+}
+
+export const STAT_NAMES: Record<keyof CharacterStats, { ko: string; desc: string }> = {
+  str: { ko: "힘", desc: "물리 공격력, 무게 제한" },
+  dex: { ko: "민첩", desc: "명중, 회피, 치명타" },
+  con: { ko: "체력", desc: "HP, 방어력" },
+  int: { ko: "지능", desc: "마법 공격력, 마나" },
+  wis: { ko: "지혜", desc: "마법 방어, 마나 회복" },
+  cha: { ko: "매력", desc: "상점 가격, NPC 호감도" },
+};
+
+// 기본 스탯 (모든 종족 공통)
+export const BASE_STATS: CharacterStats = {
+  str: 10,
+  dex: 10,
+  con: 10,
+  int: 10,
+  wis: 10,
+  cha: 10,
+};
+
+// 배분 가능한 보너스 포인트
+export const BONUS_POINTS = 10;
+export const MAX_STAT = 20;
+export const MIN_STAT = 5;
 
 export const STARTER_PRESETS: StarterPreset[] = [
   {
@@ -25,6 +60,7 @@ export const STARTER_PRESETS: StarterPreset[] = [
       pantIndex: 0,
       helmetIndex: 0,
     },
+    bonusStats: { str: 2, con: 1 },
   },
   {
     id: "mage",
@@ -35,6 +71,7 @@ export const STARTER_PRESETS: StarterPreset[] = [
       clothIndex: 0,
       backIndex: 0,
     },
+    bonusStats: { int: 2, wis: 1 },
   },
   {
     id: "priest",
@@ -45,6 +82,7 @@ export const STARTER_PRESETS: StarterPreset[] = [
       clothIndex: 1,
       backIndex: 1,
     },
+    bonusStats: { wis: 2, cha: 1 },
   },
   {
     id: "thief",
@@ -55,6 +93,7 @@ export const STARTER_PRESETS: StarterPreset[] = [
       clothIndex: 2,
       pantIndex: 1,
     },
+    bonusStats: { dex: 2, cha: 1 },
   },
   {
     id: "archer",
@@ -66,6 +105,7 @@ export const STARTER_PRESETS: StarterPreset[] = [
       pantIndex: 2,
       backIndex: 2,
     },
+    bonusStats: { dex: 2, con: 1 },
   },
   {
     id: "none",
@@ -84,19 +124,111 @@ export const GENDERS = [
   { id: "female" as Gender, name: "여성", icon: "♀" },
 ];
 
-// 종족 (body index 기반)
+// 종족 내 바디 타입
+export interface BodyType {
+  index: number;
+  name: string;
+}
+
+// 종족 (여러 body type 지원)
 export interface Race {
   id: string;
   name: string;
-  bodyIndex: number;
+  bodyTypes: BodyType[];
   description: string;
+  // 종족별 기본 스탯 보너스
+  statBonus: Partial<CharacterStats>;
 }
 
 export const RACES: Race[] = [
-  { id: "human", name: "인간", bodyIndex: 0, description: "균형 잡힌 능력치" },
-  { id: "elf", name: "엘프", bodyIndex: 1, description: "민첩하고 마법 친화적" },
-  { id: "orc", name: "오크", bodyIndex: 2, description: "강인한 체력" },
-  { id: "dwarf", name: "드워프", bodyIndex: 3, description: "단단한 방어력" },
-  { id: "darkelf", name: "다크엘프", bodyIndex: 4, description: "은밀한 공격" },
-  { id: "goblin", name: "고블린", bodyIndex: 5, description: "빠른 이동속도" },
+  {
+    id: "human",
+    name: "인간",
+    bodyTypes: [
+      { index: 0, name: "기본" },
+      { index: 1, name: "건장한" },
+      { index: 2, name: "날씬한" },
+      { index: 3, name: "근육질" },
+    ],
+    description: "균형 잡힌 능력치",
+    statBonus: { cha: 2 },
+  },
+  {
+    id: "elf",
+    name: "엘프",
+    bodyTypes: [
+      { index: 4, name: "기본" },
+      { index: 5, name: "우아한" },
+    ],
+    description: "민첩하고 마법 친화적",
+    statBonus: { dex: 1, int: 1 },
+  },
+  {
+    id: "orc",
+    name: "오크",
+    bodyTypes: [
+      { index: 6, name: "기본" },
+      { index: 7, name: "거대한" },
+    ],
+    description: "강인한 체력",
+    statBonus: { str: 2, con: 1, cha: -1 },
+  },
+  {
+    id: "dwarf",
+    name: "드워프",
+    bodyTypes: [
+      { index: 8, name: "기본" },
+      { index: 9, name: "땅딸막한" },
+    ],
+    description: "단단한 방어력",
+    statBonus: { con: 2, wis: 1, dex: -1 },
+  },
+  {
+    id: "darkelf",
+    name: "다크엘프",
+    bodyTypes: [
+      { index: 10, name: "기본" },
+      { index: 11, name: "그림자" },
+    ],
+    description: "은밀한 공격",
+    statBonus: { dex: 2, int: 1, cha: -1 },
+  },
+  {
+    id: "goblin",
+    name: "고블린",
+    bodyTypes: [
+      { index: 12, name: "기본" },
+      { index: 13, name: "교활한" },
+    ],
+    description: "빠른 이동속도",
+    statBonus: { dex: 2, cha: -1 },
+  },
 ];
+
+// 스탯 계산 유틸
+export function calculateTotalStats(
+  raceBonus: Partial<CharacterStats>,
+  presetBonus: Partial<CharacterStats> | undefined,
+  allocatedStats: CharacterStats
+): CharacterStats {
+  const result = { ...BASE_STATS };
+
+  // 종족 보너스 적용
+  for (const [key, value] of Object.entries(raceBonus)) {
+    result[key as keyof CharacterStats] += value;
+  }
+
+  // 프리셋 보너스 적용
+  if (presetBonus) {
+    for (const [key, value] of Object.entries(presetBonus)) {
+      result[key as keyof CharacterStats] += value;
+    }
+  }
+
+  // 배분된 스탯 적용
+  for (const [key, value] of Object.entries(allocatedStats)) {
+    result[key as keyof CharacterStats] += value - BASE_STATS[key as keyof CharacterStats];
+  }
+
+  return result;
+}

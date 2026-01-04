@@ -19,10 +19,18 @@ export {
   STARTER_PRESETS,
   GENDERS,
   RACES,
+  BASE_STATS,
+  BONUS_POINTS,
+  MAX_STAT,
+  MIN_STAT,
+  STAT_NAMES,
+  calculateTotalStats,
   type PartType,
   type StarterPreset,
   type Gender,
   type Race,
+  type BodyType,
+  type CharacterStats,
 } from "./model";
 
 // UI Components

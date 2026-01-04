@@ -1,15 +1,22 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { useRouter } from "next/navigation";
 import {
   useCharacterStore,
   STARTER_PRESETS,
   GENDERS,
   RACES,
+  BASE_STATS,
+  BONUS_POINTS,
+  MAX_STAT,
+  MIN_STAT,
+  STAT_NAMES,
   type Gender,
   type Race,
+  type BodyType,
   type StarterPreset,
+  type CharacterStats,
 } from "@/features/character";
 import { CharacterCreator } from "@/widgets/character-creator";
 import { globalStyles } from "@/shared/ui";
@@ -25,13 +32,79 @@ export default function CharacterCreatePage() {
   const [name, setName] = useState("");
   const [gender, setGender] = useState<Gender>("male");
   const [race, setRace] = useState<Race>(RACES[0]);
+  const [bodyType, setBodyType] = useState<BodyType>(RACES[0].bodyTypes[0]);
   const [preset, setPreset] = useState<StarterPreset>(STARTER_PRESETS[0]);
   const [saving, setSaving] = useState(false);
 
-  // 종족 선택 시 Unity에 body 변경
+  // 스탯 배분 (기본값에서 +/- 한 값)
+  const [allocatedStats, setAllocatedStats] = useState<CharacterStats>({ ...BASE_STATS });
+
+  // 사용한 포인트 계산
+  const usedPoints = useMemo(() => {
+    return Object.keys(BASE_STATS).reduce((sum, key) => {
+      const k = key as keyof CharacterStats;
+      return sum + (allocatedStats[k] - BASE_STATS[k]);
+    }, 0);
+  }, [allocatedStats]);
+
+  const remainingPoints = BONUS_POINTS - usedPoints;
+
+  // 최종 스탯 계산 (종족 + 프리셋 보너스 포함)
+  const finalStats = useMemo(() => {
+    const result = { ...allocatedStats };
+
+    // 종족 보너스 적용
+    for (const [key, value] of Object.entries(race.statBonus)) {
+      result[key as keyof CharacterStats] += value;
+    }
+
+    // 프리셋 보너스 적용
+    if (preset.bonusStats) {
+      for (const [key, value] of Object.entries(preset.bonusStats)) {
+        result[key as keyof CharacterStats] += value;
+      }
+    }
+
+    return result;
+  }, [allocatedStats, race.statBonus, preset.bonusStats]);
+
+  // 스탯 증가
+  const increaseStat = (stat: keyof CharacterStats) => {
+    if (remainingPoints <= 0) return;
+    if (allocatedStats[stat] >= MAX_STAT) return;
+
+    setAllocatedStats((prev) => ({
+      ...prev,
+      [stat]: prev[stat] + 1,
+    }));
+  };
+
+  // 스탯 감소
+  const decreaseStat = (stat: keyof CharacterStats) => {
+    if (allocatedStats[stat] <= MIN_STAT) return;
+
+    setAllocatedStats((prev) => ({
+      ...prev,
+      [stat]: prev[stat] - 1,
+    }));
+  };
+
+  // 스탯 리셋
+  const resetStats = () => {
+    setAllocatedStats({ ...BASE_STATS });
+  };
+
+  // 종족 선택 시 첫 번째 바디 타입 선택
   const handleRaceChange = (r: Race) => {
     setRace(r);
-    callUnity("JS_SetBody", r.bodyIndex.toString());
+    setBodyType(r.bodyTypes[0]);
+    callUnity("JS_SetBody", r.bodyTypes[0].index.toString());
+  };
+
+  // 바디 타입 선택
+  const handleBodyTypeChange = (bt: BodyType) => {
+    setBodyType(bt);
+    callUnity("JS_SetBody", bt.index.toString());
   };
 
   // 프리셋 선택 시 장비 적용
@@ -39,7 +112,7 @@ export default function CharacterCreatePage() {
     setPreset(p);
     // 장비 초기화 후 프리셋 적용
     callUnity("JS_ClearAll");
-    callUnity("JS_SetBody", race.bodyIndex.toString());
+    callUnity("JS_SetBody", bodyType.index.toString());
 
     const { appearance } = p;
     if (appearance.clothIndex !== undefined) {
@@ -70,9 +143,11 @@ export default function CharacterCreatePage() {
         isMain: true,
         gender,
         race: race.id,
+        bodyType: bodyType.index,
         preset: preset.id,
+        stats: finalStats,
         appearance: {
-          bodyIndex: characterState?.bodyIndex ?? 0,
+          bodyIndex: bodyType.index,
           eyeIndex: characterState?.eyeIndex ?? 0,
           hairIndex: characterState?.hairIndex ?? -1,
           clothIndex: characterState?.clothIndex ?? -1,
@@ -105,6 +180,19 @@ export default function CharacterCreatePage() {
     } finally {
       setSaving(false);
     }
+  };
+
+  // 보너스 표시 (종족 + 프리셋)
+  const getBonusDisplay = (stat: keyof CharacterStats) => {
+    const raceBonus = race.statBonus[stat] ?? 0;
+    const presetBonus = preset.bonusStats?.[stat] ?? 0;
+    const total = raceBonus + presetBonus;
+    if (total === 0) return null;
+    return (
+      <span className={total > 0 ? "text-green-400" : "text-red-400"}>
+        {total > 0 ? `+${total}` : total}
+      </span>
+    );
   };
 
   return (
@@ -178,6 +266,30 @@ export default function CharacterCreatePage() {
             </div>
           </section>
 
+          {/* 체형 (종족 내 바디 타입) */}
+          {race.bodyTypes.length > 1 && (
+            <section>
+              <label className="block text-sm font-medium text-gray-400 mb-2">
+                체형 ({race.name})
+              </label>
+              <div className="flex gap-2 flex-wrap">
+                {race.bodyTypes.map((bt) => (
+                  <button
+                    key={bt.index}
+                    onClick={() => handleBodyTypeChange(bt)}
+                    className={`px-4 py-2 rounded-lg border-2 transition-colors ${
+                      bodyType.index === bt.index
+                        ? "border-blue-500 bg-blue-500/20"
+                        : "border-gray-700 bg-gray-800"
+                    }`}
+                  >
+                    {bt.name}
+                  </button>
+                ))}
+              </div>
+            </section>
+          )}
+
           {/* 시작 장비 */}
           <section>
             <label className="block text-sm font-medium text-gray-400 mb-2">
@@ -202,6 +314,70 @@ export default function CharacterCreatePage() {
                 </button>
               ))}
             </div>
+          </section>
+
+          {/* 능력치 배분 */}
+          <section>
+            <div className="flex items-center justify-between mb-2">
+              <label className="text-sm font-medium text-gray-400">
+                능력치 배분
+              </label>
+              <div className="flex items-center gap-2">
+                <span className="text-xs text-gray-500">
+                  남은 포인트: <span className={remainingPoints > 0 ? "text-blue-400" : "text-gray-400"}>{remainingPoints}</span>
+                </span>
+                <button
+                  onClick={resetStats}
+                  className="text-xs text-gray-500 hover:text-white px-2 py-1 bg-gray-700 rounded"
+                >
+                  초기화
+                </button>
+              </div>
+            </div>
+
+            <div className="space-y-2">
+              {(Object.keys(BASE_STATS) as (keyof CharacterStats)[]).map((stat) => (
+                <div
+                  key={stat}
+                  className="flex items-center gap-2 p-2 bg-gray-800 rounded-lg"
+                >
+                  <div className="w-12 text-center">
+                    <div className="text-sm font-medium">{STAT_NAMES[stat].ko}</div>
+                  </div>
+
+                  <button
+                    onClick={() => decreaseStat(stat)}
+                    disabled={allocatedStats[stat] <= MIN_STAT}
+                    className="w-8 h-8 rounded bg-gray-700 hover:bg-gray-600 disabled:opacity-30 disabled:cursor-not-allowed text-lg font-bold"
+                  >
+                    -
+                  </button>
+
+                  <div className="w-16 text-center">
+                    <span className="text-lg font-bold">{allocatedStats[stat]}</span>
+                    {getBonusDisplay(stat) && (
+                      <span className="ml-1 text-sm">{getBonusDisplay(stat)}</span>
+                    )}
+                  </div>
+
+                  <button
+                    onClick={() => increaseStat(stat)}
+                    disabled={remainingPoints <= 0 || allocatedStats[stat] >= MAX_STAT}
+                    className="w-8 h-8 rounded bg-gray-700 hover:bg-gray-600 disabled:opacity-30 disabled:cursor-not-allowed text-lg font-bold"
+                  >
+                    +
+                  </button>
+
+                  <div className="flex-1 text-xs text-gray-500 text-right">
+                    {STAT_NAMES[stat].desc}
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <p className="text-xs text-gray-500 mt-2">
+              종족과 장비에 따라 보너스 스탯이 적용됩니다.
+            </p>
           </section>
 
           {/* 다음 버튼 */}
