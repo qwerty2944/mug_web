@@ -9,6 +9,12 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
   const { setSession, setLoading } = useAuthStore();
 
   useEffect(() => {
+    // supabase가 없으면 (환경변수 미설정) 스킵
+    if (!supabase) {
+      setLoading(false);
+      return;
+    }
+
     supabase.auth.getSession().then(({ data: { session } }) => {
       setSession(session);
       setLoading(false);
