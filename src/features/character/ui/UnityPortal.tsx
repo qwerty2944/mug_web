@@ -37,46 +37,19 @@ export function UnityPortalProvider({ children }: { children: ReactNode }) {
   return (
     <UnityPortalContext.Provider value={contextValue}>
       {children}
-      {/* Portal 타겟이 있으면 거기로, 없으면 화면 밖에 숨김 (WebGL 초기화를 위해 적절한 크기 유지) */}
-      {portalTarget ? (
-        createPortal(
-          <div className="w-full h-full">
-            <Unity
-              unityProvider={unityProvider}
-              style={{
-                width: "100%",
-                height: "100%",
-                background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
-              }}
-            />
-          </div>,
-          portalTarget
-        )
-      ) : (
-        <div
-          className="fixed"
-          style={{
-            left: "-9999px",
-            top: "-9999px",
-            width: "400px",
-            height: "400px",
-            pointerEvents: "none",
-            overflow: "hidden",
-          }}
-          aria-hidden="true"
-          tabIndex={-1}
-          inert={true}
-        >
+      {/* Portal 타겟이 있을 때만 Unity 렌더링 (다른 페이지에서 입력 방해 방지) */}
+      {portalTarget && createPortal(
+        <div className="w-full h-full">
           <Unity
             unityProvider={unityProvider}
-            tabIndex={-1}
             style={{
               width: "100%",
               height: "100%",
-              pointerEvents: "none",
+              background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
             }}
           />
-        </div>
+        </div>,
+        portalTarget
       )}
     </UnityPortalContext.Provider>
   );
