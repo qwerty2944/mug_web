@@ -1,9 +1,12 @@
-import { createClient } from "@supabase/supabase-js";
+import { createClient, type SupabaseClient } from "@supabase/supabase-js";
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || "https://krwmncolecywlkmlviqu.supabase.co";
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || "";
+const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
-export const supabase = createClient(supabaseUrl, supabaseAnonKey);
+// 빌드 시 환경변수가 없어도 에러 없이 작동 (런타임에만 실제 사용)
+export const supabase: SupabaseClient = supabaseAnonKey
+  ? createClient(supabaseUrl, supabaseAnonKey)
+  : (null as unknown as SupabaseClient);
 
 // 타입 정의
 export interface BodyMapping {

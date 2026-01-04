@@ -1,13 +1,7 @@
 "use client";
 
-import {
-  UnityCanvas,
-  PartSelector,
-  ColorPicker,
-  AnimationSelector,
-  ActionButtons,
-  PART_TYPES,
-} from "@/features/character";
+import { UnityCanvas, characterPanelHooks } from "@/features/character";
+import { CharacterPanel } from "@/widgets/character-panel";
 import { globalStyles } from "@/shared/ui";
 
 export default function CharacterSettingPage() {
@@ -27,44 +21,14 @@ export default function CharacterSettingPage() {
           </div>
         </div>
 
-        {/* 컨트롤 패널 */}
-        <div className="flex-none lg:w-80 max-h-[45vh] lg:max-h-full overflow-y-auto p-3 space-y-3 bg-gray-800 safe-area-bottom">
-          {/* 파츠 */}
-          <Section title="파츠">
-            <div className="space-y-1">
-              {PART_TYPES.map((type) => (
-                <PartSelector key={type} type={type} />
-              ))}
-            </div>
-          </Section>
-
-          {/* 색상 */}
-          <Section title="색상">
-            <ColorPicker />
-          </Section>
-
-          {/* 애니메이션 */}
-          <Section title="애니메이션">
-            <AnimationSelector />
-          </Section>
-
-          {/* 액션 */}
-          <Section title="">
-            <ActionButtons />
-          </Section>
-        </div>
+        {/* 컨트롤 패널 - 위젯 사용 */}
+        <CharacterPanel
+          hooks={characterPanelHooks}
+          className="flex-none lg:w-80 max-h-[45vh] lg:max-h-full overflow-y-auto safe-area-bottom"
+        />
       </div>
 
       <style jsx global>{globalStyles}</style>
     </div>
-  );
-}
-
-function Section({ title, children }: { title: string; children: React.ReactNode }) {
-  return (
-    <section>
-      {title && <h2 className="text-sm font-semibold mb-2 text-gray-400">{title}</h2>}
-      {children}
-    </section>
   );
 }
