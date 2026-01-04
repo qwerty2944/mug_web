@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useCallback } from "react";
 import { supabase } from "@/shared/api";
-import { useGameStore, useChatStore, parseChatCommand } from "../model";
+import { useGameStore, useChatStore, useMapsStore, parseChatCommand } from "../model";
 import type { ChatMessage, OnlineUser } from "../model";
 import type { RealtimeChannel } from "@supabase/supabase-js";
 
@@ -20,6 +20,7 @@ export function useRealtimeChat({
   const channelRef = useRef<RealtimeChannel | null>(null);
 
   const { setOnlineUsers, setConnected } = useGameStore();
+  const { getMapById } = useMapsStore();
   const {
     addMessage,
     addMessages,
@@ -237,7 +238,8 @@ export function useRealtimeChat({
         await registerLocation();
         await loadHistory();
 
-        addSystemMessage(`${mapId === "starting_village" ? "시작 마을" : mapId}에 입장했습니다.`);
+        const mapName = getMapById(mapId)?.nameKo || mapId;
+        addSystemMessage(`${mapName}에 입장했습니다.`);
       }
     });
 
@@ -264,6 +266,7 @@ export function useRealtimeChat({
     loadHistory,
     clearMessages,
     saveToCache,
+    getMapById,
   ]);
 
   return {
