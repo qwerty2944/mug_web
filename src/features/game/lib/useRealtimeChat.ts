@@ -92,7 +92,10 @@ export function useRealtimeChat({
         createdAt: new Date().toISOString(),
       };
 
-      // 브로드캐스트 전송
+      // 로컬에 먼저 추가 (즉시 표시)
+      addMessage(message);
+
+      // 브로드캐스트 전송 (다른 유저에게)
       if (parsed.type === "normal") {
         channel.send({
           type: "broadcast",
@@ -154,7 +157,7 @@ export function useRealtimeChat({
 
     const channel = supabase.channel(`map:${mapId}`, {
       config: {
-        broadcast: { self: true },
+        broadcast: { self: false },
         presence: { key: userId },
       },
     });
