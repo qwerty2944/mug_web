@@ -67,6 +67,9 @@ export default function CharacterCreatePage() {
 
     setSaving(true);
     try {
+      console.log("=== 캐릭터 저장 디버그 ===");
+      console.log("characterState:", characterState);
+
       const finalStats = getFinalStats();
       const character = {
         name: name.trim(),
@@ -98,6 +101,9 @@ export default function CharacterCreatePage() {
         },
         createdAt: new Date().toISOString(),
       };
+
+      console.log("저장할 appearance:", character.appearance);
+      console.log("저장할 colors:", character.colors);
 
       const { data, error } = await supabase.rpc("save_character", {
         p_user_id: session.user.id,
