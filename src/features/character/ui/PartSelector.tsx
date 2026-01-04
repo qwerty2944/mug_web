@@ -1,13 +1,13 @@
 "use client";
 
-import { useCharacterPart, type PartType } from "../model";
+import { useAppearancePart, type PartType } from "../model";
 
 interface PartSelectorProps {
   type: PartType;
 }
 
 export function PartSelector({ type }: PartSelectorProps) {
-  const { label, current, total, next, prev } = useCharacterPart(type);
+  const { label, current, total, next, prev } = useAppearancePart(type);
 
   return (
     <div className="flex items-center justify-between text-sm">

@@ -75,7 +75,7 @@ export const PART_TYPES = Object.keys(PART_META) as PartType[];
 
 // ============ 스토어 ============
 
-interface CharacterStore {
+interface AppearanceStore {
   // 상태
   isUnityLoaded: boolean;
   spriteCounts: SpriteCounts | null;
@@ -120,7 +120,7 @@ interface CharacterStore {
   getAnimationInfo: () => { state: string; index: number; total: number; name: string; states: string[] };
 }
 
-export const useCharacterStore = create<CharacterStore>((set, get) => ({
+export const useAppearanceStore = create<AppearanceStore>((set, get) => ({
   // 초기 상태
   isUnityLoaded: false,
   spriteCounts: null,
@@ -204,8 +204,8 @@ export const useCharacterStore = create<CharacterStore>((set, get) => ({
 
 // ============ 선택자 훅 ============
 
-export function useCharacterPart(type: PartType) {
-  const store = useCharacterStore();
+export function useAppearancePart(type: PartType) {
+  const store = useAppearanceStore();
   const info = store.getPartInfo(type);
 
   return {
@@ -215,8 +215,8 @@ export function useCharacterPart(type: PartType) {
   };
 }
 
-export function useCharacterAnimation() {
-  const store = useCharacterStore();
+export function useAppearanceAnimation() {
+  const store = useAppearanceStore();
   const info = store.getAnimationInfo();
 
   return {
@@ -227,8 +227,8 @@ export function useCharacterAnimation() {
   };
 }
 
-export function useCharacterColor() {
-  const store = useCharacterStore();
+export function useAppearanceColor() {
+  const store = useAppearanceStore();
 
   return {
     color: store.selectedColor,
@@ -237,8 +237,8 @@ export function useCharacterColor() {
   };
 }
 
-export function useCharacterActions() {
-  const store = useCharacterStore();
+export function useAppearanceActions() {
+  const store = useAppearanceStore();
 
   return {
     randomize: store.randomize,

@@ -1,20 +1,20 @@
 import type { CharacterPanelHooks } from "@/shared/types";
 import {
-  useCharacterPart,
-  useCharacterAnimation,
-  useCharacterColor,
-  useCharacterActions,
+  useAppearancePart,
+  useAppearanceAnimation,
+  useAppearanceColor,
+  useAppearanceActions,
   PART_TYPES,
 } from "./model";
 
 // Model (stores, hooks)
 export {
-  useCharacterStore,
-  useCharacterCreateStore,
-  useCharacterPart,
-  useCharacterAnimation,
-  useCharacterColor,
-  useCharacterActions,
+  useAppearanceStore,
+  useProfileStore,
+  useAppearancePart,
+  useAppearanceAnimation,
+  useAppearanceColor,
+  useAppearanceActions,
   useUnityBridge,
   PART_TYPES,
   STARTER_PRESETS,
@@ -41,13 +41,14 @@ export {
   AnimationSelector,
   ActionButtons,
   UnityCanvas,
+  CharacterConfirmModal,
 } from "./ui";
 
 // 위젯 주입용 훅 객체
 export const characterPanelHooks: CharacterPanelHooks = {
-  usePart: useCharacterPart,
-  useAnimation: useCharacterAnimation,
-  useColor: useCharacterColor,
-  useActions: useCharacterActions,
+  usePart: useAppearancePart,
+  useAnimation: useAppearanceAnimation,
+  useColor: useAppearanceColor,
+  useActions: useAppearanceActions,
   partTypes: PART_TYPES,
 };

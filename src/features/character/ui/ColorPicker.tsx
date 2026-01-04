@@ -1,6 +1,6 @@
 "use client";
 
-import { useCharacterColor } from "../model";
+import { useAppearanceColor } from "../model";
 
 const COLOR_TARGETS = [
   { key: "hair", label: "머리" },
@@ -10,7 +10,7 @@ const COLOR_TARGETS = [
 ] as const;
 
 export function ColorPicker() {
-  const { color, setColor, applyTo } = useCharacterColor();
+  const { color, setColor, applyTo } = useAppearanceColor();
 
   return (
     <div className="flex items-center gap-2">

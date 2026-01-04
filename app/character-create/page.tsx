@@ -1,9 +1,11 @@
 "use client";
 
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import {
-  useCharacterStore,
-  useCharacterCreateStore,
+  useAppearanceStore,
+  useProfileStore,
+  CharacterConfirmModal,
   STARTER_PRESETS,
   GENDERS,
   RACES,
@@ -21,7 +23,8 @@ import { useAuthStore } from "@/features/auth";
 export default function CharacterCreatePage() {
   const router = useRouter();
   const { session } = useAuthStore();
-  const { characterState } = useCharacterStore();
+  const { characterState } = useAppearanceStore();
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
 
   const {
     step,
@@ -45,7 +48,7 @@ export default function CharacterCreatePage() {
     getRemainingPoints,
     getFinalStats,
     getStatBonus,
-  } = useCharacterCreateStore();
+  } = useProfileStore();
 
   const remainingPoints = getRemainingPoints();
 
@@ -336,15 +339,22 @@ export default function CharacterCreatePage() {
               이전
             </button>
             <button
-              onClick={handleSave}
-              disabled={saving}
-              className="flex-1 py-3 bg-green-600 hover:bg-green-700 disabled:bg-gray-700 rounded-lg font-medium transition-colors"
+              onClick={() => setShowConfirmModal(true)}
+              className="flex-1 py-3 bg-green-600 hover:bg-green-700 rounded-lg font-medium transition-colors"
             >
-              {saving ? "저장 중..." : "캐릭터 생성"}
+              생성
             </button>
           </div>
         </div>
       )}
+
+      {/* 확인 모달 */}
+      <CharacterConfirmModal
+        open={showConfirmModal}
+        onClose={() => setShowConfirmModal(false)}
+        onConfirm={handleSave}
+        loading={saving}
+      />
 
       <style jsx global>{globalStyles}</style>
     </div>

@@ -1,9 +1,9 @@
 "use client";
 
-import { useCharacterAnimation } from "../model";
+import { useAppearanceAnimation } from "../model";
 
 export function AnimationSelector() {
-  const { state, index, total, states, next, prev, changeState } = useCharacterAnimation();
+  const { state, index, total, states, next, prev, changeState } = useAppearanceAnimation();
 
   return (
     <div className="space-y-2">

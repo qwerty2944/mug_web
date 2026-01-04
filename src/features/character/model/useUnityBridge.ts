@@ -2,7 +2,7 @@
 
 import { useEffect } from "react";
 import { useUnityContext } from "react-unity-webgl";
-import { useCharacterStore } from "./characterStore";
+import { useAppearanceStore } from "./appearanceStore";
 
 const UNITY_OBJECT_NAME = "SPUM_20260103203421028";
 
@@ -14,7 +14,7 @@ export function useUnityBridge() {
     setCharacterState,
     setAnimationState,
     setAnimationCounts,
-  } = useCharacterStore();
+  } = useAppearanceStore();
 
   const { unityProvider, sendMessage, isLoaded, loadingProgression } = useUnityContext({
     loaderUrl: "/unity/characterbuilder.loader.js",

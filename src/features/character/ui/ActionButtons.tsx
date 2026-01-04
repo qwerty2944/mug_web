@@ -1,9 +1,9 @@
 "use client";
 
-import { useCharacterActions } from "../model";
+import { useAppearanceActions } from "../model";
 
 export function ActionButtons() {
-  const { randomize, clearAll, resetColors } = useCharacterActions();
+  const { randomize, clearAll, resetColors } = useAppearanceActions();
 
   return (
     <div className="grid grid-cols-3 gap-2">

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { UnityCanvas, useCharacterStore } from "@/features/character";
+import { UnityCanvas, useAppearanceStore } from "@/features/character";
 
 interface CharacterCreatorProps {
   className?: string;
@@ -30,7 +30,7 @@ interface FacehairMapping {
 }
 
 export function CharacterCreator({ className = "" }: CharacterCreatorProps) {
-  const { characterState, spriteCounts, callUnity } = useCharacterStore();
+  const { characterState, spriteCounts, callUnity } = useAppearanceStore();
 
   const [leftEyeColor, setLeftEyeColor] = useState("#4169E1");
   const [rightEyeColor, setRightEyeColor] = useState("#4169E1");
@@ -72,26 +72,16 @@ export function CharacterCreator({ className = "" }: CharacterCreatorProps) {
   const currentFacehairName = facehairMappings.find(m => m.index === facehairIndex)?.ko
     ?? (facehairIndex >= 0 ? `수염 ${facehairIndex + 1}` : "수염없음");
 
-  // 색상 변경 시 Unity에 적용
-  useEffect(() => {
-    callUnity("JS_SetLeftEyeColor", leftEyeColor.replace("#", ""));
-  }, [leftEyeColor, callUnity]);
-
-  useEffect(() => {
-    callUnity("JS_SetRightEyeColor", rightEyeColor.replace("#", ""));
-  }, [rightEyeColor, callUnity]);
-
-  useEffect(() => {
-    callUnity("JS_SetHairColor", hairColor.replace("#", ""));
-  }, [hairColor, callUnity]);
-
-  useEffect(() => {
-    callUnity("JS_SetFacehairColor", facehairColor.replace("#", ""));
-  }, [facehairColor, callUnity]);
+  // 색상 적용 함수
+  const applyLeftEyeColor = () => callUnity("JS_SetLeftEyeColor", leftEyeColor.replace("#", ""));
+  const applyRightEyeColor = () => callUnity("JS_SetRightEyeColor", rightEyeColor.replace("#", ""));
+  const applyHairColor = () => callUnity("JS_SetHairColor", hairColor.replace("#", ""));
+  const applyFacehairColor = () => callUnity("JS_SetFacehairColor", facehairColor.replace("#", ""));
 
   // 머리 색상과 수염 색상 동기화
   const syncFacehairWithHair = () => {
     setFacehairColor(hairColor);
+    callUnity("JS_SetFacehairColor", hairColor.replace("#", ""));
   };
 
   return (
@@ -124,35 +114,51 @@ export function CharacterCreator({ className = "" }: CharacterCreatorProps) {
           </div>
 
           {/* 왼쪽 눈 색상 */}
-          <div className="flex items-center gap-3">
-            <span className="text-xs text-gray-400 w-16">왼쪽 눈</span>
+          <div className="flex items-center gap-2">
+            <span className="text-xs text-gray-400 w-14">왼쪽 눈</span>
             <input
               type="color"
               value={leftEyeColor}
               onChange={(e) => setLeftEyeColor(e.target.value)}
-              className="w-10 h-10 rounded cursor-pointer border-2 border-gray-600 hover:border-gray-400 transition-colors"
+              className="w-8 h-8 rounded cursor-pointer border-2 border-gray-600 hover:border-gray-400 transition-colors"
             />
-            <span className="text-xs text-gray-500 font-mono">{leftEyeColor.toUpperCase()}</span>
+            <span className="text-xs text-gray-500 font-mono flex-1">{leftEyeColor.toUpperCase()}</span>
+            <button
+              onClick={applyLeftEyeColor}
+              className="px-3 py-1 bg-blue-600 hover:bg-blue-500 rounded text-xs transition-colors"
+            >
+              적용
+            </button>
           </div>
 
           {/* 오른쪽 눈 색상 */}
-          <div className="flex items-center gap-3">
-            <span className="text-xs text-gray-400 w-16">오른쪽 눈</span>
+          <div className="flex items-center gap-2">
+            <span className="text-xs text-gray-400 w-14">오른쪽 눈</span>
             <input
               type="color"
               value={rightEyeColor}
               onChange={(e) => setRightEyeColor(e.target.value)}
-              className="w-10 h-10 rounded cursor-pointer border-2 border-gray-600 hover:border-gray-400 transition-colors"
+              className="w-8 h-8 rounded cursor-pointer border-2 border-gray-600 hover:border-gray-400 transition-colors"
             />
-            <span className="text-xs text-gray-500 font-mono">{rightEyeColor.toUpperCase()}</span>
+            <span className="text-xs text-gray-500 font-mono flex-1">{rightEyeColor.toUpperCase()}</span>
+            <button
+              onClick={applyRightEyeColor}
+              className="px-3 py-1 bg-blue-600 hover:bg-blue-500 rounded text-xs transition-colors"
+            >
+              적용
+            </button>
           </div>
 
           {/* 양쪽 동시 적용 버튼 */}
           <button
-            onClick={() => setRightEyeColor(leftEyeColor)}
+            onClick={() => {
+              setRightEyeColor(leftEyeColor);
+              callUnity("JS_SetLeftEyeColor", leftEyeColor.replace("#", ""));
+              callUnity("JS_SetRightEyeColor", leftEyeColor.replace("#", ""));
+            }}
             className="w-full py-1.5 bg-gray-700 hover:bg-gray-600 rounded text-xs transition-colors"
           >
-            왼쪽 색상을 오른쪽에도 적용
+            왼쪽 색상을 양쪽에 적용
           </button>
         </section>
 
@@ -182,15 +188,21 @@ export function CharacterCreator({ className = "" }: CharacterCreatorProps) {
           </div>
 
           {/* 머리 색상 */}
-          <div className="flex items-center gap-3">
-            <span className="text-xs text-gray-400 w-16">색상</span>
+          <div className="flex items-center gap-2">
+            <span className="text-xs text-gray-400 w-14">색상</span>
             <input
               type="color"
               value={hairColor}
               onChange={(e) => setHairColor(e.target.value)}
-              className="w-10 h-10 rounded cursor-pointer border-2 border-gray-600 hover:border-gray-400 transition-colors"
+              className="w-8 h-8 rounded cursor-pointer border-2 border-gray-600 hover:border-gray-400 transition-colors"
             />
-            <span className="text-xs text-gray-500 font-mono">{hairColor.toUpperCase()}</span>
+            <span className="text-xs text-gray-500 font-mono flex-1">{hairColor.toUpperCase()}</span>
+            <button
+              onClick={applyHairColor}
+              className="px-3 py-1 bg-blue-600 hover:bg-blue-500 rounded text-xs transition-colors"
+            >
+              적용
+            </button>
           </div>
         </section>
 
@@ -220,15 +232,21 @@ export function CharacterCreator({ className = "" }: CharacterCreatorProps) {
           </div>
 
           {/* 수염 색상 */}
-          <div className="flex items-center gap-3">
-            <span className="text-xs text-gray-400 w-16">색상</span>
+          <div className="flex items-center gap-2">
+            <span className="text-xs text-gray-400 w-14">색상</span>
             <input
               type="color"
               value={facehairColor}
               onChange={(e) => setFacehairColor(e.target.value)}
-              className="w-10 h-10 rounded cursor-pointer border-2 border-gray-600 hover:border-gray-400 transition-colors"
+              className="w-8 h-8 rounded cursor-pointer border-2 border-gray-600 hover:border-gray-400 transition-colors"
             />
-            <span className="text-xs text-gray-500 font-mono">{facehairColor.toUpperCase()}</span>
+            <span className="text-xs text-gray-500 font-mono flex-1">{facehairColor.toUpperCase()}</span>
+            <button
+              onClick={applyFacehairColor}
+              className="px-3 py-1 bg-blue-600 hover:bg-blue-500 rounded text-xs transition-colors"
+            >
+              적용
+            </button>
           </div>
 
           {/* 머리 색상과 동기화 버튼 */}
@@ -236,7 +254,7 @@ export function CharacterCreator({ className = "" }: CharacterCreatorProps) {
             onClick={syncFacehairWithHair}
             className="w-full py-1.5 bg-gray-700 hover:bg-gray-600 rounded text-xs transition-colors"
           >
-            머리 색상과 동일하게
+            머리 색상과 동일하게 적용
           </button>
         </section>
 

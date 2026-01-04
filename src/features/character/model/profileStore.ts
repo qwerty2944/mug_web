@@ -12,13 +12,13 @@ import {
   type StarterPreset,
   type CharacterStats,
 } from "./presets";
-import { useCharacterStore } from "./characterStore";
+import { useAppearanceStore } from "./appearanceStore";
 
 // ============ 타입 정의 ============
 
 type CreateStep = "info" | "customize";
 
-interface CharacterCreateState {
+interface ProfileState {
   // 상태
   step: CreateStep;
   name: string;
@@ -55,7 +55,7 @@ interface CharacterCreateState {
 
 // ============ 스토어 ============
 
-export const useCharacterCreateStore = create<CharacterCreateState>((set, get) => ({
+export const useProfileStore = create<ProfileState>((set, get) => ({
   // 초기 상태
   step: "info",
   name: "",
@@ -76,20 +76,20 @@ export const useCharacterCreateStore = create<CharacterCreateState>((set, get) =
   setRace: (race) => {
     const bodyType = race.bodyTypes[0];
     set({ race, bodyType });
-    useCharacterStore.getState().callUnity("JS_SetBody", bodyType.index.toString());
+    useAppearanceStore.getState().callUnity("JS_SetBody", bodyType.index.toString());
   },
 
   // 바디타입 선택
   setBodyType: (bodyType) => {
     set({ bodyType });
-    useCharacterStore.getState().callUnity("JS_SetBody", bodyType.index.toString());
+    useAppearanceStore.getState().callUnity("JS_SetBody", bodyType.index.toString());
   },
 
   // 프리셋 선택 (장비 적용)
   setPreset: (preset) => {
     set({ preset });
     const { bodyType } = get();
-    const { callUnity } = useCharacterStore.getState();
+    const { callUnity } = useAppearanceStore.getState();
 
     // 장비 초기화 후 프리셋 적용
     callUnity("JS_ClearAll");

@@ -1,19 +1,19 @@
-// 캐릭터 런타임 스토어 (Unity 연동)
+// 외형 스토어 (Unity 연동)
 export {
-  useCharacterStore,
-  useCharacterPart,
-  useCharacterAnimation,
-  useCharacterColor,
-  useCharacterActions,
+  useAppearanceStore,
+  useAppearancePart,
+  useAppearanceAnimation,
+  useAppearanceColor,
+  useAppearanceActions,
   PART_TYPES,
   type PartType,
   type CharacterState,
   type SpriteCounts,
   type AnimationState,
-} from "./characterStore";
+} from "./appearanceStore";
 
-// 캐릭터 생성 스토어
-export { useCharacterCreateStore } from "./creationStore";
+// 프로필 스토어 (캐릭터 생성 설정)
+export { useProfileStore } from "./profileStore";
 
 // Unity 브릿지
 export { useUnityBridge } from "./useUnityBridge";
