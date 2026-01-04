@@ -1,0 +1,150 @@
+{
+  "version": "1.0.0",
+  "generatedAt": "2026-01-04T06:14:27.481Z",
+  "bodies": [
+    {
+      "index": 0,
+      "fileName": "Zombie_1",
+      "ko": "좀비 1",
+      "en": "Zombie 1",
+      "race": "Zombie"
+    },
+    {
+      "index": 1,
+      "fileName": "Zombie_2",
+      "ko": "좀비 2",
+      "en": "Zombie 2",
+      "race": "Zombie"
+    },
+    {
+      "index": 2,
+      "fileName": "Zombie_3",
+      "ko": "좀비 3",
+      "en": "Zombie 3",
+      "race": "Zombie"
+    },
+    {
+      "index": 3,
+      "fileName": "Zombie_4",
+      "ko": "좀비 4",
+      "en": "Zombie 4",
+      "race": "Zombie"
+    },
+    {
+      "index": 4,
+      "fileName": "Zombie_5",
+      "ko": "좀비 5",
+      "en": "Zombie 5",
+      "race": "Zombie"
+    },
+    {
+      "index": 5,
+      "fileName": "Zombie_6",
+      "ko": "좀비 6",
+      "en": "Zombie 6",
+      "race": "Zombie"
+    },
+    {
+      "index": 6,
+      "fileName": "Devil_1",
+      "ko": "데빌 1",
+      "en": "Devil 1",
+      "race": "Devil"
+    },
+    {
+      "index": 7,
+      "fileName": "Elf_1",
+      "ko": "엘프 1",
+      "en": "Elf 1",
+      "race": "Elf"
+    },
+    {
+      "index": 8,
+      "fileName": "Elf_2",
+      "ko": "엘프 2",
+      "en": "Elf 2",
+      "race": "Elf"
+    },
+    {
+      "index": 9,
+      "fileName": "Human_1",
+      "ko": "인간 1",
+      "en": "Human 1",
+      "race": "Human"
+    },
+    {
+      "index": 10,
+      "fileName": "Human_2",
+      "ko": "인간 2",
+      "en": "Human 2",
+      "race": "Human"
+    },
+    {
+      "index": 11,
+      "fileName": "Human_3",
+      "ko": "인간 3",
+      "en": "Human 3",
+      "race": "Human"
+    },
+    {
+      "index": 12,
+      "fileName": "Human_4",
+      "ko": "인간 4",
+      "en": "Human 4",
+      "race": "Human"
+    },
+    {
+      "index": 13,
+      "fileName": "Human_5",
+      "ko": "인간 5",
+      "en": "Human 5",
+      "race": "Human"
+    },
+    {
+      "index": 14,
+      "fileName": "Orc_1",
+      "ko": "오크 1",
+      "en": "Orc 1",
+      "race": "Orc"
+    },
+    {
+      "index": 15,
+      "fileName": "Orc_2",
+      "ko": "오크 2",
+      "en": "Orc 2",
+      "race": "Orc"
+    },
+    {
+      "index": 16,
+      "fileName": "Orc_3",
+      "ko": "오크 3",
+      "en": "Orc 3",
+      "race": "Orc"
+    },
+    {
+      "index": 17,
+      "fileName": "Orc_4",
+      "ko": "오크 4",
+      "en": "Orc 4",
+      "race": "Orc"
+    },
+    {
+      "index": 18,
+      "fileName": "Skelton_1",
+      "ko": "스켈레톤 1",
+      "en": "Skeleton 1",
+      "race": "Skeleton"
+    }
+  ],
+  "summary": {
+    "total": 19,
+    "byRace": {
+      "Zombie": 6,
+      "Devil": 1,
+      "Elf": 2,
+      "Human": 5,
+      "Orc": 4,
+      "Skeleton": 1
+    }
+  }
+}
