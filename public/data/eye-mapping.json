@@ -1,0 +1,24 @@
+{
+  "version": "1.0.0",
+  "generatedAt": "2026-01-04T00:00:00.000Z",
+  "eyes": [
+    { "index": 0, "fileName": "Eye", "ko": "기본", "en": "Default" },
+    { "index": 1, "fileName": "Eye0", "ko": "둥근 눈", "en": "Round" },
+    { "index": 2, "fileName": "Eye1", "ko": "날카로운 눈", "en": "Sharp" },
+    { "index": 3, "fileName": "Eye10", "ko": "큰 눈", "en": "Big" },
+    { "index": 4, "fileName": "Eye11", "ko": "작은 눈", "en": "Small" },
+    { "index": 5, "fileName": "Eye16", "ko": "반달 눈", "en": "Crescent" },
+    { "index": 6, "fileName": "Eye2", "ko": "온화한 눈", "en": "Gentle" },
+    { "index": 7, "fileName": "Eye3", "ko": "슬픈 눈", "en": "Sad" },
+    { "index": 8, "fileName": "Eye4", "ko": "무표정", "en": "Neutral" },
+    { "index": 9, "fileName": "Eye5", "ko": "화난 눈", "en": "Angry" },
+    { "index": 10, "fileName": "Eye6", "ko": "장난꾸러기", "en": "Playful" },
+    { "index": 11, "fileName": "Eye7", "ko": "졸린 눈", "en": "Sleepy" },
+    { "index": 12, "fileName": "Eye8", "ko": "호기심", "en": "Curious" },
+    { "index": 13, "fileName": "Eye9", "ko": "냉정한 눈", "en": "Cold" },
+    { "index": 14, "fileName": "Eye_Close", "ko": "감은 눈", "en": "Closed" }
+  ],
+  "summary": {
+    "total": 15
+  }
+}
