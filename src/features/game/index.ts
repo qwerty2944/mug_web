@@ -28,6 +28,7 @@ export {
   BattlePanel,
   MonsterList,
   WorldMap,
+  WorldMapModal,
 } from "./ui";
 
 // Hooks

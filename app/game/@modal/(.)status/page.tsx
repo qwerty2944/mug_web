@@ -11,7 +11,12 @@ import {
   getExpToNextLevel,
 } from "@/entities/user";
 import { useInventory } from "@/entities/inventory";
+import { useProficiencies, WEAPON_PROFICIENCIES, MAGIC_PROFICIENCIES, getRankInfo } from "@/entities/proficiency";
+import type { ProficiencyType } from "@/entities/proficiency";
+import { useEquipmentStore } from "@/application/stores";
 import { useThemeStore } from "@/shared/config";
+
+type TabType = "status" | "proficiency" | "skills" | "equipment" | "inventory";
 
 export default function StatusModal() {
   const router = useRouter();
@@ -22,9 +27,13 @@ export default function StatusModal() {
   // React Query로 서버 상태 관리
   const { data: profile, isLoading: profileLoading } = useProfile(session?.user?.id);
   const { data: inventory = [] } = useInventory(session?.user?.id);
+  const { data: proficiencies } = useProficiencies(session?.user?.id);
+
+  // 장비 스토어
+  const equipmentStore = useEquipmentStore();
 
   // 로컬 UI 상태 (탭 전환)
-  const [activeTab, setActiveTab] = useState<"status" | "inventory">("status");
+  const [activeTab, setActiveTab] = useState<TabType>("status");
 
   const mainCharacter = getMainCharacter(profile);
 
@@ -46,6 +55,14 @@ export default function StatusModal() {
     }
   };
 
+  const tabs: { id: TabType; label: string }[] = [
+    { id: "status", label: "상태" },
+    { id: "proficiency", label: "숙련도" },
+    { id: "skills", label: "스킬" },
+    { id: "equipment", label: "장비" },
+    { id: "inventory", label: "인벤토리" },
+  ];
+
   return (
     <div
       className="fixed inset-0 z-50 flex items-center justify-center bg-black/70"
@@ -66,29 +83,21 @@ export default function StatusModal() {
             borderColor: theme.colors.border,
           }}
         >
-          <div className="flex gap-2">
-            <button
-              onClick={() => setActiveTab("status")}
-              className="px-4 py-2 text-sm font-mono font-medium transition-colors"
-              style={{
-                background: activeTab === "status" ? theme.colors.primary : theme.colors.bgDark,
-                color: activeTab === "status" ? theme.colors.bg : theme.colors.textMuted,
-                border: `1px solid ${theme.colors.border}`,
-              }}
-            >
-              상태
-            </button>
-            <button
-              onClick={() => setActiveTab("inventory")}
-              className="px-4 py-2 text-sm font-mono font-medium transition-colors"
-              style={{
-                background: activeTab === "inventory" ? theme.colors.primary : theme.colors.bgDark,
-                color: activeTab === "inventory" ? theme.colors.bg : theme.colors.textMuted,
-                border: `1px solid ${theme.colors.border}`,
-              }}
-            >
-              인벤토리
-            </button>
+          <div className="flex gap-1 flex-wrap">
+            {tabs.map((tab) => (
+              <button
+                key={tab.id}
+                onClick={() => setActiveTab(tab.id)}
+                className="px-3 py-2 text-sm font-mono font-medium transition-colors"
+                style={{
+                  background: activeTab === tab.id ? theme.colors.primary : theme.colors.bgDark,
+                  color: activeTab === tab.id ? theme.colors.bg : theme.colors.textMuted,
+                  border: `1px solid ${theme.colors.border}`,
+                }}
+              >
+                {tab.label}
+              </button>
+            ))}
           </div>
           <button
             onClick={handleClose}
@@ -99,7 +108,7 @@ export default function StatusModal() {
           </button>
         </div>
 
-        {/* 컨텐츠 - Grid로 두 탭 높이 동기화 */}
+        {/* 컨텐츠 */}
         <div className="flex-1 overflow-y-auto p-4">
           {profileLoading ? (
             <div className="flex items-center justify-center h-full">
@@ -110,10 +119,10 @@ export default function StatusModal() {
             </div>
           ) : (
             <div className="grid">
-              {/* 상태 탭 - 같은 그리드 셀 공유 */}
+              {/* 상태 탭 */}
               <div className={`col-start-1 row-start-1 ${activeTab === "status" ? "" : "invisible"}`}>
                 <div className="flex flex-col lg:flex-row gap-4">
-                  {/* 캐릭터 프리뷰 - 고정 높이 */}
+                  {/* 캐릭터 프리뷰 */}
                   <div className="lg:w-1/2 flex-shrink-0">
                     <div
                       className="overflow-hidden h-48 sm:h-56 lg:h-72"
@@ -179,6 +188,32 @@ export default function StatusModal() {
                       </div>
                     </div>
 
+                    {/* 능력치 */}
+                    {mainCharacter?.stats && (
+                      <div className="p-4" style={{ background: theme.colors.bgDark }}>
+                        <div className="text-sm font-mono mb-3" style={{ color: theme.colors.textMuted }}>능력치</div>
+                        <div className="grid grid-cols-2 gap-2">
+                          {[
+                            { key: "str", label: "힘", icon: "💪" },
+                            { key: "dex", label: "민첩", icon: "🏃" },
+                            { key: "con", label: "체력", icon: "❤️" },
+                            { key: "int", label: "지능", icon: "🧠" },
+                            { key: "wis", label: "지혜", icon: "🔮" },
+                            { key: "cha", label: "매력", icon: "✨" },
+                            { key: "lck", label: "행운", icon: "🍀" },
+                          ].map(({ key, label, icon }) => (
+                            <div key={key} className="flex items-center gap-2">
+                              <span className="text-sm">{icon}</span>
+                              <span className="text-xs font-mono" style={{ color: theme.colors.textMuted }}>{label}</span>
+                              <span className="font-mono font-medium ml-auto" style={{ color: theme.colors.text }}>
+                                {(mainCharacter.stats as unknown as Record<string, number>)[key] ?? 10}
+                              </span>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+
                     {/* 재화 */}
                     <div className="p-4 grid grid-cols-2 gap-4" style={{ background: theme.colors.bgDark }}>
                       <div className="flex items-center gap-3">
@@ -229,11 +264,196 @@ export default function StatusModal() {
                 </div>
               </div>
 
-              {/* 인벤토리 탭 - 같은 그리드 셀 공유 */}
+              {/* 숙련도 탭 */}
+              <div className={`col-start-1 row-start-1 ${activeTab === "proficiency" ? "" : "invisible"}`}>
+                <div className="space-y-6">
+                  {/* 무기 숙련도 */}
+                  <div>
+                    <h3 className="text-lg font-mono font-bold mb-3" style={{ color: theme.colors.text }}>
+                      무기 숙련도
+                    </h3>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                      {WEAPON_PROFICIENCIES.map((prof) => {
+                        const level = proficiencies?.[prof.id as ProficiencyType] ?? 0;
+                        const rank = getRankInfo(level);
+                        return (
+                          <div
+                            key={prof.id}
+                            className="p-3 flex items-center gap-3"
+                            style={{ background: theme.colors.bgDark }}
+                          >
+                            <span className="text-2xl">{prof.icon}</span>
+                            <div className="flex-1">
+                              <div className="flex justify-between">
+                                <span className="font-mono" style={{ color: theme.colors.text }}>
+                                  {prof.nameKo}
+                                </span>
+                                <span className="text-sm font-mono" style={{ color: theme.colors.primary }}>
+                                  {rank.nameKo}
+                                </span>
+                              </div>
+                              <div className="mt-1 h-2" style={{ background: theme.colors.bgLight }}>
+                                <div
+                                  className="h-full transition-all"
+                                  style={{
+                                    width: `${level}%`,
+                                    background: theme.colors.primary,
+                                  }}
+                                />
+                              </div>
+                              <div className="text-xs font-mono mt-0.5" style={{ color: theme.colors.textMuted }}>
+                                {level}/100
+                              </div>
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+
+                  {/* 마법 숙련도 */}
+                  <div>
+                    <h3 className="text-lg font-mono font-bold mb-3" style={{ color: theme.colors.text }}>
+                      마법 숙련도
+                    </h3>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                      {MAGIC_PROFICIENCIES.map((prof) => {
+                        const level = proficiencies?.[prof.id as ProficiencyType] ?? 0;
+                        const rank = getRankInfo(level);
+                        return (
+                          <div
+                            key={prof.id}
+                            className="p-3 flex items-center gap-3"
+                            style={{ background: theme.colors.bgDark }}
+                          >
+                            <span className="text-2xl">{prof.icon}</span>
+                            <div className="flex-1">
+                              <div className="flex justify-between">
+                                <span className="font-mono" style={{ color: theme.colors.text }}>
+                                  {prof.nameKo}
+                                </span>
+                                <span className="text-sm font-mono" style={{ color: theme.colors.primary }}>
+                                  {rank.nameKo}
+                                </span>
+                              </div>
+                              <div className="mt-1 h-2" style={{ background: theme.colors.bgLight }}>
+                                <div
+                                  className="h-full transition-all"
+                                  style={{
+                                    width: `${level}%`,
+                                    background: theme.colors.primary,
+                                  }}
+                                />
+                              </div>
+                              <div className="text-xs font-mono mt-0.5" style={{ color: theme.colors.textMuted }}>
+                                {level}/100
+                              </div>
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* 스킬 탭 */}
+              <div className={`col-start-1 row-start-1 ${activeTab === "skills" ? "" : "invisible"}`}>
+                {equipmentStore.learnedSkills.length === 0 ? (
+                  <div
+                    className="flex flex-col items-center justify-center h-64 font-mono"
+                    style={{ color: theme.colors.textMuted }}
+                  >
+                    <p className="text-4xl mb-4">📖</p>
+                    <p>배운 스킬이 없습니다</p>
+                  </div>
+                ) : (
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    {equipmentStore.learnedSkills.map((skillId) => (
+                      <div
+                        key={skillId}
+                        className="p-4 flex items-start gap-3"
+                        style={{ background: theme.colors.bgDark }}
+                      >
+                        <span className="text-3xl">📖</span>
+                        <div className="flex-1">
+                          <div className="font-mono font-medium" style={{ color: theme.colors.text }}>
+                            {skillId}
+                          </div>
+                          <div className="text-sm font-mono mt-1" style={{ color: theme.colors.textMuted }}>
+                            습득한 스킬
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              {/* 장비 탭 */}
+              <div className={`col-start-1 row-start-1 ${activeTab === "equipment" ? "" : "invisible"}`}>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  {(["weapon", "armor", "helmet", "accessory"] as const).map((slot) => {
+                    const item = equipmentStore[slot];
+                    const slotNames = {
+                      weapon: "무기",
+                      armor: "갑옷",
+                      helmet: "투구",
+                      accessory: "장신구",
+                    };
+                    const slotIcons = {
+                      weapon: "⚔️",
+                      armor: "🛡️",
+                      helmet: "🎩",
+                      accessory: "💍",
+                    };
+                    return (
+                      <div
+                        key={slot}
+                        className="p-4"
+                        style={{
+                          background: theme.colors.bgDark,
+                          border: `1px solid ${theme.colors.border}`,
+                        }}
+                      >
+                        <div className="flex items-center gap-2 mb-2">
+                          <span className="text-xl">{slotIcons[slot]}</span>
+                          <span className="font-mono" style={{ color: theme.colors.textMuted }}>
+                            {slotNames[slot]}
+                          </span>
+                        </div>
+                        {item ? (
+                          <div className="flex items-center gap-3">
+                            <span className="text-2xl">{item.icon}</span>
+                            <div>
+                              <div className="font-mono font-medium" style={{ color: theme.colors.text }}>
+                                {item.itemName}
+                              </div>
+                              {item.stats && Object.keys(item.stats).length > 0 && (
+                                <div className="text-xs font-mono mt-1" style={{ color: theme.colors.success }}>
+                                  {Object.entries(item.stats)
+                                    .map(([stat, val]) => `${stat.toUpperCase()} +${val}`)
+                                    .join(", ")}
+                                </div>
+                              )}
+                            </div>
+                          </div>
+                        ) : (
+                          <div className="text-sm font-mono" style={{ color: theme.colors.textMuted }}>
+                            장착된 장비 없음
+                          </div>
+                        )}
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* 인벤토리 탭 */}
               <div className={`col-start-1 row-start-1 ${activeTab === "inventory" ? "" : "invisible"}`}>
                 {inventory.length === 0 ? (
                   <div
-                    className="flex flex-col items-center justify-center h-full font-mono"
+                    className="flex flex-col items-center justify-center h-64 font-mono"
                     style={{ color: theme.colors.textMuted }}
                   >
                     <p className="text-4xl mb-4">📦</p>

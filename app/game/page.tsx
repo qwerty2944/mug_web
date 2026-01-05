@@ -9,7 +9,8 @@ import {
   useRealtimeChat,
   ChatBox,
   PlayerList,
-  WorldMap,
+  MapSelector,
+  WorldMapModal,
   MonsterList,
   BattlePanel,
 } from "@/features/game";
@@ -46,6 +47,7 @@ export default function GamePage() {
   // 로컬 UI 상태 - 프로필에서 마지막 위치 로드
   const [mapId, setMapId] = useState<string | null>(null);
   const [showThemeModal, setShowThemeModal] = useState(false);
+  const [showWorldMap, setShowWorldMap] = useState(false);
 
   // 전투 관련
   const { battle, resetBattle } = useBattleStore();
@@ -314,10 +316,24 @@ export default function GamePage() {
             disabled={battle.isInBattle}
           />
 
-          {/* 월드맵 */}
-          <WorldMap
+          {/* 월드맵 버튼 */}
+          <button
+            onClick={() => setShowWorldMap(true)}
+            className="w-full px-3 py-2 text-sm font-mono font-medium transition-colors flex items-center justify-center gap-2"
+            style={{
+              background: theme.colors.bgLight,
+              border: `1px solid ${theme.colors.border}`,
+              color: theme.colors.text,
+            }}
+          >
+            <span>🗺️</span>
+            <span>월드맵</span>
+          </button>
+
+          {/* 맵 이동 */}
+          <MapSelector
             currentMapId={mapId || "town_square"}
-            onMapSelect={handleMapChange}
+            onMapChange={handleMapChange}
             playerLevel={profile.level}
           />
         </div>
@@ -336,6 +352,15 @@ export default function GamePage() {
 
       {/* 테마 설정 모달 */}
       <ThemeSettingsModal open={showThemeModal} onClose={() => setShowThemeModal(false)} />
+
+      {/* 월드맵 모달 */}
+      <WorldMapModal
+        open={showWorldMap}
+        onClose={() => setShowWorldMap(false)}
+        currentMapId={mapId || "town_square"}
+        onMapSelect={handleMapChange}
+        playerLevel={profile.level}
+      />
     </div>
   );
 }

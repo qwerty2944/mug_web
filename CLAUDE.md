@@ -384,8 +384,11 @@ const boost = getDayBoostMultiplier("fire"); // 화요일이면 1.2, 아니면 1
 ### 맵
 | ID | 이름 | 몬스터 | 안전지대 |
 |----|------|--------|---------|
+| town_square | 마을 광장 | - | O |
+| shop_district | 상점가 | - | O |
 | training_ground | 수련장 | 허수아비 | O |
 | forest_entrance | 숲 입구 | 다람쥐 | X |
+| deep_forest | 깊은 숲 | 늑대, 숲거미 | X |
 
 ### 몬스터
 | ID | 이름 | 속성 | HP | 행동 | 보상 |
@@ -393,6 +396,8 @@ const boost = getDayBoostMultiplier("fire"); // 화요일이면 1.2, 아니면 1
 | scarecrow | 허수아비 | - | 50 | passive | 5 exp |
 | squirrel | 다람쥐 | earth | 30 | aggressive | 10 exp, 5 gold |
 | squirrel_elder | 늙은 다람쥐 | earth | 45 | defensive | 18 exp, 10 gold |
+| wolf | 늑대 | - | 80 | aggressive | 30 exp, 15 gold |
+| forest_spider | 숲거미 | dark | 60 | aggressive | 35 exp, 20 gold |
 
 ### 데미지 계산
 ```typescript
@@ -509,3 +514,127 @@ const { activeDuel, isInDuel } = usePvpStore();
 | duel_start | 결투 시작 |
 | duel_action | 턴 행동 (공격/도주) |
 | duel_end | 결투 종료 |
+
+## 월드맵 시스템 (World Map)
+
+게임 세계의 맵 구조와 이동을 시각화하는 시스템.
+
+### 맵 구조
+```
+         🏘️ town_square (마을 광장) - 안전지대
+        /           |           \
+   🛒 shop_district  |      🎯 training_ground
+      (상점가)       |         (수련장)
+     안전지대        |        허수아비 Lv.1
+                    |              |
+                    |              |
+               🌲 forest_entrance (숲 입구)
+                  다람쥐 Lv.2, 늙은 다람쥐 Lv.3
+                         |
+                         |
+                 🌳 deep_forest (깊은 숲)
+                  늑대 Lv.5, 숲거미 Lv.6
+```
+
+### 맵 연결
+| 출발 | 도착 |
+|------|------|
+| town_square | shop_district |
+| town_square | training_ground |
+| town_square | forest_entrance |
+| training_ground | forest_entrance |
+| forest_entrance | deep_forest |
+
+### 몬스터 배치
+| 맵 | 몬스터 | 레벨 | 속성 |
+|---|--------|------|------|
+| training_ground | 허수아비 | 1 | - |
+| forest_entrance | 다람쥐 | 2 | earth |
+| forest_entrance | 늙은 다람쥐 | 3 | earth |
+| deep_forest | 늑대 | 5 | - |
+| deep_forest | 숲거미 | 6 | dark |
+
+### UI 컴포넌트
+| 컴포넌트 | 파일 | 용도 |
+|---------|------|------|
+| WorldMap | `src/features/game/ui/WorldMap.tsx` | 시각적 맵 (노드-엣지) |
+| WorldMapModal | `src/features/game/ui/WorldMapModal.tsx` | 월드맵 모달 래퍼 |
+| MapSelector | `src/features/game/ui/MapSelector.tsx` | 드롭다운 이동 UI |
+
+### 사용법
+```typescript
+import { WorldMapModal, MapSelector } from "@/features/game";
+
+// 게임 페이지에서
+const [showWorldMap, setShowWorldMap] = useState(false);
+
+// 월드맵 버튼
+<button onClick={() => setShowWorldMap(true)}>🗺️ 월드맵</button>
+
+// 드롭다운 이동
+<MapSelector
+  currentMapId={mapId}
+  onMapChange={handleMapChange}
+  playerLevel={profile.level}
+/>
+
+// 월드맵 모달
+<WorldMapModal
+  open={showWorldMap}
+  onClose={() => setShowWorldMap(false)}
+  currentMapId={mapId}
+  onMapSelect={handleMapChange}
+  playerLevel={profile.level}
+/>
+```
+
+## 상태 모달 시스템 (Status Modal)
+
+캐릭터 정보를 확인하는 5탭 모달 시스템.
+
+### 탭 구성
+| 탭 | 내용 | 데이터 소스 |
+|---|------|------------|
+| 상태 | 캐릭터 프리뷰, 레벨, 경험치, 스태미나, 능력치, 재화 | `useProfile` |
+| 숙련도 | 무기 9종 + 마법 6종 숙련도 | `useProficiencies` |
+| 스킬 | 습득한 스킬 목록 | `equipmentStore.learnedSkills` |
+| 장비 | 4슬롯 장비 현황 (무기, 갑옷, 투구, 장신구) | `equipmentStore` |
+| 인벤토리 | 보유 아이템 그리드 | `useInventory` |
+
+### 파일
+| 파일 | 용도 |
+|------|------|
+| `app/game/@modal/(.)status/page.tsx` | 모달 버전 (Next.js 병렬 라우트) |
+| `app/game/status/page.tsx` | 전체 페이지 버전 |
+
+### 능력치 (Stats)
+| 스탯 | 아이콘 | 설명 |
+|------|-------|------|
+| STR (힘) | 💪 | 물리 공격력 |
+| DEX (민첩) | 🏃 | 회피, 물리 치명타 보조 |
+| CON (체력) | ❤️ | HP, 물리 방어 |
+| INT (지능) | 🧠 | 마법 공격력, 마법 치명타 보조 |
+| WIS (지혜) | 🔮 | MP, 마법 방어 |
+| CHA (매력) | ✨ | NPC 상호작용 |
+| LCK (행운) | 🍀 | 치명타 확률/배율 |
+
+### 치명타 시스템
+```typescript
+// 치명타 확률: 5% + LCK*0.3 + (DEX or INT)*0.05 (최대 60%)
+getCriticalChance(lck, secondaryStat)
+
+// 치명타 배율: 1.5 + LCK*0.01 (최대 2.5x)
+getCriticalMultiplier(lck)
+
+// 물리 공격: LCK + DEX
+// 마법 공격: LCK + INT
+```
+
+### 사용법
+```typescript
+// 상태창 링크 (모달)
+<Link href="/game/status">상태창 열기</Link>
+
+// router.back()으로 모달 닫기
+const handleClose = () => router.back();
+```
