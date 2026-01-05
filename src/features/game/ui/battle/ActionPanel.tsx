@@ -36,14 +36,14 @@ export function ActionPanel({
     learnedSkills.includes(skill.id)
   );
 
-  // 마법 공격 스킬
+  // 마법 스킬 (공격 + 힐)
   const magicSkills = learnedSkillData.filter(
-    (skill) => skill.type === "magic_attack"
+    (skill) => skill.type === "magic_attack" || skill.type === "heal"
   );
 
-  // 버프/힐 스킬
+  // 버프 스킬
   const buffSkills = learnedSkillData.filter(
-    (skill) => skill.type === "buff" || skill.type === "heal"
+    (skill) => skill.type === "buff"
   );
 
   // 디버프 스킬
@@ -206,7 +206,7 @@ export function ActionPanel({
                 className="text-xs font-mono mb-1"
                 style={{ color: theme.colors.textMuted }}
               >
-                💚 버프/회복
+                💚 버프
               </div>
               <div className="grid grid-cols-3 gap-2">
                 {buffSkills.map((skill) => {

@@ -78,8 +78,8 @@ export function getSkillCategory(skill: Skill): SkillCategory {
     case "physical_attack":
       return "weapon";
     case "magic_attack":
+    case "heal":  // 힐은 마법 카테고리
       return "magic";
-    case "heal":
     case "buff":
     case "debuff":
       return "support";

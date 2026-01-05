@@ -438,6 +438,66 @@ const { endBattle, isVictory } = useEndBattle({ userId });
 if (isVictory) endBattle(); // 보상 지급 + 숙련도 상승
 ```
 
+## 스킬 시스템 (Skill)
+
+스킬은 5가지 타입으로 분류되며, 전투 UI에서는 4개 카테고리로 표시됩니다.
+
+### 스킬 타입 (SkillType)
+| 타입 | 설명 | UI 카테고리 |
+|------|------|------------|
+| `physical_attack` | 물리 공격 | 무기 (weapon) |
+| `magic_attack` | 마법 공격 | 마법 (magic) |
+| `heal` | HP 회복 | 마법 (magic) |
+| `buff` | 버프 (자신에게) | 보조 (support) |
+| `debuff` | 디버프 (적에게) | 보조 (support) |
+
+### UI 카테고리 (SkillCategory)
+| 카테고리 | 탭 이름 | 포함 스킬 타입 |
+|---------|--------|--------------|
+| `weapon` | 무기 ⚔️ | physical_attack |
+| `magic` | 마법 ✨ | magic_attack, heal |
+| `support` | 보조 💊 | buff, debuff |
+| `item` | 아이템 🎒 | (준비 중) |
+
+### 스킬 데이터
+- **위치**: `/public/data/skills.json`
+- **총 21개 스킬**: 마법 공격 6개, 물리 공격 5개, 힐 1개, 버프 5개, 디버프 4개
+
+### 주요 스킬 속성
+```typescript
+interface Skill {
+  id: string;
+  nameKo: string;          // 한글 이름 (UI 표시용)
+  nameEn: string;          // 영문 이름
+  type: SkillType;
+  icon: string;
+  mpCost: number;
+  baseDamage?: number;     // 공격 스킬
+  element?: MagicElement;  // 마법 속성
+  healAmount?: number;     // 힐 스킬
+  statusEffect?: StatusType;  // 버프/디버프
+  target: SkillTarget;     // self | enemy
+}
+```
+
+### 사용법
+```typescript
+import { useSkills, getSkillCategory } from "@/entities/skill";
+import { useEquipmentStore } from "@/application/stores";
+
+// 스킬 데이터 로드
+const { data: allSkills } = useSkills();
+
+// 습득한 스킬 필터링
+const { learnedSkills } = useEquipmentStore();
+const mySkills = allSkills.filter(s => learnedSkills.includes(s.id));
+
+// 카테고리별 분류
+const magicSkills = mySkills.filter(s =>
+  s.type === "magic_attack" || s.type === "heal"
+);
+```
+
 ## PvP 결투 시스템 (Duel)
 
 유저 간 실시간 턴제 결투 시스템. Supabase Realtime을 활용한 도전/수락/전투 진행.

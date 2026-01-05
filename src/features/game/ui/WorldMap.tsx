@@ -11,24 +11,6 @@ interface WorldMapProps {
   playerLevel: number;
 }
 
-// 맵 노드 위치 정의 (상대적 좌표 %)
-const MAP_POSITIONS: Record<string, { x: number; y: number }> = {
-  town_square: { x: 50, y: 15 },
-  shop_district: { x: 20, y: 35 },
-  training_ground: { x: 80, y: 35 },
-  forest_entrance: { x: 50, y: 55 },
-  deep_forest: { x: 50, y: 80 },
-};
-
-// 맵 연결선 정의
-const MAP_CONNECTIONS: [string, string][] = [
-  ["town_square", "shop_district"],
-  ["town_square", "training_ground"],
-  ["town_square", "forest_entrance"],
-  ["training_ground", "forest_entrance"],
-  ["forest_entrance", "deep_forest"],
-];
-
 export function WorldMap({ currentMapId, onMapSelect, playerLevel }: WorldMapProps) {
   const { theme } = useThemeStore();
   const { data: maps = [] } = useMaps();
@@ -44,7 +26,7 @@ export function WorldMap({ currentMapId, onMapSelect, playerLevel }: WorldMapPro
 
   return (
     <div
-      className="relative w-full h-80 overflow-hidden"
+      className="w-full overflow-hidden font-mono text-sm"
       style={{
         background: theme.colors.bgDark,
         border: `1px solid ${theme.colors.border}`,
@@ -52,135 +34,251 @@ export function WorldMap({ currentMapId, onMapSelect, playerLevel }: WorldMapPro
     >
       {/* 헤더 */}
       <div
-        className="absolute top-0 left-0 right-0 px-3 py-2 border-b z-10"
+        className="px-3 py-2 border-b"
         style={{
           background: theme.colors.bgLight,
           borderColor: theme.colors.border,
         }}
       >
-        <span className="text-sm font-mono font-medium" style={{ color: theme.colors.text }}>
+        <span className="font-medium" style={{ color: theme.colors.text }}>
           🗺️ 월드맵
         </span>
       </div>
 
-      {/* SVG 연결선 */}
-      <svg className="absolute inset-0 w-full h-full pt-10" style={{ pointerEvents: "none" }}>
-        {MAP_CONNECTIONS.map(([from, to]) => {
-          const fromPos = MAP_POSITIONS[from];
-          const toPos = MAP_POSITIONS[to];
-          if (!fromPos || !toPos) return null;
+      {/* 텍스트 기반 맵 */}
+      <div className="p-3 space-y-1">
+        {/* 마을 광장 (최상위) */}
+        <MapNode
+          mapId="town_square"
+          maps={maps}
+          currentMapId={currentMapId}
+          connectedMapIds={connectedMapIds}
+          playerLevel={playerLevel}
+          onSelect={onMapSelect}
+          indent={0}
+        />
 
-          const isPath =
-            (currentMapId === from && isConnected(to)) ||
-            (currentMapId === to && isConnected(from));
+        {/* 연결선 */}
+        <div style={{ color: theme.colors.border }}>
+          {"    ├── 🛒 "}
+          <MapLink
+            mapId="shop_district"
+            maps={maps}
+            currentMapId={currentMapId}
+            connectedMapIds={connectedMapIds}
+            playerLevel={playerLevel}
+            onSelect={onMapSelect}
+          />
+        </div>
 
-          return (
-            <line
-              key={`${from}-${to}`}
-              x1={`${fromPos.x}%`}
-              y1={`${fromPos.y}%`}
-              x2={`${toPos.x}%`}
-              y2={`${toPos.y}%`}
-              stroke={isPath ? theme.colors.primary : theme.colors.border}
-              strokeWidth={isPath ? 3 : 2}
-              strokeDasharray={isPath ? "none" : "5,5"}
-              opacity={isPath ? 1 : 0.5}
-            />
-          );
-        })}
-      </svg>
+        <div style={{ color: theme.colors.border }}>
+          {"    ├── 🎯 "}
+          <MapLink
+            mapId="training_ground"
+            maps={maps}
+            currentMapId={currentMapId}
+            connectedMapIds={connectedMapIds}
+            playerLevel={playerLevel}
+            onSelect={onMapSelect}
+          />
+        </div>
 
-      {/* 맵 노드 */}
-      {maps.map((map) => {
-        const pos = MAP_POSITIONS[map.id];
-        if (!pos) return null;
+        <div style={{ color: theme.colors.border }}>
+          {"    │       └── "}
+          <MapLink
+            mapId="forest_entrance"
+            maps={maps}
+            currentMapId={currentMapId}
+            connectedMapIds={connectedMapIds}
+            playerLevel={playerLevel}
+            onSelect={onMapSelect}
+          />
+        </div>
 
-        const isCurrent = map.id === currentMapId;
-        const canMove = isConnected(map.id) && canEnterMap(map);
-        const isLocked = !canEnterMap(map);
+        <div style={{ color: theme.colors.border }}>
+          {"    │              └── "}
+          <MapLink
+            mapId="deep_forest"
+            maps={maps}
+            currentMapId={currentMapId}
+            connectedMapIds={connectedMapIds}
+            playerLevel={playerLevel}
+            onSelect={onMapSelect}
+          />
+        </div>
 
-        return (
-          <button
-            key={map.id}
-            onClick={() => canMove && onMapSelect(map.id)}
-            disabled={!canMove || isCurrent}
-            className="absolute transform -translate-x-1/2 -translate-y-1/2 flex flex-col items-center gap-1 transition-all"
-            style={{
-              left: `${pos.x}%`,
-              top: `calc(${pos.y}% + 40px)`,
-              cursor: canMove && !isCurrent ? "pointer" : "default",
-            }}
-          >
-            {/* 노드 */}
-            <div
-              className="w-12 h-12 rounded-full flex items-center justify-center text-2xl transition-all"
-              style={{
-                background: isCurrent
-                  ? theme.colors.primary
-                  : canMove
-                  ? theme.colors.bgLight
-                  : `${theme.colors.bgLight}80`,
-                border: `3px solid ${
-                  isCurrent
-                    ? theme.colors.primaryDim
-                    : canMove
-                    ? theme.colors.border
-                    : theme.colors.borderDim
-                }`,
-                boxShadow: isCurrent ? `0 0 12px ${theme.colors.primary}80` : "none",
-                opacity: isLocked ? 0.5 : 1,
-              }}
-            >
-              {isLocked ? "🔒" : map.icon}
-            </div>
+        <div style={{ color: theme.colors.border }}>
+          {"    │"}
+        </div>
 
-            {/* 라벨 */}
-            <div className="text-center">
-              <div
-                className="text-xs font-mono font-medium whitespace-nowrap"
-                style={{
-                  color: isCurrent ? theme.colors.primary : theme.colors.text,
-                }}
-              >
-                {map.nameKo}
-              </div>
-              {isLocked && (
-                <div className="text-xs font-mono" style={{ color: theme.colors.error }}>
-                  Lv.{map.minLevel}+
-                </div>
-              )}
-              {map.isSafeZone && !isLocked && (
-                <div className="text-xs font-mono" style={{ color: theme.colors.success }}>
-                  안전
-                </div>
-              )}
-            </div>
+        <div style={{ color: theme.colors.border }}>
+          {"    └── 🌲 "}
+          <MapLink
+            mapId="forest_entrance"
+            maps={maps}
+            currentMapId={currentMapId}
+            connectedMapIds={connectedMapIds}
+            playerLevel={playerLevel}
+            onSelect={onMapSelect}
+          />
+          <span style={{ color: theme.colors.textMuted }}> (직접 연결)</span>
+        </div>
+      </div>
 
-            {/* 몬스터 수 표시 */}
-            <MonsterCount mapId={map.id} />
-          </button>
-        );
-      })}
+      {/* 범례 */}
+      <div
+        className="px-3 py-2 border-t flex flex-wrap gap-3 text-xs"
+        style={{ borderColor: theme.colors.border }}
+      >
+        <span style={{ color: theme.colors.primary }}>● 현재 위치</span>
+        <span style={{ color: theme.colors.success }}>● 이동 가능</span>
+        <span style={{ color: theme.colors.textMuted }}>● 이동 불가</span>
+        <span style={{ color: theme.colors.error }}>🔒 레벨 제한</span>
+      </div>
     </div>
   );
 }
 
-// 몬스터 수 표시 컴포넌트
-function MonsterCount({ mapId }: { mapId: string }) {
+// 맵 노드 컴포넌트
+interface MapNodeProps {
+  mapId: string;
+  maps: GameMap[];
+  currentMapId: string;
+  connectedMapIds: string[];
+  playerLevel: number;
+  onSelect: (mapId: string) => void;
+  indent: number;
+}
+
+function MapNode({
+  mapId,
+  maps,
+  currentMapId,
+  connectedMapIds,
+  playerLevel,
+  onSelect,
+}: MapNodeProps) {
+  const { theme } = useThemeStore();
+  const map = getMapById(maps, mapId);
+  if (!map) return null;
+
+  const isCurrent = mapId === currentMapId;
+  const canMove = connectedMapIds.includes(mapId) && playerLevel >= map.minLevel;
+  const isLocked = playerLevel < map.minLevel;
+
+  return (
+    <div className="flex items-center gap-2">
+      <span>{map.icon}</span>
+      <button
+        onClick={() => canMove && onSelect(mapId)}
+        disabled={!canMove || isCurrent}
+        className="transition-colors"
+        style={{
+          color: isCurrent
+            ? theme.colors.primary
+            : canMove
+            ? theme.colors.success
+            : theme.colors.textMuted,
+          cursor: canMove && !isCurrent ? "pointer" : "default",
+          textDecoration: canMove && !isCurrent ? "underline" : "none",
+        }}
+      >
+        {map.nameKo}
+      </button>
+      {isCurrent && (
+        <span className="text-xs px-1" style={{ color: theme.colors.primary }}>
+          [현재]
+        </span>
+      )}
+      {map.isSafeZone && (
+        <span className="text-xs" style={{ color: theme.colors.success }}>
+          (안전)
+        </span>
+      )}
+      {isLocked && (
+        <span className="text-xs" style={{ color: theme.colors.error }}>
+          🔒 Lv.{map.minLevel}+
+        </span>
+      )}
+      <MonsterInfo mapId={mapId} />
+    </div>
+  );
+}
+
+// 맵 링크 컴포넌트 (인라인용)
+interface MapLinkProps {
+  mapId: string;
+  maps: GameMap[];
+  currentMapId: string;
+  connectedMapIds: string[];
+  playerLevel: number;
+  onSelect: (mapId: string) => void;
+}
+
+function MapLink({
+  mapId,
+  maps,
+  currentMapId,
+  connectedMapIds,
+  playerLevel,
+  onSelect,
+}: MapLinkProps) {
+  const { theme } = useThemeStore();
+  const map = getMapById(maps, mapId);
+  if (!map) return null;
+
+  const isCurrent = mapId === currentMapId;
+  const canMove = connectedMapIds.includes(mapId) && playerLevel >= map.minLevel;
+  const isLocked = playerLevel < map.minLevel;
+
+  return (
+    <>
+      <button
+        onClick={() => canMove && onSelect(mapId)}
+        disabled={!canMove || isCurrent}
+        className="transition-colors"
+        style={{
+          color: isCurrent
+            ? theme.colors.primary
+            : canMove
+            ? theme.colors.success
+            : theme.colors.textMuted,
+          cursor: canMove && !isCurrent ? "pointer" : "default",
+          textDecoration: canMove && !isCurrent ? "underline" : "none",
+        }}
+      >
+        {map.nameKo}
+      </button>
+      {isCurrent && (
+        <span className="text-xs px-1" style={{ color: theme.colors.primary }}>
+          [현재]
+        </span>
+      )}
+      {map.isSafeZone && (
+        <span className="text-xs" style={{ color: theme.colors.success }}>
+          (안전)
+        </span>
+      )}
+      {isLocked && (
+        <span className="text-xs" style={{ color: theme.colors.error }}>
+          🔒 Lv.{map.minLevel}+
+        </span>
+      )}
+      <MonsterInfo mapId={mapId} />
+    </>
+  );
+}
+
+// 몬스터 정보 표시
+function MonsterInfo({ mapId }: { mapId: string }) {
   const { theme } = useThemeStore();
   const { data: monsters = [] } = useMonstersByMap(mapId);
 
   if (monsters.length === 0) return null;
 
   return (
-    <div
-      className="text-xs font-mono px-1.5 py-0.5 rounded"
-      style={{
-        background: `${theme.colors.error}20`,
-        color: theme.colors.error,
-      }}
-    >
-      {monsters.length}마리
-    </div>
+    <span className="text-xs" style={{ color: theme.colors.warning }}>
+      - {monsters.map((m) => `${m.nameKo} Lv.${m.level}`).join(", ")}
+    </span>
   );
 }
