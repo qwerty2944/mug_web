@@ -1,6 +1,6 @@
 "use client";
 
-import { useAppearanceColor } from "../model";
+import { useAppearanceColor } from "@/application/stores";
 
 const COLOR_TARGETS = [
   { key: "hair", label: "머리" },

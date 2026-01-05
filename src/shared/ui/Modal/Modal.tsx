@@ -9,6 +9,7 @@ import {
   type MouseEvent,
 } from "react";
 import { createPortal } from "react-dom";
+import { useThemeStore } from "@/shared/config";
 
 // ============ Context ============
 
@@ -110,9 +111,14 @@ const sizeClasses = {
 };
 
 function Content({ children, className = "", size = "md" }: ContentProps) {
+  const { theme } = useThemeStore();
   return (
     <div
-      className={`bg-gray-800 rounded-lg shadow-xl w-full mx-4 max-h-[90vh] overflow-hidden flex flex-col ${sizeClasses[size]} ${className}`}
+      className={`shadow-xl w-full mx-4 max-h-[90vh] overflow-hidden flex flex-col ${sizeClasses[size]} ${className}`}
+      style={{
+        background: theme.colors.bg,
+        border: `2px solid ${theme.colors.border}`,
+      }}
       onClick={(e) => e.stopPropagation()}
     >
       {children}
@@ -130,16 +136,24 @@ interface HeaderProps {
 
 function Header({ children, className = "", showClose = true }: HeaderProps) {
   const { onClose } = useModalContext();
+  const { theme } = useThemeStore();
 
   return (
     <div
-      className={`flex items-center justify-between p-4 border-b border-gray-700 ${className}`}
+      className={`flex items-center justify-between p-4 border-b ${className}`}
+      style={{
+        background: theme.colors.bgLight,
+        borderColor: theme.colors.border,
+      }}
     >
-      <h2 className="text-lg font-semibold text-white">{children}</h2>
+      <h2 className="text-lg font-mono font-semibold" style={{ color: theme.colors.text }}>
+        {children}
+      </h2>
       {showClose && (
         <button
           onClick={onClose}
-          className="text-gray-400 hover:text-white transition-colors p-1"
+          className="transition-colors p-1"
+          style={{ color: theme.colors.textMuted }}
           aria-label="닫기"
         >
           <svg
@@ -182,9 +196,11 @@ interface FooterProps {
 }
 
 function Footer({ children, className = "" }: FooterProps) {
+  const { theme } = useThemeStore();
   return (
     <div
-      className={`flex items-center justify-end gap-2 p-4 border-t border-gray-700 ${className}`}
+      className={`flex items-center justify-end gap-2 p-4 border-t ${className}`}
+      style={{ borderColor: theme.colors.border }}
     >
       {children}
     </div>

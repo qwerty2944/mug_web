@@ -1,7 +1,7 @@
 "use client";
 
 import { createContext, useContext, type ReactNode } from "react";
-import type { CharacterPanelHooks, PartType } from "../model/types";
+import type { CharacterPanelHooks, PartType } from "../types";
 
 // 훅 주입을 위한 컨텍스트
 const HooksContext = createContext<CharacterPanelHooks | null>(null);

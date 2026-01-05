@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { Unity } from "react-unity-webgl";
-import { useUnityBridge } from "../model";
+import { useUnityBridge } from "@/application/providers";
 
 export function UnityCanvas() {
   const { unityProvider, isLoaded, loadingProgression } = useUnityBridge();

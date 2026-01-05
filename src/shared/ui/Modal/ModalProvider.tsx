@@ -1,6 +1,6 @@
 "use client";
 
-import { useModalStore } from "@/shared/stores";
+import { useModalStore } from "@/application/stores";
 
 export function ModalProvider() {
   const { modals } = useModalStore();

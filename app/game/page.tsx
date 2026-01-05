@@ -6,96 +6,85 @@ import Link from "next/link";
 import { useAuthStore } from "@/features/auth";
 import {
   useGameStore,
-  useMapsStore,
-  usePlayerStore,
+  useChatStore,
   useRealtimeChat,
   ChatBox,
   PlayerList,
   MapSelector,
-  getMapDisplayName,
 } from "@/features/game";
-import { supabase } from "@/shared/api";
+import {
+  useProfile,
+  getMainCharacter,
+  getStaminaPercent,
+} from "@/entities/user";
+import {
+  useMaps,
+  getMapById,
+  getMapDisplayName,
+} from "@/entities/map";
+import { useThemeStore } from "@/shared/config";
+import { ThemeSettingsModal } from "@/shared/ui";
 
 export default function GamePage() {
   const router = useRouter();
+  const { theme } = useThemeStore();
   const { session, signOut } = useAuthStore();
   const { currentMap, setCurrentMap, isConnected, setMyCharacterName, myCharacterName } =
     useGameStore();
-  const { maps, fetchMaps, getMapById } = useMapsStore();
 
-  const [isLoading, setIsLoading] = useState(true);
+  // React Query로 서버 상태 관리
+  const { data: profile, isLoading: profileLoading } = useProfile(session?.user?.id);
+  const { data: maps = [] } = useMaps();
+
+  // 로컬 UI 상태
   const [mapId, setMapId] = useState("starting_village");
-  const [playerLevel, setPlayerLevel] = useState(1);
+  const [showThemeModal, setShowThemeModal] = useState(false);
 
-  const { profile, fetchProfile } = usePlayerStore();
-
-  // 맵 데이터 로드
-  useEffect(() => {
-    if (maps.length === 0) {
-      fetchMaps();
-    }
-  }, [maps.length, fetchMaps]);
+  const mainCharacter = getMainCharacter(profile);
+  const staminaPercent = getStaminaPercent(profile);
 
   // 캐릭터 정보 로드
   useEffect(() => {
-    async function loadCharacter() {
-      if (!session?.user?.id) {
-        router.push("/login");
+    if (!session?.user?.id) {
+      router.push("/login");
+      return;
+    }
+
+    if (profile && !profileLoading) {
+      if (!profile.characters?.length) {
+        router.push("/character-create");
         return;
       }
 
-      try {
-        // 프로필에서 캐릭터 정보 가져오기
-        const { data, error } = await supabase
-          .from("profiles")
-          .select("characters, level")
-          .eq("id", session.user.id)
-          .single();
-
-        if (error || !data?.characters?.length) {
-          // 캐릭터가 없으면 생성 페이지로
-          router.push("/character-create");
-          return;
-        }
-
-        // 메인 캐릭터 찾기
-        const mainCharacter = data.characters.find((c: any) => c.isMain) || data.characters[0];
-        setMyCharacterName(mainCharacter.name);
-        setPlayerLevel(data.level || 1);
-
-        // 프로필 데이터 로드
-        fetchProfile(session.user.id);
-
-        // 초기 맵 설정
-        const startMap = getMapById("starting_village");
-        if (startMap) {
-          setCurrentMap({
-            id: startMap.id,
-            name: getMapDisplayName(startMap),
-            description: startMap.descriptionKo || "",
-          });
-        }
-      } catch (err) {
-        console.error("Failed to load character:", err);
-        router.push("/character-create");
-      } finally {
-        setIsLoading(false);
+      const main = getMainCharacter(profile);
+      if (main) {
+        setMyCharacterName(main.name);
       }
     }
+  }, [session, profile, profileLoading, router, setMyCharacterName]);
 
-    loadCharacter();
-  }, [session, router, setCurrentMap, setMyCharacterName, getMapById, fetchProfile]);
+  // 맵 로드 후 현재 맵 설정
+  useEffect(() => {
+    if (maps.length > 0 && !currentMap) {
+      const startMap = getMapById(maps, "starting_village");
+      if (startMap) {
+        setCurrentMap({
+          id: startMap.id,
+          name: getMapDisplayName(startMap),
+          description: startMap.descriptionKo || "",
+        });
+      }
+    }
+  }, [maps, currentMap, setCurrentMap]);
 
-  // Realtime 채팅 연결
   const { sendMessage } = useRealtimeChat({
     mapId,
     userId: session?.user?.id || "",
     characterName: myCharacterName,
   });
 
-  // 맵 변경
   const handleMapChange = (newMapId: string) => {
-    const newMap = getMapById(newMapId);
+    const newMap = getMapById(maps, newMapId);
     if (newMap) {
       setMapId(newMapId);
       setCurrentMap({
@@ -106,23 +95,25 @@ export default function GamePage() {
     }
   };
 
-  // 로그아웃
   const handleSignOut = async () => {
     await signOut();
     router.push("/login");
   };
 
-  // 피로도 계산
-  const staminaPercent = profile
-    ? Math.round((profile.stamina / profile.maxStamina) * 100)
-    : 100;
-
-  if (isLoading) {
+  if (profileLoading || !profile) {
     return (
-      <div className="h-dvh w-full bg-gray-900 text-white flex items-center justify-center">
+      <div
+        className="h-dvh w-full flex items-center justify-center"
+        style={{ background: theme.colors.bg }}
+      >
         <div className="text-center">
-          <div className="animate-spin w-8 h-8 border-2 border-blue-500 border-t-transparent rounded-full mx-auto mb-4" />
-          <p className="text-gray-400">게임 로딩 중...</p>
+          <div
+            className="animate-spin w-8 h-8 border-2 border-t-transparent rounded-full mx-auto mb-4"
+            style={{ borderColor: theme.colors.primary, borderTopColor: "transparent" }}
+          />
+          <p className="font-mono" style={{ color: theme.colors.textMuted }}>
+            게임 로딩 중...
+          </p>
         </div>
       </div>
     );
@@ -133,69 +124,102 @@ export default function GamePage() {
   }
 
   return (
-    <div className="h-dvh w-full bg-gray-900 text-white flex flex-col overflow-hidden">
+    <div className="h-dvh w-full flex flex-col overflow-hidden" style={{ background: theme.colors.bg }}>
       {/* 피로도 게이지 (상단 바) */}
-      <div className="flex-none h-1.5 bg-gray-800">
+      <div className="flex-none h-1.5" style={{ background: theme.colors.bgDark }}>
         <div
-          className={`h-full transition-all duration-300 ${
-            staminaPercent > 50
-              ? "bg-green-500"
-              : staminaPercent > 20
-              ? "bg-yellow-500"
-              : "bg-red-500"
-          }`}
-          style={{ width: `${staminaPercent}%` }}
+          className="h-full transition-all duration-300"
+          style={{
+            width: `${staminaPercent}%`,
+            background:
+              staminaPercent > 50
+                ? theme.colors.success
+                : staminaPercent > 20
+                ? theme.colors.warning
+                : theme.colors.error,
+          }}
         />
       </div>
 
       {/* 헤더 */}
-      <header className="flex-none px-3 py-2 bg-gray-800 border-b border-gray-700">
+      <header
+        className="flex-none px-3 py-2 border-b"
+        style={{
+          background: theme.colors.bgLight,
+          borderColor: theme.colors.border,
+        }}
+      >
         {/* 피로도 텍스트 */}
         <div className="flex items-center justify-between mb-2">
-          <div className="flex items-center gap-2 text-xs text-gray-400">
+          <div className="flex items-center gap-2 text-xs font-mono" style={{ color: theme.colors.textMuted }}>
             <span>피로도</span>
-            <span className={staminaPercent <= 20 ? "text-red-400" : ""}>
-              {profile?.stamina || 0} / {profile?.maxStamina || 100}
+            <span style={{ color: staminaPercent <= 20 ? theme.colors.error : theme.colors.textDim }}>
+              {profile.stamina} / {profile.maxStamina}
             </span>
           </div>
-          <button
-            onClick={handleSignOut}
-            className="text-xs text-gray-500 hover:text-red-400 transition-colors"
-          >
-            로그아웃
-          </button>
+          <div className="flex items-center gap-3">
+            {/* 테마 버튼 */}
+            <button
+              onClick={() => setShowThemeModal(true)}
+              className="flex items-center gap-1 text-xs font-mono transition-colors"
+              style={{ color: theme.colors.textMuted }}
+            >
+              <span
+                className="w-2.5 h-2.5 rounded-full"
+                style={{ background: theme.colors.primary }}
+              />
+              테마
+            </button>
+            <button
+              onClick={handleSignOut}
+              className="text-xs font-mono transition-colors"
+              style={{ color: theme.colors.textMuted }}
+            >
+              로그아웃
+            </button>
+          </div>
         </div>
 
         {/* 메인 헤더 */}
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
             <span className="text-xl">
-              {getMapById(mapId)?.icon || "🏠"}
+              {getMapById(maps, mapId)?.icon || "🏠"}
             </span>
             <div>
-              <h1 className="text-lg font-bold">{currentMap?.name || "시작 마을"}</h1>
-              <p className="text-xs text-gray-500">{currentMap?.description}</p>
+              <h1 className="text-lg font-bold font-mono" style={{ color: theme.colors.text }}>
+                {currentMap?.name || "시작 마을"}
+              </h1>
+              <p className="text-xs font-mono" style={{ color: theme.colors.textMuted }}>
+                {currentMap?.description}
+              </p>
             </div>
           </div>
           <div className="flex items-center gap-3">
             {/* 상태창 링크 */}
             <Link
               href="/game/status"
-              className="flex items-center gap-2 px-3 py-1.5 bg-gray-700 hover:bg-gray-600 rounded-lg transition-colors"
+              className="flex items-center gap-2 px-3 py-1.5 transition-colors"
+              style={{
+                background: theme.colors.bgDark,
+                border: `1px solid ${theme.colors.border}`,
+                color: theme.colors.text,
+              }}
             >
               <span className="text-sm">👤</span>
-              <span className="text-sm font-medium">{myCharacterName}</span>
-              <span className="text-xs text-gray-400">Lv.{playerLevel}</span>
+              <span className="text-sm font-mono font-medium">{myCharacterName}</span>
+              <span className="text-xs font-mono" style={{ color: theme.colors.textMuted }}>
+                Lv.{profile.level}
+              </span>
             </Link>
             {/* 재화 표시 */}
-            <div className="hidden sm:flex items-center gap-3 text-sm">
-              <span className="text-yellow-400">💰 {(profile?.gold || 0).toLocaleString()}</span>
-              <span className="text-cyan-400">💎 {(profile?.gems || 0).toLocaleString()}</span>
+            <div className="hidden sm:flex items-center gap-3 text-sm font-mono">
+              <span style={{ color: theme.colors.warning }}>💰 {profile.gold.toLocaleString()}</span>
+              <span style={{ color: theme.colors.primary }}>💎 {profile.gems.toLocaleString()}</span>
             </div>
             <span
-              className={`w-2 h-2 rounded-full ${
-                isConnected ? "bg-green-500" : "bg-red-500"
-              }`}
+              className="w-2 h-2 rounded-full"
+              style={{ background: isConnected ? theme.colors.success : theme.colors.error }}
             />
           </div>
         </div>
@@ -221,10 +245,13 @@ export default function GamePage() {
           <MapSelector
             currentMapId={mapId}
             onMapChange={handleMapChange}
-            playerLevel={playerLevel}
+            playerLevel={profile.level}
           />
         </div>
       </div>
+
+      {/* 테마 설정 모달 */}
+      <ThemeSettingsModal open={showThemeModal} onClose={() => setShowThemeModal(false)} />
     </div>
   );
 }

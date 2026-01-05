@@ -14,3 +14,15 @@ export type {
   Insertable,
   Updatable,
 } from "./database";
+
+export type {
+  EyeMapping,
+  HairMapping,
+  FacehairMapping,
+  BodyMapping,
+  EyeMappingFile,
+  HairMappingFile,
+  FacehairMappingFile,
+  BodyMappingFile,
+  AllMappings,
+} from "./game-data";

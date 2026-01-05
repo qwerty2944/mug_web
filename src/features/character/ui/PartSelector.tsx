@@ -1,6 +1,6 @@
 "use client";
 
-import { useAppearancePart, type PartType } from "../model";
+import { useAppearancePart, type PartType } from "@/application/stores";
 
 interface PartSelectorProps {
   type: PartType;

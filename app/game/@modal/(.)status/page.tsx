@@ -1,47 +1,39 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useAuthStore } from "@/features/auth";
-import { usePlayerStore } from "@/features/game";
-import { UnityPortalTarget, useAppearanceStore } from "@/features/character";
+import { UnityCanvas, useAppearanceStore } from "@/features/character";
+import {
+  useProfile,
+  getMainCharacter,
+  getExpPercentage,
+  getExpToNextLevel,
+} from "@/entities/user";
+import { useInventory } from "@/entities/inventory";
+import { useThemeStore } from "@/shared/config";
 
 export default function StatusModal() {
   const router = useRouter();
+  const { theme } = useThemeStore();
   const { session } = useAuthStore();
-  const { isUnityLoaded, spriteCounts } = useAppearanceStore();
-  const {
-    profile,
-    inventory,
-    isLoading,
-    activeTab,
-    setActiveTab,
-    fetchProfile,
-    fetchInventory,
-    getMainCharacter,
-    getExpPercentage,
-    getExpToNextLevel,
-    loadMainCharacterAppearance,
-  } = usePlayerStore();
+  const { isUnityLoaded, spriteCounts, loadAppearance } = useAppearanceStore();
 
-  // 데이터 로드
-  useEffect(() => {
-    if (session?.user?.id) {
-      fetchProfile(session.user.id);
-      fetchInventory(session.user.id);
-    }
-  }, [session?.user?.id, fetchProfile, fetchInventory]);
+  // React Query로 서버 상태 관리
+  const { data: profile, isLoading: profileLoading } = useProfile(session?.user?.id);
+  const { data: inventory = [] } = useInventory(session?.user?.id);
 
-  const mainCharacter = getMainCharacter();
+  // 로컬 UI 상태 (탭 전환)
+  const [activeTab, setActiveTab] = useState<"status" | "inventory">("status");
+
+  const mainCharacter = getMainCharacter(profile);
 
   // Unity 스프라이트 로드 완료 후 캐릭터 외형 적용
   useEffect(() => {
-    // spriteCounts가 있어야 Unity가 완전히 준비된 상태
-    if (isUnityLoaded && spriteCounts && mainCharacter) {
-      console.log("Loading character appearance:", mainCharacter.appearance);
-      loadMainCharacterAppearance();
+    if (isUnityLoaded && spriteCounts && mainCharacter?.appearance && mainCharacter?.colors) {
+      loadAppearance(mainCharacter.appearance, mainCharacter.colors);
     }
-  }, [isUnityLoaded, spriteCounts, mainCharacter, loadMainCharacterAppearance]);
+  }, [isUnityLoaded, spriteCounts, mainCharacter, loadAppearance]);
 
   const handleClose = () => {
     router.back();
@@ -59,34 +51,49 @@ export default function StatusModal() {
       className="fixed inset-0 z-50 flex items-center justify-center bg-black/70"
       onClick={handleBackdropClick}
     >
-      <div className="bg-gray-900 rounded-xl border border-gray-700 w-full max-w-4xl max-h-[90vh] overflow-hidden flex flex-col">
+      <div
+        className="w-full max-w-4xl max-h-[90vh] overflow-hidden flex flex-col"
+        style={{
+          background: theme.colors.bg,
+          border: `2px solid ${theme.colors.border}`,
+        }}
+      >
         {/* 헤더 */}
-        <div className="flex items-center justify-between px-4 py-3 bg-gray-800 border-b border-gray-700">
+        <div
+          className="flex items-center justify-between px-4 py-3 border-b"
+          style={{
+            background: theme.colors.bgLight,
+            borderColor: theme.colors.border,
+          }}
+        >
           <div className="flex gap-2">
             <button
               onClick={() => setActiveTab("status")}
-              className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-                activeTab === "status"
-                  ? "bg-blue-600 text-white"
-                  : "bg-gray-700 text-gray-300 hover:bg-gray-600"
-              }`}
+              className="px-4 py-2 text-sm font-mono font-medium transition-colors"
+              style={{
+                background: activeTab === "status" ? theme.colors.primary : theme.colors.bgDark,
+                color: activeTab === "status" ? theme.colors.bg : theme.colors.textMuted,
+                border: `1px solid ${theme.colors.border}`,
+              }}
             >
               상태
             </button>
             <button
               onClick={() => setActiveTab("inventory")}
-              className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-                activeTab === "inventory"
-                  ? "bg-blue-600 text-white"
-                  : "bg-gray-700 text-gray-300 hover:bg-gray-600"
-              }`}
+              className="px-4 py-2 text-sm font-mono font-medium transition-colors"
+              style={{
+                background: activeTab === "inventory" ? theme.colors.primary : theme.colors.bgDark,
+                color: activeTab === "inventory" ? theme.colors.bg : theme.colors.textMuted,
+                border: `1px solid ${theme.colors.border}`,
+              }}
             >
               인벤토리
             </button>
           </div>
           <button
             onClick={handleClose}
-            className="p-2 text-gray-400 hover:text-white transition-colors"
+            className="p-2 transition-colors"
+            style={{ color: theme.colors.textMuted }}
           >
             ✕
           </button>
@@ -94,9 +101,12 @@ export default function StatusModal() {
 
         {/* 컨텐츠 - Grid로 두 탭 높이 동기화 */}
         <div className="flex-1 overflow-y-auto p-4">
-          {isLoading ? (
+          {profileLoading ? (
             <div className="flex items-center justify-center h-full">
-              <div className="animate-spin w-8 h-8 border-2 border-blue-500 border-t-transparent rounded-full" />
+              <div
+                className="animate-spin w-8 h-8 border-2 border-t-transparent rounded-full"
+                style={{ borderColor: theme.colors.primary, borderTopColor: "transparent" }}
+              />
             </div>
           ) : (
             <div className="grid">
@@ -105,10 +115,20 @@ export default function StatusModal() {
                 <div className="flex flex-col lg:flex-row gap-4">
                   {/* 캐릭터 프리뷰 - 고정 높이 */}
                   <div className="lg:w-1/2 flex-shrink-0">
-                    <UnityPortalTarget className="bg-gray-800 rounded-lg overflow-hidden h-48 sm:h-56 lg:h-72" />
+                    <div
+                      className="overflow-hidden h-48 sm:h-56 lg:h-72"
+                      style={{ background: theme.colors.bgDark }}
+                    >
+                      <UnityCanvas />
+                    </div>
                     {mainCharacter && (
                       <div className="mt-3 text-center">
-                        <h3 className="text-xl font-bold text-white">{mainCharacter.name}</h3>
+                        <h3
+                          className="text-xl font-mono font-bold"
+                          style={{ color: theme.colors.text }}
+                        >
+                          {mainCharacter.name}
+                        </h3>
                       </div>
                     )}
                   </div>
@@ -116,50 +136,56 @@ export default function StatusModal() {
                   {/* 스탯 정보 */}
                   <div className="lg:w-1/2 space-y-4">
                     {/* 레벨 & 경험치 */}
-                    <div className="bg-gray-800 rounded-lg p-4">
+                    <div className="p-4" style={{ background: theme.colors.bgDark }}>
                       <div className="flex items-center justify-between mb-2">
-                        <span className="text-gray-400">레벨</span>
-                        <span className="text-2xl font-bold text-white">Lv.{profile?.level || 1}</span>
+                        <span className="font-mono" style={{ color: theme.colors.textMuted }}>레벨</span>
+                        <span className="text-2xl font-mono font-bold" style={{ color: theme.colors.text }}>
+                          Lv.{profile?.level || 1}
+                        </span>
                       </div>
                       <div className="space-y-1">
-                        <div className="flex justify-between text-xs text-gray-500">
+                        <div className="flex justify-between text-xs font-mono" style={{ color: theme.colors.textMuted }}>
                           <span>경험치</span>
-                          <span>{getExpToNextLevel()} EXP 남음</span>
+                          <span>{getExpToNextLevel(profile)} EXP 남음</span>
                         </div>
-                        <div className="h-2 bg-gray-700 rounded-full overflow-hidden">
+                        <div className="h-2 overflow-hidden" style={{ background: theme.colors.bgLight }}>
                           <div
-                            className="h-full bg-gradient-to-r from-blue-500 to-purple-500"
-                            style={{ width: `${getExpPercentage()}%` }}
+                            className="h-full"
+                            style={{
+                              width: `${getExpPercentage(profile)}%`,
+                              background: theme.colors.primary,
+                            }}
                           />
                         </div>
                       </div>
                     </div>
 
                     {/* 스태미나 */}
-                    <div className="bg-gray-800 rounded-lg p-4">
+                    <div className="p-4" style={{ background: theme.colors.bgDark }}>
                       <div className="flex items-center justify-between mb-2">
-                        <span className="text-gray-400">스태미나</span>
-                        <span className="text-lg font-medium text-white">
+                        <span className="font-mono" style={{ color: theme.colors.textMuted }}>스태미나</span>
+                        <span className="text-lg font-mono font-medium" style={{ color: theme.colors.text }}>
                           {profile?.stamina || 0} / {profile?.maxStamina || 100}
                         </span>
                       </div>
-                      <div className="h-3 bg-gray-700 rounded-full overflow-hidden">
+                      <div className="h-3 overflow-hidden" style={{ background: theme.colors.bgLight }}>
                         <div
-                          className="h-full bg-gradient-to-r from-green-500 to-emerald-400"
+                          className="h-full"
                           style={{
                             width: `${((profile?.stamina || 0) / (profile?.maxStamina || 100)) * 100}%`,
+                            background: theme.colors.success,
                           }}
                         />
                       </div>
                     </div>
 
                     {/* 재화 */}
-                    <div className="bg-gray-800 rounded-lg p-4 grid grid-cols-2 gap-4">
+                    <div className="p-4 grid grid-cols-2 gap-4" style={{ background: theme.colors.bgDark }}>
                       <div className="flex items-center gap-3">
                         <span className="text-2xl">💰</span>
                         <div>
-                          <div className="text-xs text-gray-500">골드</div>
-                          <div className="text-lg font-medium text-yellow-400">
+                          <div className="text-xs font-mono" style={{ color: theme.colors.textMuted }}>골드</div>
+                          <div className="text-lg font-mono font-medium" style={{ color: theme.colors.warning }}>
                             {(profile?.gold || 0).toLocaleString()}
                           </div>
                         </div>
@@ -167,8 +193,8 @@ export default function StatusModal() {
                       <div className="flex items-center gap-3">
                         <span className="text-2xl">💎</span>
                         <div>
-                          <div className="text-xs text-gray-500">젬</div>
-                          <div className="text-lg font-medium text-cyan-400">
+                          <div className="text-xs font-mono" style={{ color: theme.colors.textMuted }}>젬</div>
+                          <div className="text-lg font-mono font-medium" style={{ color: theme.colors.primary }}>
                             {(profile?.gems || 0).toLocaleString()}
                           </div>
                         </div>
@@ -177,13 +203,21 @@ export default function StatusModal() {
 
                     {/* 프리미엄 상태 */}
                     {profile?.isPremium && (
-                      <div className="bg-gradient-to-r from-amber-900/50 to-yellow-900/50 rounded-lg p-4 border border-amber-600/50">
+                      <div
+                        className="p-4"
+                        style={{
+                          background: `${theme.colors.warning}15`,
+                          border: `1px solid ${theme.colors.warning}50`,
+                        }}
+                      >
                         <div className="flex items-center gap-2">
                           <span className="text-xl">👑</span>
                           <div>
-                            <div className="text-amber-400 font-medium">프리미엄 회원</div>
+                            <div className="font-mono font-medium" style={{ color: theme.colors.warning }}>
+                              프리미엄 회원
+                            </div>
                             {profile.premiumUntil && (
-                              <div className="text-xs text-amber-500/70">
+                              <div className="text-xs font-mono" style={{ color: `${theme.colors.warning}99` }}>
                                 {new Date(profile.premiumUntil).toLocaleDateString()}까지
                               </div>
                             )}
@@ -198,7 +232,10 @@ export default function StatusModal() {
               {/* 인벤토리 탭 - 같은 그리드 셀 공유 */}
               <div className={`col-start-1 row-start-1 ${activeTab === "inventory" ? "" : "invisible"}`}>
                 {inventory.length === 0 ? (
-                  <div className="flex flex-col items-center justify-center h-full text-gray-500">
+                  <div
+                    className="flex flex-col items-center justify-center h-full font-mono"
+                    style={{ color: theme.colors.textMuted }}
+                  >
                     <p className="text-4xl mb-4">📦</p>
                     <p>인벤토리가 비어있습니다</p>
                   </div>
@@ -207,14 +244,27 @@ export default function StatusModal() {
                     {inventory.map((item) => (
                       <div
                         key={item.id}
-                        className="aspect-square bg-gray-800 rounded-lg border border-gray-700 flex flex-col items-center justify-center p-2 hover:border-gray-500 cursor-pointer transition-colors"
+                        className="aspect-square flex flex-col items-center justify-center p-2 cursor-pointer transition-colors"
+                        style={{
+                          background: theme.colors.bgDark,
+                          border: `1px solid ${theme.colors.border}`,
+                        }}
                       >
                         <span className="text-2xl">📦</span>
-                        <span className="text-xs text-gray-400 truncate w-full text-center mt-1">
+                        <span
+                          className="text-xs font-mono truncate w-full text-center mt-1"
+                          style={{ color: theme.colors.textMuted }}
+                        >
                           {item.itemId}
                         </span>
                         {item.quantity > 1 && (
-                          <span className="text-xs text-white bg-gray-700 px-1.5 rounded mt-1">
+                          <span
+                            className="text-xs font-mono px-1.5 mt-1"
+                            style={{
+                              background: theme.colors.bgLight,
+                              color: theme.colors.text,
+                            }}
+                          >
                             x{item.quantity}
                           </span>
                         )}

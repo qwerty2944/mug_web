@@ -1,5 +1,14 @@
 export { supabase } from "./supabase";
 
+// 인증 API
+export {
+  getSession,
+  subscribeToAuthChanges,
+  isAuthAvailable,
+  type AuthSession,
+  type AuthSubscription,
+} from "./auth";
+
 // 게임 데이터 API
 export {
   getEyeMappings,
@@ -8,8 +17,13 @@ export {
   getBodyMappings,
   getAllMappings,
   clearMappingCache,
-  type EyeMapping,
-  type HairMapping,
-  type FacehairMapping,
-  type BodyMapping,
 } from "./gameData";
+
+// 타입은 shared/types에서 re-export
+export type {
+  EyeMapping,
+  HairMapping,
+  FacehairMapping,
+  BodyMapping,
+  AllMappings,
+} from "../types/game-data";

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useCallback, type KeyboardEvent } from "react";
+import { useThemeStore } from "@/shared/config";
 
 interface ChatInputProps {
   onSend: (message: string) => void;
@@ -13,6 +14,7 @@ export function ChatInput({
   disabled = false,
   placeholder = "메시지를 입력하세요... (/w 닉네임 = 귓말)",
 }: ChatInputProps) {
+  const { theme } = useThemeStore();
   const [input, setInput] = useState("");
 
   const handleSend = useCallback(() => {
@@ -25,7 +27,6 @@ export function ChatInput({
 
   const handleKeyDown = useCallback(
     (e: KeyboardEvent<HTMLInputElement>) => {
-      // 한글 IME 조합 중이면 무시 (마지막 글자 중복 방지)
       if (e.nativeEvent.isComposing) return;
 
       if (e.key === "Enter" && !e.shiftKey) {
@@ -37,7 +38,13 @@ export function ChatInput({
   );
 
   return (
-    <div className="flex gap-2 p-3 bg-gray-800 border-t border-gray-700">
+    <div
+      className="flex gap-2 p-3 border-t"
+      style={{
+        background: theme.colors.bgLight,
+        borderColor: theme.colors.border,
+      }}
+    >
       <input
         type="text"
         value={input}
@@ -45,13 +52,23 @@ export function ChatInput({
         onKeyDown={handleKeyDown}
         disabled={disabled}
         placeholder={placeholder}
-        className="flex-1 px-3 py-2 bg-gray-700 border border-gray-600 rounded text-sm text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 disabled:opacity-50"
+        className="flex-1 px-3 py-2 text-sm font-mono focus:outline-none disabled:opacity-50"
+        style={{
+          background: theme.colors.bgDark,
+          border: `1px solid ${theme.colors.border}`,
+          color: theme.colors.text,
+        }}
         maxLength={200}
       />
       <button
         onClick={handleSend}
         disabled={disabled || !input.trim()}
-        className="px-4 py-2 bg-blue-600 hover:bg-blue-500 disabled:bg-gray-700 disabled:cursor-not-allowed rounded text-sm font-medium transition-colors"
+        className="px-4 py-2 text-sm font-mono font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+        style={{
+          background: disabled || !input.trim() ? theme.colors.bgDark : theme.colors.primaryDim,
+          border: `1px solid ${theme.colors.border}`,
+          color: theme.colors.text,
+        }}
       >
         전송
       </button>

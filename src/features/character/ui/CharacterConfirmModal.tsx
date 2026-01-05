@@ -1,12 +1,9 @@
 "use client";
 
 import { Modal } from "@/shared/ui";
-import {
-  useProfileStore,
-  useAppearanceStore,
-  STAT_NAMES,
-  type CharacterStats,
-} from "../model";
+import { useThemeStore } from "@/shared/config";
+import { useProfileStore, useAppearanceStore } from "@/application/stores";
+import { STAT_NAMES, type CharacterStats } from "../types";
 
 interface CharacterConfirmModalProps {
   open: boolean;
@@ -21,6 +18,7 @@ export function CharacterConfirmModal({
   onConfirm,
   loading = false,
 }: CharacterConfirmModalProps) {
+  const { theme } = useThemeStore();
   const { name, gender, race, bodyType, preset, getFinalStats } =
     useProfileStore();
   const { characterState } = useAppearanceStore();
@@ -65,15 +63,15 @@ export function CharacterConfirmModal({
           <Modal.Body className="space-y-4">
             {/* 기본 정보 */}
             <section>
-              <h3 className="text-sm font-medium text-gray-400 mb-2">
+              <h3 className="text-sm font-mono font-medium mb-2" style={{ color: theme.colors.textMuted }}>
                 기본 정보
               </h3>
-              <table className="w-full text-sm">
+              <table className="w-full text-sm font-mono">
                 <tbody>
                   {rows.map((row) => (
-                    <tr key={row.label} className="border-b border-gray-700">
-                      <td className="py-2 text-gray-400 w-24">{row.label}</td>
-                      <td className="py-2 text-white">{row.value}</td>
+                    <tr key={row.label} className="border-b" style={{ borderColor: theme.colors.borderDim }}>
+                      <td className="py-2 w-24" style={{ color: theme.colors.textMuted }}>{row.label}</td>
+                      <td className="py-2" style={{ color: theme.colors.text }}>{row.value}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -82,13 +80,13 @@ export function CharacterConfirmModal({
 
             {/* 외형 */}
             <section>
-              <h3 className="text-sm font-medium text-gray-400 mb-2">외형</h3>
-              <table className="w-full text-sm">
+              <h3 className="text-sm font-mono font-medium mb-2" style={{ color: theme.colors.textMuted }}>외형</h3>
+              <table className="w-full text-sm font-mono">
                 <tbody>
                   {appearanceRows.map((row) => (
-                    <tr key={row.label} className="border-b border-gray-700">
-                      <td className="py-2 text-gray-400 w-24">{row.label}</td>
-                      <td className="py-2 text-white">{row.value}</td>
+                    <tr key={row.label} className="border-b" style={{ borderColor: theme.colors.borderDim }}>
+                      <td className="py-2 w-24" style={{ color: theme.colors.textMuted }}>{row.label}</td>
+                      <td className="py-2" style={{ color: theme.colors.text }}>{row.value}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -97,7 +95,7 @@ export function CharacterConfirmModal({
 
             {/* 능력치 */}
             <section>
-              <h3 className="text-sm font-medium text-gray-400 mb-2">
+              <h3 className="text-sm font-mono font-medium mb-2" style={{ color: theme.colors.textMuted }}>
                 능력치
               </h3>
               <div className="grid grid-cols-3 gap-2">
@@ -105,12 +103,13 @@ export function CharacterConfirmModal({
                   (stat) => (
                     <div
                       key={stat}
-                      className="flex items-center justify-between bg-gray-700/50 rounded px-3 py-2"
+                      className="flex items-center justify-between px-3 py-2"
+                      style={{ background: theme.colors.bgDark }}
                     >
-                      <span className="text-gray-400 text-xs">
+                      <span className="text-xs font-mono" style={{ color: theme.colors.textMuted }}>
                         {STAT_NAMES[stat].ko}
                       </span>
-                      <span className="text-white font-medium">
+                      <span className="font-mono font-medium" style={{ color: theme.colors.text }}>
                         {finalStats[stat]}
                       </span>
                     </div>
@@ -120,12 +119,12 @@ export function CharacterConfirmModal({
             </section>
 
             {/* 시작 장비 설명 */}
-            <section className="bg-gray-700/30 rounded-lg p-3">
+            <section className="p-3" style={{ background: theme.colors.bgDark }}>
               <div className="flex items-center gap-2 mb-1">
                 <span className="text-lg">{preset.icon}</span>
-                <span className="font-medium text-white">{preset.name}</span>
+                <span className="font-mono font-medium" style={{ color: theme.colors.text }}>{preset.name}</span>
               </div>
-              <p className="text-xs text-gray-400">{preset.description}</p>
+              <p className="text-xs font-mono" style={{ color: theme.colors.textMuted }}>{preset.description}</p>
             </section>
           </Modal.Body>
 
@@ -133,14 +132,23 @@ export function CharacterConfirmModal({
             <button
               onClick={onClose}
               disabled={loading}
-              className="px-4 py-2 bg-gray-700 hover:bg-gray-600 disabled:opacity-50 rounded text-sm transition-colors"
+              className="px-4 py-2 disabled:opacity-50 text-sm font-mono transition-colors"
+              style={{
+                background: theme.colors.bgDark,
+                color: theme.colors.textMuted,
+                border: `1px solid ${theme.colors.border}`,
+              }}
             >
               취소
             </button>
             <button
               onClick={onConfirm}
               disabled={loading}
-              className="px-4 py-2 bg-green-600 hover:bg-green-500 disabled:opacity-50 rounded text-sm font-medium transition-colors"
+              className="px-4 py-2 disabled:opacity-50 text-sm font-mono font-medium transition-colors"
+              style={{
+                background: theme.colors.success,
+                color: theme.colors.bg,
+              }}
             >
               {loading ? "생성 중..." : "캐릭터 생성"}
             </button>

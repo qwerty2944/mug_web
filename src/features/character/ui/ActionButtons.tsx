@@ -1,6 +1,6 @@
 "use client";
 
-import { useAppearanceActions } from "../model";
+import { useAppearanceActions } from "@/application/stores";
 
 export function ActionButtons() {
   const { randomize, clearAll, resetColors } = useAppearanceActions();

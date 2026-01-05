@@ -1,6 +1,7 @@
 "use client";
 
-import type { ChatMessage as ChatMessageType } from "../model";
+import type { ChatMessage as ChatMessageType } from "@/application/stores";
+import { useThemeStore } from "@/shared/config";
 
 interface ChatMessageProps {
   message: ChatMessageType;
@@ -8,6 +9,7 @@ interface ChatMessageProps {
 }
 
 export function ChatMessage({ message, isOwn }: ChatMessageProps) {
+  const { theme } = useThemeStore();
   const { messageType, senderName, recipientName, content, createdAt } = message;
 
   const time = new Date(createdAt).toLocaleTimeString("ko-KR", {
@@ -19,7 +21,13 @@ export function ChatMessage({ message, isOwn }: ChatMessageProps) {
   if (messageType === "system") {
     return (
       <div className="text-center py-1">
-        <span className="text-xs text-yellow-500 bg-yellow-500/10 px-2 py-0.5 rounded">
+        <span
+          className="text-xs px-2 py-0.5 font-mono"
+          style={{
+            background: `${theme.colors.warning}20`,
+            color: theme.colors.warning,
+          }}
+        >
           🔔 {content}
         </span>
       </div>
@@ -30,7 +38,7 @@ export function ChatMessage({ message, isOwn }: ChatMessageProps) {
   if (messageType === "whisper") {
     const isReceived = !isOwn;
     return (
-      <div className={`py-1 ${isReceived ? "text-pink-400" : "text-purple-400"}`}>
+      <div className="py-1 font-mono" style={{ color: isReceived ? "#f472b6" : "#c084fc" }}>
         <span className="text-xs opacity-60">[{time}]</span>{" "}
         <span className="text-xs">
           {isReceived ? (
@@ -46,12 +54,15 @@ export function ChatMessage({ message, isOwn }: ChatMessageProps) {
 
   // 일반 메시지
   return (
-    <div className={`py-1 ${isOwn ? "text-blue-300" : "text-gray-200"}`}>
-      <span className="text-xs text-gray-500">[{time}]</span>{" "}
-      <span className={`font-medium ${isOwn ? "text-blue-400" : "text-green-400"}`}>
+    <div className="py-1 font-mono" style={{ color: theme.colors.text }}>
+      <span className="text-xs" style={{ color: theme.colors.textMuted }}>[{time}]</span>{" "}
+      <span
+        className="font-medium"
+        style={{ color: isOwn ? theme.colors.primary : theme.colors.success }}
+      >
         {senderName}
       </span>
-      <span className="text-gray-400">:</span>{" "}
+      <span style={{ color: theme.colors.textMuted }}>:</span>{" "}
       <span>{content}</span>
     </div>
   );

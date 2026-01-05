@@ -5,9 +5,9 @@ import {
   useAppearanceColor,
   useAppearanceActions,
   PART_TYPES,
-} from "./model";
+} from "@/application/stores";
 
-// Model (stores, hooks)
+// Stores (re-export from application stores)
 export {
   useAppearanceStore,
   useProfileStore,
@@ -15,8 +15,15 @@ export {
   useAppearanceAnimation,
   useAppearanceColor,
   useAppearanceActions,
-  useUnityBridge,
   PART_TYPES,
+  type PartType,
+} from "@/application/stores";
+
+// Unity (from application/providers)
+export { useUnityBridge } from "@/application/providers";
+
+// Presets (keep in model)
+export {
   STARTER_PRESETS,
   GENDERS,
   RACES,
@@ -26,13 +33,12 @@ export {
   MIN_STAT,
   STAT_NAMES,
   calculateTotalStats,
-  type PartType,
   type StarterPreset,
   type Gender,
   type Race,
   type BodyType,
   type CharacterStats,
-} from "./model";
+} from "./types";
 
 // UI Components
 export {
@@ -42,9 +48,10 @@ export {
   ActionButtons,
   UnityCanvas,
   CharacterConfirmModal,
-  UnityPortalProvider,
-  UnityPortalTarget,
 } from "./ui";
+
+// Actions
+export { saveCharacter, useSaveCharacter, type SaveCharacterParams } from "./save-character";
 
 // 위젯 주입용 훅 객체
 export const characterPanelHooks: CharacterPanelHooks = {

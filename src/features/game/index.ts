@@ -1,21 +1,18 @@
-// Model
+// Stores (re-export from application stores) - 클라이언트 상태만
 export {
   useGameStore,
   useChatStore,
-  useMapsStore,
-  usePlayerStore,
   parseChatCommand,
-  getMapDisplayName,
-  getMapDescription,
   type OnlineUser,
   type MapInfo,
   type ChatMessage,
   type MessageType,
-  type GameMap,
-  type PlayerProfile,
-  type PlayerCharacter,
-  type InventoryItem,
-} from "./model";
+} from "@/application/stores";
+
+// 서버 상태는 entities에서 직접 import
+// import { useProfile, getMainCharacter } from "@/entities/user";
+// import { useInventory } from "@/entities/inventory";
+// import { useMaps, getMapById, getMapDisplayName } from "@/entities/map";
 
 // UI
 export {
@@ -29,3 +26,9 @@ export {
 
 // Hooks
 export { useRealtimeChat } from "./lib/useRealtimeChat";
+
+// Actions
+export { updateLocation } from "./update-location";
+
+// Queries (React Query Mutations)
+export { useUpdateLocation } from "./update-location";

@@ -6,4 +6,4 @@ export type {
   AnimationInfo,
   ColorInfo,
   CharacterActions,
-} from "./model/types";
+} from "./types";

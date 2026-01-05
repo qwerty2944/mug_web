@@ -3,82 +3,36 @@
  */
 
 import { supabase } from "./supabase";
-
-const BUCKET_NAME = "game-data";
-const STORAGE_PATH = "mappings";
+import { STORAGE_CONFIG, MAPPING_FILES } from "../config/storage";
+import type {
+  EyeMapping,
+  HairMapping,
+  FacehairMapping,
+  BodyMapping,
+  EyeMappingFile,
+  HairMappingFile,
+  FacehairMappingFile,
+  BodyMappingFile,
+  AllMappings,
+} from "../types/game-data";
 
 // 캐시 (메모리)
 const cache = new Map<string, { data: unknown; timestamp: number }>();
-const CACHE_TTL = 5 * 60 * 1000; // 5분
 
-// ============ 타입 정의 ============
-
-export interface EyeMapping {
-  index: number;
-  fileName: string;
-  ko: string;
-  en: string;
-}
-
-export interface HairMapping {
-  index: number;
-  fileName: string;
-  ko: string;
-  en: string;
-  race: string;
-}
-
-export interface FacehairMapping {
-  index: number;
-  fileName: string;
-  ko: string;
-  en: string;
-}
-
-export interface BodyMapping {
-  index: number;
-  name: string;
-  ko: string;
-  en: string;
-  race: string;
-}
-
-export interface MappingFile<T> {
-  version: string;
-  generatedAt: string;
-  summary: { total: number };
-}
-
-export interface EyeMappingFile extends MappingFile<EyeMapping> {
-  eyes: EyeMapping[];
-}
-
-export interface HairMappingFile extends MappingFile<HairMapping> {
-  hairs: HairMapping[];
-}
-
-export interface FacehairMappingFile extends MappingFile<FacehairMapping> {
-  facehairs: FacehairMapping[];
-}
-
-export interface BodyMappingFile extends MappingFile<BodyMapping> {
-  bodies: BodyMapping[];
-}
-
-// ============ 데이터 페칭 ============
+// ============ 내부 유틸리티 ============
 
 async function fetchFromStorage<T>(fileName: string): Promise<T | null> {
   // 캐시 확인
   const cached = cache.get(fileName);
-  if (cached && Date.now() - cached.timestamp < CACHE_TTL) {
+  if (cached && Date.now() - cached.timestamp < STORAGE_CONFIG.CACHE_TTL) {
     return cached.data as T;
   }
 
   try {
     // Supabase Storage에서 가져오기
     const { data } = supabase.storage
-      .from(BUCKET_NAME)
-      .getPublicUrl(`${STORAGE_PATH}/${fileName}`);
+      .from(STORAGE_CONFIG.BUCKET_NAME)
+      .getPublicUrl(`${STORAGE_CONFIG.MAPPING_PATH}/${fileName}`);
 
     const response = await fetch(data.publicUrl);
     if (!response.ok) {
@@ -113,27 +67,26 @@ async function fetchFromStorage<T>(fileName: string): Promise<T | null> {
 // ============ 데이터 API ============
 
 export async function getEyeMappings(): Promise<EyeMapping[]> {
-  const data = await fetchFromStorage<EyeMappingFile>("eye-mapping.json");
+  const data = await fetchFromStorage<EyeMappingFile>(MAPPING_FILES.EYE);
   return data?.eyes ?? [];
 }
 
 export async function getHairMappings(): Promise<HairMapping[]> {
-  const data = await fetchFromStorage<HairMappingFile>("hair-mapping.json");
+  const data = await fetchFromStorage<HairMappingFile>(MAPPING_FILES.HAIR);
   return data?.hairs ?? [];
 }
 
 export async function getFacehairMappings(): Promise<FacehairMapping[]> {
-  const data = await fetchFromStorage<FacehairMappingFile>("facehair-mapping.json");
+  const data = await fetchFromStorage<FacehairMappingFile>(MAPPING_FILES.FACEHAIR);
   return data?.facehairs ?? [];
 }
 
 export async function getBodyMappings(): Promise<BodyMapping[]> {
-  const data = await fetchFromStorage<BodyMappingFile>("body-mapping.json");
+  const data = await fetchFromStorage<BodyMappingFile>(MAPPING_FILES.BODY);
   return data?.bodies ?? [];
 }
 
-// 모든 매핑 데이터 한번에 가져오기
-export async function getAllMappings() {
+export async function getAllMappings(): Promise<AllMappings> {
   const [eyes, hairs, facehairs, bodies] = await Promise.all([
     getEyeMappings(),
     getHairMappings(),
@@ -144,7 +97,6 @@ export async function getAllMappings() {
   return { eyes, hairs, facehairs, bodies };
 }
 
-// 캐시 클리어
-export function clearMappingCache() {
+export function clearMappingCache(): void {
   cache.clear();
 }

@@ -1,6 +1,6 @@
 "use client";
 
-import { useAppearanceAnimation } from "../model";
+import { useAppearanceAnimation } from "@/application/stores";
 
 export function AnimationSelector() {
   const { state, index, total, states, next, prev, changeState } = useAppearanceAnimation();

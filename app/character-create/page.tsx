@@ -7,6 +7,7 @@ import {
   useAppearanceStore,
   useProfileStore,
   CharacterConfirmModal,
+  useSaveCharacter,
   STARTER_PRESETS,
   GENDERS,
   RACES,
@@ -18,7 +19,6 @@ import {
 } from "@/features/character";
 import { CharacterCreator } from "@/widgets/character-creator";
 import { globalStyles } from "@/shared/ui";
-import { supabase } from "@/shared/api";
 import { useAuthStore } from "@/features/auth";
 
 export default function CharacterCreatePage() {
@@ -35,14 +35,12 @@ export default function CharacterCreatePage() {
     bodyType,
     preset,
     allocatedStats,
-    saving,
     setStep,
     setName,
     setGender,
     setRace,
     setBodyType,
     setPreset,
-    setSaving,
     increaseStat,
     decreaseStat,
     resetStats,
@@ -51,10 +49,20 @@ export default function CharacterCreatePage() {
     getStatBonus,
   } = useProfileStore();
 
+  const saveCharacter = useSaveCharacter({
+    onSuccess: () => {
+      toast.success("캐릭터가 생성되었습니다!");
+      router.push("/game");
+    },
+    onError: (error) => {
+      toast.error(`저장 실패: ${error.message || "네트워크 오류"}`);
+    },
+  });
+
   const remainingPoints = getRemainingPoints();
 
   // 캐릭터 저장
-  const handleSave = async () => {
+  const handleSave = () => {
     if (!session?.user?.id) {
       toast.error("로그인이 필요합니다.");
       return;
@@ -65,65 +73,35 @@ export default function CharacterCreatePage() {
       return;
     }
 
-    setSaving(true);
-    try {
-      console.log("=== 캐릭터 저장 디버그 ===");
-      console.log("characterState:", characterState);
-
-      const finalStats = getFinalStats();
-      const character = {
-        name: name.trim(),
-        isMain: true,
-        gender,
-        race: race.id,
-        bodyType: bodyType.index,
-        preset: preset.id,
-        stats: finalStats,
-        appearance: {
-          bodyIndex: bodyType.index,
-          eyeIndex: characterState?.eyeIndex ?? 0,
-          hairIndex: characterState?.hairIndex ?? -1,
-          facehairIndex: characterState?.facehairIndex ?? -1,
-          clothIndex: characterState?.clothIndex ?? -1,
-          armorIndex: characterState?.armorIndex ?? -1,
-          pantIndex: characterState?.pantIndex ?? -1,
-          helmetIndex: characterState?.helmetIndex ?? -1,
-          backIndex: characterState?.backIndex ?? -1,
-        },
-        colors: {
-          body: characterState?.bodyColor ?? "FFFFFF",
-          eye: characterState?.eyeColor ?? "FFFFFF",
-          hair: characterState?.hairColor ?? "FFFFFF",
-          facehair: characterState?.facehairColor ?? "FFFFFF",
-          cloth: characterState?.clothColor ?? "FFFFFF",
-          armor: characterState?.armorColor ?? "FFFFFF",
-          pant: characterState?.pantColor ?? "FFFFFF",
-        },
-        createdAt: new Date().toISOString(),
-      };
-
-      console.log("저장할 appearance:", character.appearance);
-      console.log("저장할 colors:", character.colors);
-
-      const { data, error } = await supabase.rpc("save_character", {
-        p_user_id: session.user.id,
-        p_character: character,
-      });
-
-      if (error) {
-        console.error("RPC Error:", error);
-        toast.error(`저장 실패: ${error.message || "알 수 없는 오류"}`);
-        return;
-      }
-
-      toast.success("캐릭터가 생성되었습니다!");
-      router.push("/game");
-    } catch (err: any) {
-      console.error("캐릭터 저장 실패:", err);
-      toast.error(`저장 실패: ${err?.message || "네트워크 오류"}`);
-    } finally {
-      setSaving(false);
-    }
+    saveCharacter.mutate({
+      userId: session.user.id,
+      name: name.trim(),
+      gender,
+      race: race.id,
+      bodyType: bodyType.index,
+      preset: preset.id,
+      stats: getFinalStats(),
+      appearance: {
+        bodyIndex: bodyType.index,
+        eyeIndex: characterState?.eyeIndex ?? 0,
+        hairIndex: characterState?.hairIndex ?? -1,
+        facehairIndex: characterState?.facehairIndex ?? -1,
+        clothIndex: characterState?.clothIndex ?? -1,
+        armorIndex: characterState?.armorIndex ?? -1,
+        pantIndex: characterState?.pantIndex ?? -1,
+        helmetIndex: characterState?.helmetIndex ?? -1,
+        backIndex: characterState?.backIndex ?? -1,
+      },
+      colors: {
+        body: characterState?.bodyColor ?? "FFFFFF",
+        eye: characterState?.eyeColor ?? "FFFFFF",
+        hair: characterState?.hairColor ?? "FFFFFF",
+        facehair: characterState?.facehairColor ?? "FFFFFF",
+        cloth: characterState?.clothColor ?? "FFFFFF",
+        armor: characterState?.armorColor ?? "FFFFFF",
+        pant: characterState?.pantColor ?? "FFFFFF",
+      },
+    });
   };
 
   // 보너스 표시 컴포넌트
@@ -374,7 +352,7 @@ export default function CharacterCreatePage() {
         open={showConfirmModal}
         onClose={() => setShowConfirmModal(false)}
         onConfirm={handleSave}
-        loading={saving}
+        loading={saveCharacter.isPending}
       />
 
       <style jsx global>{globalStyles}</style>

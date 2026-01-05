@@ -2,8 +2,10 @@
 
 import { useEffect, useRef, useCallback } from "react";
 import { supabase } from "@/shared/api";
-import { useGameStore, useChatStore, useMapsStore, parseChatCommand } from "../model";
-import type { ChatMessage, OnlineUser } from "../model";
+import { useGameStore, useChatStore, parseChatCommand, type OnlineUser } from "@/application/stores";
+import { fetchRecentMessages, saveMessage, type ChatMessage } from "@/entities/chat";
+import { useMaps, getMapById } from "@/entities/map";
+import { updateLocation as updateLocationApi } from "@/features/game/update-location";
 import type { RealtimeChannel } from "@supabase/supabase-js";
 
 interface UseRealtimeChatProps {
@@ -20,11 +22,10 @@ export function useRealtimeChat({
   const channelRef = useRef<RealtimeChannel | null>(null);
 
   const { setOnlineUsers, setConnected } = useGameStore();
-  const { getMapById } = useMapsStore();
+  const { data: maps = [] } = useMaps();
   const {
     addMessage,
     addMessages,
-    setLoading,
     lastWhisperFrom,
     clearMessages,
     loadFromCache,
@@ -34,59 +35,29 @@ export function useRealtimeChat({
   // 채팅 히스토리 로드 (캐시 우선)
   const loadHistory = useCallback(async () => {
     // 1. 캐시에서 먼저 로드 (즉시 표시)
-    const cached = loadFromCache(mapId);
-
-    // 캐시가 있으면 로딩 표시 생략, 없으면 로딩 표시
-    if (cached.length === 0) {
-      setLoading(true);
-    }
+    loadFromCache(mapId);
 
     try {
       // 2. 서버에서 최신 데이터 가져오기
-      const { data, error } = await supabase.rpc("get_recent_messages", {
-        p_map_id: mapId,
-        p_limit: 50,
-      });
+      const messages = await fetchRecentMessages(mapId, 50);
 
-      if (error) throw error;
+      // 시간순 정렬 (오래된 것 먼저)
+      messages.reverse();
+      addMessages(messages);
 
-      if (data) {
-        const messages: ChatMessage[] = data.map((msg: any) => ({
-          id: msg.id.toString(),
-          mapId: msg.map_id,
-          senderId: msg.sender_id,
-          senderName: msg.sender_name,
-          messageType: msg.message_type,
-          recipientId: msg.recipient_id,
-          recipientName: msg.recipient_name,
-          content: msg.content,
-          createdAt: msg.created_at,
-        }));
-
-        // 시간순 정렬 (오래된 것 먼저)
-        messages.reverse();
-        addMessages(messages);
-
-        // 3. 캐시 업데이트
-        saveToCache(mapId);
-      }
+      // 3. 캐시 업데이트
+      saveToCache(mapId);
     } catch (error) {
       console.error("Failed to load chat history:", error);
-    } finally {
-      setLoading(false);
     }
-  }, [mapId, addMessages, setLoading, loadFromCache, saveToCache]);
+  }, [mapId, addMessages, loadFromCache, saveToCache]);
 
-  // 유저 위치 등록
-  const registerLocation = useCallback(async () => {
+  // 유저 위치 업데이트
+  const updateLocation = useCallback(async () => {
     try {
-      await supabase.rpc("upsert_user_location", {
-        p_user_id: userId,
-        p_character_name: characterName,
-        p_map_id: mapId,
-      });
+      await updateLocationApi({ userId, characterName, mapId });
     } catch (error) {
-      console.error("Failed to register location:", error);
+      console.error("Failed to update location:", error);
     }
   }, [userId, characterName, mapId]);
 
@@ -130,22 +101,18 @@ export function useRealtimeChat({
       }
 
       // DB에 저장 (비동기)
-      supabase
-        .from("chat_messages")
-        .insert({
-          map_id: mapId,
-          sender_id: userId,
-          sender_name: characterName,
-          message_type: parsed.type,
-          recipient_name: parsed.recipient,
-          content: parsed.content,
-        })
-        .then(({ error }) => {
-          if (error) console.error("Failed to save message:", error);
-          else saveToCache(mapId); // 성공 시 캐시 업데이트
-        });
+      saveMessage({
+        mapId,
+        senderId: userId,
+        senderName: characterName,
+        messageType: parsed.type,
+        recipientName: parsed.recipient,
+        content: parsed.content,
+      })
+        .then(() => saveToCache(mapId))
+        .catch((error) => console.error("Failed to save message:", error));
     },
-    [mapId, userId, characterName, lastWhisperFrom, saveToCache]
+    [mapId, userId, characterName, lastWhisperFrom, saveToCache, addMessage]
   );
 
   // 시스템 메시지 추가
@@ -234,11 +201,11 @@ export function useRealtimeChat({
           online_at: new Date().toISOString(),
         });
 
-        // 위치 등록 및 히스토리 로드
-        await registerLocation();
+        // 위치 업데이트 및 히스토리 로드
+        await updateLocation();
         await loadHistory();
 
-        const mapName = getMapById(mapId)?.nameKo || mapId;
+        const mapName = getMapById(maps, mapId)?.nameKo || mapId;
         addSystemMessage(`${mapName}에 입장했습니다.`);
       }
     });
@@ -258,15 +225,15 @@ export function useRealtimeChat({
     mapId,
     userId,
     characterName,
+    maps,
     addMessage,
     addSystemMessage,
     setOnlineUsers,
     setConnected,
-    registerLocation,
+    updateLocation,
     loadHistory,
     clearMessages,
     saveToCache,
-    getMapById,
   ]);
 
   return {
