@@ -37,7 +37,7 @@ export default function GamePage() {
   const { data: maps = [] } = useMaps();
 
   // 로컬 UI 상태
-  const [mapId, setMapId] = useState("starting_village");
+  const [mapId, setMapId] = useState("town_square");
   const [showThemeModal, setShowThemeModal] = useState(false);
 
   const mainCharacter = getMainCharacter(profile);
@@ -66,7 +66,7 @@ export default function GamePage() {
   // 맵 로드 후 현재 맵 설정
   useEffect(() => {
     if (maps.length > 0 && !currentMap) {
-      const startMap = getMapById(maps, "starting_village");
+      const startMap = getMapById(maps, "town_square");
       if (startMap) {
         setCurrentMap({
           id: startMap.id,
