@@ -581,29 +581,26 @@ const { activeDuel, isInDuel } = usePvpStore();
 
 ### 맵 구조
 ```
-         🏘️ town_square (마을 광장) - 안전지대
-        /           |           \
-   🛒 shop_district  |      🎯 training_ground
-      (상점가)       |         (수련장)
-     안전지대        |        허수아비 Lv.1
-                    |              |
-                    |              |
-               🌲 forest_entrance (숲 입구)
-                  다람쥐 Lv.2, 늙은 다람쥐 Lv.3
-                         |
-                         |
-                 🌳 deep_forest (깊은 숲)
-                  늑대 Lv.5, 숲거미 Lv.6
+🏠 starting_village (시작 마을) - 안전지대
+├── 🎯 training_ground (수련장) - 안전, 허수아비
+├── 🏪 market_square (시장 광장) - 안전
+│   └── ⚔️ arena (투기장) - Lv.10+, PvP
+└── 🌲 forest_entrance (숲 입구) - 위험
+    ├── 🎯 training_ground (수련장)
+    └── 🌳 deep_forest (깊은 숲) - Lv.5+
+        └── 🏛️ ancient_ruins (고대 유적) - Lv.10+
 ```
 
-### 맵 연결
-| 출발 | 도착 |
-|------|------|
-| town_square | shop_district |
-| town_square | training_ground |
-| town_square | forest_entrance |
-| training_ground | forest_entrance |
-| forest_entrance | deep_forest |
+### 맵 목록
+| ID | 이름 | 레벨 | 안전 | 연결 |
+|----|------|------|------|------|
+| starting_village | 시작 마을 | 1 | O | 숲입구, 시장광장, 수련장 |
+| training_ground | 수련장 | 1 | O | 시작마을, 숲입구 |
+| market_square | 시장 광장 | 1 | O | 시작마을, 투기장 |
+| forest_entrance | 숲 입구 | 1 | X | 시작마을, 수련장, 깊은숲 |
+| deep_forest | 깊은 숲 | 5 | X | 숲입구, 고대유적 |
+| ancient_ruins | 고대 유적 | 10 | X | 깊은숲 |
+| arena | 투기장 | 10 | X | 시장광장 (PvP) |
 
 ### 몬스터 배치
 | 맵 | 몬스터 | 레벨 | 속성 |

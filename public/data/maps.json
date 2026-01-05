@@ -1,19 +1,19 @@
 {
   "version": "1.0.0",
-  "generatedAt": "2026-01-05T00:00:00.000Z",
+  "generatedAt": "2026-01-06T00:00:00.000Z",
   "maps": [
     {
-      "id": "town_square",
-      "nameKo": "마을 광장",
-      "nameEn": "Town Square",
-      "descriptionKo": "모험가들이 모이는 마을의 중심 광장.",
-      "descriptionEn": "The central square where adventurers gather.",
-      "icon": "🏘️",
+      "id": "starting_village",
+      "nameKo": "시작 마을",
+      "nameEn": "Starting Village",
+      "descriptionKo": "모험의 시작점. 안전한 마을입니다.",
+      "descriptionEn": "The starting point of your adventure. A safe village.",
+      "icon": "🏠",
       "minLevel": 1,
       "maxPlayers": 100,
       "isPvp": false,
       "isSafeZone": true,
-      "connectedMaps": ["training_ground", "forest_entrance", "shop_district"]
+      "connectedMaps": ["forest_entrance", "market_square", "training_ground"]
     },
     {
       "id": "training_ground",
@@ -26,51 +26,77 @@
       "maxPlayers": 50,
       "isPvp": false,
       "isSafeZone": true,
-      "connectedMaps": ["town_square", "forest_entrance"]
+      "connectedMaps": ["starting_village", "forest_entrance"]
+    },
+    {
+      "id": "market_square",
+      "nameKo": "시장 광장",
+      "nameEn": "Market Square",
+      "descriptionKo": "상인들이 모여있는 활기찬 광장입니다.",
+      "descriptionEn": "A lively square where merchants gather.",
+      "icon": "🏪",
+      "minLevel": 1,
+      "maxPlayers": 100,
+      "isPvp": false,
+      "isSafeZone": true,
+      "connectedMaps": ["starting_village", "arena"]
     },
     {
       "id": "forest_entrance",
       "nameKo": "숲 입구",
       "nameEn": "Forest Entrance",
-      "descriptionKo": "울창한 숲의 입구. 작은 동물들이 서식한다.",
-      "descriptionEn": "Entrance to the dense forest. Small animals live here.",
+      "descriptionKo": "어두운 숲으로 향하는 입구입니다.",
+      "descriptionEn": "The entrance to the dark forest.",
       "icon": "🌲",
       "minLevel": 1,
-      "maxPlayers": 30,
+      "maxPlayers": 100,
       "isPvp": false,
       "isSafeZone": false,
-      "connectedMaps": ["town_square", "training_ground", "deep_forest"]
+      "connectedMaps": ["starting_village", "deep_forest", "training_ground"]
     },
     {
       "id": "deep_forest",
       "nameKo": "깊은 숲",
       "nameEn": "Deep Forest",
-      "descriptionKo": "더 깊은 숲속. 강한 몬스터들이 출현한다.",
-      "descriptionEn": "Deeper into the forest. Stronger monsters appear here.",
+      "descriptionKo": "몬스터가 출몰하는 위험한 지역입니다.",
+      "descriptionEn": "A dangerous area where monsters roam.",
       "icon": "🌳",
       "minLevel": 5,
-      "maxPlayers": 20,
+      "maxPlayers": 100,
       "isPvp": false,
       "isSafeZone": false,
-      "connectedMaps": ["forest_entrance"]
+      "connectedMaps": ["forest_entrance", "ancient_ruins"]
     },
     {
-      "id": "shop_district",
-      "nameKo": "상점가",
-      "nameEn": "Shop District",
-      "descriptionKo": "다양한 상점들이 모여 있는 거리.",
-      "descriptionEn": "A street lined with various shops.",
-      "icon": "🛒",
-      "minLevel": 1,
-      "maxPlayers": 50,
+      "id": "ancient_ruins",
+      "nameKo": "고대 유적",
+      "nameEn": "Ancient Ruins",
+      "descriptionKo": "신비로운 힘이 깃든 유적지입니다.",
+      "descriptionEn": "Mysterious ruins with ancient power.",
+      "icon": "🏛️",
+      "minLevel": 10,
+      "maxPlayers": 100,
       "isPvp": false,
-      "isSafeZone": true,
-      "connectedMaps": ["town_square"]
+      "isSafeZone": false,
+      "connectedMaps": ["deep_forest"]
+    },
+    {
+      "id": "arena",
+      "nameKo": "투기장",
+      "nameEn": "Arena",
+      "descriptionKo": "PvP가 가능한 전투 지역입니다.",
+      "descriptionEn": "A PvP enabled combat zone.",
+      "icon": "⚔️",
+      "minLevel": 10,
+      "maxPlayers": 100,
+      "isPvp": true,
+      "isSafeZone": false,
+      "connectedMaps": ["market_square"]
     }
   ],
   "summary": {
-    "total": 5,
+    "total": 7,
     "safeZones": 3,
-    "combatZones": 2
+    "combatZones": 4
   }
 }
