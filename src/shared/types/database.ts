@@ -339,6 +339,79 @@ export type Database = {
           },
         ]
       }
+      proficiencies: {
+        Row: {
+          id: string
+          user_id: string | null
+          // 무기 숙련
+          sword: number | null
+          axe: number | null
+          mace: number | null
+          dagger: number | null
+          spear: number | null
+          bow: number | null
+          crossbow: number | null
+          staff: number | null
+          // 마법 숙련
+          fire: number | null
+          ice: number | null
+          lightning: number | null
+          earth: number | null
+          holy: number | null
+          dark: number | null
+          created_at: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          id?: string
+          user_id?: string | null
+          sword?: number | null
+          axe?: number | null
+          mace?: number | null
+          dagger?: number | null
+          spear?: number | null
+          bow?: number | null
+          crossbow?: number | null
+          staff?: number | null
+          fire?: number | null
+          ice?: number | null
+          lightning?: number | null
+          earth?: number | null
+          holy?: number | null
+          dark?: number | null
+          created_at?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          id?: string
+          user_id?: string | null
+          sword?: number | null
+          axe?: number | null
+          mace?: number | null
+          dagger?: number | null
+          spear?: number | null
+          bow?: number | null
+          crossbow?: number | null
+          staff?: number | null
+          fire?: number | null
+          ice?: number | null
+          lightning?: number | null
+          earth?: number | null
+          holy?: number | null
+          dark?: number | null
+          created_at?: string | null
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "proficiencies_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: true
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never
