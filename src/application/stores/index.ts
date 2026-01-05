@@ -36,6 +36,18 @@ export {
   type BattleState,
 } from "./battleStore";
 
+// ============ PvP ============
+export {
+  usePvpStore,
+  type DuelRequest,
+  type DuelParticipant,
+  type DuelLogEntry,
+  type DuelAction,
+  type DuelResult,
+  type DuelEndResult,
+  type DuelState,
+} from "./pvpStore";
+
 // ============ UI ============
 export { useThemeStore } from "./themeStore";
 export { useModalStore, useModal, type ModalConfig } from "./modalStore";

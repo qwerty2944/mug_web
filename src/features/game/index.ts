@@ -22,10 +22,14 @@ export {
   PlayerList,
   MapSelector,
   AVAILABLE_MAPS,
+  PlayerContextMenu,
+  DuelRequestModal,
+  DuelBattlePanel,
 } from "./ui";
 
 // Hooks
 export { useRealtimeChat } from "./lib/useRealtimeChat";
+export { useRealtimeDuel } from "./lib/useRealtimeDuel";
 
 // Actions
 export { updateLocation } from "./update-location";

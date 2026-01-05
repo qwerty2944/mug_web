@@ -28,6 +28,8 @@ src/
 │       ├── profileStore.ts     # 캐릭터 생성 폼 상태
 │       ├── gameStore.ts        # 연결 상태, 온라인 유저
 │       ├── chatStore.ts        # 채팅 메시지, 캐시
+│       ├── battleStore.ts      # PvE 전투 상태
+│       ├── pvpStore.ts         # PvP 결투 상태
 │       ├── themeStore.ts       # 테마 설정
 │       └── modalStore.ts       # 모달 상태
 ├── widgets/                # 복합 UI 블록 (헤더, 사이드바 등)
@@ -51,8 +53,20 @@ src/
 │   │   ├── use-item/           # 아이템 사용
 │   │   ├── move-item/          # 아이템 이동
 │   │   └── index.ts
-│   └── proficiency/
-│       ├── gain-proficiency/   # 숙련도 증가 액션
+│   ├── proficiency/
+│   │   ├── gain-proficiency/   # 숙련도 증가 액션
+│   │   └── index.ts
+│   ├── combat/                 # PvE 전투
+│   │   ├── start-battle/       # 전투 시작
+│   │   ├── attack/             # 공격
+│   │   ├── end-battle/         # 전투 종료
+│   │   ├── lib/damage.ts       # 데미지 계산
+│   │   └── index.ts
+│   └── pvp/                    # PvP 결투
+│       ├── request-duel/       # 결투 신청
+│       ├── respond-duel/       # 수락/거절
+│       ├── duel-action/        # 턴 행동
+│       ├── lib/duelHelpers.ts  # 유틸리티
 │       └── index.ts
 ├── entities/               # 비즈니스 엔티티
 │   ├── character/
@@ -418,3 +432,80 @@ attack({
 const { endBattle, isVictory } = useEndBattle({ userId });
 if (isVictory) endBattle(); // 보상 지급 + 숙련도 상승
 ```
+
+## PvP 결투 시스템 (Duel)
+
+유저 간 실시간 턴제 결투 시스템. Supabase Realtime을 활용한 도전/수락/전투 진행.
+
+### 설계
+- **턴 순서**: DEX 기반 (높은 DEX가 선공)
+- **패배 페널티**: 없음 (친선 경기)
+- **도전 대기 시간**: 30초
+
+### 결투 플로우
+```
+1. PlayerList에서 유저 클릭 → 메뉴 표시
+2. "결투 신청" 클릭 → Realtime broadcast: "duel_request"
+3. 상대방에게 모달 표시 (30초 제한)
+4. 수락 시 → DEX 비교로 선공 결정 → 결투 시작
+5. 턴 진행 (Realtime 동기화)
+6. HP 0 → 결투 종료 → 숙련도 증가 (양쪽 모두)
+```
+
+### PvP 방어력
+- 물리 방어: `CON * 0.5`
+- 마법 방어: `WIS * 0.3`
+
+### 폴더 구조
+```
+src/
+├── application/stores/
+│   └── pvpStore.ts              # PvP 상태 관리
+│
+├── features/
+│   ├── pvp/                     # PvP 기능
+│   │   ├── request-duel/        # useRequestDuel - 도전 신청
+│   │   ├── respond-duel/        # useRespondDuel - 수락/거절
+│   │   ├── duel-action/         # useDuelAction - 턴 행동
+│   │   ├── lib/duelHelpers.ts   # 유틸리티
+│   │   └── index.ts
+│   │
+│   └── game/
+│       ├── lib/
+│       │   └── useRealtimeDuel.ts   # 결투 이벤트 처리
+│       └── ui/
+│           ├── PlayerContextMenu.tsx # 유저 클릭 메뉴
+│           ├── DuelRequestModal.tsx  # 도전 수락/거절 모달
+│           └── DuelBattlePanel.tsx   # 결투 UI
+```
+
+### 사용법
+```typescript
+import { useRequestDuel, useRespondDuel, useDuelAction } from "@/features/pvp";
+import { useRealtimeDuel, DuelRequestModal, DuelBattlePanel } from "@/features/game";
+import { usePvpStore } from "@/application/stores";
+
+// 결투 신청
+const { requestDuel } = useRequestDuel({ userId, characterName, mapId });
+requestDuel(targetUser);
+
+// 결투 수락/거절
+const { acceptDuel, declineDuel, pendingRequests } = useRespondDuel({ userId });
+acceptDuel(request.challengerId);
+
+// 결투 중 공격
+const { attack, flee, isMyTurn } = useDuelAction({ userId });
+if (isMyTurn) attack("sword");
+
+// 결투 상태 구독
+const { activeDuel, isInDuel } = usePvpStore();
+```
+
+### Realtime 이벤트
+| 이벤트 | 설명 |
+|--------|------|
+| duel_request | 결투 신청 |
+| duel_response | 수락/거절 응답 |
+| duel_start | 결투 시작 |
+| duel_action | 턴 행동 (공격/도주) |
+| duel_end | 결투 종료 |
