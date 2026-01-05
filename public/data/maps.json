@@ -1,0 +1,76 @@
+{
+  "version": "1.0.0",
+  "generatedAt": "2026-01-05T00:00:00.000Z",
+  "maps": [
+    {
+      "id": "town_square",
+      "nameKo": "마을 광장",
+      "nameEn": "Town Square",
+      "descriptionKo": "모험가들이 모이는 마을의 중심 광장.",
+      "descriptionEn": "The central square where adventurers gather.",
+      "icon": "🏘️",
+      "minLevel": 1,
+      "maxPlayers": 100,
+      "isPvp": false,
+      "isSafeZone": true,
+      "connectedMaps": ["training_ground", "forest_entrance", "shop_district"]
+    },
+    {
+      "id": "training_ground",
+      "nameKo": "수련장",
+      "nameEn": "Training Ground",
+      "descriptionKo": "초보 모험가를 위한 훈련장. 허수아비가 설치되어 있다.",
+      "descriptionEn": "Training area for beginners. Scarecrows are set up for practice.",
+      "icon": "🎯",
+      "minLevel": 1,
+      "maxPlayers": 50,
+      "isPvp": false,
+      "isSafeZone": true,
+      "connectedMaps": ["town_square", "forest_entrance"]
+    },
+    {
+      "id": "forest_entrance",
+      "nameKo": "숲 입구",
+      "nameEn": "Forest Entrance",
+      "descriptionKo": "울창한 숲의 입구. 작은 동물들이 서식한다.",
+      "descriptionEn": "Entrance to the dense forest. Small animals live here.",
+      "icon": "🌲",
+      "minLevel": 1,
+      "maxPlayers": 30,
+      "isPvp": false,
+      "isSafeZone": false,
+      "connectedMaps": ["town_square", "training_ground", "deep_forest"]
+    },
+    {
+      "id": "deep_forest",
+      "nameKo": "깊은 숲",
+      "nameEn": "Deep Forest",
+      "descriptionKo": "더 깊은 숲속. 강한 몬스터들이 출현한다.",
+      "descriptionEn": "Deeper into the forest. Stronger monsters appear here.",
+      "icon": "🌳",
+      "minLevel": 5,
+      "maxPlayers": 20,
+      "isPvp": false,
+      "isSafeZone": false,
+      "connectedMaps": ["forest_entrance"]
+    },
+    {
+      "id": "shop_district",
+      "nameKo": "상점가",
+      "nameEn": "Shop District",
+      "descriptionKo": "다양한 상점들이 모여 있는 거리.",
+      "descriptionEn": "A street lined with various shops.",
+      "icon": "🛒",
+      "minLevel": 1,
+      "maxPlayers": 50,
+      "isPvp": false,
+      "isSafeZone": true,
+      "connectedMaps": ["town_square"]
+    }
+  ],
+  "summary": {
+    "total": 5,
+    "safeZones": 3,
+    "combatZones": 2
+  }
+}

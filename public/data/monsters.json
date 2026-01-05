@@ -1,0 +1,109 @@
+{
+  "version": "1.0.0",
+  "generatedAt": "2026-01-05T00:00:00.000Z",
+  "monsters": [
+    {
+      "id": "scarecrow",
+      "nameKo": "허수아비",
+      "nameEn": "Scarecrow",
+      "mapId": "training_ground",
+      "level": 1,
+      "element": null,
+      "stats": {
+        "hp": 50,
+        "attack": 0,
+        "defense": 0,
+        "speed": 0
+      },
+      "rewards": {
+        "exp": 5,
+        "gold": 0
+      },
+      "drops": [],
+      "behavior": "passive",
+      "icon": "🎃",
+      "description": {
+        "ko": "훈련용 허수아비. 반격하지 않는다.",
+        "en": "Training dummy. Does not fight back."
+      }
+    },
+    {
+      "id": "squirrel",
+      "nameKo": "다람쥐",
+      "nameEn": "Squirrel",
+      "mapId": "forest_entrance",
+      "level": 2,
+      "element": "earth",
+      "stats": {
+        "hp": 30,
+        "attack": 5,
+        "defense": 2,
+        "speed": 8
+      },
+      "rewards": {
+        "exp": 10,
+        "gold": 5
+      },
+      "drops": [
+        {
+          "itemId": "acorn",
+          "chance": 0.3,
+          "quantity": [1, 2]
+        }
+      ],
+      "behavior": "aggressive",
+      "icon": "🐿️",
+      "description": {
+        "ko": "숲에 서식하는 다람쥐. 대지 속성을 가지고 있다.",
+        "en": "A squirrel living in the forest. Has earth element."
+      }
+    },
+    {
+      "id": "squirrel_elder",
+      "nameKo": "늙은 다람쥐",
+      "nameEn": "Elder Squirrel",
+      "mapId": "forest_entrance",
+      "level": 3,
+      "element": "earth",
+      "stats": {
+        "hp": 45,
+        "attack": 8,
+        "defense": 4,
+        "speed": 6
+      },
+      "rewards": {
+        "exp": 18,
+        "gold": 10
+      },
+      "drops": [
+        {
+          "itemId": "acorn",
+          "chance": 0.5,
+          "quantity": [2, 4]
+        },
+        {
+          "itemId": "squirrel_fur",
+          "chance": 0.1,
+          "quantity": [1, 1]
+        }
+      ],
+      "behavior": "defensive",
+      "icon": "🐿️",
+      "description": {
+        "ko": "오래 살아 지혜로운 다람쥐. 더 강한 대지의 힘을 가지고 있다.",
+        "en": "A wise old squirrel. Has stronger earth powers."
+      }
+    }
+  ],
+  "summary": {
+    "total": 3,
+    "byMap": {
+      "training_ground": 1,
+      "forest_entrance": 2
+    },
+    "byElement": {
+      "neutral": 1,
+      "earth": 2
+    }
+  }
+}

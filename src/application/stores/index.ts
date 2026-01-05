@@ -29,6 +29,12 @@ export {
   type ChatMessage,
   type MessageType,
 } from "./chatStore";
+export {
+  useBattleStore,
+  type BattleLogEntry,
+  type BattleResult,
+  type BattleState,
+} from "./battleStore";
 
 // ============ UI ============
 export { useThemeStore } from "./themeStore";

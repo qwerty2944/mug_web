@@ -362,3 +362,59 @@ const { element, dayNameKo, multiplier } = getTodayBoostInfo();
 // 특정 속성의 요일 배율
 const boost = getDayBoostMultiplier("fire"); // 화요일이면 1.2, 아니면 1.0
 ```
+
+## 전투 시스템 (Combat)
+
+턴제 전투 시스템. 몬스터는 속성을 가지며 숙련도와 연동.
+
+### 맵
+| ID | 이름 | 몬스터 | 안전지대 |
+|----|------|--------|---------|
+| training_ground | 수련장 | 허수아비 | O |
+| forest_entrance | 숲 입구 | 다람쥐 | X |
+
+### 몬스터
+| ID | 이름 | 속성 | HP | 행동 | 보상 |
+|----|------|------|----|----|------|
+| scarecrow | 허수아비 | - | 50 | passive | 5 exp |
+| squirrel | 다람쥐 | earth | 30 | aggressive | 10 exp, 5 gold |
+| squirrel_elder | 늙은 다람쥐 | earth | 45 | defensive | 18 exp, 10 gold |
+
+### 데미지 계산
+```typescript
+// 물리 데미지
+physicalDamage = (baseDamage + STR * 0.5) * proficiencyMultiplier - defense
+
+// 마법 데미지
+magicDamage = (baseDamage + INT * 0.8)
+            * proficiencyMultiplier
+            * elementEffectiveness  // 상성
+            * dayBoost              // 요일 보너스
+            - (defense * 0.3)
+```
+
+### 사용법
+```typescript
+import { useStartBattle, useAttack, useEndBattle } from "@/features/combat";
+import { useMonstersByMap } from "@/entities/monster";
+import { useBattleStore } from "@/application/stores";
+
+// 몬스터 조회
+const { data: monsters } = useMonstersByMap("training_ground");
+
+// 전투 시작
+const { start } = useStartBattle();
+start(monster, playerHp, playerMaxHp);
+
+// 공격
+const { attack } = useAttack();
+attack({
+  attackType: "sword",
+  proficiencyLevel: 10,
+  attackerStats: { str: 10, dex: 8, ... },
+});
+
+// 전투 종료 및 보상
+const { endBattle, isVictory } = useEndBattle({ userId });
+if (isVictory) endBattle(); // 보상 지급 + 숙련도 상승
+```
