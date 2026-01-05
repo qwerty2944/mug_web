@@ -20,6 +20,7 @@ export function useRealtimeChat({
   characterName,
 }: UseRealtimeChatProps) {
   const channelRef = useRef<RealtimeChannel | null>(null);
+  const mountedRef = useRef(true);
 
   const { setOnlineUsers, setConnected } = useGameStore();
   const { data: maps = [] } = useMaps();
@@ -135,6 +136,8 @@ export function useRealtimeChat({
   useEffect(() => {
     if (!mapId || !userId || !characterName) return;
 
+    mountedRef.current = true;
+
     // 기존 채널 정리
     if (channelRef.current) {
       supabase.removeChannel(channelRef.current);
@@ -151,11 +154,14 @@ export function useRealtimeChat({
 
     // 일반 채팅 메시지
     channel.on("broadcast", { event: "chat_message" }, ({ payload }) => {
-      addMessage(payload as ChatMessage);
+      if (mountedRef.current) {
+        addMessage(payload as ChatMessage);
+      }
     });
 
     // 귓말
     channel.on("broadcast", { event: "whisper" }, ({ payload }) => {
+      if (!mountedRef.current) return;
       const msg = payload as ChatMessage;
       // 본인에게 온 귓말이거나 본인이 보낸 귓말만 표시
       if (msg.recipientName === characterName || msg.senderId === userId) {
@@ -165,6 +171,7 @@ export function useRealtimeChat({
 
     // Presence 이벤트
     channel.on("presence", { event: "sync" }, () => {
+      if (!mountedRef.current) return;
       const state = channel.presenceState();
       const users: OnlineUser[] = Object.entries(state).map(
         ([key, presences]) => ({
@@ -176,6 +183,7 @@ export function useRealtimeChat({
     });
 
     channel.on("presence", { event: "join" }, ({ key, newPresences }) => {
+      if (!mountedRef.current) return;
       const name = (newPresences[0] as any)?.characterName;
       if (name && key !== userId) {
         addSystemMessage(`${name}님이 입장했습니다.`);
@@ -183,6 +191,7 @@ export function useRealtimeChat({
     });
 
     channel.on("presence", { event: "leave" }, ({ key, leftPresences }) => {
+      if (!mountedRef.current) return;
       const name = (leftPresences[0] as any)?.characterName;
       if (name && key !== userId) {
         addSystemMessage(`${name}님이 퇴장했습니다.`);
@@ -191,12 +200,12 @@ export function useRealtimeChat({
 
     // 구독 시작
     channel.subscribe(async (status) => {
-      if (status === "SUBSCRIBED") {
+      if (status === "SUBSCRIBED" && mountedRef.current) {
         setConnected(true);
 
         // Presence 트래킹
         await channel.track({
-          oderId: userId,
+          userId: userId,
           characterName,
           online_at: new Date().toISOString(),
         });
@@ -205,8 +214,10 @@ export function useRealtimeChat({
         await updateLocation();
         await loadHistory();
 
-        const mapName = getMapById(maps, mapId)?.nameKo || mapId;
-        addSystemMessage(`${mapName}에 입장했습니다.`);
+        if (mountedRef.current) {
+          const mapName = getMapById(maps, mapId)?.nameKo || mapId;
+          addSystemMessage(`${mapName}에 입장했습니다.`);
+        }
       }
     });
 
@@ -214,6 +225,7 @@ export function useRealtimeChat({
 
     // 클린업
     return () => {
+      mountedRef.current = false;
       // 떠나기 전 캐시 저장
       saveToCache(mapId);
       channel.untrack();
@@ -221,20 +233,8 @@ export function useRealtimeChat({
       setConnected(false);
       channelRef.current = null;
     };
-  }, [
-    mapId,
-    userId,
-    characterName,
-    maps,
-    addMessage,
-    addSystemMessage,
-    setOnlineUsers,
-    setConnected,
-    updateLocation,
-    loadHistory,
-    clearMessages,
-    saveToCache,
-  ]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [mapId, userId, characterName]);
 
   return {
     sendMessage,
