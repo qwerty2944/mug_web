@@ -7,6 +7,8 @@ import {
   isWeaponProficiency,
   isMagicProficiency,
 } from "@/entities/proficiency";
+import { getElementTimeMultiplier, type Period } from "@/entities/game-time";
+import { getWeatherElementMultiplier, type WeatherType } from "@/entities/weather";
 
 // 물리 공격 파라미터
 export interface PhysicalAttackParams {
@@ -25,6 +27,8 @@ export interface MagicAttackParams {
   proficiencyLevel: number;
   targetDefense: number;
   targetElement?: MagicElement | null;
+  period?: Period; // 현재 시간대 (밤낮 버프 적용)
+  weather?: WeatherType; // 현재 날씨 (날씨 버프 적용)
 }
 
 // 일반 공격 파라미터 (무기/마법 통합)
@@ -35,6 +39,8 @@ export interface AttackParams {
   proficiencyLevel: number;
   targetDefense: number;
   targetElement?: MagicElement | null;
+  period?: Period; // 현재 시간대 (밤낮 버프 적용)
+  weather?: WeatherType; // 현재 날씨 (날씨 버프 적용)
 }
 
 /**
@@ -65,10 +71,10 @@ export function calculatePhysicalDamage(params: PhysicalAttackParams): number {
 
 /**
  * 마법 데미지 계산
- * 공식: (baseDamage + INT * 0.8) * proficiencyMultiplier * effectivenessMultiplier * dayBoost * variance - (defense * 0.3)
+ * 공식: (baseDamage + INT * 0.8) * proficiencyMultiplier * effectivenessMultiplier * dayBoost * timeBoost * weatherBoost * variance - (defense * 0.3)
  */
 export function calculateMagicDamage(params: MagicAttackParams): number {
-  const { baseDamage, attackerInt, element, proficiencyLevel, targetDefense, targetElement } =
+  const { baseDamage, attackerInt, element, proficiencyLevel, targetDefense, targetElement, period, weather } =
     params;
 
   const rawDamage = baseDamage + attackerInt * 0.8;
@@ -79,14 +85,30 @@ export function calculateMagicDamage(params: MagicAttackParams): number {
     ? getMagicEffectiveness(element, targetElement)
     : 1.0;
 
-  // 요일 부스트
+  // 요일 부스트 (화요일 = 화염 +20% 등)
   const dayBoostMultiplier = getDayBoostMultiplier(element);
+
+  // 시간대 부스트 (밤 = 암흑 +20%, 낮 = 신성 +15%)
+  const timeBoostMultiplier = period
+    ? getElementTimeMultiplier(element, period)
+    : 1.0;
+
+  // 날씨 부스트 (비 = 번개 +15%, 맑음 = 신성 +10% 등)
+  const weatherMultiplier = weather
+    ? getWeatherElementMultiplier(element, weather)
+    : 1.0;
 
   // 마법 방어 (물리 방어의 30%만 적용)
   const magicDefense = targetDefense * 0.3;
 
   const baseResult =
-    rawDamage * proficiencyMultiplier * effectivenessMultiplier * dayBoostMultiplier - magicDefense;
+    rawDamage *
+    proficiencyMultiplier *
+    effectivenessMultiplier *
+    dayBoostMultiplier *
+    timeBoostMultiplier *
+    weatherMultiplier -
+    magicDefense;
   const finalDamage = applyDamageVariance(baseResult);
 
   return Math.max(1, finalDamage);
@@ -96,7 +118,7 @@ export function calculateMagicDamage(params: MagicAttackParams): number {
  * 통합 데미지 계산 (무기/마법 자동 판별)
  */
 export function calculateDamage(params: AttackParams): number {
-  const { baseDamage, attackerStats, attackType, proficiencyLevel, targetDefense, targetElement } =
+  const { baseDamage, attackerStats, attackType, proficiencyLevel, targetDefense, targetElement, period, weather } =
     params;
 
   // 무기 공격
@@ -119,6 +141,8 @@ export function calculateDamage(params: AttackParams): number {
       proficiencyLevel,
       targetDefense,
       targetElement,
+      period,
+      weather,
     });
   }
 

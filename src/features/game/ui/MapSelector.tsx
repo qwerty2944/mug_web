@@ -49,7 +49,7 @@ export function MapSelector({
 
   return (
     <div
-      className="overflow-hidden"
+      className="flex flex-col overflow-hidden flex-shrink-0"
       style={{
         background: theme.colors.bg,
         border: `1px solid ${theme.colors.border}`,
@@ -74,7 +74,7 @@ export function MapSelector({
       </div>
 
       {/* 맵 목록 */}
-      <div className="p-2 space-y-2 max-h-64 overflow-y-auto">
+      <div className="p-2 space-y-2 max-h-40 overflow-y-auto flex-1 min-h-0">
         {connectedMaps.length === 0 ? (
           <div className="text-center text-sm py-2 font-mono" style={{ color: theme.colors.textMuted }}>
             이동 가능한 맵이 없습니다.

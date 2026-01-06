@@ -57,7 +57,7 @@ export function MonsterList({
 
   return (
     <div
-      className="overflow-hidden"
+      className="flex flex-col overflow-hidden flex-shrink-0"
       style={{
         background: theme.colors.bg,
         border: `1px solid ${theme.colors.border}`,
@@ -80,7 +80,7 @@ export function MonsterList({
       </div>
 
       {/* 몬스터 목록 */}
-      <div className="p-2 space-y-2 max-h-48 overflow-y-auto">
+      <div className="p-2 space-y-2 max-h-40 overflow-y-auto flex-1 min-h-0">
         {monsters.map((monster) => {
           const levelDiff = monster.level - playerLevel;
           const diffColor =

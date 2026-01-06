@@ -909,3 +909,150 @@ getCriticalMultiplier(lck)
 // router.back()으로 모달 닫기
 const handleClose = () => router.back();
 ```
+
+## 게임 시간 시스템 (Game Time)
+
+게임 내 밤낮 사이클 시스템. 2시간 실시간 = 24시간 게임 시간.
+
+### 시간대 (4단계, 30분씩 균등)
+
+| 시간대 | 아이콘 | 버프 효과 |
+|--------|--------|----------|
+| night (밤) | 🌙 | 암흑 +20%, DEX +10% |
+| dawn (새벽) | 🌅 | 신성 +15% |
+| day (낮) | ☀️ | 신성 +15% |
+| dusk (황혼) | 🌆 | 없음 |
+
+### 시간 계산 공식
+```typescript
+cycleMs = 2시간 = 7,200,000ms
+elapsed = Date.now() - game_epoch
+cyclePosition = elapsed % cycleMs
+cycleProgress = (cyclePosition / cycleMs) * 100
+
+// 30분씩 4등분
+// 0-25% = night, 25-50% = dawn, 50-75% = day, 75-100% = dusk
+```
+
+### 사용법
+```typescript
+import { useRealtimeGameTime, GameTimeClock } from "@/entities/game-time";
+
+// 시간 조회
+const { gameTime, isDay, isNight } = useRealtimeGameTime();
+
+// UI 컴포넌트
+<GameTimeClock compact />  // 컴팩트 (호버시 버프 표시)
+<GameTimeClock />          // 전체 표시
+
+// 시간대 변경 이벤트
+useOnPeriodChange((from, to) => {
+  if (to === "night") toast("밤이 되었습니다!");
+});
+```
+
+### 폴더 구조
+```
+src/entities/game-time/
+├── types/index.ts           # Period, GameTime 타입
+├── api/index.ts             # fetchGameSettings
+├── queries/index.ts         # useGameSettings
+├── lib/
+│   ├── calculateLocalTime.ts    # 시간 계산
+│   ├── useRealtimeGameTime.ts   # 실시간 훅
+│   └── timeBuffs.ts             # 시간대 버프
+├── ui/
+│   ├── GameTimeClock.tsx        # 시간 표시 UI
+│   └── AtmosphericText.tsx      # 맵별 분위기 메시지
+└── index.ts
+```
+
+## 날씨 시스템 (Weather)
+
+실시간 1시간 = 날씨 1사이클 (5종류 순환).
+
+### 날씨 종류 (5가지, 12분씩 순환)
+
+| 날씨 | 아이콘 | 효과 |
+|------|--------|------|
+| sunny (맑음) | ☀️ | 신성 +10%, 암흑 -10% |
+| cloudy (흐림) | ☁️ | 없음 |
+| rainy (비) | 🌧️ | 번개 +15%, 화염 -10% |
+| stormy (폭풍) | ⛈️ | 번개 +25% |
+| foggy (안개) | 🌫️ | 암흑 +15% |
+
+### 날씨 계산 공식
+```typescript
+cycleMs = 1시간 = 3,600,000ms
+elapsed = Date.now() - weather_epoch
+cyclePosition = elapsed % cycleMs
+weatherIndex = floor((cyclePosition / cycleMs) * 5)
+
+// 12분씩 5등분
+// 0-20% = sunny, 20-40% = cloudy, ...
+```
+
+### 사용법
+```typescript
+import { useRealtimeWeather, WeatherDisplay } from "@/entities/weather";
+
+// 날씨 조회
+const { weather } = useRealtimeWeather();
+
+// UI 컴포넌트
+<WeatherDisplay compact />  // 컴팩트 (호버시 버프 표시)
+
+// 날씨 변경 이벤트
+useOnWeatherChange((from, to) => {
+  if (to === "rainy") toast("비가 내리기 시작합니다!");
+});
+
+// 전투 데미지에 날씨 적용
+calculateMagicDamage({
+  ...params,
+  weather: weather?.currentWeather,  // 날씨 배율 적용
+});
+```
+
+### 시간대 + 날씨 조합 예시
+
+| 시간대 | 날씨 | 암흑 마법 배율 |
+|--------|------|---------------|
+| night | foggy | 1.2 × 1.15 = 1.38 (+38%) |
+| night | sunny | 1.2 × 0.9 = 1.08 (+8%) |
+| day | stormy | 1.0 × 1.0 = 1.0 |
+
+### 폴더 구조
+```
+src/entities/weather/
+├── types/index.ts           # WeatherType, Weather 타입
+├── api/index.ts             # fetchWeatherSettings
+├── queries/index.ts         # useWeatherSettings
+├── lib/
+│   ├── calculateWeather.ts      # 날씨 계산
+│   ├── useRealtimeWeather.ts    # 실시간 훅
+│   └── weatherEffects.ts        # 날씨 버프
+├── ui/
+│   └── WeatherDisplay.tsx       # 날씨 표시 UI
+└── index.ts
+```
+
+## 분위기 메시지 (Atmospheric Text)
+
+맵과 시간대에 따른 분위기 있는 랜덤 메시지 표시.
+
+### 데이터 위치
+`public/data/atmospheric-messages.json`
+
+### 사용법
+```typescript
+import { AtmosphericText } from "@/entities/game-time";
+
+// 맵 헤더에 분위기 메시지 표시
+<AtmosphericText mapId={currentMapId} className="mt-1" />
+```
+
+### 메시지 예시
+- 황혼 + 숲 입구: "개와 늑대의 시간. 숲이 깨어난다."
+- 밤 + 깊은 숲: "완벽한 어둠. 발 밑도 보이지 않는다."
+- 새벽 + 시작 마을: "마을에 첫 닭울음 소리가 울려퍼진다."

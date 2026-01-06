@@ -1,4 +1,5 @@
 import type { MagicElement } from "@/entities/proficiency";
+import type { Period } from "@/entities/game-time";
 
 // ============ 몬스터 종족 타입 ============
 
@@ -111,6 +112,11 @@ export interface MonsterDescription {
   en: string;
 }
 
+// 몬스터 출현 조건
+export interface SpawnCondition {
+  period?: Period[]; // 출현 가능한 시간대 (null이면 항상 출현)
+}
+
 // 몬스터 데이터
 export interface Monster {
   id: string;
@@ -126,6 +132,7 @@ export interface Monster {
   behavior: MonsterBehavior;
   icon: string;
   description?: MonsterDescription;
+  spawnCondition?: SpawnCondition; // 출현 조건 (null이면 항상 출현)
 }
 
 // JSON 파일 구조

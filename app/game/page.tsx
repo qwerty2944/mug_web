@@ -28,6 +28,8 @@ import {
 import type { Monster } from "@/entities/monster";
 import { useProficiencies } from "@/entities/proficiency";
 import type { ProficiencyType } from "@/entities/proficiency";
+import { GameTimeClock, AtmosphericText } from "@/entities/game-time";
+import { WeatherDisplay } from "@/entities/weather";
 import { useBattleStore, usePvpStore } from "@/application/stores";
 import { useStartBattle, useEndBattle } from "@/features/combat";
 import { useUpdateLocation } from "@/features/game";
@@ -252,13 +254,17 @@ export default function GamePage() {
           borderColor: theme.colors.border,
         }}
       >
-        {/* 피로도 텍스트 */}
+        {/* 피로도 텍스트 + 게임 시간 */}
         <div className="flex items-center justify-between mb-2">
-          <div className="flex items-center gap-2 text-xs font-mono" style={{ color: theme.colors.textMuted }}>
-            <span>피로도</span>
-            <span style={{ color: staminaPercent <= 20 ? theme.colors.error : theme.colors.textDim }}>
-              {profile.stamina} / {profile.maxStamina}
-            </span>
+          <div className="flex items-center gap-4">
+            <div className="flex items-center gap-2 text-xs font-mono" style={{ color: theme.colors.textMuted }}>
+              <span>피로도</span>
+              <span style={{ color: staminaPercent <= 20 ? theme.colors.error : theme.colors.textDim }}>
+                {profile.stamina} / {profile.maxStamina}
+              </span>
+            </div>
+            <GameTimeClock compact />
+            <WeatherDisplay compact />
           </div>
           <div className="flex items-center gap-3">
             {/* 테마 버튼 */}
@@ -289,13 +295,14 @@ export default function GamePage() {
             <span className="text-xl">
               {getMapById(maps, mapId || "town_square")?.icon || "🏠"}
             </span>
-            <div>
+            <div className="min-w-0">
               <h1 className="text-lg font-bold font-mono" style={{ color: theme.colors.text }}>
                 {currentMap?.name || "시작 마을"}
               </h1>
               <p className="text-xs font-mono" style={{ color: theme.colors.textMuted }}>
                 {currentMap?.description}
               </p>
+              <AtmosphericText mapId={mapId || "starting_village"} className="mt-1" />
             </div>
           </div>
           <div className="flex items-center gap-3">
@@ -340,7 +347,7 @@ export default function GamePage() {
         </div>
 
         {/* 사이드바 */}
-        <div className="flex-none lg:w-64 flex flex-col gap-3">
+        <div className="flex-none lg:w-64 flex flex-col gap-3 min-h-0 max-h-[50vh] lg:max-h-full overflow-y-auto">
           {/* 접속 유저 */}
           <PlayerList currentUserId={session.user.id} />
 
@@ -355,7 +362,7 @@ export default function GamePage() {
           {/* 월드맵 버튼 */}
           <button
             onClick={() => setShowWorldMap(true)}
-            className="w-full px-3 py-2 text-sm font-mono font-medium transition-colors flex items-center justify-center gap-2"
+            className="w-full flex-shrink-0 px-3 py-2 text-sm font-mono font-medium transition-colors flex items-center justify-center gap-2"
             style={{
               background: theme.colors.bgLight,
               border: `1px solid ${theme.colors.border}`,

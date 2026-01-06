@@ -172,8 +172,11 @@
       "behavior": "aggressive",
       "icon": "🐺",
       "description": {
-        "ko": "깊은 숲에 서식하는 늑대. 날카로운 이빨로 공격한다.",
-        "en": "A wolf living deep in the forest. Attacks with sharp fangs."
+        "ko": "밤에만 나타나는 야행성 늑대. 날카로운 이빨로 공격한다.",
+        "en": "A nocturnal wolf that only appears at night. Attacks with sharp fangs."
+      },
+      "spawnCondition": {
+        "period": ["night", "dusk"]
       }
     },
     {
@@ -209,8 +212,11 @@
       "behavior": "aggressive",
       "icon": "🕷️",
       "description": {
-        "ko": "어둠 속에 숨어 있는 거대한 거미. 독을 가지고 있다.",
-        "en": "A giant spider lurking in the darkness. Has venom."
+        "ko": "어둠 속에 숨어 있는 거대한 거미. 밤에 더 활발해진다.",
+        "en": "A giant spider lurking in the darkness. More active at night."
+      },
+      "spawnCondition": {
+        "period": ["night", "dusk"]
       }
     }
   ],

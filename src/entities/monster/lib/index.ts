@@ -1,4 +1,5 @@
 import type { Monster, MonsterDrop } from "../types";
+import type { Period } from "@/entities/game-time";
 
 /**
  * 드롭 아이템 롤 (확률 기반)
@@ -80,4 +81,44 @@ export function calculateExpBonus(monster: Monster, playerLevel: number): number
 export function formatMonsterSummary(monster: Monster): string {
   const elementText = monster.element ? ` [${monster.element}]` : "";
   return `${monster.icon} ${monster.nameKo} Lv.${monster.level}${elementText}`;
+}
+
+// ============ 시간대별 출현 ============
+
+/**
+ * 현재 시간대에 몬스터가 출현 가능한지 확인
+ */
+export function canSpawnInPeriod(monster: Monster, period: Period): boolean {
+  // spawnCondition이 없거나 period가 없으면 항상 출현
+  if (!monster.spawnCondition?.period) {
+    return true;
+  }
+  // period 배열에 현재 시간대가 포함되어 있는지 확인
+  return monster.spawnCondition.period.includes(period);
+}
+
+/**
+ * 시간대에 따라 몬스터 목록 필터링
+ */
+export function filterMonstersByPeriod(monsters: Monster[], period: Period): Monster[] {
+  return monsters.filter((m) => canSpawnInPeriod(m, period));
+}
+
+/**
+ * 몬스터 출현 시간대 텍스트
+ */
+export function getSpawnPeriodText(monster: Monster): string | null {
+  if (!monster.spawnCondition?.period) {
+    return null;
+  }
+
+  const periodNames: Record<Period, string> = {
+    dawn: "새벽",
+    day: "낮",
+    dusk: "황혼",
+    night: "밤",
+  };
+
+  const periods = monster.spawnCondition.period.map((p) => periodNames[p]);
+  return periods.join(", ") + "에만 출현";
 }
