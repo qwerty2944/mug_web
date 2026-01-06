@@ -71,6 +71,9 @@ export function useRealtimeChat({
       const channel = channelRef.current;
       if (!channel) return false;
 
+      // TODO: 귓속말 크리스탈 체크는 나중에 다시 활성화
+      // 현재 Realtime 연결 문제로 임시 비활성화
+
       const messageId = `${userId}-${Date.now()}`;
       const message: ChatMessage = {
         id: messageId,
@@ -136,16 +139,26 @@ export function useRealtimeChat({
 
   // Realtime 채널 연결
   useEffect(() => {
-    if (!mapId || !userId || !characterName) return;
+    if (!mapId || !userId || !characterName) {
+      console.log("[Realtime] Skipping - missing params:", { mapId, userId, characterName });
+      return;
+    }
 
+    console.log("[Realtime] Starting connection with:", { mapId, userId, characterName });
     mountedRef.current = true;
 
     // 기존 채널 정리
     if (channelRef.current) {
+      console.log("[Realtime] Removing existing channel");
       supabase.removeChannel(channelRef.current);
     }
 
     clearMessages();
+
+    // Supabase 세션 확인
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      console.log("[Realtime] Session check:", session ? "authenticated" : "anonymous");
+    });
 
     const channel = supabase.channel(`map:${mapId}`, {
       config: {
@@ -153,6 +166,8 @@ export function useRealtimeChat({
         presence: { key: userId },
       },
     });
+
+    console.log("[Realtime] Channel created, subscribing...");
 
     // 일반 채팅 메시지
     channel.on("broadcast", { event: "chat_message" }, ({ payload }) => {
@@ -201,7 +216,9 @@ export function useRealtimeChat({
     });
 
     // 구독 시작
-    channel.subscribe(async (status) => {
+    channel.subscribe(async (status, err) => {
+      console.log("[Realtime] Channel status:", status, err);
+
       if (status === "SUBSCRIBED" && mountedRef.current) {
         setConnected(true);
 
@@ -220,6 +237,12 @@ export function useRealtimeChat({
           const mapName = getMapById(maps, mapId)?.nameKo || mapId;
           addSystemMessage(`${mapName}에 입장했습니다.`);
         }
+      } else if (status === "CHANNEL_ERROR") {
+        console.error("[Realtime] Channel error:", err);
+        setConnected(false);
+      } else if (status === "TIMED_OUT") {
+        console.error("[Realtime] Channel timed out");
+        setConnected(false);
       }
     });
 
