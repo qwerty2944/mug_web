@@ -379,38 +379,12 @@ const boost = getDayBoostMultiplier("fire"); // 화요일이면 1.2, 아니면 1
 
 ## 전투 시스템 (Combat)
 
-턴제 전투 시스템. 몬스터는 속성을 가지며 숙련도와 연동.
+턴제 전투 시스템. 상세 기획은 [docs/combat-system.md](docs/combat-system.md) 참조.
 
-### 맵
-| ID | 이름 | 몬스터 | 안전지대 |
-|----|------|--------|---------|
-| town_square | 마을 광장 | - | O |
-| shop_district | 상점가 | - | O |
-| training_ground | 수련장 | 허수아비 | O |
-| forest_entrance | 숲 입구 | 다람쥐 | X |
-| deep_forest | 깊은 숲 | 늑대, 숲거미 | X |
-
-### 몬스터
-| ID | 이름 | 속성 | HP | 행동 | 보상 |
-|----|------|------|----|----|------|
-| scarecrow | 허수아비 | - | 50 | passive | 5 exp |
-| squirrel | 다람쥐 | earth | 30 | aggressive | 10 exp, 5 gold |
-| squirrel_elder | 늙은 다람쥐 | earth | 45 | defensive | 18 exp, 10 gold |
-| wolf | 늑대 | - | 80 | aggressive | 30 exp, 15 gold |
-| forest_spider | 숲거미 | dark | 60 | aggressive | 35 exp, 20 gold |
-
-### 데미지 계산
-```typescript
-// 물리 데미지
-physicalDamage = (baseDamage + STR * 0.5) * proficiencyMultiplier - defense
-
-// 마법 데미지
-magicDamage = (baseDamage + INT * 0.8)
-            * proficiencyMultiplier
-            * elementEffectiveness  // 상성
-            * dayBoost              // 요일 보너스
-            - (defense * 0.3)
-```
+### 주요 기능
+- 데미지 편차 (±15%)
+- 공격 판정: 빗맞음 → 회피 → 막기 → 치명타 → 명중
+- 회피(DEX), 막기(CON), 치명타(LCK) 스탯 연동
 
 ### 사용법
 ```typescript

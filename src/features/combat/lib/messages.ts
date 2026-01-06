@@ -218,6 +218,52 @@ const FLEE_FAIL_MESSAGES = [
   "도망칠 수 없다!",
 ];
 
+// ============ 회피/막기/빗맞음 메시지 ============
+
+const DODGE_MESSAGES = [
+  (name: string) => `${name}이(가) 재빠르게 피했다!`,
+  (name: string) => `${name}이(가) 공격을 회피했다!`,
+  (name: string) => `${name}이(가) 몸을 날려 피했다!`,
+  (name: string) => `${name}이(가) 살짝 비켜섰다!`,
+  (name: string) => `${name}이(가) 민첩하게 회피!`,
+];
+
+const BLOCK_MESSAGES = [
+  (name: string, reduced: number) => `${name}이(가) 공격을 막았다! (${reduced} 감소)`,
+  (name: string, reduced: number) => `${name}이(가) 방어 자세! ${reduced} 피해 경감!`,
+  (name: string, reduced: number) => `${name}이(가) 버텼다! ${reduced} 데미지 감소!`,
+  (name: string, reduced: number) => `${name}의 방어! ${reduced} 피해 경감!`,
+];
+
+const MISS_MESSAGES = [
+  (name: string) => `${name}에 대한 공격이 빗나갔다!`,
+  (name: string) => `공격이 허공을 갈랐다!`,
+  (name: string) => `${name}을(를) 맞히지 못했다!`,
+  (name: string) => `빗맞았다!`,
+  (name: string) => `공격이 빗나갔다!`,
+];
+
+const PLAYER_DODGE_MESSAGES = [
+  "재빠르게 피했다!",
+  "공격을 회피했다!",
+  "아슬아슬하게 피했다!",
+  "살짝 비켜섰다!",
+  "민첩하게 회피!",
+];
+
+const PLAYER_BLOCK_MESSAGES = [
+  (reduced: number) => `방어 성공! ${reduced} 피해 감소!`,
+  (reduced: number) => `막았다! ${reduced} 데미지 경감!`,
+  (reduced: number) => `버텼다! ${reduced} 피해 감소!`,
+  (reduced: number) => `방어! ${reduced} 데미지 경감!`,
+];
+
+const MONSTER_MISS_MESSAGES = [
+  "적의 공격이 빗나갔다!",
+  "적의 공격을 피했다!",
+  "공격이 스쳐 지나갔다!",
+];
+
 // ============ 공개 API ============
 
 /**
@@ -280,4 +326,46 @@ export function getFleeSuccessMessage(): string {
  */
 export function getFleeFailMessage(): string {
   return randomPick(FLEE_FAIL_MESSAGES);
+}
+
+/**
+ * 회피 메시지 생성 (몬스터가 플레이어 공격 회피)
+ */
+export function getDodgeMessage(defenderName: string): string {
+  return randomPick(DODGE_MESSAGES)(defenderName);
+}
+
+/**
+ * 막기 메시지 생성 (몬스터가 플레이어 공격 막기)
+ */
+export function getBlockMessage(defenderName: string, reducedDamage: number): string {
+  return randomPick(BLOCK_MESSAGES)(defenderName, reducedDamage);
+}
+
+/**
+ * 빗맞음 메시지 생성 (플레이어 공격 빗맞음)
+ */
+export function getMissMessage(targetName: string): string {
+  return randomPick(MISS_MESSAGES)(targetName);
+}
+
+/**
+ * 플레이어 회피 메시지 생성
+ */
+export function getPlayerDodgeMessage(): string {
+  return randomPick(PLAYER_DODGE_MESSAGES);
+}
+
+/**
+ * 플레이어 막기 메시지 생성
+ */
+export function getPlayerBlockMessage(reducedDamage: number): string {
+  return randomPick(PLAYER_BLOCK_MESSAGES)(reducedDamage);
+}
+
+/**
+ * 몬스터 공격 빗맞음 메시지
+ */
+export function getMonsterMissMessage(): string {
+  return randomPick(MONSTER_MISS_MESSAGES);
 }

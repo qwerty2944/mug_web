@@ -181,3 +181,78 @@ export function applyCritical(
 
   return { damage, isCritical: false, multiplier: 1.0 };
 }
+
+// ============ 회피/막기/빗맞음 시스템 ============
+
+export type HitResult = "hit" | "critical" | "blocked" | "dodged" | "missed";
+
+/**
+ * 회피 확률 계산 (DEX 기반)
+ * 공식: 3% + DEX * 0.4 (최대 25%)
+ */
+export function getDodgeChance(dex: number): number {
+  const base = 3;
+  const dexBonus = dex * 0.4;
+  return Math.min(25, base + dexBonus);
+}
+
+/**
+ * 막기 확률 계산 (CON 기반)
+ * 공식: 5% + CON * 0.3 (최대 20%)
+ */
+export function getBlockChance(con: number): number {
+  const base = 5;
+  const conBonus = con * 0.3;
+  return Math.min(20, base + conBonus);
+}
+
+/**
+ * 빗맞음 확률 (고정 5%)
+ */
+export function getMissChance(): number {
+  return 5;
+}
+
+/**
+ * 공격 결과 판정
+ * 순서: 빗맞음 → 회피 → 막기 → 치명타 → 일반 명중
+ */
+export function determineHitResult(
+  attackerStats: { lck: number; dex?: number; int?: number },
+  defenderStats: { dex: number; con: number },
+  isPhysical: boolean = true
+): { result: HitResult; damageMultiplier: number; critMultiplier?: number } {
+  const roll = Math.random() * 100;
+  let threshold = 0;
+
+  // 1. 빗맞음 체크 (물리 공격만)
+  if (isPhysical) {
+    threshold += getMissChance();
+    if (roll < threshold) {
+      return { result: "missed", damageMultiplier: 0 };
+    }
+  }
+
+  // 2. 회피 체크
+  threshold += getDodgeChance(defenderStats.dex);
+  if (roll < threshold) {
+    return { result: "dodged", damageMultiplier: 0 };
+  }
+
+  // 3. 막기 체크
+  threshold += getBlockChance(defenderStats.con);
+  if (roll < threshold) {
+    return { result: "blocked", damageMultiplier: 0.5 };
+  }
+
+  // 4. 치명타 체크
+  const secondaryStat = isPhysical ? (attackerStats.dex ?? 10) : (attackerStats.int ?? 10);
+  const critChance = getCriticalChance(attackerStats.lck, secondaryStat);
+  if (Math.random() * 100 < critChance) {
+    const critMultiplier = getCriticalMultiplier(attackerStats.lck);
+    return { result: "critical", damageMultiplier: critMultiplier, critMultiplier };
+  }
+
+  // 5. 일반 명중
+  return { result: "hit", damageMultiplier: 1.0 };
+}

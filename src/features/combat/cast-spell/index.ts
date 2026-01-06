@@ -7,11 +7,20 @@ import type { StatusType } from "@/entities/status";
 import {
   calculateMagicDamage,
   calculatePhysicalDamage,
-  applyCritical,
+  calculateMonsterDamage,
+  determineHitResult,
 } from "../lib/damage";
-import { getAttackMessage, getMonsterAttackMessage } from "../lib/messages";
+import {
+  getAttackMessage,
+  getMonsterAttackMessage,
+  getDodgeMessage,
+  getBlockMessage,
+  getMissMessage,
+  getPlayerDodgeMessage,
+  getPlayerBlockMessage,
+  getMonsterMissMessage,
+} from "../lib/messages";
 import { canMonsterAttack } from "@/entities/monster";
-import { calculateMonsterDamage } from "../lib/damage";
 
 interface UseCastSpellOptions {
   onMonsterTurn?: () => void;
@@ -94,45 +103,62 @@ export function useCastSpell(options: UseCastSpellOptions = {}) {
 
       const { monsterAttack } = useBattleStore.getState();
 
-      // 다중 타격 계산
-      let hitCount = 1;
-      if (skill.hitCount) {
-        const [min, max] = skill.hitCount;
-        hitCount = Math.floor(Math.random() * (max - min + 1)) + min;
-      }
+      // 공격 판정 (빗맞음 → 회피 → 막기 → 치명타 → 명중)
+      const hitResult = determineHitResult(
+        { lck: casterStats.lck ?? 10, dex: casterStats.dex, int: casterStats.int },
+        { dex: battle.monster.stats.speed ?? 5, con: Math.floor(battle.monster.stats.defense / 2) },
+        true // 물리 공격
+      );
 
       let totalDamage = 0;
-      for (let i = 0; i < hitCount; i++) {
-        // 데미지 계산
-        let damage = calculatePhysicalDamage({
-          baseDamage: skill.baseDamage || 10,
-          attackerStr: casterStats.str,
-          weaponType: (skill.proficiencyType || "fist") as WeaponType,
-          proficiencyLevel,
-          targetDefense: battle.monster.stats.defense,
-        });
+      let message = "";
+      const isCritical = hitResult.result === "critical";
 
-        // 크리티컬 판정 (LCK + DEX 기반)
-        const lck = casterStats.lck ?? 10;
-        const { damage: finalDamage, isCritical } = applyCritical(damage, lck, casterStats.dex);
-        totalDamage += finalDamage;
+      if (hitResult.result === "missed") {
+        message = getMissMessage(battle.monster.nameKo);
+      } else if (hitResult.result === "dodged") {
+        message = getDodgeMessage(battle.monster.nameKo);
+      } else {
+        // 다중 타격 계산
+        let hitCount = 1;
+        if (skill.hitCount) {
+          const [min, max] = skill.hitCount;
+          hitCount = Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+
+        for (let i = 0; i < hitCount; i++) {
+          let damage = calculatePhysicalDamage({
+            baseDamage: skill.baseDamage || 10,
+            attackerStr: casterStats.str,
+            weaponType: (skill.proficiencyType || "fist") as WeaponType,
+            proficiencyLevel,
+            targetDefense: battle.monster.stats.defense,
+          });
+
+          // 배율 적용 (치명타 or 막기)
+          damage = Math.floor(damage * hitResult.damageMultiplier);
+          totalDamage += Math.max(1, damage);
+        }
+
+        if (hitResult.result === "blocked") {
+          message = getBlockMessage(battle.monster.nameKo, totalDamage);
+        } else {
+          message = hitCount > 1
+            ? `${skill.icon} ${skill.nameKo}! ${hitCount}연속 공격으로 ${battle.monster.nameKo}에게 총 ${totalDamage} 데미지!`
+            : getAttackMessage(
+                (skill.proficiencyType || "fist") as ProficiencyType,
+                battle.monster.nameKo,
+                totalDamage,
+                isCritical
+              );
+        }
       }
-
-      // 공격 메시지
-      const message = hitCount > 1
-        ? `${skill.icon} ${skill.nameKo}! ${hitCount}연속 공격으로 ${battle.monster.nameKo}에게 총 ${totalDamage} 데미지!`
-        : getAttackMessage(
-            (skill.proficiencyType || "fist") as ProficiencyType,
-            battle.monster.nameKo,
-            totalDamage,
-            false
-          );
 
       // 공격 적용
       playerAttack(totalDamage, message, skill.proficiencyType);
 
-      // 상태이상 부여 확률 체크
-      if (skill.statusEffect && skill.statusChance) {
+      // 상태이상 부여 확률 체크 (명중 시에만)
+      if (totalDamage > 0 && skill.statusEffect && skill.statusChance) {
         const roll = Math.random() * 100;
         if (roll < skill.statusChance) {
           applyMonsterStatus(
@@ -146,13 +172,36 @@ export function useCastSpell(options: UseCastSpellOptions = {}) {
       // 몬스터 반격 (살아있고 패시브가 아니면)
       const newMonsterHp = battle.monsterCurrentHp - totalDamage;
       if (newMonsterHp > 0 && canMonsterAttack(battle.monster)) {
-        const monsterDmg = calculateMonsterDamage(battle.monster.stats.attack, playerDefense);
-        if (monsterDmg > 0) {
-          const monsterMsg = getMonsterAttackMessage(battle.monster.nameKo, monsterDmg);
-          setTimeout(() => {
-            monsterAttack(monsterDmg, monsterMsg);
-          }, 500);
+        // 몬스터 반격 판정
+        const monsterHitResult = determineHitResult(
+          { lck: 5 },
+          { dex: casterStats.dex ?? 10, con: casterStats.con ?? 10 },
+          true
+        );
+
+        let monsterDmg = 0;
+        let monsterMsg = "";
+
+        if (monsterHitResult.result === "missed") {
+          monsterMsg = getMonsterMissMessage();
+        } else if (monsterHitResult.result === "dodged") {
+          monsterMsg = getPlayerDodgeMessage();
+        } else {
+          monsterDmg = calculateMonsterDamage(battle.monster.stats.attack, playerDefense);
+          monsterDmg = Math.floor(monsterDmg * monsterHitResult.damageMultiplier);
+          monsterDmg = Math.max(0, monsterDmg);
+
+          if (monsterHitResult.result === "blocked") {
+            const reducedAmount = Math.floor(monsterDmg / 2);
+            monsterMsg = getPlayerBlockMessage(reducedAmount);
+          } else {
+            monsterMsg = getMonsterAttackMessage(battle.monster.nameKo, monsterDmg);
+          }
         }
+
+        setTimeout(() => {
+          monsterAttack(monsterDmg, monsterMsg);
+        }, 500);
       }
     },
     [battle, playerAttack, applyMonsterStatus]
@@ -165,32 +214,50 @@ export function useCastSpell(options: UseCastSpellOptions = {}) {
 
       const magicModifier = getPlayerMagicModifier();
 
-      // 데미지 계산
-      let damage = calculateMagicDamage({
-        baseDamage: skill.baseDamage || 10,
-        attackerInt: casterStats.int,
-        element: skill.element as MagicElement,
-        proficiencyLevel,
-        targetDefense: battle.monster.stats.defense,
-        targetElement: battle.monster.element,
-      });
-
-      // 마법 버프 적용
-      if (magicModifier !== 0) {
-        damage = Math.floor(damage * (1 + magicModifier / 100));
-      }
-
-      // 크리티컬 판정 (LCK + INT 기반)
-      const lck = casterStats.lck ?? 10;
-      const { damage: finalDamage, isCritical } = applyCritical(damage, lck, casterStats.int);
-
-      // 창의적인 공격 메시지
-      const message = getAttackMessage(
-        skill.element as ProficiencyType,
-        battle.monster.nameKo,
-        finalDamage,
-        isCritical
+      // 마법 공격 판정 (회피 → 막기 → 치명타 → 명중) - 마법은 빗맞음 없음
+      const hitResult = determineHitResult(
+        { lck: casterStats.lck ?? 10, dex: casterStats.dex, int: casterStats.int },
+        { dex: battle.monster.stats.speed ?? 5, con: Math.floor(battle.monster.stats.defense / 2) },
+        false // 마법 공격 (빗맞음 없음)
       );
+
+      let finalDamage = 0;
+      let message = "";
+      const isCritical = hitResult.result === "critical";
+
+      if (hitResult.result === "dodged") {
+        message = getDodgeMessage(battle.monster.nameKo);
+      } else {
+        // 데미지 계산
+        let damage = calculateMagicDamage({
+          baseDamage: skill.baseDamage || 10,
+          attackerInt: casterStats.int,
+          element: skill.element as MagicElement,
+          proficiencyLevel,
+          targetDefense: battle.monster.stats.defense,
+          targetElement: battle.monster.element,
+        });
+
+        // 마법 버프 적용
+        if (magicModifier !== 0) {
+          damage = Math.floor(damage * (1 + magicModifier / 100));
+        }
+
+        // 배율 적용 (치명타 or 막기)
+        finalDamage = Math.floor(damage * hitResult.damageMultiplier);
+        finalDamage = Math.max(1, finalDamage);
+
+        if (hitResult.result === "blocked") {
+          message = getBlockMessage(battle.monster.nameKo, finalDamage);
+        } else {
+          message = getAttackMessage(
+            skill.element as ProficiencyType,
+            battle.monster.nameKo,
+            finalDamage,
+            isCritical
+          );
+        }
+      }
 
       // 공격 적용
       playerAttack(finalDamage, message, skill.proficiencyType);
