@@ -68,21 +68,6 @@ export function ChatBox({ userId, onSend, isConnected, whisperCharges = 0, cryst
         </span>
       </div>
 
-      {/* 크리스탈 없음 안내 (귓속말만 해당) */}
-      {!hasWhisperAbility && (
-        <div
-          className="flex-none px-3 py-1.5 text-xs font-mono flex items-center gap-2"
-          style={{
-            background: `${theme.colors.textMuted}10`,
-            color: theme.colors.textMuted,
-            borderBottom: `1px solid ${theme.colors.border}`,
-          }}
-        >
-          <span>💡</span>
-          <span>귓속말(/w)을 사용하려면 인벤토리에서 통신용 크리스탈을 사용하세요.</span>
-        </div>
-      )}
-
       {/* 메시지 영역 */}
       <div className="flex-1 overflow-y-auto px-3 py-2 space-y-0.5 min-h-0">
         {messages.length === 0 ? (
