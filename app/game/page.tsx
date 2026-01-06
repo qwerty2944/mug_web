@@ -137,6 +137,8 @@ export default function GamePage() {
     mapId: mapId || "town_square",
     userId: session?.user?.id || "",
     characterName: myCharacterName,
+    whisperCharges: profile?.whisperCharges,
+    crystalTier: profile?.crystalTier,
   });
 
   const handleMapChange = async (newMapId: string) => {
