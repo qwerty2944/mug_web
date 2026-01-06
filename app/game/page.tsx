@@ -122,23 +122,10 @@ export default function GamePage() {
     }
   }, [profile, maps, mapId, setCurrentMap]);
 
-  // 디버그: Realtime 연결 조건 확인
-  useEffect(() => {
-    console.log("[GamePage] Realtime params:", {
-      mapId: mapId || "town_square",
-      userId: session?.user?.id || "",
-      characterName: myCharacterName,
-      profileLoaded: !!profile,
-      mapsLoaded: maps.length,
-    });
-  }, [mapId, session?.user?.id, myCharacterName, profile, maps.length]);
-
   const { sendMessage } = useRealtimeChat({
     mapId: mapId || "town_square",
     userId: session?.user?.id || "",
     characterName: myCharacterName,
-    whisperCharges: profile?.whisperCharges,
-    crystalTier: profile?.crystalTier,
   });
 
   const handleMapChange = async (newMapId: string) => {

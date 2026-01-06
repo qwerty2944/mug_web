@@ -5,31 +5,22 @@ import { supabase } from "@/shared/api";
 import { useGameStore, useChatStore, parseChatCommand, type OnlineUser } from "@/application/stores";
 import { fetchRecentMessages, saveMessage, type ChatMessage } from "@/entities/chat";
 import { useMaps, getMapById } from "@/entities/map";
-import { consumeWhisperCharge, profileKeys } from "@/entities/user";
-import type { CrystalTier } from "@/entities/user";
 import { updateLocation as updateLocationApi } from "@/features/game/update-location";
-import { useQueryClient } from "@tanstack/react-query";
 import type { RealtimeChannel } from "@supabase/supabase-js";
-import toast from "react-hot-toast";
 
 interface UseRealtimeChatProps {
   mapId: string;
   userId: string;
   characterName: string;
-  whisperCharges?: number;
-  crystalTier?: CrystalTier;
 }
 
 export function useRealtimeChat({
   mapId,
   userId,
   characterName,
-  whisperCharges = 0,
-  crystalTier = null,
 }: UseRealtimeChatProps) {
   const channelRef = useRef<RealtimeChannel | null>(null);
   const mountedRef = useRef(true);
-  const queryClient = useQueryClient();
 
   const { setOnlineUsers, setConnected } = useGameStore();
   const { data: maps = [] } = useMaps();
@@ -80,37 +71,6 @@ export function useRealtimeChat({
       const channel = channelRef.current;
       if (!channel) return false;
 
-      // 귓속말 체크: 크리스탈 충전 필요
-      if (parsed.type === "whisper") {
-        // /r 명령어는 advanced 이상 크리스탈 필요
-        const isReplyCommand = input.trim().startsWith("/r ");
-        if (isReplyCommand && crystalTier === "basic") {
-          toast.error("빠른 답장(/r)은 고급 크리스탈 이상이 필요합니다");
-          return false;
-        }
-
-        // 충전량 체크
-        if (whisperCharges <= 0) {
-          toast.error("통신용 크리스탈이 필요합니다");
-          return false;
-        }
-
-        // 충전 소모
-        try {
-          const result = await consumeWhisperCharge(userId);
-          if (!result.success) {
-            toast.error("통신용 크리스탈이 필요합니다");
-            return false;
-          }
-          // 프로필 캐시 무효화
-          queryClient.invalidateQueries({ queryKey: profileKeys.detail(userId) });
-        } catch (error) {
-          console.error("Failed to consume whisper charge:", error);
-          toast.error("크리스탈 사용 중 오류가 발생했습니다");
-          return false;
-        }
-      }
-
       const messageId = `${userId}-${Date.now()}`;
       const message: ChatMessage = {
         id: messageId,
@@ -155,7 +115,7 @@ export function useRealtimeChat({
 
       return true;
     },
-    [mapId, userId, characterName, lastWhisperFrom, saveToCache, addMessage, whisperCharges, crystalTier, queryClient]
+    [mapId, userId, characterName, lastWhisperFrom, saveToCache, addMessage]
   );
 
   // 시스템 메시지 추가
@@ -176,26 +136,16 @@ export function useRealtimeChat({
 
   // Realtime 채널 연결
   useEffect(() => {
-    if (!mapId || !userId || !characterName) {
-      console.log("[Realtime] Skipping - missing params:", { mapId, userId, characterName });
-      return;
-    }
+    if (!mapId || !userId || !characterName) return;
 
-    console.log("[Realtime] Starting connection with:", { mapId, userId, characterName });
     mountedRef.current = true;
 
     // 기존 채널 정리
     if (channelRef.current) {
-      console.log("[Realtime] Removing existing channel");
       supabase.removeChannel(channelRef.current);
     }
 
     clearMessages();
-
-    // Supabase 세션 확인
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      console.log("[Realtime] Session check:", session ? "authenticated" : "anonymous");
-    });
 
     const channel = supabase.channel(`map:${mapId}`, {
       config: {
@@ -203,8 +153,6 @@ export function useRealtimeChat({
         presence: { key: userId },
       },
     });
-
-    console.log("[Realtime] Channel created, subscribing...");
 
     // 일반 채팅 메시지
     channel.on("broadcast", { event: "chat_message" }, ({ payload }) => {
@@ -253,9 +201,7 @@ export function useRealtimeChat({
     });
 
     // 구독 시작
-    channel.subscribe(async (status, err) => {
-      console.log("[Realtime] Channel status:", status, err);
-
+    channel.subscribe(async (status) => {
       if (status === "SUBSCRIBED" && mountedRef.current) {
         setConnected(true);
 
@@ -274,12 +220,6 @@ export function useRealtimeChat({
           const mapName = getMapById(maps, mapId)?.nameKo || mapId;
           addSystemMessage(`${mapName}에 입장했습니다.`);
         }
-      } else if (status === "CHANNEL_ERROR") {
-        console.error("[Realtime] Channel error:", err);
-        setConnected(false);
-      } else if (status === "TIMED_OUT") {
-        console.error("[Realtime] Channel timed out");
-        setConnected(false);
       }
     });
 
