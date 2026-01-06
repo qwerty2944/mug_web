@@ -50,6 +50,10 @@ export interface BattleState {
   result: BattleResult;
   usedWeaponType: string | null;
 
+  // 선공 시스템
+  isPreemptivePhase: boolean; // 선제공격 단계인지
+  monsterGoesFirst: boolean; // 몬스터가 선공인지
+
   // 상태이상
   playerBuffs: StatusEffect[];
   playerDebuffs: StatusEffect[];
@@ -70,6 +74,8 @@ const initialBattleState: BattleState = {
   battleLog: [],
   result: "ongoing",
   usedWeaponType: null,
+  isPreemptivePhase: false,
+  monsterGoesFirst: false,
   playerBuffs: [],
   playerDebuffs: [],
   monsterBuffs: [],
@@ -90,6 +96,7 @@ interface BattleStore {
   ) => void;
   playerAttack: (damage: number, message: string, weaponType?: string) => void;
   monsterAttack: (damage: number, message: string) => void;
+  monsterPreemptiveAttack: (damage: number, message: string) => void;
   playerFlee: () => boolean;
   endBattle: (result: BattleResult) => void;
   addLog: (entry: Omit<BattleLogEntry, "timestamp">) => void;
@@ -127,6 +134,9 @@ export const useBattleStore = create<BattleStore>((set, get) => ({
 
   // 전투 시작
   startBattle: (monster, playerHp, playerMaxHp, playerMp, playerMaxMp) => {
+    // 몬스터 behavior에 따른 선공 결정
+    const monsterGoesFirst = monster.behavior === "aggressive";
+
     set({
       battle: {
         isInBattle: true,
@@ -148,6 +158,8 @@ export const useBattleStore = create<BattleStore>((set, get) => ({
         ],
         result: "ongoing",
         usedWeaponType: null,
+        isPreemptivePhase: monsterGoesFirst,
+        monsterGoesFirst,
         playerBuffs: [],
         playerDebuffs: [],
         monsterBuffs: [],
@@ -296,6 +308,81 @@ export const useBattleStore = create<BattleStore>((set, get) => ({
           playerCurrentHp: newPlayerHp,
           playerBuffs: newPlayerBuffs,
           turn: battle.turn + 1,
+          battleLog: [...battle.battleLog, newLog],
+        },
+      });
+    }
+  },
+
+  // 몬스터 선제공격 (aggressive 몬스터 전용)
+  monsterPreemptiveAttack: (damage, message) => {
+    const { battle } = get();
+    if (!battle.isInBattle || battle.result !== "ongoing") return;
+    if (!battle.isPreemptivePhase) return;
+
+    // 플레이어 보호막 확인
+    let finalDamage = damage;
+    let newPlayerBuffs = [...battle.playerBuffs];
+    const playerShield = getShieldAmount(newPlayerBuffs);
+
+    if (playerShield > 0) {
+      const { effects, remainingDamage } = applyDamageToShield(
+        newPlayerBuffs,
+        damage
+      );
+      newPlayerBuffs = effects;
+      finalDamage = remainingDamage;
+
+      if (remainingDamage < damage) {
+        get().addLog({
+          turn: battle.turn,
+          actor: "system",
+          action: "shield_absorb",
+          message: `보호막이 ${damage - remainingDamage} 피해를 흡수했다!`,
+        });
+      }
+    }
+
+    const newPlayerHp = Math.max(0, battle.playerCurrentHp - finalDamage);
+    const newLog: BattleLogEntry = {
+      turn: 0, // 선제공격은 턴 0
+      actor: "monster",
+      action: "preemptive",
+      damage: finalDamage,
+      message,
+      timestamp: Date.now(),
+    };
+
+    // 플레이어 패배 확인
+    if (newPlayerHp <= 0) {
+      set({
+        battle: {
+          ...battle,
+          playerCurrentHp: 0,
+          playerBuffs: newPlayerBuffs,
+          isPreemptivePhase: false,
+          battleLog: [
+            ...battle.battleLog,
+            newLog,
+            {
+              turn: 0,
+              actor: "system",
+              action: "defeat",
+              message: getDefeatMessage(),
+              timestamp: Date.now(),
+            },
+          ],
+          result: "defeat",
+        },
+      });
+    } else {
+      // 선제공격 후 플레이어 턴으로
+      set({
+        battle: {
+          ...battle,
+          playerCurrentHp: newPlayerHp,
+          playerBuffs: newPlayerBuffs,
+          isPreemptivePhase: false,
           battleLog: [...battle.battleLog, newLog],
         },
       });
@@ -633,6 +720,10 @@ export const useBattleStore = create<BattleStore>((set, get) => ({
   // Getters
   isPlayerTurn: () => {
     const { battle } = get();
+    // 선제공격 단계에서는 몬스터가 선공이면 플레이어 턴 아님
+    if (battle.isPreemptivePhase && battle.monsterGoesFirst) {
+      return false;
+    }
     return battle.turn % 2 === 1;
   },
 

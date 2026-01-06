@@ -33,6 +33,7 @@ export function BattlePanel({
     playerFlee,
     resetBattle,
     monsterAttack,
+    monsterPreemptiveAttack,
     processStatusEffects,
     tickAllStatuses,
     getPlayerDefModifier,
@@ -171,6 +172,48 @@ export function BattlePanel({
       return () => clearTimeout(timer);
     }
   }, [battle.result, onVictory, onDefeat, resetBattle]);
+
+  // 선제공격 처리 (aggressive 몬스터)
+  useEffect(() => {
+    if (
+      battle.isInBattle &&
+      battle.isPreemptivePhase &&
+      battle.monsterGoesFirst &&
+      battle.monster &&
+      battle.result === "ongoing"
+    ) {
+      const timer = setTimeout(() => {
+        // 플레이어 방어력 계산
+        const defModifier = getPlayerDefModifier();
+        const baseDefense = Math.floor((characterStats.con || 10) * 0.5);
+        const finalDefense = Math.max(0, baseDefense + defModifier);
+
+        // 몬스터 공격력 계산
+        const atkModifier = getMonsterAtkModifier();
+        const monsterAtk = Math.max(
+          1,
+          battle.monster!.stats.attack * (1 + atkModifier / 100)
+        );
+
+        const damage = calculateMonsterDamage(monsterAtk, finalDefense);
+        const message = `${battle.monster!.icon} ${battle.monster!.nameKo}의 선제 공격! ${damage} 데미지!`;
+
+        monsterPreemptiveAttack(damage, message);
+      }, 1000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [
+    battle.isInBattle,
+    battle.isPreemptivePhase,
+    battle.monsterGoesFirst,
+    battle.monster,
+    battle.result,
+    characterStats,
+    getPlayerDefModifier,
+    getMonsterAtkModifier,
+    monsterPreemptiveAttack,
+  ]);
 
   if (!battle.isInBattle || !battle.monster) return null;
 
