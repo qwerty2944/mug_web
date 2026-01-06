@@ -19,7 +19,6 @@ import {
   useProfile,
   getMainCharacter,
   getStaminaPercent,
-  updateCurrentMap,
 } from "@/entities/user";
 import {
   useMaps,
@@ -30,7 +29,8 @@ import type { Monster } from "@/entities/monster";
 import { useProficiencies } from "@/entities/proficiency";
 import type { ProficiencyType } from "@/entities/proficiency";
 import { useBattleStore, usePvpStore } from "@/application/stores";
-import { useStartBattle } from "@/features/combat";
+import { useStartBattle, useEndBattle } from "@/features/combat";
+import { useUpdateLocation } from "@/features/game";
 import { useThemeStore } from "@/shared/config";
 import { ThemeSettingsModal } from "@/shared/ui";
 
@@ -51,9 +51,12 @@ export default function GamePage() {
   const [showWorldMap, setShowWorldMap] = useState(false);
 
   // 전투 관련
-  const { battle, resetBattle } = useBattleStore();
-  const { start: startBattle } = useStartBattle();
+  const { battle } = useBattleStore();
+  const { start: startBattle } = useStartBattle({ userId: session?.user?.id });
   const { data: proficiencies } = useProficiencies(session?.user?.id);
+
+  // 맵 이동 (피로도 소모)
+  const updateLocation = useUpdateLocation();
 
   // PvP 관련
   const { declineNotice, setDeclineNotice } = usePvpStore();
@@ -127,18 +130,25 @@ export default function GamePage() {
 
   const handleMapChange = async (newMapId: string) => {
     const newMap = getMapById(maps, newMapId);
-    if (newMap && session?.user?.id) {
-      setMapId(newMapId);
-      setCurrentMap({
-        id: newMap.id,
-        name: getMapDisplayName(newMap),
-        description: newMap.descriptionKo || "",
-      });
-      // 서버에 위치 저장
+    if (newMap && session?.user?.id && myCharacterName) {
       try {
-        await updateCurrentMap(session.user.id, newMapId);
+        // 피로도 소모 + 위치 업데이트
+        await updateLocation.mutateAsync({
+          userId: session.user.id,
+          characterName: myCharacterName,
+          mapId: newMapId,
+        });
+
+        // 로컬 상태 업데이트
+        setMapId(newMapId);
+        setCurrentMap({
+          id: newMap.id,
+          name: getMapDisplayName(newMap),
+          description: newMap.descriptionKo || "",
+        });
       } catch (error) {
-        console.error("Failed to save location:", error);
+        console.error("Failed to move:", error);
+        // 피로도 부족 등의 에러는 useUpdateLocation에서 toast 처리됨
       }
     }
   };
@@ -147,6 +157,20 @@ export default function GamePage() {
     await signOut();
     router.push("/login");
   };
+
+  // 전투 종료 (경험치/골드/레벨업 처리)
+  const { endBattle } = useEndBattle({
+    userId: session?.user?.id,
+    onVictory: (rewards) => {
+      console.log("[Battle] Victory! Rewards:", rewards);
+    },
+    onDefeat: () => {
+      console.log("[Battle] Defeat...");
+    },
+    onFled: () => {
+      console.log("[Battle] Fled!");
+    },
+  });
 
   // 전투 시작
   const handleSelectMonster = useCallback(
@@ -164,23 +188,20 @@ export default function GamePage() {
     [profile, battle.isInBattle, startBattle, mainCharacter]
   );
 
-  // 전투 승리
+  // 전투 승리 - endBattle이 보상 지급 처리
   const handleVictory = useCallback(() => {
-    // TODO: 보상 지급 (exp, gold)
-    console.log("[Battle] Victory! Rewards:", battle.monster?.rewards);
-    setTimeout(() => resetBattle(), 500);
-  }, [battle.monster, resetBattle]);
+    endBattle();
+  }, [endBattle]);
 
   // 전투 패배
   const handleDefeat = useCallback(() => {
-    console.log("[Battle] Defeat...");
-    setTimeout(() => resetBattle(), 500);
-  }, [resetBattle]);
+    endBattle();
+  }, [endBattle]);
 
   // 도주
   const handleFlee = useCallback(() => {
-    console.log("[Battle] Fled!");
-  }, []);
+    endBattle();
+  }, [endBattle]);
 
   if (profileLoading || !profile) {
     return (
