@@ -10,9 +10,11 @@ interface ChatBoxProps {
   userId: string;
   onSend: (message: string) => void;
   isConnected: boolean;
+  whisperCharges?: number;
+  crystalTier?: string | null;
 }
 
-export function ChatBox({ userId, onSend, isConnected }: ChatBoxProps) {
+export function ChatBox({ userId, onSend, isConnected, whisperCharges = 0, crystalTier }: ChatBoxProps) {
   const { theme } = useThemeStore();
   const { messages } = useChatStore();
   const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -20,6 +22,8 @@ export function ChatBox({ userId, onSend, isConnected }: ChatBoxProps) {
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
+
+  const hasWhisperAbility = whisperCharges > 0;
 
   return (
     <div
@@ -37,9 +41,22 @@ export function ChatBox({ userId, onSend, isConnected }: ChatBoxProps) {
           borderColor: theme.colors.border,
         }}
       >
-        <span className="text-sm font-mono font-medium" style={{ color: theme.colors.text }}>
-          💬 채팅
-        </span>
+        <div className="flex items-center gap-3">
+          <span className="text-sm font-mono font-medium" style={{ color: theme.colors.text }}>
+            💬 채팅
+          </span>
+          {/* 크리스탈 충전량 표시 */}
+          <span
+            className="text-xs px-2 py-0.5 font-mono"
+            style={{
+              background: hasWhisperAbility ? `${theme.colors.primary}20` : `${theme.colors.textMuted}20`,
+              color: hasWhisperAbility ? theme.colors.primary : theme.colors.textMuted,
+            }}
+            title={hasWhisperAbility ? `귓속말 ${whisperCharges}회 가능` : "통신용 크리스탈 필요"}
+          >
+            🔮 {whisperCharges}
+          </span>
+        </div>
         <span
           className="text-xs px-2 py-0.5 font-mono"
           style={{
@@ -50,6 +67,21 @@ export function ChatBox({ userId, onSend, isConnected }: ChatBoxProps) {
           {isConnected ? "연결됨" : "연결 중..."}
         </span>
       </div>
+
+      {/* 크리스탈 없음 경고 */}
+      {!hasWhisperAbility && (
+        <div
+          className="flex-none px-3 py-2 text-xs font-mono flex items-center gap-2"
+          style={{
+            background: `${theme.colors.warning}15`,
+            color: theme.colors.warning,
+            borderBottom: `1px solid ${theme.colors.border}`,
+          }}
+        >
+          <span>⚠️</span>
+          <span>통신용 크리스탈이 없습니다. 인벤토리에서 크리스탈을 사용해 귓속말을 활성화하세요.</span>
+        </div>
+      )}
 
       {/* 메시지 영역 */}
       <div className="flex-1 overflow-y-auto px-3 py-2 space-y-0.5 min-h-0">
