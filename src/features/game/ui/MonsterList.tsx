@@ -80,7 +80,7 @@ export function MonsterList({
       </div>
 
       {/* 몬스터 목록 */}
-      <div className="p-2 space-y-2 max-h-64 overflow-y-auto">
+      <div className="p-2 space-y-2 max-h-48 overflow-y-auto">
         {monsters.map((monster) => {
           const levelDiff = monster.level - playerLevel;
           const diffColor =
