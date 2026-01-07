@@ -29,7 +29,7 @@ export function AtmosphericText({ mapId, className = "" }: AtmosphericTextProps)
 
   // 메시지 데이터 로드
   useEffect(() => {
-    fetch("/data/atmospheric-messages.json")
+    fetch("/data/world/atmospheric-messages.json")
       .then((res) => res.json())
       .then((data) => setMessages(data.messages))
       .catch((err) => console.error("Failed to load atmospheric messages:", err));

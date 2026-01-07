@@ -12,9 +12,24 @@ export type {
   EquipmentData,
   EquipmentStats,
   EquipmentSlot,
+  LegacyEquipmentSlot,
+  WeaponHandType,
+  OffHandItemType,
+  AccessoryType,
+  SlotCategory,
+  SlotConfigInfo,
 } from "./types";
 
-export { RARITY_CONFIG, ITEM_TYPE_CONFIG, WEIGHT_CONFIG } from "./types";
+export {
+  RARITY_CONFIG,
+  ITEM_TYPE_CONFIG,
+  WEIGHT_CONFIG,
+  SLOT_CONFIG,
+  APPEARANCE_SLOTS,
+  ACCESSORY_SLOTS,
+  isAppearanceSlot,
+  isAccessorySlot,
+} from "./types";
 
 // API
 export {

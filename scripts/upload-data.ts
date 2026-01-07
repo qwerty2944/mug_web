@@ -48,6 +48,8 @@ const DATA_FILES = [
   "monsters.json",
   "skills.json",
   "maps.json",
+  "spells.json",
+  "religions.json",
 ];
 
 async function uploadFile(fileName: string) {

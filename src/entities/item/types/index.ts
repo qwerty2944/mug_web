@@ -165,9 +165,84 @@ export const ITEM_TYPE_CONFIG: Record<ItemType, ItemTypeInfo> = {
   misc: { id: "misc", nameKo: "기타", nameEn: "Misc", icon: "📦" },
 };
 
-// ============ Equipment Slots ============
+// ============ Equipment Slots (12슬롯 시스템) ============
 
-export type EquipmentSlot = "weapon" | "armor" | "helmet" | "accessory";
+// 12개 장비 슬롯
+export type EquipmentSlot =
+  // 외형 변경 슬롯 (6)
+  | "mainHand"    // 주무기
+  | "offHand"     // 보조 (방패/횃불/한손무기)
+  | "helmet"      // 투구
+  | "armor"       // 갑옷 (외피)
+  | "cloth"       // 의복 (내피)
+  | "pants"       // 바지
+  // 장신구 슬롯 (6)
+  | "ring1" | "ring2"
+  | "necklace"
+  | "earring1" | "earring2"
+  | "bracelet";
+
+// 구 슬롯 (마이그레이션용)
+export type LegacyEquipmentSlot = "weapon" | "armor" | "helmet" | "accessory";
+
+// 무기 손 타입
+export type WeaponHandType = "one_handed" | "two_handed";
+
+// 오프핸드 아이템 타입
+export type OffHandItemType = "shield" | "torch" | "weapon";
+
+// 장신구 타입
+export type AccessoryType = "ring" | "necklace" | "earring" | "bracelet";
+
+// 슬롯 카테고리
+export type SlotCategory = "weapon" | "armor" | "accessory";
+
+// 슬롯 설정 정보
+export interface SlotConfigInfo {
+  nameKo: string;
+  icon: string;
+  category: SlotCategory;
+  unityPart?: string;  // Unity 외형 연동용
+}
+
+// 슬롯 설정
+export const SLOT_CONFIG: Record<EquipmentSlot, SlotConfigInfo> = {
+  // 무기 슬롯
+  mainHand: { nameKo: "주무기", icon: "⚔️", category: "weapon" },
+  offHand: { nameKo: "보조", icon: "🛡️", category: "weapon" },
+  // 방어구 슬롯 (외형 변경)
+  helmet: { nameKo: "투구", icon: "🪖", category: "armor", unityPart: "Helmet" },
+  armor: { nameKo: "갑옷", icon: "🥋", category: "armor", unityPart: "Armor" },
+  cloth: { nameKo: "의복", icon: "👕", category: "armor", unityPart: "Cloth" },
+  pants: { nameKo: "바지", icon: "👖", category: "armor", unityPart: "Pant" },
+  // 장신구 슬롯
+  ring1: { nameKo: "반지1", icon: "💍", category: "accessory" },
+  ring2: { nameKo: "반지2", icon: "💍", category: "accessory" },
+  necklace: { nameKo: "목걸이", icon: "📿", category: "accessory" },
+  earring1: { nameKo: "귀걸이1", icon: "✨", category: "accessory" },
+  earring2: { nameKo: "귀걸이2", icon: "✨", category: "accessory" },
+  bracelet: { nameKo: "팔찌", icon: "⭕", category: "accessory" },
+};
+
+// 외형 변경 슬롯 목록
+export const APPEARANCE_SLOTS: EquipmentSlot[] = [
+  "mainHand", "offHand", "helmet", "armor", "cloth", "pants"
+];
+
+// 장신구 슬롯 목록
+export const ACCESSORY_SLOTS: EquipmentSlot[] = [
+  "ring1", "ring2", "necklace", "earring1", "earring2", "bracelet"
+];
+
+// 슬롯이 외형에 영향을 주는지 확인
+export function isAppearanceSlot(slot: EquipmentSlot): boolean {
+  return APPEARANCE_SLOTS.includes(slot);
+}
+
+// 슬롯이 장신구인지 확인
+export function isAccessorySlot(slot: EquipmentSlot): boolean {
+  return ACCESSORY_SLOTS.includes(slot);
+}
 
 // ============ Consumable Effects ============
 
@@ -191,6 +266,7 @@ export interface ConsumableEffect {
 // ============ Equipment Data ============
 
 export interface EquipmentStats {
+  // 기본 스탯
   attack?: number;
   defense?: number;
   magic?: number;
@@ -199,11 +275,26 @@ export interface EquipmentStats {
   speed?: number;
   critRate?: number;
   critDamage?: number;
+  // 능력치 보너스 (장신구용)
+  str?: number;
+  dex?: number;
+  con?: number;
+  int?: number;
+  wis?: number;
+  cha?: number;
+  lck?: number;
+  // 특수 효과
+  blockChance?: number;   // 막기 확률 (방패)
+  lightRadius?: number;   // 시야 반경 (횃불)
 }
 
 export interface EquipmentData {
   slot: EquipmentSlot;
   weaponType?: ProficiencyType;
+  handType?: WeaponHandType;        // 한손/양손 (무기용)
+  offHandType?: OffHandItemType;    // 오프핸드 타입 (방패/횃불/무기)
+  accessoryType?: AccessoryType;    // 장신구 타입
+  unityPartIndex?: number;          // Unity 스프라이트 인덱스
   stats: EquipmentStats;
   requiredLevel?: number;
 }

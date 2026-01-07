@@ -6,4 +6,6 @@ export {
   getExpToNextLevel,
   getStaminaPercent,
   calculateRecoveredStamina,
+  calculateMaxStamina,
+  getMaxStaminaFromProfile,
 } from "./useProfile";

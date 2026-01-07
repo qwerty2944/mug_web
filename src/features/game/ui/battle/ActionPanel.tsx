@@ -2,13 +2,14 @@
 
 import { useThemeStore } from "@/shared/config";
 import { useBattleStore, useEquipmentStore } from "@/application/stores";
-import type { SkillCategory, Skill } from "@/entities/skill";
+import type { Skill } from "@/entities/skill";
 import type { ProficiencyType, WeaponType } from "@/entities/proficiency";
 import { getProficiencyInfo } from "@/entities/proficiency";
 import { useSkills } from "@/entities/skill";
+import type { BattleActionTab } from "./ActionTabs";
 
 interface ActionPanelProps {
-  activeTab: SkillCategory;
+  activeTab: BattleActionTab;
   proficiencies: Record<ProficiencyType, number>;
   onWeaponAttack: (weaponType: ProficiencyType) => void;
   onCastSkill: (skill: Skill) => void;
@@ -26,7 +27,7 @@ export function ActionPanel({
 }: ActionPanelProps) {
   const { theme } = useThemeStore();
   const { canUseSkill, isPlayerSilenced } = useBattleStore();
-  const { weapon, learnedSkills } = useEquipmentStore();
+  const { mainHand, learnedSkills } = useEquipmentStore();
 
   // 스킬 데이터 로드
   const { data: allSkills = [] } = useSkills();
@@ -54,7 +55,11 @@ export function ActionPanel({
   const isSilenced = isPlayerSilenced();
 
   // 장착 무기 정보
-  const equippedWeaponType = weapon?.itemType as WeaponType | null;
+  // mainHand.itemType이 유효한 WeaponType인지 확인
+  const rawWeaponType = mainHand?.itemType;
+  const equippedWeaponType = (rawWeaponType && typeof rawWeaponType === "string")
+    ? rawWeaponType as WeaponType
+    : null;
   const weaponInfo = equippedWeaponType
     ? getProficiencyInfo(equippedWeaponType)
     : null;
@@ -64,10 +69,10 @@ export function ActionPanel({
       {/* 무기 탭 - 장착된 무기 또는 맨손 */}
       {activeTab === "weapon" && (
         <div className="space-y-2">
-          {/* 장착된 무기가 있으면 */}
-          {weapon ? (
+          {/* 장착된 무기가 있고 무기 타입이 유효하면 */}
+          {mainHand && equippedWeaponType ? (
             <button
-              onClick={() => onWeaponAttack(equippedWeaponType!)}
+              onClick={() => onWeaponAttack(equippedWeaponType)}
               disabled={disabled}
               className="w-full flex items-center gap-4 py-3 px-4 transition-colors font-mono"
               style={{
@@ -78,14 +83,14 @@ export function ActionPanel({
                 cursor: disabled ? "not-allowed" : "pointer",
               }}
             >
-              <span className="text-3xl">{weapon.icon}</span>
+              <span className="text-3xl">{mainHand.icon}</span>
               <div className="flex-1 text-left">
-                <div className="font-medium">{weapon.itemName}</div>
+                <div className="font-medium">{mainHand.itemName}</div>
                 <div
                   className="text-xs"
                   style={{ color: theme.colors.textMuted }}
                 >
-                  {weaponInfo?.nameKo} · Lv.{proficiencies[equippedWeaponType!] || 0}
+                  {weaponInfo?.nameKo ?? "무기"} · Lv.{proficiencies[equippedWeaponType] || 0}
                 </div>
               </div>
               <div
@@ -135,7 +140,7 @@ export function ActionPanel({
           )}
 
           {/* 무기 장착 안내 */}
-          {!weapon && (
+          {!mainHand && (
             <div
               className="text-center py-2 text-xs font-mono"
               style={{ color: theme.colors.textMuted }}
@@ -161,7 +166,7 @@ export function ActionPanel({
           {magicSkills.length > 0 ? (
             <div className="grid grid-cols-3 gap-2">
               {magicSkills.map((skill) => {
-                const canCast = canUseSkill(skill.mpCost) && !isSilenced;
+                const canCast = canUseSkill(skill.mpCost ?? 0) && !isSilenced;
                 return (
                   <SkillButton
                     key={skill.id}
@@ -210,7 +215,7 @@ export function ActionPanel({
               </div>
               <div className="grid grid-cols-3 gap-2">
                 {buffSkills.map((skill) => {
-                  const canCast = canUseSkill(skill.mpCost) && !isSilenced;
+                  const canCast = canUseSkill(skill.mpCost ?? 0) && !isSilenced;
                   return (
                     <SkillButton
                       key={skill.id}
@@ -236,7 +241,7 @@ export function ActionPanel({
               </div>
               <div className="grid grid-cols-3 gap-2">
                 {debuffSkills.map((skill) => {
-                  const canCast = canUseSkill(skill.mpCost) && !isSilenced;
+                  const canCast = canUseSkill(skill.mpCost ?? 0) && !isSilenced;
                   return (
                     <SkillButton
                       key={skill.id}
@@ -331,7 +336,7 @@ function SkillButton({
           color: canCast ? theme.colors.primary : theme.colors.error,
         }}
       >
-        MP {skill.mpCost}
+        MP {skill.mpCost ?? 0}
       </span>
       {proficiency !== undefined && proficiency > 0 && (
         <span className="text-[10px]" style={{ color: theme.colors.textMuted }}>

@@ -266,9 +266,10 @@ export function useRealtimeDuel({
 
         // TODO: 실제 스탯과 숙련도 가져오기
         // 지금은 기본값 사용
-        const defaultStats = { str: 10, dex: 10, con: 10, int: 10, wis: 10, cha: 10, lck: 10 };
+        const defaultStats = { str: 10, dex: 10, con: 10, int: 10, wis: 10, cha: 10, lck: 10, ambushChance: 0, ambushDamage: 0 };
         const defaultProficiencies = {
-          sword: 0, axe: 0, mace: 0, dagger: 0, spear: 0, bow: 0, crossbow: 0, staff: 0, fist: 0,
+          light_sword: 0, medium_sword: 0, great_sword: 0,
+          axe: 0, mace: 0, dagger: 0, spear: 0, bow: 0, crossbow: 0, staff: 0, fist: 0,
           fire: 0, ice: 0, lightning: 0, earth: 0, holy: 0, dark: 0,
         };
 

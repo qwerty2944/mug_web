@@ -5,11 +5,11 @@ import { useBattleStore } from "@/application/stores";
 import { useThemeStore } from "@/shared/config";
 import type { CharacterStats } from "@/entities/character";
 import type { ProficiencyType } from "@/entities/proficiency";
-import type { Skill, SkillCategory } from "@/entities/skill";
+import type { Skill } from "@/entities/skill";
 import { useAttack, useCastSpell, calculateMonsterDamage } from "@/features/combat";
 import { BattleHeader } from "./battle/BattleHeader";
 import { BattleLog } from "./battle/BattleLog";
-import { ActionTabs } from "./battle/ActionTabs";
+import { ActionTabs, type BattleActionTab } from "./battle/ActionTabs";
 import { ActionPanel } from "./battle/ActionPanel";
 
 interface BattlePanelProps {
@@ -41,7 +41,7 @@ export function BattlePanel({
     isPlayerIncapacitated,
   } = useBattleStore();
 
-  const [activeTab, setActiveTab] = useState<SkillCategory>("weapon");
+  const [activeTab, setActiveTab] = useState<BattleActionTab>("weapon");
 
   // 몬스터 턴 처리 (마법/버프 사용 후)
   const handleMonsterTurn = useCallback(() => {

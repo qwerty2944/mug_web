@@ -147,7 +147,9 @@ export function generateAttackMessage(params: AttackMessageParams): string {
   const { attackerName, defenderName, attackType, damage, isCritical } = params;
 
   const attackNames: Record<ProficiencyType, string> = {
-    sword: "검",
+    light_sword: "세검",
+    medium_sword: "중검",
+    great_sword: "대검",
     axe: "도끼",
     mace: "둔기",
     dagger: "단검",

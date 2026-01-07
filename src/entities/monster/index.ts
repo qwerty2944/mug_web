@@ -9,10 +9,11 @@ export type {
   MonstersData,
   MonsterType,
   MonsterTypeInfo,
+  PhysicalResistance,
 } from "./types";
 
 // Constants
-export { MONSTER_TYPE_INFO } from "./types";
+export { MONSTER_TYPE_INFO, DEFAULT_PHYSICAL_RESISTANCE } from "./types";
 
 // API
 export {
@@ -41,3 +42,6 @@ export {
   calculateExpBonus,
   formatMonsterSummary,
 } from "./lib";
+
+// Lib (Resistance)
+export { getPhysicalResistance, getResistanceText } from "./lib/resistance";

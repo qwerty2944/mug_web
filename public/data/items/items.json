@@ -258,24 +258,51 @@
       }
     },
     {
-      "id": "wooden_sword",
-      "nameKo": "나무 검",
-      "nameEn": "Wooden Sword",
+      "id": "wooden_light_sword",
+      "nameKo": "나무 세검",
+      "nameEn": "Wooden Light Sword",
       "description": {
-        "ko": "초보자용 나무 검. 가볍지만 약하다.",
-        "en": "A wooden sword for beginners. Light but weak."
+        "ko": "가볍고 빠른 나무 세검. 찌르기에 특화되어 있다.",
+        "en": "A light wooden sword. Specialized in thrusting attacks."
       },
       "type": "equipment",
       "rarity": "common",
       "icon": "🗡️",
+      "weight": 1.5,
+      "value": 45,
+      "sellPrice": 18,
+      "stackable": false,
+      "tags": ["weapon", "light_sword", "pierce"],
+      "equipmentData": {
+        "slot": "mainHand",
+        "weaponType": "light_sword",
+        "handType": "one_handed",
+        "stats": {
+          "attack": 4
+        },
+        "requiredLevel": 1
+      }
+    },
+    {
+      "id": "wooden_medium_sword",
+      "nameKo": "나무 중검",
+      "nameEn": "Wooden Medium Sword",
+      "description": {
+        "ko": "초보자용 나무 중검. 균형 잡힌 베기가 가능하다.",
+        "en": "A wooden medium sword for beginners. Allows balanced slashing."
+      },
+      "type": "equipment",
+      "rarity": "common",
+      "icon": "⚔️",
       "weight": 2.0,
       "value": 50,
       "sellPrice": 20,
       "stackable": false,
-      "tags": ["weapon", "sword"],
+      "tags": ["weapon", "medium_sword", "slash"],
       "equipmentData": {
-        "slot": "weapon",
-        "weaponType": "sword",
+        "slot": "mainHand",
+        "weaponType": "medium_sword",
+        "handType": "one_handed",
         "stats": {
           "attack": 5
         },
@@ -283,12 +310,64 @@
       }
     },
     {
-      "id": "iron_sword",
-      "nameKo": "철 검",
-      "nameEn": "Iron Sword",
+      "id": "wooden_great_sword",
+      "nameKo": "나무 대검",
+      "nameEn": "Wooden Great Sword",
       "description": {
-        "ko": "단단한 철로 만든 검. 믿을 만한 무기.",
-        "en": "A sword made of solid iron. A reliable weapon."
+        "ko": "크고 무거운 나무 대검. 패리가 가능하다.",
+        "en": "A large wooden great sword. Can parry attacks."
+      },
+      "type": "equipment",
+      "rarity": "common",
+      "icon": "🗡️",
+      "weight": 4.0,
+      "value": 55,
+      "sellPrice": 22,
+      "stackable": false,
+      "tags": ["weapon", "great_sword", "slash", "parry"],
+      "equipmentData": {
+        "slot": "mainHand",
+        "weaponType": "great_sword",
+        "handType": "two_handed",
+        "stats": {
+          "attack": 7
+        },
+        "requiredLevel": 1
+      }
+    },
+    {
+      "id": "iron_light_sword",
+      "nameKo": "철 세검",
+      "nameEn": "Iron Light Sword",
+      "description": {
+        "ko": "날렵한 철제 세검. 빠른 찌르기에 적합하다.",
+        "en": "A nimble iron light sword. Suitable for quick thrusts."
+      },
+      "type": "equipment",
+      "rarity": "grand",
+      "icon": "🗡️",
+      "weight": 2.5,
+      "value": 180,
+      "sellPrice": 72,
+      "stackable": false,
+      "tags": ["weapon", "light_sword", "pierce"],
+      "equipmentData": {
+        "slot": "mainHand",
+        "weaponType": "light_sword",
+        "handType": "one_handed",
+        "stats": {
+          "attack": 10
+        },
+        "requiredLevel": 5
+      }
+    },
+    {
+      "id": "iron_medium_sword",
+      "nameKo": "철 중검",
+      "nameEn": "Iron Medium Sword",
+      "description": {
+        "ko": "단단한 철로 만든 중검. 믿을 만한 베기 무기.",
+        "en": "A medium sword made of solid iron. A reliable slashing weapon."
       },
       "type": "equipment",
       "rarity": "grand",
@@ -297,12 +376,95 @@
       "value": 200,
       "sellPrice": 80,
       "stackable": false,
-      "tags": ["weapon", "sword"],
+      "tags": ["weapon", "medium_sword", "slash"],
       "equipmentData": {
-        "slot": "weapon",
-        "weaponType": "sword",
+        "slot": "mainHand",
+        "weaponType": "medium_sword",
+        "handType": "one_handed",
         "stats": {
           "attack": 12
+        },
+        "requiredLevel": 5
+      }
+    },
+    {
+      "id": "iron_great_sword",
+      "nameKo": "철 대검",
+      "nameEn": "Iron Great Sword",
+      "description": {
+        "ko": "묵직한 철제 대검. 강력한 베기와 패리가 가능하다.",
+        "en": "A heavy iron great sword. Capable of powerful slashes and parries."
+      },
+      "type": "equipment",
+      "rarity": "grand",
+      "icon": "🗡️",
+      "weight": 6.0,
+      "value": 250,
+      "sellPrice": 100,
+      "stackable": false,
+      "tags": ["weapon", "great_sword", "slash", "parry"],
+      "equipmentData": {
+        "slot": "mainHand",
+        "weaponType": "great_sword",
+        "handType": "two_handed",
+        "stats": {
+          "attack": 15
+        },
+        "requiredLevel": 5
+      }
+    },
+    {
+      "id": "wooden_dagger",
+      "nameKo": "나무 단검",
+      "nameEn": "Wooden Dagger",
+      "description": {
+        "ko": "작고 가벼운 나무 단검. 암습에 사용할 수 있다.",
+        "en": "A small wooden dagger. Can be used for ambush attacks."
+      },
+      "type": "equipment",
+      "rarity": "common",
+      "icon": "🔪",
+      "weight": 0.5,
+      "value": 30,
+      "sellPrice": 12,
+      "stackable": false,
+      "tags": ["weapon", "dagger", "pierce", "ambush"],
+      "equipmentData": {
+        "slot": "mainHand",
+        "weaponType": "dagger",
+        "handType": "one_handed",
+        "stats": {
+          "attack": 3,
+          "ambushChance": 10,
+          "ambushDamage": 30
+        },
+        "requiredLevel": 1
+      }
+    },
+    {
+      "id": "iron_dagger",
+      "nameKo": "철 단검",
+      "nameEn": "Iron Dagger",
+      "description": {
+        "ko": "날카로운 철제 단검. 암습 시 치명적이다.",
+        "en": "A sharp iron dagger. Deadly in ambush attacks."
+      },
+      "type": "equipment",
+      "rarity": "grand",
+      "icon": "🔪",
+      "weight": 1.0,
+      "value": 150,
+      "sellPrice": 60,
+      "stackable": false,
+      "tags": ["weapon", "dagger", "pierce", "ambush"],
+      "equipmentData": {
+        "slot": "mainHand",
+        "weaponType": "dagger",
+        "handType": "one_handed",
+        "stats": {
+          "attack": 8,
+          "ambushChance": 15,
+          "ambushDamage": 50
         },
         "requiredLevel": 5
       }
@@ -348,8 +510,9 @@
       "stackable": false,
       "tags": ["weapon", "staff", "magic"],
       "equipmentData": {
-        "slot": "weapon",
+        "slot": "mainHand",
         "weaponType": "staff",
+        "handType": "two_handed",
         "stats": {
           "magic": 8
         },
@@ -397,7 +560,8 @@
       "stackable": false,
       "tags": ["accessory", "ring"],
       "equipmentData": {
-        "slot": "accessory",
+        "slot": "ring1",
+        "accessoryType": "ring",
         "stats": {
           "critRate": 1
         },
@@ -490,20 +654,299 @@
         "target": "self",
         "statusEffect": "whisper_all_enabled"
       }
+    },
+    {
+      "id": "linen_shirt",
+      "nameKo": "삼베 셔츠",
+      "nameEn": "Linen Shirt",
+      "description": {
+        "ko": "가볍고 편한 삼베 셔츠. 기본적인 보호를 제공한다.",
+        "en": "A light and comfortable linen shirt. Provides basic protection."
+      },
+      "type": "equipment",
+      "rarity": "common",
+      "icon": "👕",
+      "weight": 0.5,
+      "value": 25,
+      "sellPrice": 10,
+      "stackable": false,
+      "tags": ["armor", "cloth", "light"],
+      "equipmentData": {
+        "slot": "cloth",
+        "unityPartIndex": 1,
+        "stats": {
+          "defense": 1
+        },
+        "requiredLevel": 1
+      }
+    },
+    {
+      "id": "cotton_shirt",
+      "nameKo": "면 셔츠",
+      "nameEn": "Cotton Shirt",
+      "description": {
+        "ko": "부드러운 면 셔츠. 착용감이 좋다.",
+        "en": "A soft cotton shirt. Comfortable to wear."
+      },
+      "type": "equipment",
+      "rarity": "grand",
+      "icon": "👕",
+      "weight": 0.5,
+      "value": 75,
+      "sellPrice": 30,
+      "stackable": false,
+      "tags": ["armor", "cloth", "light"],
+      "equipmentData": {
+        "slot": "cloth",
+        "unityPartIndex": 2,
+        "stats": {
+          "defense": 2,
+          "hp": 5
+        },
+        "requiredLevel": 3
+      }
+    },
+    {
+      "id": "leather_pants",
+      "nameKo": "가죽 바지",
+      "nameEn": "Leather Pants",
+      "description": {
+        "ko": "튼튼한 가죽 바지. 다리를 보호한다.",
+        "en": "Sturdy leather pants. Protects the legs."
+      },
+      "type": "equipment",
+      "rarity": "common",
+      "icon": "👖",
+      "weight": 1.5,
+      "value": 40,
+      "sellPrice": 16,
+      "stackable": false,
+      "tags": ["armor", "pants", "leather"],
+      "equipmentData": {
+        "slot": "pants",
+        "unityPartIndex": 1,
+        "stats": {
+          "defense": 2
+        },
+        "requiredLevel": 1
+      }
+    },
+    {
+      "id": "chain_pants",
+      "nameKo": "사슬 바지",
+      "nameEn": "Chain Pants",
+      "description": {
+        "ko": "사슬로 엮은 바지. 좋은 방어력을 제공한다.",
+        "en": "Pants woven with chains. Provides good defense."
+      },
+      "type": "equipment",
+      "rarity": "grand",
+      "icon": "👖",
+      "weight": 3.0,
+      "value": 120,
+      "sellPrice": 48,
+      "stackable": false,
+      "tags": ["armor", "pants", "chain"],
+      "equipmentData": {
+        "slot": "pants",
+        "unityPartIndex": 2,
+        "stats": {
+          "defense": 4
+        },
+        "requiredLevel": 5
+      }
+    },
+    {
+      "id": "wooden_shield",
+      "nameKo": "나무 방패",
+      "nameEn": "Wooden Shield",
+      "description": {
+        "ko": "단단한 나무로 만든 방패. 적의 공격을 막을 수 있다.",
+        "en": "A shield made of solid wood. Can block enemy attacks."
+      },
+      "type": "equipment",
+      "rarity": "common",
+      "icon": "🛡️",
+      "weight": 3.0,
+      "value": 50,
+      "sellPrice": 20,
+      "stackable": false,
+      "tags": ["offhand", "shield", "wood"],
+      "equipmentData": {
+        "slot": "offHand",
+        "offHandType": "shield",
+        "stats": {
+          "defense": 3,
+          "blockChance": 10
+        },
+        "requiredLevel": 1
+      }
+    },
+    {
+      "id": "iron_shield",
+      "nameKo": "철 방패",
+      "nameEn": "Iron Shield",
+      "description": {
+        "ko": "단단한 철제 방패. 뛰어난 방어력을 자랑한다.",
+        "en": "A sturdy iron shield. Boasts excellent defense."
+      },
+      "type": "equipment",
+      "rarity": "grand",
+      "icon": "🛡️",
+      "weight": 5.0,
+      "value": 180,
+      "sellPrice": 72,
+      "stackable": false,
+      "tags": ["offhand", "shield", "iron"],
+      "equipmentData": {
+        "slot": "offHand",
+        "offHandType": "shield",
+        "stats": {
+          "defense": 6,
+          "blockChance": 15
+        },
+        "requiredLevel": 5
+      }
+    },
+    {
+      "id": "torch",
+      "nameKo": "횃불",
+      "nameEn": "Torch",
+      "description": {
+        "ko": "어둠을 밝히는 횃불. 던전 탐험에 유용하다.",
+        "en": "A torch that illuminates the darkness. Useful for dungeon exploration."
+      },
+      "type": "equipment",
+      "rarity": "common",
+      "icon": "🔥",
+      "weight": 0.5,
+      "value": 10,
+      "sellPrice": 4,
+      "stackable": false,
+      "tags": ["offhand", "torch", "light"],
+      "equipmentData": {
+        "slot": "offHand",
+        "offHandType": "torch",
+        "stats": {
+          "lightRadius": 3
+        },
+        "requiredLevel": 1
+      }
+    },
+    {
+      "id": "silver_necklace",
+      "nameKo": "은 목걸이",
+      "nameEn": "Silver Necklace",
+      "description": {
+        "ko": "섬세하게 만들어진 은 목걸이. 생명력을 높여준다.",
+        "en": "A delicately crafted silver necklace. Increases vitality."
+      },
+      "type": "equipment",
+      "rarity": "grand",
+      "icon": "📿",
+      "weight": 0.2,
+      "value": 100,
+      "sellPrice": 40,
+      "stackable": false,
+      "tags": ["accessory", "necklace", "silver"],
+      "equipmentData": {
+        "slot": "necklace",
+        "accessoryType": "necklace",
+        "stats": {
+          "hp": 15
+        },
+        "requiredLevel": 3
+      }
+    },
+    {
+      "id": "pearl_earring",
+      "nameKo": "진주 귀걸이",
+      "nameEn": "Pearl Earring",
+      "description": {
+        "ko": "아름다운 진주 귀걸이. 지혜를 높여준다.",
+        "en": "A beautiful pearl earring. Increases wisdom."
+      },
+      "type": "equipment",
+      "rarity": "grand",
+      "icon": "✨",
+      "weight": 0.1,
+      "value": 80,
+      "sellPrice": 32,
+      "stackable": false,
+      "tags": ["accessory", "earring", "pearl"],
+      "equipmentData": {
+        "slot": "earring1",
+        "accessoryType": "earring",
+        "stats": {
+          "wis": 2
+        },
+        "requiredLevel": 3
+      }
+    },
+    {
+      "id": "leather_bracelet",
+      "nameKo": "가죽 팔찌",
+      "nameEn": "Leather Bracelet",
+      "description": {
+        "ko": "질긴 가죽으로 만든 팔찌. 민첩성을 높여준다.",
+        "en": "A bracelet made of tough leather. Increases dexterity."
+      },
+      "type": "equipment",
+      "rarity": "common",
+      "icon": "⭕",
+      "weight": 0.1,
+      "value": 35,
+      "sellPrice": 14,
+      "stackable": false,
+      "tags": ["accessory", "bracelet", "leather"],
+      "equipmentData": {
+        "slot": "bracelet",
+        "accessoryType": "bracelet",
+        "stats": {
+          "dex": 1
+        },
+        "requiredLevel": 1
+      }
+    },
+    {
+      "id": "silver_ring",
+      "nameKo": "은 반지",
+      "nameEn": "Silver Ring",
+      "description": {
+        "ko": "은빛으로 빛나는 반지. 마력을 높여준다.",
+        "en": "A ring that shines silver. Increases magic power."
+      },
+      "type": "equipment",
+      "rarity": "grand",
+      "icon": "💍",
+      "weight": 0.1,
+      "value": 90,
+      "sellPrice": 36,
+      "stackable": false,
+      "tags": ["accessory", "ring", "silver"],
+      "equipmentData": {
+        "slot": "ring1",
+        "accessoryType": "ring",
+        "stats": {
+          "magic": 3,
+          "mp": 10
+        },
+        "requiredLevel": 3
+      }
     }
   ],
   "summary": {
-    "total": 23,
+    "total": 30,
     "byType": {
-      "equipment": 6,
+      "equipment": 13,
       "consumable": 7,
       "material": 9,
       "misc": 1
     },
     "byRarity": {
       "crude": 0,
-      "common": 16,
-      "grand": 4,
+      "common": 20,
+      "grand": 7,
       "rare": 3,
       "arcane": 0,
       "heroic": 0,

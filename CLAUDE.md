@@ -437,64 +437,343 @@ const { endBattle, isVictory } = useEndBattle({ userId });
 if (isVictory) endBattle(); // 보상 지급 + 숙련도 상승
 ```
 
-## 스킬 시스템 (Skill)
+## 스킬 시스템 (Skill) v2
 
-스킬은 5가지 타입으로 분류되며, 전투 UI에서는 4개 카테고리로 표시됩니다.
+전투 스킬과 생활 스킬로 분리. 마법은 `spells.json`에서 관리하고, `skills.json`은 물리 전투 스킬에 집중.
 
 ### 스킬 타입 (SkillType)
-| 타입 | 설명 | UI 카테고리 |
-|------|------|------------|
-| `physical_attack` | 물리 공격 | 무기 (weapon) |
-| `magic_attack` | 마법 공격 | 마법 (magic) |
-| `heal` | HP 회복 | 마법 (magic) |
-| `buff` | 버프 (자신에게) | 보조 (support) |
-| `debuff` | 디버프 (적에게) | 보조 (support) |
+| 타입 | 설명 | UI 탭 |
+|------|------|-------|
+| `weapon_attack` | 무기 공격 (검, 도끼, 창 등) | 무기 |
+| `martial_attack` | 무술 공격 (맨손 격투) | 무술 |
+| `defensive` | 방어 스킬 (막기, 회피, 반격) | 방어 |
+| `buff` | 버프 (자신/아군 강화) | 보조 |
+| `debuff` | 디버프 (적 약화) | 보조 |
+| `life` | 생활 스킬 (향후 추가) | 생활 |
 
-### UI 카테고리 (SkillCategory)
-| 카테고리 | 탭 이름 | 포함 스킬 타입 |
-|---------|--------|--------------|
-| `weapon` | 무기 ⚔️ | physical_attack |
-| `magic` | 마법 ✨ | magic_attack, heal |
-| `support` | 보조 💊 | buff, debuff |
-| `item` | 아이템 🎒 | (준비 중) |
+### 스킬 카테고리 (SkillCategory)
+**무기 스킬 (8종)**
+| 카테고리 | 이름 | 스킬 수 |
+|----------|------|--------|
+| `sword` | 검술 ⚔️ | 6 |
+| `axe` | 도끼술 🪓 | 6 |
+| `mace` | 둔기술 🔨 | 6 |
+| `dagger` | 단검술 🔪 | 6 |
+| `spear` | 창술 🔱 | 6 |
+| `bow` | 궁술 🏹 | 6 |
+| `crossbow` | 석궁술 🎯 | 6 |
+| `staff` | 장봉술 🏑 | 6 |
+
+**무술 스킬 (손/발 분리)**
+| 카테고리 | 이름 | 스킬 수 | 숙련도 |
+|----------|------|--------|--------|
+| `fist` | 주먹 👊 | 8 | fist 숙련도 |
+| `kick` | 발차기 🦶 | 8 | kick 숙련도 |
+| `martial` | 자세/내공 🥋 | 8 | martial 숙련도 |
+
+**기타 카테고리**
+| 카테고리 | 이름 | 스킬 수 |
+|----------|------|--------|
+| `defense` | 방어 🛡️ | 8 |
+| `utility` | 보조 💊 | 8 |
+| `life` | 생활 🌿 | 0 (placeholder) |
+
+### UI 탭 (SkillUITab)
+| 탭 | 이름 | 포함 카테고리 |
+|----|------|--------------|
+| `weapon` | 무기 ⚔️ | sword, axe, mace, dagger, spear, bow, crossbow, staff |
+| `martial` | 무술 👊 | fist, kick, martial |
+| `defense` | 방어 🛡️ | defense |
+| `utility` | 보조 💊 | utility |
+| `life` | 생활 🌿 | life (disabled) |
 
 ### 스킬 데이터
 - **위치**: `/public/data/skills.json`
-- **총 21개 스킬**: 마법 공격 6개, 물리 공격 5개, 힐 1개, 버프 5개, 디버프 4개
+- **총 88개 전투 스킬**: 무기 48개 + 무술 24개 (주먹 8 + 발차기 8 + 자세 8) + 방어 8개 + 보조 8개
+- **비용**: SP (Stamina Point) 사용 (MP가 아닌 피로도 소모)
 
 ### 주요 스킬 속성
 ```typescript
 interface Skill {
   id: string;
-  nameKo: string;          // 한글 이름 (UI 표시용)
-  nameEn: string;          // 영문 이름
-  type: SkillType;
+  nameKo: string;
+  nameEn: string;
+  description: string;
+
+  // 분류
+  type: SkillType;           // weapon_attack, martial_attack, defensive, buff, debuff
+  category: SkillCategory;   // sword, axe, martial, defense, utility 등
   icon: string;
-  mpCost: number;
-  baseDamage?: number;     // 공격 스킬
-  element?: MagicElement;  // 마법 속성
-  healAmount?: number;     // 힐 스킬
-  statusEffect?: StatusType;  // 버프/디버프
-  target: SkillTarget;     // self | enemy
+
+  // 비용
+  spCost: number;            // 스태미나 포인트
+  cooldown?: number;         // 쿨다운 턴
+
+  // 공격 스킬용
+  baseDamage?: number;
+  hitCount?: [number, number];  // 다중 타격 [min, max]
+  armorPenetration?: number;    // 방어력 관통률 (0-1)
+  critBonus?: number;           // 치명타 추가 확률 (%)
+
+  // 방어 스킬용
+  blockBonus?: number;       // 막기 확률 보너스 (%)
+  dodgeBonus?: number;       // 회피 확률 보너스 (%)
+  damageReduction?: number;  // 피해 감소율 (%)
+
+  // 상태이상
+  statusEffect?: StatusType;
+  statusDuration?: number;
+  statusValue?: number;
+  statusChance?: number;     // 발동 확률 (%)
+
+  // 요구 조건
+  requirements: {
+    proficiency?: number;    // 무기/무술 숙련도 (0-100)
+    stats?: { str?: number; dex?: number; con?: number; ... };
+    equipment?: string;      // 필요 장비 (예: "shield")
+  };
+
+  target: SkillTarget;       // self | enemy | all_enemies | all_allies
 }
+```
+
+### 주요 스킬 예시
+
+**검술 스킬**
+| ID | 이름 | SP | 효과 | 요구 숙련도 |
+|----|------|-----|------|------------|
+| slash | 참격 | 0 | 기본 베기 | 0 |
+| blade_dance | 검무 | 10 | 2-3회 연속 공격 | 25 |
+| cross_slash | 십자 베기 | 15 | 높은 피해 | 50 |
+| mortal_strike | 죽음의 검 | 20 | 회복량 50% 감소 | 70 |
+
+**방어 스킬**
+| ID | 이름 | SP | 효과 | 요구 조건 |
+|----|------|-----|------|----------|
+| block | 막기 | 3 | 다음 공격 막기 | CON 12 |
+| dodge | 회피 | 5 | 다음 공격 회피 | DEX 18 |
+| shield_wall | 방패벽 | 10 | 3턴간 막기 +30% | 방패 장착 |
+| perfect_guard | 완벽한 방어 | 25 | 1회 피해 무효 | CON 30, DEX 25 |
+
+### 사용법
+```typescript
+import {
+  useSkills,
+  useSkillsByCategory,
+  useSkillsByUITab,
+  useDefensiveSkills,
+  checkSkillRequirements,
+  getSkillUITab,
+  SKILL_UI_TABS,
+  WEAPON_CATEGORIES,
+} from "@/entities/skill";
+
+// 모든 스킬 조회
+const { data: skills } = useSkills();
+
+// 검술 스킬만 조회
+const { data: swordSkills } = useSkillsByCategory("sword");
+
+// UI 탭별 조회 (무기 탭)
+const { data: weaponSkills } = useSkillsByUITab("weapon");
+
+// 방어 스킬 조회
+const { data: defSkills } = useDefensiveSkills();
+
+// 스킬 사용 가능 여부 체크
+const result = checkSkillRequirements(skill, {
+  proficiency: 30,
+  stats: { dex: 15, con: 12 },
+  equipment: ["shield"],
+});
+if (!result.canUse) {
+  console.log(result.reasons); // ["숙련도 50 필요 (현재: 30)"]
+}
+```
+
+### 폴더 구조
+```
+src/entities/skill/
+├── types/index.ts           # SkillType, SkillCategory, Skill 타입
+├── queries/index.ts         # useSkills, useSkillsByCategory 등
+└── index.ts                 # Public API
+```
+
+## 마법 시스템 (Magic/Spell)
+
+마법 주문 시스템. `skills.json`의 기존 스킬과 별개로 `spells.json`에서 확장 마법을 관리합니다.
+
+### 마법 속성 (6종)
+| ID | 이름 | 아이콘 | 상성 |
+|----|------|--------|------|
+| fire | 화염 | 🔥 | ice에 강함, earth에 약함 |
+| ice | 냉기 | ❄️ | lightning에 강함, fire에 약함 |
+| lightning | 번개 | ⚡ | earth에 강함, ice에 약함 |
+| earth | 대지 | 🪨 | fire에 강함, lightning에 약함 |
+| holy | 신성 | ✨ | dark에 강함, 카르마 영향 |
+| dark | 암흑 | 🌑 | holy에 강함, 카르마 영향 |
+
+### 주문 타입
+| 타입 | 설명 |
+|------|------|
+| attack | 공격 주문 |
+| heal | 치유 주문 |
+| buff | 버프 주문 |
+| debuff | 디버프 주문 |
+| dot | 지속 피해 (Damage over Time) |
+| special | 특수 효과 (즉사, 석화 등) |
+
+### 카르마-마법 배율
+| 카르마 등급 | 신성 배율 | 암흑 배율 |
+|------------|----------|----------|
+| 성인 (+80~100) | 1.2x | 0.7x |
+| 신성 (+50~79) | 1.1x | 0.85x |
+| 중립 (-19~+19) | 1.0x | 1.0x |
+| 사악 (-50~-79) | 0.85x | 1.1x |
+| 심연 (-80~-100) | 0.7x | 1.2x |
+
+### 개별 주문 숙련도
+각 주문마다 별도의 숙련도가 있습니다. 사용 횟수에 따라 경험치가 증가합니다.
+
+| 경험치 | 등급 | 데미지 보너스 | MP 감소 | 쿨다운 감소 |
+|--------|------|--------------|---------|------------|
+| 0-19 | 미숙 | +0% | -0% | 0턴 |
+| 20-39 | 익숙 | +5% | -5% | 0턴 |
+| 40-59 | 숙련 | +10% | -10% | 0턴 |
+| 60-79 | 정통 | +15% | -15% | 1턴 |
+| 80-99 | 달인 | +20% | -20% | 1턴 |
+| 100 | 대가 | +25% | -25% | 2턴 |
+
+### 치유 시스템
+- **기본**: 모든 플레이어 치유 가능
+- **솔라라 신도**: Piety에 따라 치유량 +5%~+30%
+- **베르단티스 신도**: Piety에 따라 치유량 +0%~+15%
+- **네스로스 신도**: 치유 사용 시 Piety -15 페널티
+
+### 주문 해금 조건
+| 조건 | 설명 |
+|------|------|
+| proficiency | 해당 속성 숙련도 |
+| karma | 양수: 이상, 음수: 이하 |
+| piety | 신앙심 레벨 |
+| religion | 특정 종교 필수 |
+
+### 주요 주문 목록
+**화염 (Fire)**
+- fireball: 파이어볼 (기본 공격)
+- flame_wave: 화염 파동 (광역)
+- ignite: 점화 (DoT)
+- fire_shield: 화염 방패 (냉기 저항)
+- meteor: 유성 (강력, 캐스팅 필요)
+- inferno: 지옥불 (최강, 자해 피해)
+
+**냉기 (Ice)**
+- ice_spike: 얼음창 (기본 공격)
+- frost_nova: 서리 폭발 (슬로우)
+- blizzard: 눈보라 (DoT + 슬로우)
+- ice_armor: 얼음 갑옷 (방어 버프)
+- glacial_spike: 빙하 창 (동결 확률)
+- absolute_zero: 절대 영도 (50% 즉사)
+
+**신성 (Holy)** - 카르마 +20 이상 권장
+- divine_light: 신성한 빛 (기본, 언데드 보너스)
+- smite: 천벌 (악마 보너스)
+- purify: 정화 (디버프 해제)
+- sacred_shield: 성스러운 방패 (암흑 저항)
+- exorcism: 퇴마 (언데드/악마 즉사)
+- divine_intervention: 신의 가호 (1회 치명타 회피)
+
+**암흑 (Dark)** - 카르마 -20 이하 권장
+- shadow_bolt: 그림자 화살 (기본)
+- life_drain: 생명력 흡수 (흡혈)
+- curse: 저주 (피해 증가 디버프)
+- fear: 공포 (공격력 감소, 도주 불가)
+- soul_rend: 영혼 파열 (WIS 무시)
+- death_coil: 죽음의 고리 (스턴)
+
+**치유 (Heal)** - 모두 사용 가능
+- minor_heal: 경미한 치유 (HP 20%)
+- heal: 치유 (HP 35%)
+- healing_prayer: 치유의 기도 (HP 50%)
+- regeneration: 재생 (HoT 5턴)
+- mass_heal: 대규모 치유 (파티 전체)
+- divine_heal: 신성 치유 (HP 100%)
+
+### 폴더 구조
+```
+public/data/
+└── spells.json              # 전체 주문 데이터 (42개)
+
+src/entities/spell/
+├── types/index.ts           # Spell, SpellType 타입
+├── api/index.ts             # fetchSpells, increaseSpellProficiency
+├── queries/index.ts         # useSpells, useSpellProficiency
+├── lib/index.ts             # checkSpellRequirements, calculateHealAmount
+└── index.ts                 # Public API
+
+src/features/combat/
+└── spell-cast/index.ts      # useSpellCast 훅
 ```
 
 ### 사용법
 ```typescript
-import { useSkills, getSkillCategory } from "@/entities/skill";
-import { useEquipmentStore } from "@/application/stores";
+import {
+  useSpells,
+  useSpellsByElement,
+  useAvailableSpells,
+  checkSpellRequirements,
+  calculateHealAmount,
+} from "@/entities/spell";
+import { useSpellCast } from "@/features/combat";
 
-// 스킬 데이터 로드
-const { data: allSkills } = useSkills();
+// 모든 주문 조회
+const { data: spells } = useSpells();
 
-// 습득한 스킬 필터링
-const { learnedSkills } = useEquipmentStore();
-const mySkills = allSkills.filter(s => learnedSkills.includes(s.id));
+// 화염 주문만 조회
+const { data: fireSpells } = useSpellsByElement("fire");
 
-// 카테고리별 분류
-const magicSkills = mySkills.filter(s =>
-  s.type === "magic_attack" || s.type === "heal"
+// 사용 가능한 주문 (요구 조건 충족)
+const { data: available } = useAvailableSpells(userId, {
+  karma: playerKarma,
+  piety: playerPiety,
+  religion: playerReligion,
+  proficiencies: { fire: 30, ice: 20, ... }
+});
+
+// 주문 시전
+const { castSpell } = useSpellCast({
+  userId,
+  onMonsterTurn: handleMonsterTurn,
+  onPietyPenalty: handlePietyPenalty,
+});
+
+const result = await castSpell({
+  spell: fireballSpell,
+  casterStats: characterStats,
+  elementProficiency: proficiencies.fire,
+  spellExperience: 25,  // 개별 주문 숙련도
+  karma: playerKarma,
+  piety: playerPiety,
+  religion: playerReligion,
+  period: currentPeriod,
+  weather: currentWeather,
+});
+```
+
+### DB 테이블
+```sql
+-- 개별 주문 숙련도
+CREATE TABLE spell_proficiency (
+  user_id UUID REFERENCES profiles(id),
+  spell_id TEXT NOT NULL,
+  experience INTEGER DEFAULT 0,  -- 0-100
+  cast_count INTEGER DEFAULT 0,
+  last_cast_at TIMESTAMPTZ,
+  PRIMARY KEY (user_id, spell_id)
 );
+
+-- RPC 함수
+increase_spell_proficiency(p_user_id, p_spell_id, p_amount)
 ```
 
 ## 아이템 시스템 (Item)
@@ -595,7 +874,20 @@ await updateProfile({
 
 ## 피로도 시스템 (Stamina)
 
-행동에 피로도를 소모하고, 시간이 지나면 자동 회복.
+행동에 피로도를 소모하고, 크론잡으로 자동 회복.
+
+### 최대 피로도 (CON 기반)
+```
+최대 피로도 = 50 + (CON × 5)
+```
+
+| CON | 최대 피로도 |
+|-----|------------|
+| 10 | 100 |
+| 15 | 125 |
+| 20 | 150 |
+
+버프나 장비와 무관하게 캐릭터의 **기본 CON 스탯**만 적용.
 
 ### 피로도 소모
 | 행동 | 소모량 |
@@ -605,39 +897,47 @@ await updateProfile({
 | 전투 턴당 | 1 |
 | PvP 결투 | 10 |
 
-### 피로도 회복
+### 피로도 회복 (크론잡)
 ```
-회복 속도 = 1분당 1 피로도
-최대 피로도 = 100 (기본)
+회복 주기 = 10분마다
+회복량 = 10 피로도 (= 분당 1 피로도)
 ```
+
+**Edge Function**: `recover-stamina`
+- pg_cron에서 10분마다 호출
+- 모든 유저의 피로도 일괄 회복
+- CON 기반 최대 피로도 초과 방지
 
 ### DB 함수
 | 함수 | 설명 |
 |------|------|
-| `consume_stamina(user_id, amount)` | 피로도 소모 (자동 회복 적용) |
+| `consume_stamina(user_id, amount)` | 피로도 소모 |
 | `restore_stamina(user_id, amount)` | 피로도 회복 |
-| `calculate_stamina(current, max, last_updated)` | 시간 기반 회복량 계산 |
+| `batch_recover_stamina(amount)` | 전체 유저 일괄 회복 (크론잡용) |
+| `calculate_max_stamina_from_con(con)` | CON 기반 최대 피로도 계산 |
+| `get_main_character_con(characters)` | 메인 캐릭터 CON 추출 |
+| `get_user_max_stamina(user_id)` | 유저별 최대 피로도 조회 |
 
 ### 사용법
 ```typescript
-import { consumeStamina, STAMINA_COST, useConsumeStamina } from "@/entities/user";
-import { useConsumeStamina } from "@/features/stamina";
+import { consumeStamina, STAMINA_COST } from "@/entities/user";
+import { calculateMaxStamina, getMaxStaminaFromProfile } from "@/entities/user";
 
-// 직접 호출
+// 피로도 소모
 const result = await consumeStamina(userId, STAMINA_COST.MAP_MOVE);
 if (!result.success) {
   toast.error(result.message); // "피로도가 부족합니다"
 }
 
-// 훅 사용
-const consume = useConsumeStamina(userId);
-consume.mutate(5); // 피로도 5 소모
+// 최대 피로도 계산 (프론트엔드)
+const maxStamina = calculateMaxStamina(15); // CON 15 → 125
+const maxFromProfile = getMaxStaminaFromProfile(profile); // 프로필에서 추출
 ```
 
 ### 자동 적용 위치
 - `useStartBattle`: 전투 시작 시 피로도 소모
 - `useUpdateLocation`: 맵 이동 시 피로도 소모
-- `useProfile`: 1분마다 자동 리프레시 (피로도 회복 반영)
+- `recover-stamina`: 10분마다 전체 유저 일괄 회복 (크론잡)
 
 ## 통신용 크리스탈 시스템 (Whisper Crystal)
 
@@ -932,6 +1232,23 @@ cycleProgress = (cyclePosition / cycleMs) * 100
 
 // 30분씩 4등분
 // 0-25% = night, 25-50% = dawn, 50-75% = day, 75-100% = dusk
+```
+
+### UI 명도 오버레이
+시간대에 따라 게임 화면에 색상 오버레이 적용.
+
+| 시간대 | 오버레이 색상 | 설명 |
+|--------|--------------|------|
+| day | 없음 | 밝은 낮 |
+| dawn | 연한 하늘색 (8%) | 여명의 푸른빛 |
+| dusk | 연한 주황색 (10%) | 노을빛 |
+| night | 미드나잇 블루 (15%) | 어두운 밤 |
+
+```typescript
+import { getPeriodOverlayStyle } from "@/entities/game-time";
+
+const overlay = getPeriodOverlayStyle("night");
+// { background: "rgba(25, 25, 112, 0.15)", opacity: 1 }
 ```
 
 ### 사용법

@@ -1,5 +1,6 @@
 import type { MagicElement } from "@/entities/proficiency";
 import type { Period } from "@/entities/game-time";
+import type { MonsterAlignment } from "@/entities/karma";
 
 // ============ 몬스터 종족 타입 ============
 
@@ -80,6 +81,26 @@ export const MONSTER_TYPE_INFO: Record<MonsterType, MonsterTypeInfo> = {
   },
 };
 
+// ============ 물리 저항 ============
+
+/**
+ * 물리 공격 타입별 저항 배율
+ * 1.0 = 보통 (100% 데미지)
+ * 1.5 = 약함 (150% 데미지)
+ * 0.5 = 강함 (50% 데미지)
+ */
+export interface PhysicalResistance {
+  slashResist: number;   // 베기 저항
+  pierceResist: number;  // 찌르기 저항
+  crushResist: number;   // 타격 저항
+}
+
+export const DEFAULT_PHYSICAL_RESISTANCE: PhysicalResistance = {
+  slashResist: 1.0,
+  pierceResist: 1.0,
+  crushResist: 1.0,
+};
+
 // ============ 몬스터 스탯 ============
 
 // 몬스터 스탯
@@ -88,6 +109,7 @@ export interface MonsterStats {
   attack: number;
   defense: number;
   speed: number;
+  resistance?: PhysicalResistance;  // 물리 저항 (없으면 모두 1.0)
 }
 
 // 몬스터 드롭 아이템
@@ -123,6 +145,7 @@ export interface Monster {
   nameKo: string;
   nameEn: string;
   type: MonsterType;
+  alignment: MonsterAlignment;
   mapId: string;
   level: number;
   element: MagicElement | null;
@@ -144,5 +167,7 @@ export interface MonstersData {
     total: number;
     byMap: Record<string, number>;
     byElement: Record<string, number>;
+    byType: Record<string, number>;
+    byAlignment: Record<MonsterAlignment, number>;
   };
 }

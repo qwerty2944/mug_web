@@ -53,8 +53,8 @@ export function useCastSpell(options: UseCastSpellOptions = {}) {
     (params: CastSpellParams) => {
       const { skill, casterStats, proficiencyLevel, playerDefense = 0 } = params;
 
-      // MP 확인 및 소모 (0이면 무시)
-      if (skill.mpCost > 0 && !useMp(skill.mpCost)) {
+      // MP 확인 및 소모 (0이거나 undefined면 무시)
+      if (skill.mpCost && skill.mpCost > 0 && !useMp(skill.mpCost)) {
         addLog({
           turn: battle.turn,
           actor: "system",

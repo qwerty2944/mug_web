@@ -9,6 +9,8 @@ export type {
   ProficiencyInfo,
   RankInfo,
   MagicEffectiveness,
+  AttackType,
+  AttackTypeInfo,
 } from "./types";
 
 // Constants
@@ -27,6 +29,10 @@ export {
   DAY_ELEMENT_BOOST,
   DAY_BOOST_MULTIPLIER,
   DAY_NAMES_KO,
+  // 공격 타입
+  ATTACK_TYPE_INFO,
+  WEAPON_ATTACK_TYPE,
+  ATTACK_TYPES,
 } from "./types/constants";
 
 // API

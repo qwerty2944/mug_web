@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import type { CharacterAppearance, CharacterColors } from "@/entities/character";
+import type { EquipmentSlot } from "@/entities/item";
 
 // ============ 타입 정의 ============
 
@@ -121,6 +122,9 @@ interface AppearanceStore {
   setPart: (type: PartType, index: number) => void;
   setColor: (target: "body" | "eye" | "hair" | "facehair" | "cloth" | "armor" | "pant", hex: string) => void;
 
+  // 장비 외형 연동
+  setEquipmentAppearance: (slot: EquipmentSlot, index: number | null) => void;
+
   // Computed (선택자)
   getPartInfo: (type: PartType) => { label: string; current: number; total: number };
   getAnimationInfo: () => { state: string; index: number; total: number; name: string; states: string[] };
@@ -236,6 +240,26 @@ export const useAppearanceStore = create<AppearanceStore>((set, get) => ({
     if (colors.eye) {
       callUnity("JS_SetLeftEyeColor", colors.eye.replace("#", ""));
       callUnity("JS_SetRightEyeColor", colors.eye.replace("#", ""));
+    }
+  },
+
+  // 장비 외형 연동 (12슬롯 시스템)
+  setEquipmentAppearance: (slot, index) => {
+    const { callUnity, isUnityLoaded } = get();
+    if (!isUnityLoaded) return;
+
+    // 외형에 영향을 주는 슬롯만 Unity 메서드 호출
+    const methodMap: Partial<Record<EquipmentSlot, string>> = {
+      armor: "JS_SetArmor",
+      cloth: "JS_SetCloth",
+      pants: "JS_SetPant",
+      helmet: "JS_SetHelmet",
+    };
+
+    const method = methodMap[slot];
+    if (method) {
+      // index가 null이면 -1 (해제)
+      callUnity(method, (index ?? -1).toString());
     }
   },
 

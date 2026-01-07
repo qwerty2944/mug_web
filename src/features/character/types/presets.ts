@@ -24,6 +24,8 @@ export interface CharacterStats {
   wis: number; // 지혜 - 마법 방어, 마나 회복
   cha: number; // 매력 - 상점 가격, NPC 호감도
   lck: number; // 행운 - 치명타 확률, 치명타 피해
+  ambushChance: number; // 암습 확률 (%)
+  ambushDamage: number; // 암습 추가 피해 (%)
 }
 
 export const STAT_NAMES: Record<keyof CharacterStats, { ko: string; desc: string }> = {
@@ -34,6 +36,8 @@ export const STAT_NAMES: Record<keyof CharacterStats, { ko: string; desc: string
   wis: { ko: "지혜", desc: "마법 방어, 마나 회복" },
   cha: { ko: "매력", desc: "상점 가격, NPC 호감도" },
   lck: { ko: "행운", desc: "치명타 확률, 치명타 피해" },
+  ambushChance: { ko: "암습 확률", desc: "전투 첫 공격 암습 확률 (%)" },
+  ambushDamage: { ko: "암습 피해", desc: "암습 성공 시 추가 피해 (%)" },
 };
 
 // 기본 스탯 (모든 종족 공통)
@@ -45,6 +49,8 @@ export const BASE_STATS: CharacterStats = {
   wis: 10,
   cha: 10,
   lck: 10,
+  ambushChance: 0, // 기본 0%
+  ambushDamage: 0, // 기본 0%
 };
 
 // 배분 가능한 보너스 포인트

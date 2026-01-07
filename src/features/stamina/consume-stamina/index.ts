@@ -6,15 +6,15 @@ import { profileKeys } from "@/entities/user";
 import toast from "react-hot-toast";
 
 interface UseConsumeStaminaOptions {
-  onSuccess?: (currentStamina: number) => void;
+  onSuccess?: (remaining: number, max: number) => void;
   onInsufficientStamina?: () => void;
   showToast?: boolean;
 }
 
 /**
  * 피로도 소모 훅
- * - DB RPC consume_stamina 호출
- * - 자동 시간 회복 적용됨
+ * - DB RPC consume_stamina 호출 (Lazy Calculation)
+ * - 자동 시간 회복이 서버에서 계산됨
  * - 부족 시 에러 처리
  */
 export function useConsumeStamina(
@@ -35,7 +35,7 @@ export function useConsumeStamina(
         queryClient.invalidateQueries({
           queryKey: profileKeys.detail(userId!),
         });
-        onSuccess?.(result.currentStamina);
+        onSuccess?.(result.remaining, result.max);
       } else {
         // 피로도 부족
         if (showToast) {
@@ -59,14 +59,19 @@ export function useConsumeStamina(
 export async function checkAndConsumeStamina(
   userId: string,
   amount: number
-): Promise<{ success: boolean; currentStamina: number; message: string }> {
+): Promise<{ success: boolean; remaining: number; message?: string }> {
   try {
-    return await consumeStaminaApi(userId, amount);
+    const result = await consumeStaminaApi(userId, amount);
+    return {
+      success: result.success,
+      remaining: result.remaining,
+      message: result.message,
+    };
   } catch (error) {
     console.error("Stamina check failed:", error);
     return {
       success: false,
-      currentStamina: 0,
+      remaining: 0,
       message: "피로도 확인 중 오류가 발생했습니다",
     };
   }

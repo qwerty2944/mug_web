@@ -27,7 +27,7 @@ async function fetchFromStorage(): Promise<Item[]> {
  * 로컬 fallback에서 아이템 데이터 가져오기
  */
 async function fetchFromLocal(): Promise<Item[]> {
-  const response = await fetch("/data/items.json");
+  const response = await fetch("/data/items/items.json");
   if (!response.ok) {
     throw new Error("Failed to fetch items from local");
   }

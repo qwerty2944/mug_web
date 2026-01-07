@@ -75,12 +75,48 @@ export async function updateProfile(params: UpdateProfileParams): Promise<void> 
   if (error) throw error;
 }
 
-// ============ 피로도 소모 API (DB RPC) ============
+// ============ 피로도 계산 (Lazy Calculation) ============
+
+/**
+ * 현재 피로도를 계산합니다 (프론트엔드 표시용)
+ * DB에 저장된 값 + 경과 시간 기반 회복량
+ */
+export function calculateCurrentStamina(
+  storedStamina: number,
+  updatedAt: string | Date,
+  maxStamina: number,
+  recoveryPerMinute: number = 1
+): number {
+  const elapsedMs = Date.now() - new Date(updatedAt).getTime();
+  const elapsedMinutes = elapsedMs / 60000;
+  const recovered = Math.floor(elapsedMinutes * recoveryPerMinute);
+
+  return Math.min(maxStamina, storedStamina + recovered);
+}
+
+/**
+ * 프로필에서 현재 피로도 계산
+ */
+export function getCalculatedStamina(profile: {
+  stamina: number;
+  staminaUpdatedAt: string;
+  maxStamina: number;
+}): number {
+  return calculateCurrentStamina(
+    profile.stamina,
+    profile.staminaUpdatedAt,
+    profile.maxStamina
+  );
+}
+
+// ============ 피로도 소모 API (DB RPC - Lazy Calculation) ============
 
 export interface ConsumeStaminaResult {
   success: boolean;
-  currentStamina: number;
-  message: string;
+  remaining: number;
+  consumed: number;
+  max: number;
+  message?: string;
 }
 
 export async function consumeStamina(
@@ -94,12 +130,14 @@ export async function consumeStamina(
 
   if (error) throw error;
 
-  // RPC returns array of results
-  const result = data?.[0] || { success: false, current_stamina: 0, message: "Unknown error" };
+  // RPC returns JSON directly (not array)
+  const result = data || { success: false, remaining: 0, consumed: 0, max: 100 };
 
   return {
     success: result.success,
-    currentStamina: result.current_stamina,
+    remaining: result.remaining ?? 0,
+    consumed: result.consumed ?? amount,
+    max: result.max ?? 100,
     message: result.message,
   };
 }

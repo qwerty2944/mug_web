@@ -51,9 +51,13 @@ export {
 // ============ Equipment ============
 export {
   useEquipmentStore,
+  useWeapon,
   getEquippedWeaponType,
-  type EquipmentSlot,
+  isDualWielding,
+  hasShieldEquipped,
+  getEquippedSlotCount,
   type EquippedItem,
+  type CanEquipResult,
 } from "./equipmentStore";
 
 // ============ UI ============

@@ -1,16 +1,25 @@
 "use client";
 
 import { useThemeStore } from "@/shared/config";
-import type { SkillCategory } from "@/entities/skill";
-import { SKILL_CATEGORIES } from "@/entities/skill";
+
+// 전투 액션 탭 타입
+export type BattleActionTab = "weapon" | "magic" | "support" | "item";
+
+// 전투 액션 탭 정보
+const BATTLE_ACTION_TABS: Record<BattleActionTab, { nameKo: string; icon: string }> = {
+  weapon: { nameKo: "무기", icon: "⚔️" },
+  magic: { nameKo: "마법", icon: "✨" },
+  support: { nameKo: "지원", icon: "💊" },
+  item: { nameKo: "아이템", icon: "🎒" },
+};
+
+const TAB_ORDER: BattleActionTab[] = ["weapon", "magic", "support", "item"];
 
 interface ActionTabsProps {
-  activeTab: SkillCategory;
-  onTabChange: (tab: SkillCategory) => void;
+  activeTab: BattleActionTab;
+  onTabChange: (tab: BattleActionTab) => void;
   disabled?: boolean;
 }
-
-const TAB_ORDER: SkillCategory[] = ["weapon", "magic", "support", "item"];
 
 export function ActionTabs({
   activeTab,
@@ -26,7 +35,7 @@ export function ActionTabs({
     >
       {TAB_ORDER.map((tab) => {
         const isActive = activeTab === tab;
-        const { nameKo, icon } = SKILL_CATEGORIES[tab];
+        const { nameKo, icon } = BATTLE_ACTION_TABS[tab];
 
         return (
           <button

@@ -3,7 +3,9 @@ import type { CharacterStats } from "@/entities/character";
 // ============ 무기 타입 ============
 
 export type WeaponType =
-  | "sword"
+  | "light_sword"   // 세검
+  | "medium_sword"  // 중검
+  | "great_sword"   // 대검
   | "axe"
   | "mace"
   | "dagger"
@@ -37,7 +39,9 @@ export type ProficiencyRank =
 
 export interface Proficiencies {
   // 무기 숙련
-  sword: number;
+  light_sword: number;   // 세검
+  medium_sword: number;  // 중검
+  great_sword: number;   // 대검
   axe: number;
   mace: number;
   dagger: number;
@@ -80,4 +84,16 @@ export interface RankInfo {
 export interface MagicEffectiveness {
   strong: MagicElement;
   weak: MagicElement;
+}
+
+// ============ 공격 타입 ============
+
+export type AttackType = "slash" | "pierce" | "crush";
+
+export interface AttackTypeInfo {
+  id: AttackType;
+  nameKo: string;
+  nameEn: string;
+  icon: string;
+  description: string;
 }

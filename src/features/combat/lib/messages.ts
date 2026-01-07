@@ -7,12 +7,31 @@ function randomPick<T>(arr: T[]): T {
 
 // ============ 플레이어 공격 메시지 ============
 
-const SWORD_ATTACK_MESSAGES = [
+// 세검 (찌르기)
+const LIGHT_SWORD_ATTACK_MESSAGES = [
+  (name: string, dmg: number) => `번개처럼 빠른 찌르기가 ${name}을(를) 관통했다! ${dmg} 데미지!`,
+  (name: string, dmg: number) => `세검이 허공을 가르며 ${name}의 급소를 노렸다! ${dmg}!`,
+  (name: string, dmg: number) => `날렵한 칼끝이 ${name}을(를) 찔렀다! ${dmg} 데미지!`,
+  (name: string, dmg: number) => `정확한 일격! ${name}의 몸에 구멍이 뚫렸다! ${dmg} 데미지!`,
+  (name: string, dmg: number) => `순식간의 자돌! ${name}이(가) ${dmg}의 피해를 입었다!`,
+];
+
+// 중검 (베기)
+const MEDIUM_SWORD_ATTACK_MESSAGES = [
   (name: string, dmg: number) => `번개처럼 빠른 검격이 ${name}을(를) 스쳐 지나갔다! ${dmg} 데미지!`,
-  (name: string, dmg: number) => `검이 허공을 가르며 ${name}에게 ${dmg}의 상처를 남겼다!`,
+  (name: string, dmg: number) => `중검이 허공을 가르며 ${name}에게 ${dmg}의 상처를 남겼다!`,
   (name: string, dmg: number) => `날카로운 칼날이 ${name}을(를) 갈랐다! ${dmg} 데미지!`,
   (name: string, dmg: number) => `검의 궤적이 ${name}의 몸에 새겨졌다! ${dmg} 데미지!`,
   (name: string, dmg: number) => `일섬! ${name}이(가) ${dmg}의 피해를 입었다!`,
+];
+
+// 대검 (강력한 베기)
+const GREAT_SWORD_ATTACK_MESSAGES = [
+  (name: string, dmg: number) => `묵직한 대검이 ${name}을(를) 내려찍었다! ${dmg} 데미지!`,
+  (name: string, dmg: number) => `대검의 거대한 칼날이 ${name}을(를) 두 동강냈다! ${dmg}!`,
+  (name: string, dmg: number) => `압도적인 힘! 대검이 ${name}을(를) 강타했다! ${dmg} 데미지!`,
+  (name: string, dmg: number) => `대검의 일격! ${name}이(가) 휘청거린다! ${dmg} 데미지!`,
+  (name: string, dmg: number) => `천하무적! ${name}이(가) ${dmg}의 피해를 입었다!`,
 ];
 
 const AXE_ATTACK_MESSAGES = [
@@ -132,7 +151,9 @@ const DARK_ATTACK_MESSAGES = [
 
 // 공격 타입별 메시지 맵
 const ATTACK_MESSAGES: Record<ProficiencyType, ((name: string, dmg: number) => string)[]> = {
-  sword: SWORD_ATTACK_MESSAGES,
+  light_sword: LIGHT_SWORD_ATTACK_MESSAGES,
+  medium_sword: MEDIUM_SWORD_ATTACK_MESSAGES,
+  great_sword: GREAT_SWORD_ATTACK_MESSAGES,
   axe: AXE_ATTACK_MESSAGES,
   mace: MACE_ATTACK_MESSAGES,
   dagger: DAGGER_ATTACK_MESSAGES,
@@ -275,7 +296,7 @@ export function getAttackMessage(
   damage: number,
   isCritical: boolean = false
 ): string {
-  const messages = ATTACK_MESSAGES[attackType] || SWORD_ATTACK_MESSAGES;
+  const messages = ATTACK_MESSAGES[attackType] || MEDIUM_SWORD_ATTACK_MESSAGES;
   const baseMessage = randomPick(messages)(targetName, damage);
 
   if (isCritical) {

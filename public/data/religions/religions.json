@@ -1,0 +1,502 @@
+{
+  "version": "1.0.0",
+  "generatedAt": "2026-01-07T00:00:00.000Z",
+  "religions": [
+    {
+      "id": "solara",
+      "nameKo": "솔라라",
+      "nameEn": "Solara",
+      "alignment": "good",
+      "domain": ["sun", "healing"],
+      "icon": "☀️",
+      "color": "#FFD700",
+      "altarMapId": "starting_village",
+      "description": {
+        "ko": "태양과 치유의 여신. 생명과 빛을 수호하며, 언데드와 어둠의 존재를 물리친다.",
+        "en": "Goddess of sun and healing. Protects life and light, and vanquishes undead and darkness."
+      },
+      "requirements": {
+        "minKarma": 20,
+        "minLevel": 3,
+        "minStats": null,
+        "minProficiency": null
+      },
+      "offerings": [
+        { "itemId": "healing_herb", "pietyGain": 10 },
+        { "itemId": "acorn", "pietyGain": 3 },
+        { "itemId": "rare_flower", "pietyGain": 15 }
+      ],
+      "pietyBonuses": [
+        {
+          "level": 1,
+          "minPiety": 0,
+          "nameKo": "초신자",
+          "buffs": [
+            { "type": "elementMultiplier", "element": "holy", "value": 1.05 }
+          ]
+        },
+        {
+          "level": 2,
+          "minPiety": 25,
+          "nameKo": "신도",
+          "buffs": [
+            { "type": "elementMultiplier", "element": "holy", "value": 1.1 },
+            { "type": "damageBonus", "target": "undead", "value": 1.15 }
+          ]
+        },
+        {
+          "level": 3,
+          "minPiety": 50,
+          "nameKo": "사제",
+          "buffs": [
+            { "type": "elementMultiplier", "element": "holy", "value": 1.15 },
+            { "type": "damageBonus", "target": "undead", "value": 1.25 },
+            { "type": "periodBonus", "period": "day", "statBonus": { "all": 1.1 } }
+          ]
+        },
+        {
+          "level": 4,
+          "minPiety": 75,
+          "nameKo": "고위 사제",
+          "buffs": [
+            { "type": "elementMultiplier", "element": "holy", "value": 1.2 },
+            { "type": "damageBonus", "target": "undead", "value": 1.3 },
+            { "type": "periodBonus", "period": "day", "statBonus": { "all": 1.15 } },
+            { "type": "healingBonus", "value": 1.2 }
+          ]
+        },
+        {
+          "level": 5,
+          "minPiety": 100,
+          "nameKo": "사도",
+          "buffs": [
+            { "type": "elementMultiplier", "element": "holy", "value": 1.3 },
+            { "type": "damageBonus", "target": "undead", "value": 1.35 },
+            { "type": "periodBonus", "period": "day", "statBonus": { "all": 1.2 } },
+            { "type": "healingBonus", "value": 1.3 },
+            { "type": "special", "id": "divine_protection", "description": "하루 1회 치명타 회피" }
+          ]
+        }
+      ],
+      "taboos": [
+        { "action": "kill_good", "pietyLoss": 15, "description": "선한 존재 처치" },
+        { "action": "use_dark_magic", "pietyLoss": 5, "description": "암흑 마법 사용" }
+      ]
+    },
+    {
+      "id": "lunaris",
+      "nameKo": "루나리스",
+      "nameEn": "Lunaris",
+      "alignment": "neutral",
+      "domain": ["moon", "magic"],
+      "icon": "🌙",
+      "color": "#C0C0FF",
+      "altarMapId": "market_square",
+      "description": {
+        "ko": "달과 마법의 여신. 마법의 신비를 탐구하며, 마나의 흐름을 관장한다.",
+        "en": "Goddess of moon and magic. Studies the mysteries of magic and governs the flow of mana."
+      },
+      "requirements": {
+        "minKarma": null,
+        "minLevel": 5,
+        "minStats": null,
+        "minProficiency": { "type": "any_magic", "level": 20 }
+      },
+      "offerings": [
+        { "itemId": "spider_silk", "pietyGain": 8 },
+        { "itemId": "rare_flower", "pietyGain": 12 },
+        { "itemId": "mana_crystal", "pietyGain": 20 }
+      ],
+      "pietyBonuses": [
+        {
+          "level": 1,
+          "minPiety": 0,
+          "nameKo": "초신자",
+          "buffs": [
+            { "type": "mpBonus", "value": 1.05 }
+          ]
+        },
+        {
+          "level": 2,
+          "minPiety": 25,
+          "nameKo": "신도",
+          "buffs": [
+            { "type": "mpBonus", "value": 1.1 },
+            { "type": "magicDamageBonus", "value": 1.05 }
+          ]
+        },
+        {
+          "level": 3,
+          "minPiety": 50,
+          "nameKo": "사제",
+          "buffs": [
+            { "type": "mpBonus", "value": 1.15 },
+            { "type": "magicDamageBonus", "value": 1.1 },
+            { "type": "periodBonus", "period": "night", "statBonus": { "int": 1.15, "wis": 1.15 } }
+          ]
+        },
+        {
+          "level": 4,
+          "minPiety": 75,
+          "nameKo": "고위 사제",
+          "buffs": [
+            { "type": "mpBonus", "value": 1.2 },
+            { "type": "magicDamageBonus", "value": 1.15 },
+            { "type": "periodBonus", "period": "night", "statBonus": { "int": 1.2, "wis": 1.2 } },
+            { "type": "mpRegenBonus", "value": 1.2 }
+          ]
+        },
+        {
+          "level": 5,
+          "minPiety": 100,
+          "nameKo": "사도",
+          "buffs": [
+            { "type": "mpBonus", "value": 1.25 },
+            { "type": "magicDamageBonus", "value": 1.2 },
+            { "type": "periodBonus", "period": "night", "statBonus": { "int": 1.25, "wis": 1.25 } },
+            { "type": "mpRegenBonus", "value": 1.3 },
+            { "type": "special", "id": "lunar_insight", "description": "마법 치명타 확률 +10%" }
+          ]
+        }
+      ],
+      "taboos": [
+        { "action": "waste_mp", "pietyLoss": 3, "description": "과도한 MP 낭비" }
+      ]
+    },
+    {
+      "id": "tempestus",
+      "nameKo": "템페스투스",
+      "nameEn": "Tempestus",
+      "alignment": "neutral",
+      "domain": ["storm", "battle"],
+      "icon": "⛈️",
+      "color": "#4169E1",
+      "altarMapId": "arena",
+      "description": {
+        "ko": "폭풍과 전투의 신. 용맹한 전사들의 수호신이며, 전장의 영광을 추구한다.",
+        "en": "God of storm and battle. Patron of brave warriors, seeking glory on the battlefield."
+      },
+      "requirements": {
+        "minKarma": null,
+        "minLevel": 5,
+        "minStats": { "str": 12 },
+        "minProficiency": null
+      },
+      "offerings": [
+        { "itemId": "wolf_fang", "pietyGain": 10 },
+        { "itemId": "wolf_pelt", "pietyGain": 15 },
+        { "itemId": "monster_trophy", "pietyGain": 20 }
+      ],
+      "pietyBonuses": [
+        {
+          "level": 1,
+          "minPiety": 0,
+          "nameKo": "초신자",
+          "buffs": [
+            { "type": "physicalDamageBonus", "value": 1.05 }
+          ]
+        },
+        {
+          "level": 2,
+          "minPiety": 25,
+          "nameKo": "신도",
+          "buffs": [
+            { "type": "physicalDamageBonus", "value": 1.1 },
+            { "type": "elementMultiplier", "element": "lightning", "value": 1.1 }
+          ]
+        },
+        {
+          "level": 3,
+          "minPiety": 50,
+          "nameKo": "사제",
+          "buffs": [
+            { "type": "physicalDamageBonus", "value": 1.15 },
+            { "type": "elementMultiplier", "element": "lightning", "value": 1.15 },
+            { "type": "weatherBonus", "weather": "stormy", "statBonus": { "str": 1.2, "dex": 1.1 } }
+          ]
+        },
+        {
+          "level": 4,
+          "minPiety": 75,
+          "nameKo": "고위 사제",
+          "buffs": [
+            { "type": "physicalDamageBonus", "value": 1.2 },
+            { "type": "elementMultiplier", "element": "lightning", "value": 1.2 },
+            { "type": "weatherBonus", "weather": "stormy", "statBonus": { "str": 1.25, "dex": 1.15 } },
+            { "type": "criticalBonus", "value": 1.1 }
+          ]
+        },
+        {
+          "level": 5,
+          "minPiety": 100,
+          "nameKo": "사도",
+          "buffs": [
+            { "type": "physicalDamageBonus", "value": 1.25 },
+            { "type": "elementMultiplier", "element": "lightning", "value": 1.25 },
+            { "type": "weatherBonus", "weather": "stormy", "statBonus": { "str": 1.3, "dex": 1.2 } },
+            { "type": "criticalBonus", "value": 1.15 },
+            { "type": "special", "id": "storm_fury", "description": "연속 공격 시 추가 번개 피해" }
+          ]
+        }
+      ],
+      "taboos": [
+        { "action": "flee_battle", "pietyLoss": 10, "description": "전투 도주" },
+        { "action": "refuse_challenge", "pietyLoss": 5, "description": "결투 거절" }
+      ]
+    },
+    {
+      "id": "verdantis",
+      "nameKo": "베르단티스",
+      "nameEn": "Verdantis",
+      "alignment": "good",
+      "domain": ["nature", "earth"],
+      "icon": "🌿",
+      "color": "#228B22",
+      "altarMapId": "deep_forest",
+      "description": {
+        "ko": "자연과 대지의 신. 숲과 야생 동물을 수호하며, 자연의 균형을 유지한다.",
+        "en": "God of nature and earth. Protects forests and wildlife, maintaining natural balance."
+      },
+      "requirements": {
+        "minKarma": 0,
+        "minLevel": 3,
+        "minStats": null,
+        "minProficiency": null
+      },
+      "offerings": [
+        { "itemId": "acorn", "pietyGain": 10 },
+        { "itemId": "healing_herb", "pietyGain": 8 },
+        { "itemId": "rare_flower", "pietyGain": 15 }
+      ],
+      "pietyBonuses": [
+        {
+          "level": 1,
+          "minPiety": 0,
+          "nameKo": "초신자",
+          "buffs": [
+            { "type": "elementMultiplier", "element": "earth", "value": 1.05 }
+          ]
+        },
+        {
+          "level": 2,
+          "minPiety": 25,
+          "nameKo": "신도",
+          "buffs": [
+            { "type": "elementMultiplier", "element": "earth", "value": 1.1 },
+            { "type": "defenseBonus", "value": 1.05 }
+          ]
+        },
+        {
+          "level": 3,
+          "minPiety": 50,
+          "nameKo": "사제",
+          "buffs": [
+            { "type": "elementMultiplier", "element": "earth", "value": 1.15 },
+            { "type": "defenseBonus", "value": 1.1 },
+            { "type": "mapBonus", "mapType": "forest", "statBonus": { "all": 1.1 } }
+          ]
+        },
+        {
+          "level": 4,
+          "minPiety": 75,
+          "nameKo": "고위 사제",
+          "buffs": [
+            { "type": "elementMultiplier", "element": "earth", "value": 1.2 },
+            { "type": "defenseBonus", "value": 1.15 },
+            { "type": "mapBonus", "mapType": "forest", "statBonus": { "all": 1.15 } },
+            { "type": "hpRegenBonus", "value": 1.2 }
+          ]
+        },
+        {
+          "level": 5,
+          "minPiety": 100,
+          "nameKo": "사도",
+          "buffs": [
+            { "type": "elementMultiplier", "element": "earth", "value": 1.25 },
+            { "type": "defenseBonus", "value": 1.2 },
+            { "type": "mapBonus", "mapType": "forest", "statBonus": { "all": 1.2 } },
+            { "type": "hpRegenBonus", "value": 1.3 },
+            { "type": "special", "id": "natures_embrace", "description": "전투 종료 시 HP 10% 회복" }
+          ]
+        }
+      ],
+      "taboos": [
+        { "action": "kill_beast", "pietyLoss": 3, "description": "야수 몬스터 처치 (레벨 차이 5 이상)" }
+      ]
+    },
+    {
+      "id": "nocturn",
+      "nameKo": "녹턴",
+      "nameEn": "Nocturn",
+      "alignment": "evil",
+      "domain": ["darkness", "assassination"],
+      "icon": "🌑",
+      "color": "#2F2F4F",
+      "altarMapId": "starting_village",
+      "description": {
+        "ko": "어둠과 암살의 신. 그림자 속에서 움직이며, 치명적인 일격을 내린다.",
+        "en": "God of darkness and assassination. Moves in shadows and delivers lethal strikes."
+      },
+      "requirements": {
+        "minKarma": -20,
+        "minLevel": 5,
+        "minStats": { "dex": 12 },
+        "minProficiency": null
+      },
+      "offerings": [
+        { "itemId": "spider_venom", "pietyGain": 15 },
+        { "itemId": "stolen_coin", "pietyGain": 5 },
+        { "itemId": "bone", "pietyGain": 8 }
+      ],
+      "pietyBonuses": [
+        {
+          "level": 1,
+          "minPiety": 0,
+          "nameKo": "초신자",
+          "buffs": [
+            { "type": "elementMultiplier", "element": "dark", "value": 1.05 }
+          ]
+        },
+        {
+          "level": 2,
+          "minPiety": 25,
+          "nameKo": "신도",
+          "buffs": [
+            { "type": "elementMultiplier", "element": "dark", "value": 1.1 },
+            { "type": "criticalBonus", "value": 1.1 }
+          ]
+        },
+        {
+          "level": 3,
+          "minPiety": 50,
+          "nameKo": "사제",
+          "buffs": [
+            { "type": "elementMultiplier", "element": "dark", "value": 1.15 },
+            { "type": "criticalBonus", "value": 1.15 },
+            { "type": "periodBonus", "period": "night", "statBonus": { "dex": 1.2 } }
+          ]
+        },
+        {
+          "level": 4,
+          "minPiety": 75,
+          "nameKo": "고위 사제",
+          "buffs": [
+            { "type": "elementMultiplier", "element": "dark", "value": 1.2 },
+            { "type": "criticalBonus", "value": 1.2 },
+            { "type": "periodBonus", "period": "night", "statBonus": { "dex": 1.25 } },
+            { "type": "evasionBonus", "value": 1.1 }
+          ]
+        },
+        {
+          "level": 5,
+          "minPiety": 100,
+          "nameKo": "사도",
+          "buffs": [
+            { "type": "elementMultiplier", "element": "dark", "value": 1.25 },
+            { "type": "criticalBonus", "value": 1.25 },
+            { "type": "periodBonus", "period": "night", "statBonus": { "dex": 1.3 } },
+            { "type": "evasionBonus", "value": 1.15 },
+            { "type": "special", "id": "shadow_strike", "description": "첫 공격 치명타 확률 2배" }
+          ]
+        }
+      ],
+      "taboos": [
+        { "action": "fight_honorably", "pietyLoss": 5, "description": "정정당당한 전투 (선공 허용)" }
+      ]
+    },
+    {
+      "id": "nethros",
+      "nameKo": "네스로스",
+      "nameEn": "Nethros",
+      "alignment": "evil",
+      "domain": ["death", "undead"],
+      "icon": "💀",
+      "color": "#4B0082",
+      "altarMapId": "ancient_ruins",
+      "description": {
+        "ko": "죽음과 언데드의 신. 생과 사의 경계를 다루며, 망자들을 지배한다.",
+        "en": "God of death and undead. Controls the boundary between life and death, ruling over the deceased."
+      },
+      "requirements": {
+        "minKarma": -50,
+        "minLevel": 10,
+        "minStats": null,
+        "minProficiency": null
+      },
+      "offerings": [
+        { "itemId": "bone", "pietyGain": 10 },
+        { "itemId": "spider_venom", "pietyGain": 12 },
+        { "itemId": "cursed_relic", "pietyGain": 25 }
+      ],
+      "pietyBonuses": [
+        {
+          "level": 1,
+          "minPiety": 0,
+          "nameKo": "초신자",
+          "buffs": [
+            { "type": "elementMultiplier", "element": "dark", "value": 1.1 },
+            { "type": "resistanceBonus", "target": "undead", "value": 1.2 }
+          ]
+        },
+        {
+          "level": 2,
+          "minPiety": 25,
+          "nameKo": "신도",
+          "buffs": [
+            { "type": "elementMultiplier", "element": "dark", "value": 1.15 },
+            { "type": "resistanceBonus", "target": "undead", "value": 1.3 },
+            { "type": "lifesteal", "value": 0.05 }
+          ]
+        },
+        {
+          "level": 3,
+          "minPiety": 50,
+          "nameKo": "사제",
+          "buffs": [
+            { "type": "elementMultiplier", "element": "dark", "value": 1.2 },
+            { "type": "resistanceBonus", "target": "undead", "value": 1.4 },
+            { "type": "lifesteal", "value": 0.1 },
+            { "type": "special", "id": "undead_neutral", "description": "언데드 비선공" }
+          ]
+        },
+        {
+          "level": 4,
+          "minPiety": 75,
+          "nameKo": "고위 사제",
+          "buffs": [
+            { "type": "elementMultiplier", "element": "dark", "value": 1.25 },
+            { "type": "resistanceBonus", "target": "undead", "value": 1.5 },
+            { "type": "lifesteal", "value": 0.15 },
+            { "type": "special", "id": "undead_neutral", "description": "언데드 비선공" },
+            { "type": "damageBonus", "target": "holy", "value": 1.2 }
+          ]
+        },
+        {
+          "level": 5,
+          "minPiety": 100,
+          "nameKo": "사도",
+          "buffs": [
+            { "type": "elementMultiplier", "element": "dark", "value": 1.3 },
+            { "type": "resistanceBonus", "target": "undead", "value": 1.6 },
+            { "type": "lifesteal", "value": 0.2 },
+            { "type": "special", "id": "undead_neutral", "description": "언데드 비선공" },
+            { "type": "damageBonus", "target": "holy", "value": 1.25 },
+            { "type": "special", "id": "death_ward", "description": "하루 2회 치명상 회피 (HP 1 유지)" }
+          ]
+        }
+      ],
+      "taboos": [
+        { "action": "kill_undead", "pietyLoss": 10, "description": "언데드 처치" },
+        { "action": "use_holy_magic", "pietyLoss": 15, "description": "신성 마법 사용" }
+      ]
+    }
+  ],
+  "summary": {
+    "total": 6,
+    "byAlignment": {
+      "good": 2,
+      "neutral": 2,
+      "evil": 2
+    }
+  }
+}

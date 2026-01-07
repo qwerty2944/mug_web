@@ -1,7 +1,7 @@
 "use client";
 
 import { useQuery } from "@tanstack/react-query";
-import { fetchProfile } from "../api";
+import { fetchProfile, calculateCurrentStamina } from "../api";
 import type { UserProfile } from "../types";
 import type { SavedCharacter } from "@/entities/character";
 import { getExpForLevel } from "../types/constants";
@@ -36,6 +36,25 @@ export function getMainCharacter(profile: UserProfile | undefined): SavedCharact
 }
 
 /**
+ * CON 스탯 기반 최대 피로도 계산
+ * 공식: 50 + (CON * 5)
+ * CON 10 = 100, CON 15 = 125, CON 20 = 150
+ */
+export function calculateMaxStamina(con: number = 10): number {
+  return 50 + con * 5;
+}
+
+/**
+ * 프로필에서 CON 기반 최대 피로도 가져오기
+ */
+export function getMaxStaminaFromProfile(profile: UserProfile | undefined): number {
+  if (!profile) return 100;
+  const mainChar = getMainCharacter(profile);
+  const con = mainChar?.stats?.con ?? 10;
+  return calculateMaxStamina(con);
+}
+
+/**
  * 경험치 퍼센트 계산
  */
 export function getExpPercentage(profile: UserProfile | undefined): number {
@@ -53,39 +72,38 @@ export function getExpToNextLevel(profile: UserProfile | undefined): number {
 }
 
 /**
- * 스태미나 퍼센트 계산
+ * 현재 스태미나 계산 (Lazy Calculation)
+ * DB에 저장된 값 + 경과 시간 기반 회복량
+ */
+export function getCurrentStamina(profile: UserProfile | undefined): number {
+  if (!profile) return 100;
+  return calculateCurrentStamina(
+    profile.stamina,
+    profile.staminaUpdatedAt,
+    profile.maxStamina
+  );
+}
+
+/**
+ * 스태미나 퍼센트 계산 (Lazy Calculation 적용)
  */
 export function getStaminaPercent(profile: UserProfile | undefined): number {
   if (!profile) return 100;
-  return Math.round((profile.stamina / profile.maxStamina) * 100);
+  const current = getCurrentStamina(profile);
+  return Math.round((current / profile.maxStamina) * 100);
 }
 
 /**
  * 스태미나 회복 계산 (클라이언트 시간 기반)
+ * @deprecated getCurrentStamina 사용 권장
  */
 export function calculateRecoveredStamina(profile: UserProfile): {
   stamina: number;
   staminaUpdatedAt: string;
 } {
-  const now = new Date();
-  const lastUpdate = new Date(profile.staminaUpdatedAt);
-  const minutesPassed = Math.floor((now.getTime() - lastUpdate.getTime()) / 60000);
-  const STAMINA_RECOVERY_PER_MINUTE = 1;
-
-  if (minutesPassed > 0 && profile.stamina < profile.maxStamina) {
-    const recovered = Math.min(
-      minutesPassed * STAMINA_RECOVERY_PER_MINUTE,
-      profile.maxStamina - profile.stamina
-    );
-
-    return {
-      stamina: profile.stamina + recovered,
-      staminaUpdatedAt: now.toISOString(),
-    };
-  }
-
+  const current = getCurrentStamina(profile);
   return {
-    stamina: profile.stamina,
+    stamina: current,
     staminaUpdatedAt: profile.staminaUpdatedAt,
   };
 }

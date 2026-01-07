@@ -4,19 +4,39 @@ import type {
   MagicElement,
   MagicEffectiveness,
   WeaponType,
+  AttackType,
+  AttackTypeInfo,
 } from "./index";
 
 // ============ 무기 숙련 정보 ============
 
 export const WEAPON_PROFICIENCIES: ProficiencyInfo[] = [
   {
-    id: "sword",
-    nameKo: "검",
-    nameEn: "Sword",
+    id: "light_sword",
+    nameKo: "세검",
+    nameEn: "Light Sword",
+    category: "weapon",
+    relatedStats: ["dex"],
+    description: "빠르고 정밀한 찌르기",
+    icon: "🗡️",
+  },
+  {
+    id: "medium_sword",
+    nameKo: "중검",
+    nameEn: "Medium Sword",
     category: "weapon",
     relatedStats: ["str", "dex"],
-    description: "균형잡힌 근접 무기",
+    description: "균형 잡힌 베기",
     icon: "⚔️",
+  },
+  {
+    id: "great_sword",
+    nameKo: "대검",
+    nameEn: "Great Sword",
+    category: "weapon",
+    relatedStats: ["str"],
+    description: "강력한 베기, 패리 가능",
+    icon: "🗡️",
   },
   {
     id: "axe",
@@ -231,7 +251,9 @@ export const MAGIC_EFFECTIVENESS: Record<MagicElement, MagicEffectiveness> = {
 // ============ 유틸리티 상수 ============
 
 export const WEAPON_TYPES: WeaponType[] = [
-  "sword",
+  "light_sword",
+  "medium_sword",
+  "great_sword",
   "axe",
   "mace",
   "dagger",
@@ -279,3 +301,47 @@ export const DAY_BOOST_MULTIPLIER = 1.2;
 
 // 요일 이름 (한국어)
 export const DAY_NAMES_KO = ["일", "월", "화", "수", "목", "금", "토"] as const;
+
+// ============ 공격 타입 ============
+
+export const ATTACK_TYPE_INFO: Record<AttackType, AttackTypeInfo> = {
+  slash: {
+    id: "slash",
+    nameKo: "베기",
+    nameEn: "Slash",
+    icon: "⚔️",
+    description: "날카로운 칼날로 베는 공격",
+  },
+  pierce: {
+    id: "pierce",
+    nameKo: "찌르기",
+    nameEn: "Pierce",
+    icon: "🗡️",
+    description: "뾰족한 끝으로 찌르는 공격",
+  },
+  crush: {
+    id: "crush",
+    nameKo: "타격",
+    nameEn: "Crush",
+    icon: "🔨",
+    description: "무거운 무기로 내려치는 공격",
+  },
+};
+
+// 무기 → 공격 타입 매핑
+export const WEAPON_ATTACK_TYPE: Record<WeaponType, AttackType> = {
+  light_sword: "pierce",  // 세검 = 찌르기
+  medium_sword: "slash",  // 중검 = 베기
+  great_sword: "slash",   // 대검 = 베기
+  axe: "slash",
+  mace: "crush",
+  dagger: "pierce",
+  spear: "pierce",
+  bow: "pierce",
+  crossbow: "pierce",
+  staff: "crush",
+  fist: "crush",
+};
+
+// 공격 타입 목록
+export const ATTACK_TYPES: AttackType[] = ["slash", "pierce", "crush"];

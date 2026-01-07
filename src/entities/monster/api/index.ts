@@ -27,7 +27,7 @@ async function fetchFromStorage(): Promise<Monster[]> {
  * 로컬 fallback에서 몬스터 데이터 가져오기
  */
 async function fetchFromLocal(): Promise<Monster[]> {
-  const response = await fetch("/data/monsters.json");
+  const response = await fetch("/data/monsters/monsters.json");
   if (!response.ok) {
     throw new Error("Failed to fetch monsters from local");
   }

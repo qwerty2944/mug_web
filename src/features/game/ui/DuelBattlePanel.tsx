@@ -53,12 +53,12 @@ export function DuelBattlePanel({
 
   // 공격 타입 버튼들
   const attackTypes: { type: ProficiencyType; label: string; icon: string }[] = [
-    { type: "sword", label: "검", icon: "⚔️" },
+    { type: "light_sword", label: "세검", icon: "🗡️" },
+    { type: "medium_sword", label: "중검", icon: "⚔️" },
+    { type: "great_sword", label: "대검", icon: "🗡️" },
+    { type: "dagger", label: "단검", icon: "🔪" },
     { type: "axe", label: "도끼", icon: "🪓" },
-    { type: "dagger", label: "단검", icon: "🗡️" },
     { type: "fire", label: "화염", icon: "🔥" },
-    { type: "ice", label: "냉기", icon: "❄️" },
-    { type: "lightning", label: "번개", icon: "⚡" },
   ];
 
   if (!myParticipant || !opponentParticipant) {

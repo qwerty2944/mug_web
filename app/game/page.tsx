@@ -19,6 +19,7 @@ import {
   useProfile,
   getMainCharacter,
   getStaminaPercent,
+  getMaxStaminaFromProfile,
 } from "@/entities/user";
 import {
   useMaps,
@@ -28,7 +29,7 @@ import {
 import type { Monster } from "@/entities/monster";
 import { useProficiencies } from "@/entities/proficiency";
 import type { ProficiencyType } from "@/entities/proficiency";
-import { GameTimeClock, AtmosphericText } from "@/entities/game-time";
+import { GameTimeClock, AtmosphericText, useRealtimeGameTime, getPeriodOverlayStyle } from "@/entities/game-time";
 import { WeatherDisplay } from "@/entities/weather";
 import { useBattleStore, usePvpStore } from "@/application/stores";
 import { useStartBattle, useEndBattle } from "@/features/combat";
@@ -62,6 +63,10 @@ export default function GamePage() {
 
   // PvP 관련
   const { declineNotice, setDeclineNotice } = usePvpStore();
+
+  // 시간대별 명도 오버레이
+  const { gameTime } = useRealtimeGameTime();
+  const periodOverlay = getPeriodOverlayStyle(gameTime?.period || "day");
 
   // 결투 거절 알림 표시
   useEffect(() => {
@@ -260,7 +265,7 @@ export default function GamePage() {
             <div className="flex items-center gap-2 text-xs font-mono" style={{ color: theme.colors.textMuted }}>
               <span>피로도</span>
               <span style={{ color: staminaPercent <= 20 ? theme.colors.error : theme.colors.textDim }}>
-                {profile.stamina} / {profile.maxStamina}
+                {profile.stamina} / {getMaxStaminaFromProfile(profile)}
               </span>
             </div>
             <GameTimeClock compact />
@@ -403,6 +408,16 @@ export default function GamePage() {
         currentMapId={mapId || "town_square"}
         onMapSelect={handleMapChange}
         playerLevel={profile.level}
+      />
+
+      {/* 시간대별 명도 오버레이 */}
+      <div
+        className="fixed inset-0 pointer-events-none transition-all duration-1000"
+        style={{
+          background: periodOverlay.background,
+          opacity: periodOverlay.opacity,
+          zIndex: 10,
+        }}
       />
     </div>
   );

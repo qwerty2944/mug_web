@@ -46,5 +46,7 @@ export interface CharacterStats {
   wis: number;
   cha: number;
   lck: number; // 행운 - 치명타 확률 및 피해량
+  ambushChance: number; // 암습 확률 (%)
+  ambushDamage: number; // 암습 추가 피해 (%)
 }
 

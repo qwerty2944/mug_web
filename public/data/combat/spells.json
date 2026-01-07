@@ -1,0 +1,750 @@
+{
+  "version": "1.0.0",
+  "generatedAt": "2026-01-07T00:00:00.000Z",
+  "spells": [
+    {
+      "id": "fireball",
+      "nameKo": "파이어볼",
+      "nameEn": "Fireball",
+      "element": "fire",
+      "type": "attack",
+      "baseDamage": 25,
+      "mpCost": 10,
+      "cooldown": 0,
+      "requirements": { "proficiency": 0 },
+      "icon": "fireball",
+      "description": {
+        "ko": "화염 구체를 발사하여 적에게 피해를 입힌다.",
+        "en": "Launch a ball of fire at the enemy."
+      }
+    },
+    {
+      "id": "flame_wave",
+      "nameKo": "화염 파동",
+      "nameEn": "Flame Wave",
+      "element": "fire",
+      "type": "attack",
+      "baseDamage": 35,
+      "mpCost": 18,
+      "cooldown": 2,
+      "requirements": { "proficiency": 20 },
+      "icon": "flame_wave",
+      "description": {
+        "ko": "화염의 파동을 일으켜 넓은 범위를 공격한다.",
+        "en": "Create a wave of flames to attack a wide area."
+      }
+    },
+    {
+      "id": "ignite",
+      "nameKo": "점화",
+      "nameEn": "Ignite",
+      "element": "fire",
+      "type": "dot",
+      "baseDamage": 8,
+      "mpCost": 12,
+      "cooldown": 0,
+      "requirements": { "proficiency": 15 },
+      "effect": { "type": "burn", "duration": 4, "damagePerTurn": 8 },
+      "icon": "ignite",
+      "description": {
+        "ko": "대상에게 불을 붙여 4턴간 지속 피해를 입힌다.",
+        "en": "Set the target on fire, dealing damage over 4 turns."
+      }
+    },
+    {
+      "id": "fire_shield",
+      "nameKo": "화염 방패",
+      "nameEn": "Fire Shield",
+      "element": "fire",
+      "type": "buff",
+      "baseDamage": 0,
+      "mpCost": 20,
+      "cooldown": 5,
+      "requirements": { "proficiency": 30 },
+      "effect": { "type": "fire_shield", "duration": 5, "iceResist": 0.5, "reflectDamage": 10 },
+      "icon": "fire_shield",
+      "description": {
+        "ko": "화염 방패로 감싸 냉기 피해 -50%, 접촉자에게 10 피해.",
+        "en": "Surround yourself with fire. -50% ice damage, reflect 10 damage."
+      }
+    },
+    {
+      "id": "meteor",
+      "nameKo": "유성",
+      "nameEn": "Meteor",
+      "element": "fire",
+      "type": "attack",
+      "baseDamage": 60,
+      "mpCost": 35,
+      "cooldown": 4,
+      "requirements": { "proficiency": 50 },
+      "effect": { "castTime": 2 },
+      "icon": "meteor",
+      "description": {
+        "ko": "하늘에서 유성을 떨어뜨린다. 2턴 캐스팅 필요.",
+        "en": "Call down a meteor from the sky. Requires 2 turns to cast."
+      }
+    },
+    {
+      "id": "inferno",
+      "nameKo": "지옥불",
+      "nameEn": "Inferno",
+      "element": "fire",
+      "type": "attack",
+      "baseDamage": 80,
+      "mpCost": 45,
+      "cooldown": 5,
+      "requirements": { "proficiency": 70 },
+      "effect": { "selfDamage": 20 },
+      "icon": "inferno",
+      "description": {
+        "ko": "지옥의 화염을 불러온다. 자신도 20 피해를 입는다.",
+        "en": "Summon hellfire. You also take 20 damage."
+      }
+    },
+    {
+      "id": "ice_spike",
+      "nameKo": "얼음창",
+      "nameEn": "Ice Spike",
+      "element": "ice",
+      "type": "attack",
+      "baseDamage": 25,
+      "mpCost": 10,
+      "cooldown": 0,
+      "requirements": { "proficiency": 0 },
+      "icon": "ice_spike",
+      "description": {
+        "ko": "날카로운 얼음 창을 발사한다.",
+        "en": "Launch a sharp ice spike at the enemy."
+      }
+    },
+    {
+      "id": "frost_nova",
+      "nameKo": "서리 폭발",
+      "nameEn": "Frost Nova",
+      "element": "ice",
+      "type": "attack",
+      "baseDamage": 20,
+      "mpCost": 15,
+      "cooldown": 2,
+      "requirements": { "proficiency": 20 },
+      "effect": { "type": "slow", "duration": 2, "speedReduction": 0.3 },
+      "icon": "frost_nova",
+      "description": {
+        "ko": "서리 폭발로 적을 공격하고 2턴간 속도를 감소시킨다.",
+        "en": "Blast enemies with frost, slowing them for 2 turns."
+      }
+    },
+    {
+      "id": "blizzard",
+      "nameKo": "눈보라",
+      "nameEn": "Blizzard",
+      "element": "ice",
+      "type": "dot",
+      "baseDamage": 12,
+      "mpCost": 25,
+      "cooldown": 3,
+      "requirements": { "proficiency": 35 },
+      "effect": { "type": "blizzard", "duration": 5, "damagePerTurn": 12, "speedReduction": 0.2 },
+      "icon": "blizzard",
+      "description": {
+        "ko": "눈보라를 일으켜 5턴간 피해와 속도 감소를 입힌다.",
+        "en": "Create a blizzard dealing damage and slowing for 5 turns."
+      }
+    },
+    {
+      "id": "ice_armor",
+      "nameKo": "얼음 갑옷",
+      "nameEn": "Ice Armor",
+      "element": "ice",
+      "type": "buff",
+      "baseDamage": 0,
+      "mpCost": 18,
+      "cooldown": 5,
+      "requirements": { "proficiency": 25 },
+      "effect": { "type": "ice_armor", "duration": 5, "defenseBonus": 0.3, "fireResist": 0.5 },
+      "icon": "ice_armor",
+      "description": {
+        "ko": "얼음 갑옷으로 방어력 +30%, 화염 피해 -50%.",
+        "en": "Create ice armor. +30% defense, -50% fire damage taken."
+      }
+    },
+    {
+      "id": "glacial_spike",
+      "nameKo": "빙하 창",
+      "nameEn": "Glacial Spike",
+      "element": "ice",
+      "type": "attack",
+      "baseDamage": 45,
+      "mpCost": 22,
+      "cooldown": 2,
+      "requirements": { "proficiency": 45 },
+      "effect": { "type": "freeze", "chance": 0.2, "duration": 1 },
+      "icon": "glacial_spike",
+      "description": {
+        "ko": "거대한 빙하 창으로 공격. 20% 확률로 동결.",
+        "en": "Attack with a glacial spike. 20% chance to freeze."
+      }
+    },
+    {
+      "id": "absolute_zero",
+      "nameKo": "절대 영도",
+      "nameEn": "Absolute Zero",
+      "element": "ice",
+      "type": "special",
+      "baseDamage": 30,
+      "mpCost": 40,
+      "cooldown": 6,
+      "requirements": { "proficiency": 70 },
+      "effect": { "type": "instant_kill", "chance": 0.5, "failDamage": 30 },
+      "icon": "absolute_zero",
+      "description": {
+        "ko": "50% 확률로 즉사. 실패 시 30 피해.",
+        "en": "50% chance to instantly kill. Deal 30 damage on failure."
+      }
+    },
+    {
+      "id": "lightning_bolt",
+      "nameKo": "번개",
+      "nameEn": "Lightning Bolt",
+      "element": "lightning",
+      "type": "attack",
+      "baseDamage": 25,
+      "mpCost": 10,
+      "cooldown": 0,
+      "requirements": { "proficiency": 0 },
+      "icon": "lightning_bolt",
+      "description": {
+        "ko": "번개를 내리쳐 적을 공격한다.",
+        "en": "Strike the enemy with lightning."
+      }
+    },
+    {
+      "id": "chain_lightning",
+      "nameKo": "연쇄 번개",
+      "nameEn": "Chain Lightning",
+      "element": "lightning",
+      "type": "attack",
+      "baseDamage": 20,
+      "mpCost": 20,
+      "cooldown": 2,
+      "requirements": { "proficiency": 25 },
+      "effect": { "type": "chain", "targets": 3 },
+      "icon": "chain_lightning",
+      "description": {
+        "ko": "연쇄 번개가 최대 3명의 적에게 튕긴다.",
+        "en": "Lightning that chains to up to 3 targets."
+      }
+    },
+    {
+      "id": "thunder_shock",
+      "nameKo": "천둥 충격",
+      "nameEn": "Thunder Shock",
+      "element": "lightning",
+      "type": "attack",
+      "baseDamage": 30,
+      "mpCost": 18,
+      "cooldown": 2,
+      "requirements": { "proficiency": 30 },
+      "effect": { "type": "stun", "chance": 0.3, "duration": 1 },
+      "icon": "thunder_shock",
+      "description": {
+        "ko": "천둥으로 충격을 주어 30% 확률로 기절시킨다.",
+        "en": "Shock with thunder. 30% chance to stun for 1 turn."
+      }
+    },
+    {
+      "id": "static_field",
+      "nameKo": "정전기장",
+      "nameEn": "Static Field",
+      "element": "lightning",
+      "type": "debuff",
+      "baseDamage": 0,
+      "mpCost": 15,
+      "cooldown": 3,
+      "requirements": { "proficiency": 20 },
+      "effect": { "type": "static", "duration": 5, "damageBonus": 0.25 },
+      "icon": "static_field",
+      "description": {
+        "ko": "정전기장을 펼쳐 5턴간 피해를 +25% 증가.",
+        "en": "Create a static field increasing damage taken by 25% for 5 turns."
+      }
+    },
+    {
+      "id": "storm_call",
+      "nameKo": "폭풍 소환",
+      "nameEn": "Storm Call",
+      "element": "lightning",
+      "type": "buff",
+      "baseDamage": 0,
+      "mpCost": 25,
+      "cooldown": 5,
+      "requirements": { "proficiency": 40 },
+      "effect": { "type": "storm_power", "duration": 5, "lightningBonus": 0.4 },
+      "icon": "storm_call",
+      "description": {
+        "ko": "폭풍의 힘을 불러 5턴간 번개 데미지 +40%.",
+        "en": "Call the power of storms. +40% lightning damage for 5 turns."
+      }
+    },
+    {
+      "id": "thunderstrike",
+      "nameKo": "낙뢰",
+      "nameEn": "Thunderstrike",
+      "element": "lightning",
+      "type": "attack",
+      "baseDamage": 70,
+      "mpCost": 40,
+      "cooldown": 4,
+      "requirements": { "proficiency": 60 },
+      "effect": { "ignoreDefense": true },
+      "icon": "thunderstrike",
+      "description": {
+        "ko": "하늘에서 낙뢰를 떨어뜨린다. 방어력 무시.",
+        "en": "Call down a thunderstrike. Ignores defense."
+      }
+    },
+    {
+      "id": "rock_throw",
+      "nameKo": "돌던지기",
+      "nameEn": "Rock Throw",
+      "element": "earth",
+      "type": "attack",
+      "baseDamage": 25,
+      "mpCost": 10,
+      "cooldown": 0,
+      "requirements": { "proficiency": 0 },
+      "icon": "rock_throw",
+      "description": {
+        "ko": "바위를 던져 적을 공격한다.",
+        "en": "Throw a rock at the enemy."
+      }
+    },
+    {
+      "id": "earthquake",
+      "nameKo": "지진",
+      "nameEn": "Earthquake",
+      "element": "earth",
+      "type": "attack",
+      "baseDamage": 35,
+      "mpCost": 22,
+      "cooldown": 3,
+      "requirements": { "proficiency": 30 },
+      "effect": { "type": "knockdown", "chance": 0.3, "duration": 1 },
+      "icon": "earthquake",
+      "description": {
+        "ko": "지진을 일으킨다. 30% 확률로 넘어뜨림.",
+        "en": "Create an earthquake. 30% chance to knock down."
+      }
+    },
+    {
+      "id": "stone_skin",
+      "nameKo": "돌가죽",
+      "nameEn": "Stone Skin",
+      "element": "earth",
+      "type": "buff",
+      "baseDamage": 0,
+      "mpCost": 20,
+      "cooldown": 5,
+      "requirements": { "proficiency": 25 },
+      "effect": { "type": "stone_skin", "duration": 5, "physicalResist": 0.4 },
+      "icon": "stone_skin",
+      "description": {
+        "ko": "피부를 돌처럼 단단하게. 5턴간 물리 피해 -40%.",
+        "en": "Harden your skin like stone. -40% physical damage for 5 turns."
+      }
+    },
+    {
+      "id": "mud_trap",
+      "nameKo": "진흙 덫",
+      "nameEn": "Mud Trap",
+      "element": "earth",
+      "type": "debuff",
+      "baseDamage": 0,
+      "mpCost": 18,
+      "cooldown": 3,
+      "requirements": { "proficiency": 20 },
+      "effect": { "type": "rooted", "duration": 3, "speedReduction": 0.5, "noDodge": true },
+      "icon": "mud_trap",
+      "description": {
+        "ko": "진흙에 발을 묶어 3턴간 회피 불가, 속도 -50%.",
+        "en": "Trap in mud. Cannot dodge, -50% speed for 3 turns."
+      }
+    },
+    {
+      "id": "earth_spike",
+      "nameKo": "대지의 창",
+      "nameEn": "Earth Spike",
+      "element": "earth",
+      "type": "attack",
+      "baseDamage": 40,
+      "mpCost": 20,
+      "cooldown": 2,
+      "requirements": { "proficiency": 35 },
+      "effect": { "type": "bleed", "duration": 3, "damagePerTurn": 5 },
+      "icon": "earth_spike",
+      "description": {
+        "ko": "땅에서 창이 솟아오른다. 출혈 피해 3턴간.",
+        "en": "Spikes emerge from the ground. Causes bleeding for 3 turns."
+      }
+    },
+    {
+      "id": "petrify",
+      "nameKo": "석화",
+      "nameEn": "Petrify",
+      "element": "earth",
+      "type": "special",
+      "baseDamage": 0,
+      "mpCost": 35,
+      "cooldown": 6,
+      "requirements": { "proficiency": 55 },
+      "effect": { "type": "petrify", "duration": 3, "damageReduction": 0.8 },
+      "icon": "petrify",
+      "description": {
+        "ko": "대상을 돌로 만든다. 3턴간 행동 불가, 피해 -80%.",
+        "en": "Turn target to stone. Cannot act for 3 turns, -80% damage taken."
+      }
+    },
+    {
+      "id": "divine_light",
+      "nameKo": "신성한 빛",
+      "nameEn": "Divine Light",
+      "element": "holy",
+      "type": "attack",
+      "baseDamage": 30,
+      "mpCost": 12,
+      "cooldown": 0,
+      "requirements": { "proficiency": 0 },
+      "effect": { "bonusVsUndead": 0.5 },
+      "icon": "divine_light",
+      "description": {
+        "ko": "신성한 빛으로 공격. 언데드에게 +50% 피해.",
+        "en": "Attack with divine light. +50% damage vs undead."
+      }
+    },
+    {
+      "id": "smite",
+      "nameKo": "천벌",
+      "nameEn": "Smite",
+      "element": "holy",
+      "type": "attack",
+      "baseDamage": 45,
+      "mpCost": 18,
+      "cooldown": 2,
+      "requirements": { "proficiency": 20 },
+      "effect": { "bonusVsDemon": 0.5 },
+      "icon": "smite",
+      "description": {
+        "ko": "신의 심판을 내린다. 악마에게 +50% 피해.",
+        "en": "Bring divine judgment. +50% damage vs demons."
+      }
+    },
+    {
+      "id": "purify",
+      "nameKo": "정화",
+      "nameEn": "Purify",
+      "element": "holy",
+      "type": "buff",
+      "baseDamage": 0,
+      "mpCost": 15,
+      "cooldown": 3,
+      "requirements": { "proficiency": 25, "piety": 2 },
+      "effect": { "type": "cleanse", "removeDebuffs": true },
+      "icon": "purify",
+      "description": {
+        "ko": "모든 디버프를 제거한다.",
+        "en": "Remove all debuffs."
+      }
+    },
+    {
+      "id": "sacred_shield",
+      "nameKo": "성스러운 방패",
+      "nameEn": "Sacred Shield",
+      "element": "holy",
+      "type": "buff",
+      "baseDamage": 0,
+      "mpCost": 25,
+      "cooldown": 5,
+      "requirements": { "proficiency": 35, "piety": 2 },
+      "effect": { "type": "sacred_shield", "duration": 5, "darkResist": 0.5 },
+      "icon": "sacred_shield",
+      "description": {
+        "ko": "성스러운 방패로 5턴간 암흑 피해 -50%.",
+        "en": "Create a sacred shield. -50% dark damage for 5 turns."
+      }
+    },
+    {
+      "id": "exorcism",
+      "nameKo": "퇴마",
+      "nameEn": "Exorcism",
+      "element": "holy",
+      "type": "special",
+      "baseDamage": 0,
+      "mpCost": 40,
+      "cooldown": 8,
+      "requirements": { "proficiency": 60, "piety": 4 },
+      "effect": { "type": "instant_kill_evil", "levelDiffRequired": 5 },
+      "icon": "exorcism",
+      "description": {
+        "ko": "언데드/악마 즉사. 레벨 5 이상 차이 필요.",
+        "en": "Instantly destroy undead/demons. Requires 5+ level difference."
+      }
+    },
+    {
+      "id": "divine_intervention",
+      "nameKo": "신의 가호",
+      "nameEn": "Divine Intervention",
+      "element": "holy",
+      "type": "special",
+      "baseDamage": 0,
+      "mpCost": 50,
+      "cooldown": 0,
+      "requirements": { "proficiency": 80, "piety": 5 },
+      "effect": { "type": "death_save", "dailyLimit": 1 },
+      "icon": "divine_intervention",
+      "description": {
+        "ko": "치명상을 1회 회피. 하루 1회 제한.",
+        "en": "Avoid fatal damage once. Limited to once per day."
+      }
+    },
+    {
+      "id": "shadow_bolt",
+      "nameKo": "그림자 화살",
+      "nameEn": "Shadow Bolt",
+      "element": "dark",
+      "type": "attack",
+      "baseDamage": 30,
+      "mpCost": 12,
+      "cooldown": 0,
+      "requirements": { "proficiency": 0 },
+      "icon": "shadow_bolt",
+      "description": {
+        "ko": "어둠의 화살을 발사한다.",
+        "en": "Fire a bolt of shadow."
+      }
+    },
+    {
+      "id": "life_drain",
+      "nameKo": "생명력 흡수",
+      "nameEn": "Life Drain",
+      "element": "dark",
+      "type": "attack",
+      "baseDamage": 25,
+      "mpCost": 18,
+      "cooldown": 2,
+      "requirements": { "proficiency": 20 },
+      "effect": { "type": "lifesteal", "amount": 0.5 },
+      "icon": "life_drain",
+      "description": {
+        "ko": "피해의 50%를 HP로 흡수한다.",
+        "en": "Absorb 50% of damage dealt as HP."
+      }
+    },
+    {
+      "id": "curse",
+      "nameKo": "저주",
+      "nameEn": "Curse",
+      "element": "dark",
+      "type": "debuff",
+      "baseDamage": 0,
+      "mpCost": 15,
+      "cooldown": 3,
+      "requirements": { "proficiency": 30 },
+      "effect": { "type": "curse", "duration": 5, "damageBonus": 0.2 },
+      "icon": "curse",
+      "description": {
+        "ko": "저주를 걸어 5턴간 받는 피해 +20%.",
+        "en": "Curse the target. +20% damage taken for 5 turns."
+      }
+    },
+    {
+      "id": "fear",
+      "nameKo": "공포",
+      "nameEn": "Fear",
+      "element": "dark",
+      "type": "debuff",
+      "baseDamage": 0,
+      "mpCost": 20,
+      "cooldown": 4,
+      "requirements": { "proficiency": 35, "karma": -30 },
+      "effect": { "type": "fear", "duration": 3, "attackReduction": 0.3, "noFlee": true },
+      "icon": "fear",
+      "description": {
+        "ko": "공포에 빠뜨려 3턴간 공격력 -30%, 도주 불가.",
+        "en": "Instill fear. -30% attack, cannot flee for 3 turns."
+      }
+    },
+    {
+      "id": "soul_rend",
+      "nameKo": "영혼 파열",
+      "nameEn": "Soul Rend",
+      "element": "dark",
+      "type": "attack",
+      "baseDamage": 50,
+      "mpCost": 25,
+      "cooldown": 3,
+      "requirements": { "proficiency": 50, "karma": -50 },
+      "effect": { "ignoreWisdom": true },
+      "icon": "soul_rend",
+      "description": {
+        "ko": "영혼을 찢는 공격. WIS 방어 무시.",
+        "en": "Tear at the soul. Ignores WIS defense."
+      }
+    },
+    {
+      "id": "pestilence",
+      "nameKo": "역병",
+      "nameEn": "Pestilence",
+      "element": "dark",
+      "type": "dot",
+      "baseDamage": 10,
+      "mpCost": 22,
+      "cooldown": 4,
+      "requirements": { "proficiency": 50 },
+      "effect": { "type": "disease", "duration": 6, "damagePerTurn": 10 },
+      "icon": "pestilence",
+      "description": {
+        "ko": "역병을 퍼뜨려 6턴간 매턴 10 피해.",
+        "en": "Spread pestilence. 10 damage per turn for 6 turns."
+      }
+    },
+    {
+      "id": "death_coil",
+      "nameKo": "죽음의 고리",
+      "nameEn": "Death Coil",
+      "element": "dark",
+      "type": "attack",
+      "baseDamage": 40,
+      "mpCost": 30,
+      "cooldown": 4,
+      "requirements": { "proficiency": 60, "karma": -70 },
+      "effect": { "type": "stun", "duration": 2 },
+      "icon": "death_coil",
+      "description": {
+        "ko": "죽음의 고리로 40 피해와 2턴 기절.",
+        "en": "Death coil deals 40 damage and stuns for 2 turns."
+      }
+    },
+    {
+      "id": "minor_heal",
+      "nameKo": "경미한 치유",
+      "nameEn": "Minor Heal",
+      "element": "holy",
+      "type": "heal",
+      "baseDamage": 0,
+      "mpCost": 12,
+      "cooldown": 0,
+      "requirements": { "proficiency": 0 },
+      "effect": { "type": "heal", "healPercent": 20 },
+      "icon": "minor_heal",
+      "description": {
+        "ko": "HP의 20%를 회복한다.",
+        "en": "Restore 20% of max HP."
+      }
+    },
+    {
+      "id": "heal",
+      "nameKo": "치유",
+      "nameEn": "Heal",
+      "element": "holy",
+      "type": "heal",
+      "baseDamage": 0,
+      "mpCost": 18,
+      "cooldown": 1,
+      "requirements": { "proficiency": 20 },
+      "effect": { "type": "heal", "healPercent": 35 },
+      "icon": "heal",
+      "description": {
+        "ko": "HP의 35%를 회복한다.",
+        "en": "Restore 35% of max HP."
+      }
+    },
+    {
+      "id": "healing_prayer",
+      "nameKo": "치유의 기도",
+      "nameEn": "Healing Prayer",
+      "element": "holy",
+      "type": "heal",
+      "baseDamage": 0,
+      "mpCost": 25,
+      "cooldown": 2,
+      "requirements": { "proficiency": 40 },
+      "effect": { "type": "heal", "healPercent": 50 },
+      "icon": "healing_prayer",
+      "description": {
+        "ko": "HP의 50%를 회복한다.",
+        "en": "Restore 50% of max HP."
+      }
+    },
+    {
+      "id": "regeneration",
+      "nameKo": "재생",
+      "nameEn": "Regeneration",
+      "element": "holy",
+      "type": "buff",
+      "baseDamage": 0,
+      "mpCost": 20,
+      "cooldown": 4,
+      "requirements": { "proficiency": 30 },
+      "effect": { "type": "regen", "duration": 5, "healPercentPerTurn": 8 },
+      "icon": "regeneration",
+      "description": {
+        "ko": "5턴간 매턴 HP의 8%를 회복한다.",
+        "en": "Restore 8% of max HP per turn for 5 turns."
+      }
+    },
+    {
+      "id": "mass_heal",
+      "nameKo": "대규모 치유",
+      "nameEn": "Mass Heal",
+      "element": "holy",
+      "type": "heal",
+      "baseDamage": 0,
+      "mpCost": 40,
+      "cooldown": 5,
+      "requirements": { "proficiency": 60, "piety": 3 },
+      "effect": { "type": "heal", "healPercent": 25, "aoe": true },
+      "icon": "mass_heal",
+      "description": {
+        "ko": "파티 전체의 HP 25%를 회복한다.",
+        "en": "Restore 25% of max HP to all party members."
+      }
+    },
+    {
+      "id": "divine_heal",
+      "nameKo": "신성 치유",
+      "nameEn": "Divine Heal",
+      "element": "holy",
+      "type": "heal",
+      "baseDamage": 0,
+      "mpCost": 60,
+      "cooldown": 8,
+      "requirements": { "proficiency": 80, "piety": 4, "religion": "solara" },
+      "effect": { "type": "heal", "healPercent": 100 },
+      "icon": "divine_heal",
+      "description": {
+        "ko": "HP를 완전히 회복한다. 솔라라 신도 전용.",
+        "en": "Fully restore HP. Solara followers only."
+      }
+    }
+  ],
+  "summary": {
+    "total": 42,
+    "byElement": {
+      "fire": 6,
+      "ice": 6,
+      "lightning": 6,
+      "earth": 6,
+      "holy": 12,
+      "dark": 8
+    },
+    "byType": {
+      "attack": 20,
+      "heal": 6,
+      "buff": 8,
+      "debuff": 4,
+      "dot": 4,
+      "special": 4
+    }
+  }
+}

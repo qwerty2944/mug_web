@@ -70,7 +70,9 @@ export async function setProficiency(
 function mapToProficiencies(data: any): Proficiencies {
   return {
     // 무기
-    sword: data.sword ?? 0,
+    light_sword: data.light_sword ?? 0,
+    medium_sword: data.medium_sword ?? 0,
+    great_sword: data.great_sword ?? 0,
     axe: data.axe ?? 0,
     mace: data.mace ?? 0,
     dagger: data.dagger ?? 0,

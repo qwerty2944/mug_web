@@ -9,6 +9,13 @@ import { profileKeys, updateProfile, checkLevelUp, useProfile } from "@/entities
 import { inventoryKeys } from "@/entities/inventory";
 import { fetchItemById } from "@/entities/item";
 import { addItem } from "@/features/inventory";
+import {
+  calculateKarmaChange,
+  updateKarma,
+  karmaKeys,
+  formatKarma,
+  getKarmaRank,
+} from "@/entities/karma";
 import type { ProficiencyType } from "@/entities/proficiency";
 import toast from "react-hot-toast";
 
@@ -24,6 +31,7 @@ interface BattleRewards {
     newLevel: number;
     levelsGained: number;
   };
+  karmaChange?: number;
 }
 
 interface UseEndBattleOptions {
@@ -69,7 +77,13 @@ export function useEndBattle(options: UseEndBattleOptions) {
       };
     }
 
-    return { exp, gold, drops, proficiencyGain };
+    // 카르마 변화 계산
+    const karmaChange = calculateKarmaChange(
+      currentBattle.monster.alignment,
+      currentBattle.monster.level
+    );
+
+    return { exp, gold, drops, proficiencyGain, karmaChange };
   }, [playerLevel]);
 
   // 승리 처리
@@ -120,7 +134,28 @@ export function useEndBattle(options: UseEndBattleOptions) {
       }
     }
 
-    // 3. 드롭 아이템 인벤토리에 추가
+    // 3. 카르마 변화 적용
+    if (rewards.karmaChange && rewards.karmaChange !== 0 && userId) {
+      try {
+        const currentBattle = useBattleStore.getState().battle;
+        const reason = currentBattle.monster
+          ? `${currentBattle.monster.nameKo} 처치`
+          : "몬스터 처치";
+
+        const result = await updateKarma(userId, rewards.karmaChange, reason);
+
+        // 카르마 변화 알림
+        if (rewards.karmaChange > 0) {
+          toast.success(`카르마 +${rewards.karmaChange}`);
+        } else {
+          toast.error(`카르마 ${rewards.karmaChange}`);
+        }
+      } catch (error) {
+        console.error("Failed to update karma:", error);
+      }
+    }
+
+    // 4. 드롭 아이템 인벤토리에 추가
     if (rewards.drops.length > 0 && userId) {
       for (const drop of rewards.drops) {
         try {
@@ -139,10 +174,11 @@ export function useEndBattle(options: UseEndBattleOptions) {
       }
     }
 
-    // 4. 캐시 무효화
+    // 5. 캐시 무효화
     if (userId) {
       queryClient.invalidateQueries({ queryKey: profileKeys.detail(userId) });
       queryClient.invalidateQueries({ queryKey: inventoryKeys.detail(userId) });
+      queryClient.invalidateQueries({ queryKey: karmaKeys.detail(userId) });
     }
 
     onVictory?.(rewards);
