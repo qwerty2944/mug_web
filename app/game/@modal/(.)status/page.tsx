@@ -11,7 +11,15 @@ import {
   getExpToNextLevel,
 } from "@/entities/user";
 import { useInventory } from "@/entities/inventory";
-import { useProficiencies, WEAPON_PROFICIENCIES, MAGIC_PROFICIENCIES, getRankInfo } from "@/entities/proficiency";
+import {
+  useProficiencies,
+  WEAPON_PROFICIENCIES,
+  MAGIC_PROFICIENCIES,
+  CRAFTING_PROFICIENCIES,
+  MEDICAL_PROFICIENCIES,
+  KNOWLEDGE_PROFICIENCIES,
+  getRankInfo,
+} from "@/entities/proficiency";
 import type { ProficiencyType } from "@/entities/proficiency";
 import { useEquipmentStore } from "@/application/stores";
 import { useThemeStore } from "@/shared/config";
@@ -583,6 +591,143 @@ export default function StatusModal() {
                                   style={{
                                     width: `${level}%`,
                                     background: theme.colors.primary,
+                                  }}
+                                />
+                              </div>
+                              <div className="text-xs font-mono mt-0.5" style={{ color: theme.colors.textMuted }}>
+                                {level}/100
+                              </div>
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+
+                  {/* 제작 숙련도 */}
+                  <div>
+                    <h3 className="text-lg font-mono font-bold mb-3" style={{ color: theme.colors.text }}>
+                      🛠️ 제작 숙련도
+                    </h3>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                      {CRAFTING_PROFICIENCIES.map((prof) => {
+                        const level = proficiencies?.[prof.id as ProficiencyType] ?? 0;
+                        const rank = getRankInfo(level);
+                        return (
+                          <div
+                            key={prof.id}
+                            className="p-3 flex items-center gap-3"
+                            style={{ background: theme.colors.bgDark }}
+                          >
+                            <span className="text-2xl">{prof.icon}</span>
+                            <div className="flex-1">
+                              <div className="flex justify-between">
+                                <span className="font-mono" style={{ color: theme.colors.text }}>
+                                  {prof.nameKo}
+                                </span>
+                                <span className="text-sm font-mono" style={{ color: theme.colors.warning }}>
+                                  {rank.nameKo}
+                                </span>
+                              </div>
+                              <div className="mt-1 h-2" style={{ background: theme.colors.bgLight }}>
+                                <div
+                                  className="h-full transition-all"
+                                  style={{
+                                    width: `${level}%`,
+                                    background: theme.colors.warning,
+                                  }}
+                                />
+                              </div>
+                              <div className="text-xs font-mono mt-0.5" style={{ color: theme.colors.textMuted }}>
+                                {level}/100
+                              </div>
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+
+                  {/* 의료 숙련도 */}
+                  <div>
+                    <h3 className="text-lg font-mono font-bold mb-3" style={{ color: theme.colors.text }}>
+                      🏥 의료 숙련도
+                    </h3>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                      {MEDICAL_PROFICIENCIES.map((prof) => {
+                        const level = proficiencies?.[prof.id as ProficiencyType] ?? 0;
+                        const rank = getRankInfo(level);
+                        return (
+                          <div
+                            key={prof.id}
+                            className="p-3 flex items-center gap-3"
+                            style={{ background: theme.colors.bgDark }}
+                          >
+                            <span className="text-2xl">{prof.icon}</span>
+                            <div className="flex-1">
+                              <div className="flex justify-between">
+                                <span className="font-mono" style={{ color: theme.colors.text }}>
+                                  {prof.nameKo}
+                                </span>
+                                <span className="text-sm font-mono" style={{ color: theme.colors.success }}>
+                                  {rank.nameKo}
+                                </span>
+                              </div>
+                              <div className="mt-1 h-2" style={{ background: theme.colors.bgLight }}>
+                                <div
+                                  className="h-full transition-all"
+                                  style={{
+                                    width: `${level}%`,
+                                    background: theme.colors.success,
+                                  }}
+                                />
+                              </div>
+                              <div className="text-xs font-mono mt-0.5" style={{ color: theme.colors.textMuted }}>
+                                {level}/100
+                              </div>
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+
+                  {/* 지식 숙련도 */}
+                  <div>
+                    <h3 className="text-lg font-mono font-bold mb-3" style={{ color: theme.colors.text }}>
+                      📚 지식 숙련도
+                    </h3>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                      {KNOWLEDGE_PROFICIENCIES.map((prof) => {
+                        const level = proficiencies?.[prof.id as ProficiencyType] ?? 0;
+                        const rank = getRankInfo(level);
+                        return (
+                          <div
+                            key={prof.id}
+                            className="p-3 flex items-center gap-3"
+                            style={{ background: theme.colors.bgDark }}
+                          >
+                            <span className="text-2xl">{prof.icon}</span>
+                            <div className="flex-1">
+                              <div className="flex justify-between items-start">
+                                <div>
+                                  <span className="font-mono" style={{ color: theme.colors.text }}>
+                                    {prof.nameKo}
+                                  </span>
+                                  <div className="text-[10px] font-mono" style={{ color: theme.colors.textMuted }}>
+                                    {prof.description}
+                                  </div>
+                                </div>
+                                <span className="text-sm font-mono" style={{ color: theme.colors.error }}>
+                                  {rank.nameKo}
+                                </span>
+                              </div>
+                              <div className="mt-1 h-2" style={{ background: theme.colors.bgLight }}>
+                                <div
+                                  className="h-full transition-all"
+                                  style={{
+                                    width: `${level}%`,
+                                    background: theme.colors.error,
                                   }}
                                 />
                               </div>
