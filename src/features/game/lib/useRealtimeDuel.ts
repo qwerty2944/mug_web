@@ -268,9 +268,17 @@ export function useRealtimeDuel({
         // 지금은 기본값 사용
         const defaultStats = { str: 10, dex: 10, con: 10, int: 10, wis: 10, cha: 10, lck: 10, ambushChance: 0, ambushDamage: 0 };
         const defaultProficiencies = {
+          // 무기
           light_sword: 0, medium_sword: 0, great_sword: 0,
           axe: 0, mace: 0, dagger: 0, spear: 0, bow: 0, crossbow: 0, staff: 0, fist: 0,
-          fire: 0, ice: 0, lightning: 0, earth: 0, holy: 0, dark: 0,
+          // 마법
+          fire: 0, ice: 0, lightning: 0, earth: 0, holy: 0, dark: 0, poison: 0,
+          // 제작
+          blacksmithing: 0, tailoring: 0, cooking: 0, alchemy: 0, jewelcrafting: 0,
+          // 의료
+          first_aid: 0, herbalism: 0, surgery: 0,
+          // 지식
+          anatomy: 0, metallurgy: 0, botany: 0, gemology: 0,
         };
 
         const player1 = {

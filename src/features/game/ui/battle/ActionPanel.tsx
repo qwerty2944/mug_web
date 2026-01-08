@@ -3,7 +3,7 @@
 import { useThemeStore } from "@/shared/config";
 import { useBattleStore, useEquipmentStore } from "@/application/stores";
 import type { Skill } from "@/entities/skill";
-import type { ProficiencyType, WeaponType } from "@/entities/proficiency";
+import type { ProficiencyType, CombatProficiencyType, WeaponType } from "@/entities/proficiency";
 import { getProficiencyInfo } from "@/entities/proficiency";
 import { useSkills } from "@/entities/skill";
 import type { BattleActionTab } from "./ActionTabs";
@@ -11,7 +11,7 @@ import type { BattleActionTab } from "./ActionTabs";
 interface ActionPanelProps {
   activeTab: BattleActionTab;
   proficiencies: Record<ProficiencyType, number>;
-  onWeaponAttack: (weaponType: ProficiencyType) => void;
+  onWeaponAttack: (weaponType: CombatProficiencyType) => void;
   onCastSkill: (skill: Skill) => void;
   onFlee: () => void;
   disabled?: boolean;
@@ -106,7 +106,7 @@ export function ActionPanel({
           ) : (
             /* 맨손 공격 */
             <button
-              onClick={() => onWeaponAttack("fist" as ProficiencyType)}
+              onClick={() => onWeaponAttack("fist")}
               disabled={disabled}
               className="w-full flex items-center gap-4 py-3 px-4 transition-colors font-mono"
               style={{

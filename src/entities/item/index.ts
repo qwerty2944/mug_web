@@ -18,6 +18,10 @@ export type {
   AccessoryType,
   SlotCategory,
   SlotConfigInfo,
+  // Sprite System
+  SpriteCategory,
+  SpriteReference,
+  SpriteColorPreset,
 } from "./types";
 
 export {
@@ -29,6 +33,9 @@ export {
   ACCESSORY_SLOTS,
   isAppearanceSlot,
   isAccessorySlot,
+  // Sprite System
+  SPRITE_COLOR_PRESETS,
+  SPRITE_CATEGORY_CONFIG,
 } from "./types";
 
 // API

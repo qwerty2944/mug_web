@@ -43,7 +43,8 @@ const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
 const BUCKET_NAME = "game-data";
 const STORAGE_PATH = "mappings";
 
-const DATA_FILES = [
+// 루트 레벨 파일
+const ROOT_DATA_FILES = [
   "items.json",
   "monsters.json",
   "skills.json",
@@ -52,16 +53,25 @@ const DATA_FILES = [
   "religions.json",
 ];
 
-async function uploadFile(fileName: string) {
-  const localPath = path.join(process.cwd(), "public", "data", fileName);
+// 하위 폴더 파일 (폴더/파일명)
+const SUBFOLDER_FILES = [
+  "life-skills/crafting.json",
+  "life-skills/medical.json",
+  "life-skills/knowledge.json",
+  "proficiency/gain-config.json",
+  "injuries/injuries.json",
+];
+
+async function uploadFile(filePath: string) {
+  const localPath = path.join(process.cwd(), "public", "data", filePath);
 
   if (!fs.existsSync(localPath)) {
-    console.log(`  [SKIP] ${fileName} - 파일 없음`);
+    console.log(`  [SKIP] ${filePath} - 파일 없음`);
     return;
   }
 
   const fileContent = fs.readFileSync(localPath);
-  const storagePath = `${STORAGE_PATH}/${fileName}`;
+  const storagePath = `${STORAGE_PATH}/${filePath}`;
 
   const { error } = await supabase.storage
     .from(BUCKET_NAME)
@@ -71,16 +81,22 @@ async function uploadFile(fileName: string) {
     });
 
   if (error) {
-    console.error(`  [ERROR] ${fileName}:`, error.message);
+    console.error(`  [ERROR] ${filePath}:`, error.message);
   } else {
-    console.log(`  [OK] ${fileName} 업로드 완료`);
+    console.log(`  [OK] ${filePath} 업로드 완료`);
   }
 }
 
 async function main() {
   console.log(`\n📦 Supabase Storage 업로드 (${BUCKET_NAME}/${STORAGE_PATH}/)\n`);
 
-  for (const file of DATA_FILES) {
+  console.log("📁 루트 파일:");
+  for (const file of ROOT_DATA_FILES) {
+    await uploadFile(file);
+  }
+
+  console.log("\n📁 하위 폴더 파일:");
+  for (const file of SUBFOLDER_FILES) {
     await uploadFile(file);
   }
 

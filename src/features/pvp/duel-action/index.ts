@@ -2,7 +2,7 @@
 
 import { useCallback } from "react";
 import { usePvpStore, type DuelAction } from "@/application/stores";
-import type { ProficiencyType } from "@/entities/proficiency";
+import type { CombatProficiencyType } from "@/entities/proficiency";
 import {
   calculatePvpDamage,
   attemptFlee,
@@ -33,7 +33,7 @@ export function useDuelAction(options: UseDuelActionOptions) {
   } = usePvpStore();
 
   const attack = useCallback(
-    (attackType: ProficiencyType) => {
+    (attackType: CombatProficiencyType) => {
       if (!activeDuel || activeDuel.result !== "ongoing") {
         console.warn("No active duel");
         return null;

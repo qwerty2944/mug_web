@@ -22,4 +22,7 @@ export interface UserProfile {
   // 귓속말 크리스탈 시스템
   whisperCharges: number;
   crystalTier: CrystalTier;
+  // 현재 HP/MP (null이면 최대값)
+  currentHp: number | null;
+  currentMp: number | null;
 }

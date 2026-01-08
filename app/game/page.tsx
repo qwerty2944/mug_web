@@ -184,13 +184,20 @@ export default function GamePage() {
     (monster: Monster) => {
       if (!profile || battle.isInBattle) return;
 
-      // 기본 HP 계산 (레벨 기반)
-      const playerHp = 50 + profile.level * 10;
-      // 기본 MP 계산 (레벨 + INT 기반)
-      const baseInt = mainCharacter?.stats?.int ?? 10;
-      const playerMp = 30 + profile.level * 5 + Math.floor(baseInt * 0.5);
+      // 최대 HP 계산 (CON 기반: 50 + CON * 5 + level * 10)
+      const baseCon = mainCharacter?.stats?.con ?? 10;
+      const maxHp = 50 + baseCon * 5 + profile.level * 10;
 
-      startBattle(monster, playerHp, playerHp, playerMp, playerMp);
+      // 최대 MP 계산 (WIS * 3 + INT + 20)
+      const baseInt = mainCharacter?.stats?.int ?? 10;
+      const baseWis = mainCharacter?.stats?.wis ?? 10;
+      const maxMp = 20 + baseWis * 3 + baseInt;
+
+      // 저장된 HP/MP 사용 (null이면 최대값)
+      const playerHp = profile.currentHp ?? maxHp;
+      const playerMp = profile.currentMp ?? maxMp;
+
+      startBattle(monster, playerHp, maxHp, playerMp, maxMp);
     },
     [profile, battle.isInBattle, startBattle, mainCharacter]
   );

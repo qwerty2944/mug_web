@@ -320,5 +320,80 @@
     "New_Armor_09",
     "New_Armor_10",
     "New_Armor_12"
+  ],
+  "helmetNames": [
+    "Helmet_01", "Helmet_02", "Helmet_03", "Helmet_04", "Helmet_05",
+    "Helmet_06", "Helmet_07", "Helmet_08", "Helmet_09", "Helmet_10",
+    "Helmet_11", "Helmet_12", "Helmet_13", "Helmet_14", "Helmet_15",
+    "Helmet_16", "Helmet_17", "Helmet_18", "Helmet_19", "Helmet_20",
+    "Helmet_21", "Helmet_22", "Helmet_23", "Helmet_24", "Helmet_25",
+    "Helmet_26", "Helmet_27", "Helmet_28", "Helmet_29", "Helmet_30",
+    "Helmet_31", "Helmet_32", "Helmet_33", "Helmet_34", "Helmet_35",
+    "Helmet_36", "Helmet_37", "Helmet_38", "Helmet_39", "Helmet_40",
+    "Helmet_41", "Helmet_42", "Helmet_43", "Helmet_44", "Helmet_45",
+    "Helmet_46", "Helmet_47", "Helmet_48", "Helmet_49", "Helmet_50",
+    "Helmet_51", "Helmet_52", "Helmet_53", "Helmet_54", "Helmet_55",
+    "Helmet_56", "Helmet_57", "Helmet_58", "Helmet_59", "Helmet_60",
+    "Helmet_61", "Helmet_62", "Helmet_63", "Helmet_64", "Helmet_65",
+    "Helmet_66", "Helmet_67", "Helmet_68", "Helmet_69", "Helmet_70",
+    "Helmet_71", "Helmet_72", "Helmet_73", "Helmet_74", "Helmet_75",
+    "Helmet_76", "Helmet_77", "Helmet_78", "Helmet_79", "Helmet_80",
+    "Helmet_81", "Helmet_82", "Helmet_83", "Helmet_84", "Helmet_85",
+    "Helmet_86", "Helmet_87", "Helmet_88", "Helmet_89", "Helmet_90",
+    "Helmet_91", "Helmet_92", "Helmet_93", "Helmet_94", "Helmet_95",
+    "Helmet_96", "Helmet_97", "Helmet_98", "Helmet_99", "Helmet_100",
+    "Helmet_101", "Helmet_102", "Helmet_103", "Helmet_104", "Helmet_105",
+    "Helmet_106", "Helmet_107", "Helmet_108", "Helmet_109", "Helmet_110",
+    "Helmet_111", "Helmet_112", "Helmet_113", "Helmet_114", "Helmet_115",
+    "Helmet_116", "Helmet_117", "Helmet_118", "Helmet_119", "Helmet_120"
+  ],
+  "pantNames": [
+    "Pant_01", "Pant_02", "Pant_03", "Pant_04", "Pant_05",
+    "Pant_06", "Pant_07", "Pant_08", "Pant_09", "Pant_10",
+    "Pant_11", "Pant_12", "Pant_13", "Pant_14", "Pant_15",
+    "Pant_16", "Pant_17", "Pant_18", "Pant_19", "Pant_20",
+    "Pant_21", "Pant_22", "Pant_23", "Pant_24", "Pant_25",
+    "Pant_26", "Pant_27", "Pant_28", "Pant_29", "Pant_30",
+    "Pant_31", "Pant_32", "Pant_33", "Pant_34", "Pant_35",
+    "Pant_36", "Pant_37", "Pant_38", "Pant_39", "Pant_40",
+    "Pant_41", "Pant_42", "Pant_43", "Pant_44", "Pant_45",
+    "Pant_46", "Pant_47", "Pant_48", "Pant_49", "Pant_50",
+    "Pant_51", "Pant_52", "Pant_53", "Pant_54", "Pant_55",
+    "Pant_56", "Pant_57", "Pant_58", "Pant_59", "Pant_60"
+  ],
+  "backNames": [
+    "Back_01", "Back_02", "Back_03", "Back_04", "Back_05",
+    "Back_06", "Back_07", "Back_08", "Back_09", "Back_10",
+    "Back_11", "Back_12", "Back_13", "Back_14", "Back_15",
+    "Back_16", "Back_17", "Back_18", "Back_19", "Back_20",
+    "Back_21", "Back_22", "Back_23", "Back_24", "Back_25",
+    "Back_26", "Back_27", "Back_28", "Back_29", "Back_30",
+    "Back_31", "Back_32", "Back_33", "Back_34"
+  ],
+  "swordNames": [
+    "Sword_01", "Sword_02", "Sword_03", "Sword_04", "Sword_05",
+    "Sword_06", "Sword_07", "Sword_08", "Sword_09", "Sword_10",
+    "Sword_11", "Sword_12", "Sword_13", "Sword_14", "Sword_15",
+    "Sword_16", "Sword_17", "Sword_18", "Sword_19", "Sword_20",
+    "Sword_21", "Sword_22", "Sword_23", "Sword_24", "Sword_25",
+    "Sword_26"
+  ],
+  "shieldNames": [
+    "Shield_01", "Shield_02", "Shield_03", "Shield_04", "Shield_05",
+    "Shield_06", "Shield_07", "Shield_08", "Shield_09", "Shield_10",
+    "Shield_11", "Shield_12", "Shield_13", "Shield_14"
+  ],
+  "axeNames": [
+    "Axe_01", "Axe_02", "Axe_03", "Axe_04", "Axe_05"
+  ],
+  "bowNames": [
+    "Bow_01", "Bow_02", "Bow_03", "Bow_04", "Bow_05",
+    "Bow_06", "Bow_07", "Bow_08", "Bow_09", "Bow_10"
+  ],
+  "wandNames": [
+    "Wand_01", "Wand_02", "Wand_03", "Wand_04", "Wand_05",
+    "Wand_06", "Wand_07", "Wand_08", "Wand_09", "Wand_10",
+    "Wand_11", "Wand_12", "Wand_13", "Wand_14", "Wand_15",
+    "Wand_16", "Wand_17", "Wand_18", "Wand_19", "Wand_20"
   ]
 }

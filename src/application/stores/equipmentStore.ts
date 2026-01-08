@@ -7,6 +7,7 @@ import type {
   WeaponHandType,
   OffHandItemType,
   AccessoryType,
+  SpriteReference,
 } from "@/entities/item";
 
 // 장착된 아이템 정보
@@ -20,8 +21,10 @@ export interface EquippedItem {
   offHandType?: OffHandItemType;
   // 장신구 정보
   accessoryType?: AccessoryType;
-  // Unity 외형
+  // Unity 외형 (deprecated, use sprite)
   unityPartIndex?: number;
+  // 스프라이트 + 색상 (새 시스템)
+  sprite?: SpriteReference;
   // 스탯
   stats?: EquipmentStats;
 }
@@ -71,8 +74,8 @@ interface EquipmentState {
   initializeDefaultSkills: () => void;
 }
 
-// 기본 시작 스킬
-const DEFAULT_SKILLS = ["heal"];
+// 기본 시작 스킬 (heal은 마법 시스템으로 이전됨)
+const DEFAULT_SKILLS: string[] = [];
 
 const initialEquipmentState = {
   // 외형 슬롯
@@ -208,7 +211,7 @@ export const useEquipmentStore = create<EquipmentState>()(
     }),
     {
       name: "equipment-storage",
-      version: 2, // 마이그레이션 버전
+      version: 3, // 마이그레이션 버전 (v3: heal 스킬 제거)
       storage: createJSONStorage(() => localStorage),
       partialize: (state) => ({
         mainHand: state.mainHand,
@@ -261,6 +264,13 @@ export const useEquipmentStore = create<EquipmentState>()(
         // 잘못된 데이터 정리 (old fields 삭제)
         delete state.weapon;
         delete state.accessory;
+
+        // v3 마이그레이션: heal 스킬 제거 (마법 시스템으로 이전됨)
+        if (state.learnedSkills && Array.isArray(state.learnedSkills)) {
+          state.learnedSkills = state.learnedSkills.filter(
+            (id: string) => id !== "heal"
+          );
+        }
 
         return state;
       },

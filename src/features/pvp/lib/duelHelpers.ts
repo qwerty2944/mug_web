@@ -1,6 +1,6 @@
 import type { DuelParticipant } from "@/application/stores";
 import { calculateDamage, applyCritical } from "@/features/combat";
-import type { ProficiencyType } from "@/entities/proficiency";
+import type { ProficiencyType, CombatProficiencyType } from "@/entities/proficiency";
 
 // ============ 선공 결정 ============
 
@@ -135,7 +135,7 @@ export function generateDuelId(player1Id: string, player2Id: string): string {
 interface AttackMessageParams {
   attackerName: string;
   defenderName: string;
-  attackType: ProficiencyType;
+  attackType: CombatProficiencyType;
   damage: number;
   isCritical: boolean;
 }
@@ -146,7 +146,7 @@ interface AttackMessageParams {
 export function generateAttackMessage(params: AttackMessageParams): string {
   const { attackerName, defenderName, attackType, damage, isCritical } = params;
 
-  const attackNames: Record<ProficiencyType, string> = {
+  const attackNames: Record<CombatProficiencyType, string> = {
     light_sword: "세검",
     medium_sword: "중검",
     great_sword: "대검",
@@ -164,6 +164,7 @@ export function generateAttackMessage(params: AttackMessageParams): string {
     earth: "대지",
     holy: "신성",
     dark: "암흑",
+    poison: "독",
   };
 
   const attackName = attackNames[attackType] || attackType;

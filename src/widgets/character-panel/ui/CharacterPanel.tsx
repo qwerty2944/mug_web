@@ -1,7 +1,7 @@
 "use client";
 
 import { createContext, useContext, type ReactNode } from "react";
-import type { CharacterPanelHooks, PartType } from "../types";
+import type { CharacterPanelHooks, PartType, WeaponPartType } from "../types";
 
 // 훅 주입을 위한 컨텍스트
 const HooksContext = createContext<CharacterPanelHooks | null>(null);
@@ -31,8 +31,21 @@ export function CharacterPanel({ hooks, className = "" }: CharacterPanelProps) {
           </div>
         </Section>
 
+        <Section title="무기">
+          <div className="space-y-1">
+            {hooks.weaponPartTypes.map((type) => (
+              <WeaponSelector key={type} type={type} />
+            ))}
+          </div>
+          <WeaponActions />
+        </Section>
+
         <Section title="색상">
           <ColorPicker />
+        </Section>
+
+        <Section title="무기 색상">
+          <WeaponColorPicker />
         </Section>
 
         <Section title="애니메이션">
@@ -164,6 +177,90 @@ function ActionButtons() {
       <button onClick={resetColors} className="btn-action flex-1 bg-gray-600">
         색상 리셋
       </button>
+    </div>
+  );
+}
+
+// ============ 무기 컴포넌트 ============
+
+function WeaponSelector({ type }: { type: WeaponPartType }) {
+  const { usePart } = useHooks();
+  const { label, current, total, next, prev } = usePart(type);
+
+  return (
+    <div className="flex items-center justify-between text-sm">
+      <span className="w-14 text-gray-400">{label}</span>
+      <div className="flex items-center gap-1">
+        <button onClick={prev} className="btn-icon">&lt;</button>
+        <span className="w-14 text-center text-xs">
+          {current >= 0 ? current + 1 : "-"}/{total}
+        </span>
+        <button onClick={next} className="btn-icon">&gt;</button>
+      </div>
+    </div>
+  );
+}
+
+function WeaponActions() {
+  const { useWeaponActions } = useHooks();
+  const { clearLeft, clearRight, clearAll } = useWeaponActions();
+
+  return (
+    <div className="flex gap-1 mt-2">
+      <button onClick={clearLeft} className="btn-sm flex-1 bg-gray-700">
+        왼손 해제
+      </button>
+      <button onClick={clearRight} className="btn-sm flex-1 bg-gray-700">
+        오른손 해제
+      </button>
+      <button onClick={clearAll} className="btn-sm flex-1 bg-red-700">
+        전체 해제
+      </button>
+    </div>
+  );
+}
+
+function WeaponColorPicker() {
+  const { useWeaponColor, weaponPartTypes } = useHooks();
+  const { color, setColor, applyTo } = useWeaponColor();
+
+  const presets = ["#808080", "#FFD700", "#C0C0C0", "#FF4500", "#00BFFF", "#7B68EE", "#228B22", "#2F4F4F"];
+  const labels: Record<WeaponPartType, string> = {
+    sword: "검",
+    shield: "방패",
+    axe: "도끼",
+    bow: "활",
+    wand: "지팡이",
+  };
+
+  return (
+    <div className="space-y-2">
+      <div className="flex items-center gap-2">
+        <input
+          type="color"
+          value={color}
+          onChange={(e) => setColor(e.target.value)}
+          className="w-8 h-8 rounded cursor-pointer"
+        />
+        <div className="flex gap-1 flex-wrap">
+          {presets.map((c) => (
+            <button
+              key={c}
+              onClick={() => setColor(c)}
+              className="w-5 h-5 rounded border border-gray-600"
+              style={{ backgroundColor: c }}
+              title={c}
+            />
+          ))}
+        </div>
+      </div>
+      <div className="flex gap-1 flex-wrap">
+        {weaponPartTypes.map((type) => (
+          <button key={type} onClick={() => applyTo(type)} className="btn-sm flex-1">
+            {labels[type]}
+          </button>
+        ))}
+      </div>
     </div>
   );
 }

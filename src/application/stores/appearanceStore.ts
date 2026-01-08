@@ -1,12 +1,17 @@
 import { create } from "zustand";
 import type { CharacterAppearance, CharacterColors } from "@/entities/character";
-import type { EquipmentSlot } from "@/entities/item";
+import type { EquipmentSlot, SpriteReference, SpriteCategory } from "@/entities/item";
 
 // ============ 타입 정의 ============
 
 export type PartType =
   | "body" | "eye" | "hair" | "facehair" | "cloth"
-  | "armor" | "pant" | "helmet" | "back";
+  | "armor" | "pant" | "helmet" | "back"
+  // 무기 파츠 (12슬롯 장비 시스템용)
+  | "sword" | "shield" | "axe" | "bow" | "wand";
+
+// 무기 타입 (스프라이트 카테고리와 매핑)
+export type WeaponPartType = "sword" | "shield" | "axe" | "bow" | "wand";
 
 export interface SpriteCounts {
   bodyCount: number;
@@ -18,8 +23,12 @@ export interface SpriteCounts {
   pantCount: number;
   helmetCount: number;
   backCount: number;
+  // 무기 스프라이트 카운트
   swordCount: number;
   shieldCount: number;
+  axeCount: number;
+  bowCount: number;
+  wandCount: number;
 }
 
 export interface CharacterState {
@@ -32,10 +41,18 @@ export interface CharacterState {
   pantIndex: number;
   helmetIndex: number;
   backIndex: number;
+  // 무기 인덱스 (각 타입별)
+  swordIndex: number;
+  shieldIndex: number;
+  axeIndex: number;
+  bowIndex: number;
+  wandIndex: number;
+  // 기존 호환용 (deprecated)
   leftWeaponIndex: number;
   rightWeaponIndex: number;
   leftWeaponType: string;
   rightWeaponType: string;
+  // 색상
   bodyColor: string;
   eyeColor: string;
   hairColor: string;
@@ -43,6 +60,12 @@ export interface CharacterState {
   clothColor: string;
   armorColor: string;
   pantColor: string;
+  // 무기 색상 (hex, 기본값은 빈 문자열 = 원본 색상)
+  swordColor: string;
+  shieldColor: string;
+  axeColor: string;
+  bowColor: string;
+  wandColor: string;
 }
 
 export interface AnimationState {
@@ -61,19 +84,31 @@ type SendMessageFn = (objectName: string, methodName: string, param?: string) =>
 
 // ============ 파츠 메타데이터 ============
 
-const PART_META: Record<PartType, { label: string; indexKey: keyof CharacterState; countKey: keyof SpriteCounts; required: boolean }> = {
-  body: { label: "종족", indexKey: "bodyIndex", countKey: "bodyCount", required: true },
-  eye: { label: "눈", indexKey: "eyeIndex", countKey: "eyeCount", required: true },
-  hair: { label: "머리", indexKey: "hairIndex", countKey: "hairCount", required: false },
-  facehair: { label: "수염", indexKey: "facehairIndex", countKey: "facehairCount", required: false },
-  cloth: { label: "옷", indexKey: "clothIndex", countKey: "clothCount", required: false },
-  armor: { label: "갑옷", indexKey: "armorIndex", countKey: "armorCount", required: false },
-  pant: { label: "바지", indexKey: "pantIndex", countKey: "pantCount", required: false },
+const PART_META: Record<PartType, { label: string; indexKey: keyof CharacterState; countKey: keyof SpriteCounts; required: boolean; colorKey?: keyof CharacterState }> = {
+  body: { label: "종족", indexKey: "bodyIndex", countKey: "bodyCount", required: true, colorKey: "bodyColor" },
+  eye: { label: "눈", indexKey: "eyeIndex", countKey: "eyeCount", required: true, colorKey: "eyeColor" },
+  hair: { label: "머리", indexKey: "hairIndex", countKey: "hairCount", required: false, colorKey: "hairColor" },
+  facehair: { label: "수염", indexKey: "facehairIndex", countKey: "facehairCount", required: false, colorKey: "facehairColor" },
+  cloth: { label: "옷", indexKey: "clothIndex", countKey: "clothCount", required: false, colorKey: "clothColor" },
+  armor: { label: "갑옷", indexKey: "armorIndex", countKey: "armorCount", required: false, colorKey: "armorColor" },
+  pant: { label: "바지", indexKey: "pantIndex", countKey: "pantCount", required: false, colorKey: "pantColor" },
   helmet: { label: "투구", indexKey: "helmetIndex", countKey: "helmetCount", required: false },
   back: { label: "등", indexKey: "backIndex", countKey: "backCount", required: false },
+  // 무기 파츠
+  sword: { label: "검", indexKey: "swordIndex", countKey: "swordCount", required: false, colorKey: "swordColor" },
+  shield: { label: "방패", indexKey: "shieldIndex", countKey: "shieldCount", required: false, colorKey: "shieldColor" },
+  axe: { label: "도끼", indexKey: "axeIndex", countKey: "axeCount", required: false, colorKey: "axeColor" },
+  bow: { label: "활", indexKey: "bowIndex", countKey: "bowCount", required: false, colorKey: "bowColor" },
+  wand: { label: "지팡이", indexKey: "wandIndex", countKey: "wandCount", required: false, colorKey: "wandColor" },
 };
 
-export const PART_TYPES = Object.keys(PART_META) as PartType[];
+// 캐릭터 외형용 파츠 (무기 제외)
+export const PART_TYPES = Object.keys(PART_META).filter(
+  (key) => !["sword", "shield", "axe", "bow", "wand"].includes(key)
+) as PartType[];
+
+// 무기 파츠만
+export const WEAPON_PART_TYPES: WeaponPartType[] = ["sword", "shield", "axe", "bow", "wand"];
 
 // ============ 스토어 ============
 
@@ -124,6 +159,11 @@ interface AppearanceStore {
 
   // 장비 외형 연동
   setEquipmentAppearance: (slot: EquipmentSlot, index: number | null) => void;
+
+  // 스프라이트 + 색상 시스템 (새로운 장비 연동)
+  setEquipmentSprite: (slot: EquipmentSlot, sprite: SpriteReference | null) => void;
+  setWeaponSprite: (category: SpriteCategory, index: number, color?: string) => void;
+  clearWeapon: (hand: "left" | "right" | "both") => void;
 
   // Computed (선택자)
   getPartInfo: (type: PartType) => { label: string; current: number; total: number };
@@ -243,7 +283,7 @@ export const useAppearanceStore = create<AppearanceStore>((set, get) => ({
     }
   },
 
-  // 장비 외형 연동 (12슬롯 시스템)
+  // 장비 외형 연동 (12슬롯 시스템) - 기존 호환용
   setEquipmentAppearance: (slot, index) => {
     const { callUnity, isUnityLoaded } = get();
     if (!isUnityLoaded) return;
@@ -260,6 +300,107 @@ export const useAppearanceStore = create<AppearanceStore>((set, get) => ({
     if (method) {
       // index가 null이면 -1 (해제)
       callUnity(method, (index ?? -1).toString());
+    }
+  },
+
+  // 스프라이트 + 색상 시스템 (새로운 장비 연동)
+  setEquipmentSprite: (slot, sprite) => {
+    const { callUnity, isUnityLoaded, setWeaponSprite } = get();
+    if (!isUnityLoaded) return;
+
+    // 스프라이트가 없으면 해제
+    if (!sprite) {
+      // 슬롯에 따라 적절한 해제 호출
+      const clearMethodMap: Partial<Record<EquipmentSlot, string>> = {
+        mainHand: "JS_ClearRightWeapon",
+        offHand: "JS_ClearLeftWeapon",
+        armor: "JS_SetArmor",
+        cloth: "JS_SetCloth",
+        pants: "JS_SetPant",
+        helmet: "JS_SetHelmet",
+      };
+      const method = clearMethodMap[slot];
+      if (method) {
+        if (slot === "mainHand" || slot === "offHand") {
+          callUnity(method);
+        } else {
+          callUnity(method, "-1");
+        }
+      }
+      return;
+    }
+
+    // 스프라이트 카테고리에 따라 처리
+    const { category, index, color } = sprite;
+
+    // 무기 카테고리인 경우
+    if (["sword", "shield", "axe", "bow", "wand"].includes(category)) {
+      setWeaponSprite(category, index, color);
+      return;
+    }
+
+    // 방어구 카테고리인 경우
+    const armorMethodMap: Record<string, string> = {
+      armor: "JS_SetArmor",
+      cloth: "JS_SetCloth",
+      helmet: "JS_SetHelmet",
+      pant: "JS_SetPant",
+    };
+
+    const method = armorMethodMap[category];
+    if (method) {
+      callUnity(method, index.toString());
+      // 색상 적용 (색상이 있으면)
+      if (color) {
+        const colorMethodMap: Record<string, string> = {
+          armor: "JS_SetArmorColor",
+          cloth: "JS_SetClothColor",
+          pant: "JS_SetPantColor",
+        };
+        const colorMethod = colorMethodMap[category];
+        if (colorMethod) {
+          callUnity(colorMethod, color.replace("#", ""));
+        }
+      }
+    }
+  },
+
+  // 무기 스프라이트 설정 (카테고리 + 인덱스 + 색상)
+  setWeaponSprite: (category, index, color) => {
+    const { callUnity, isUnityLoaded } = get();
+    if (!isUnityLoaded) return;
+
+    // 무기 타입에 따른 Unity 메서드
+    const methodMap: Record<string, { setIndex: string; setColor?: string; hand: "left" | "right" }> = {
+      sword: { setIndex: "JS_SetSword", setColor: "JS_SetSwordColor", hand: "right" },
+      axe: { setIndex: "JS_SetAxe", setColor: "JS_SetAxeColor", hand: "right" },
+      bow: { setIndex: "JS_SetBow", setColor: "JS_SetBowColor", hand: "right" },
+      wand: { setIndex: "JS_SetWand", setColor: "JS_SetWandColor", hand: "right" },
+      shield: { setIndex: "JS_SetShield", setColor: "JS_SetShieldColor", hand: "left" },
+    };
+
+    const config = methodMap[category];
+    if (!config) return;
+
+    // 스프라이트 인덱스 설정
+    callUnity(config.setIndex, index.toString());
+
+    // 색상 설정 (색상이 있으면)
+    if (color && config.setColor) {
+      callUnity(config.setColor, color.replace("#", ""));
+    }
+  },
+
+  // 무기 해제
+  clearWeapon: (hand) => {
+    const { callUnity, isUnityLoaded } = get();
+    if (!isUnityLoaded) return;
+
+    if (hand === "left" || hand === "both") {
+      callUnity("JS_ClearLeftWeapon");
+    }
+    if (hand === "right" || hand === "both") {
+      callUnity("JS_ClearRightWeapon");
     }
   },
 
@@ -326,5 +467,38 @@ export function useAppearanceActions() {
     randomize: store.randomize,
     clearAll: store.clearAll,
     resetColors: store.resetColors,
+  };
+}
+
+// 무기 색상 훅
+export function useWeaponColor() {
+  const store = useAppearanceStore();
+
+  return {
+    color: store.selectedColor,
+    setColor: store.setSelectedColor,
+    applyTo: (target: WeaponPartType) => {
+      const { callUnity, selectedColor } = store;
+      const hex = selectedColor.replace("#", "");
+      const methodMap: Record<WeaponPartType, string> = {
+        sword: "JS_SetSwordColor",
+        shield: "JS_SetShieldColor",
+        axe: "JS_SetAxeColor",
+        bow: "JS_SetBowColor",
+        wand: "JS_SetWandColor",
+      };
+      callUnity(methodMap[target], hex);
+    },
+  };
+}
+
+// 무기 해제 훅
+export function useWeaponActions() {
+  const store = useAppearanceStore();
+
+  return {
+    clearLeft: () => store.clearWeapon("left"),
+    clearRight: () => store.clearWeapon("right"),
+    clearAll: () => store.clearWeapon("both"),
   };
 }

@@ -4,7 +4,7 @@ import { useState, useEffect, useCallback } from "react";
 import { useBattleStore } from "@/application/stores";
 import { useThemeStore } from "@/shared/config";
 import type { CharacterStats } from "@/entities/character";
-import type { ProficiencyType } from "@/entities/proficiency";
+import type { ProficiencyType, CombatProficiencyType } from "@/entities/proficiency";
 import type { Skill } from "@/entities/skill";
 import { useAttack, useCastSpell, calculateMonsterDamage } from "@/features/combat";
 import { BattleHeader } from "./battle/BattleHeader";
@@ -82,7 +82,7 @@ export function BattlePanel({
 
   // 무기 공격 핸들러
   const handleWeaponAttack = useCallback(
-    (weaponType: ProficiencyType) => {
+    (weaponType: CombatProficiencyType) => {
       if (isPlayerIncapacitated()) {
         return;
       }
@@ -159,19 +159,17 @@ export function BattlePanel({
     }
   }, [playerFlee, onFlee, handleMonsterTurn]);
 
-  // 전투 결과 처리
-  useEffect(() => {
-    if (battle.result === "victory") {
-      const timer = setTimeout(onVictory, 1500);
-      return () => clearTimeout(timer);
-    } else if (battle.result === "defeat") {
-      const timer = setTimeout(onDefeat, 1500);
-      return () => clearTimeout(timer);
-    } else if (battle.result === "fled") {
-      const timer = setTimeout(() => resetBattle(), 1500);
-      return () => clearTimeout(timer);
+  // 전투 종료 처리 (수동 닫기)
+  const handleCloseBattle = useCallback(() => {
+    const currentResult = useBattleStore.getState().battle.result;
+    if (currentResult === "victory") {
+      onVictory();
+    } else if (currentResult === "defeat") {
+      onDefeat();
+    } else if (currentResult === "fled") {
+      resetBattle();
     }
-  }, [battle.result, onVictory, onDefeat, resetBattle]);
+  }, [onVictory, onDefeat, resetBattle]);
 
   // 선제공격 처리 (aggressive 몬스터)
   useEffect(() => {
@@ -272,7 +270,11 @@ export function BattlePanel({
             />
           </>
         ) : (
-          <BattleResult result={battle.result} monster={battle.monster} />
+          <BattleResult
+            result={battle.result}
+            monster={battle.monster}
+            onClose={handleCloseBattle}
+          />
         )}
       </div>
     </div>
@@ -283,50 +285,65 @@ export function BattlePanel({
 interface BattleResultProps {
   result: "victory" | "defeat" | "fled" | "ongoing";
   monster: { nameKo: string; rewards: { exp: number; gold: number } } | null;
+  onClose: () => void;
 }
 
-function BattleResult({ result, monster }: BattleResultProps) {
+function BattleResult({ result, monster, onClose }: BattleResultProps) {
   const { theme } = useThemeStore();
 
   return (
-    <div
-      className="text-center py-6 font-mono"
-      style={{
-        color:
-          result === "victory"
-            ? theme.colors.success
-            : result === "defeat"
-            ? theme.colors.error
-            : theme.colors.textMuted,
-      }}
-    >
-      {result === "victory" && (
-        <div>
-          <div className="text-3xl mb-2">🎉</div>
-          <div className="text-xl font-bold">승리!</div>
-          {monster && (
-            <div
-              className="text-sm mt-2"
-              style={{ color: theme.colors.textMuted }}
-            >
-              +{monster.rewards.exp} EXP
-              {monster.rewards.gold > 0 && ` · +${monster.rewards.gold} Gold`}
-            </div>
-          )}
-        </div>
-      )}
-      {result === "defeat" && (
-        <div>
-          <div className="text-3xl mb-2">💀</div>
-          <div className="text-xl font-bold">패배...</div>
-        </div>
-      )}
-      {result === "fled" && (
-        <div>
-          <div className="text-3xl mb-2">🏃</div>
-          <div className="text-xl font-bold">도주 성공!</div>
-        </div>
-      )}
+    <div className="text-center py-6 font-mono">
+      <div
+        style={{
+          color:
+            result === "victory"
+              ? theme.colors.success
+              : result === "defeat"
+              ? theme.colors.error
+              : theme.colors.textMuted,
+        }}
+      >
+        {result === "victory" && (
+          <div>
+            <div className="text-3xl mb-2">🎉</div>
+            <div className="text-xl font-bold">승리!</div>
+            {monster && (
+              <div
+                className="text-sm mt-2"
+                style={{ color: theme.colors.textMuted }}
+              >
+                +{monster.rewards.exp} EXP
+                {monster.rewards.gold > 0 && ` · +${monster.rewards.gold} Gold`}
+              </div>
+            )}
+          </div>
+        )}
+        {result === "defeat" && (
+          <div>
+            <div className="text-3xl mb-2">💀</div>
+            <div className="text-xl font-bold">패배...</div>
+          </div>
+        )}
+        {result === "fled" && (
+          <div>
+            <div className="text-3xl mb-2">🏃</div>
+            <div className="text-xl font-bold">도주 성공!</div>
+          </div>
+        )}
+      </div>
+
+      {/* 닫기 버튼 */}
+      <button
+        onClick={onClose}
+        className="mt-4 px-6 py-2 font-mono text-sm transition-colors"
+        style={{
+          background: theme.colors.bgLight,
+          border: `1px solid ${theme.colors.border}`,
+          color: theme.colors.text,
+        }}
+      >
+        닫기
+      </button>
     </div>
   );
 }

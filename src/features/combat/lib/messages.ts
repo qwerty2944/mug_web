@@ -1,4 +1,4 @@
-import type { ProficiencyType } from "@/entities/proficiency";
+import type { CombatProficiencyType, WeaponBlockSpecial } from "@/entities/proficiency";
 
 // 랜덤 선택 헬퍼
 function randomPick<T>(arr: T[]): T {
@@ -149,8 +149,16 @@ const DARK_ATTACK_MESSAGES = [
   (name: string, dmg: number) => `심연에서 솟아오른 어둠! ${name}에게 ${dmg}!`,
 ];
 
-// 공격 타입별 메시지 맵
-const ATTACK_MESSAGES: Record<ProficiencyType, ((name: string, dmg: number) => string)[]> = {
+const POISON_ATTACK_MESSAGES = [
+  (name: string, dmg: number) => `맹독이 ${name}을(를) 덮쳤다! ${dmg} 데미지!`,
+  (name: string, dmg: number) => `${name}이(가) 독에 오염되었다! ${dmg}!`,
+  (name: string, dmg: number) => `독안개가 ${name}을(를) 휘감았다! ${dmg} 데미지!`,
+  (name: string, dmg: number) => `치명적인 독! ${name}에게 ${dmg}의 피해!`,
+  (name: string, dmg: number) => `독의 결정이 ${name}을(를) 관통했다! ${dmg}!`,
+];
+
+// 공격 타입별 메시지 맵 (전투 숙련도만 해당)
+const ATTACK_MESSAGES: Record<CombatProficiencyType, ((name: string, dmg: number) => string)[]> = {
   light_sword: LIGHT_SWORD_ATTACK_MESSAGES,
   medium_sword: MEDIUM_SWORD_ATTACK_MESSAGES,
   great_sword: GREAT_SWORD_ATTACK_MESSAGES,
@@ -168,6 +176,7 @@ const ATTACK_MESSAGES: Record<ProficiencyType, ((name: string, dmg: number) => s
   earth: EARTH_ATTACK_MESSAGES,
   holy: HOLY_ATTACK_MESSAGES,
   dark: DARK_ATTACK_MESSAGES,
+  poison: POISON_ATTACK_MESSAGES,
 };
 
 // ============ 크리티컬 히트 메시지 ============
@@ -285,26 +294,78 @@ const MONSTER_MISS_MESSAGES = [
   "공격이 스쳐 지나갔다!",
 ];
 
+// ============ 물리 저항 피드백 메시지 ============
+
+// 효과적 (저항 >= 1.3, 약점 공격)
+const RESISTANCE_EFFECTIVE_MESSAGES = [
+  "(효과적이다!)",
+  "(약점을 찔렀다!)",
+  "(치명적인 일격!)",
+  "(제대로 먹혔다!)",
+  "(약점 공격!)",
+];
+
+// 비효과적 (저항 <= 0.7, 강한 저항)
+const RESISTANCE_INEFFECTIVE_MESSAGES = [
+  "(효과가 없다...)",
+  "(딱딱한 피부!)",
+  "(튕겨나갔다!)",
+  "(단단하다...)",
+  "(통하지 않는다!)",
+];
+
+// 최소 데미지 (1 데미지, 방어력 못 뚫음)
+const RESISTANCE_BLOCKED_MESSAGES = [
+  "(간신히 스쳤다!)",
+  "(방어력을 뚫지 못했다!)",
+  "(찰과상에 불과하다!)",
+  "(겨우 긁혔다!)",
+  "(피해가 거의 없다!)",
+];
+
 // ============ 공개 API ============
 
 /**
  * 공격 메시지 생성
+ * @param attackType 공격 타입
+ * @param targetName 대상 이름
+ * @param damage 데미지
+ * @param isCritical 치명타 여부
+ * @param resistanceMultiplier 저항 배율 (1.0=보통, 1.5=약함, 0.5=강함)
+ * @param isMinDamage 최소 데미지(1) 여부
  */
 export function getAttackMessage(
-  attackType: ProficiencyType,
+  attackType: CombatProficiencyType,
   targetName: string,
   damage: number,
-  isCritical: boolean = false
+  isCritical: boolean = false,
+  resistanceMultiplier: number = 1.0,
+  isMinDamage: boolean = false
 ): string {
   const messages = ATTACK_MESSAGES[attackType] || MEDIUM_SWORD_ATTACK_MESSAGES;
   const baseMessage = randomPick(messages)(targetName, damage);
 
+  let result = baseMessage;
+
+  // 치명타 접두사
   if (isCritical) {
     const critPrefix = randomPick(CRITICAL_PREFIXES);
-    return `${critPrefix} ${baseMessage}`;
+    result = `${critPrefix} ${result}`;
   }
 
-  return baseMessage;
+  // 저항 피드백 추가
+  if (isMinDamage) {
+    // 최소 데미지 (방어력 못 뚫음)
+    result = `${result} ${randomPick(RESISTANCE_BLOCKED_MESSAGES)}`;
+  } else if (resistanceMultiplier >= 1.3) {
+    // 효과적 (약점 공격)
+    result = `${result} ${randomPick(RESISTANCE_EFFECTIVE_MESSAGES)}`;
+  } else if (resistanceMultiplier <= 0.7) {
+    // 비효과적 (강한 저항)
+    result = `${result} ${randomPick(RESISTANCE_INEFFECTIVE_MESSAGES)}`;
+  }
+
+  return result;
 }
 
 /**
@@ -389,4 +450,132 @@ export function getPlayerBlockMessage(reducedDamage: number): string {
  */
 export function getMonsterMissMessage(): string {
   return randomPick(MONSTER_MISS_MESSAGES);
+}
+
+// ============ 무기막기 메시지 ============
+
+// 무기막기 기본 메시지 (무기별)
+const WEAPON_BLOCK_MESSAGES: Record<string, ((dmg: number) => string)[]> = {
+  light_sword: [
+    (dmg: number) => `세검으로 공격을 흘려냈다! (${dmg} 감소)`,
+    (dmg: number) => `칼날로 적의 공격을 비틀었다! ${dmg} 피해 경감!`,
+    (dmg: number) => `날렵하게 흘려막기! ${dmg} 데미지 감소!`,
+  ],
+  medium_sword: [
+    (dmg: number) => `검으로 공격을 막아냈다! (${dmg} 감소)`,
+    (dmg: number) => `검날이 부딪히며 불꽃이 튀었다! ${dmg} 피해 경감!`,
+    (dmg: number) => `검막기! ${dmg} 데미지 감소!`,
+  ],
+  great_sword: [
+    (dmg: number) => `대검으로 패리했다! (${dmg} 감소)`,
+    (dmg: number) => `묵직한 대검이 적의 공격을 막아섰다! ${dmg} 피해 경감!`,
+    (dmg: number) => `대검 패리! ${dmg} 데미지 감소!`,
+  ],
+  axe: [
+    (dmg: number) => `도끼로 공격을 흘렸다! (${dmg} 감소)`,
+    (dmg: number) => `도끼날이 적의 무기와 부딪혔다! ${dmg} 피해 경감!`,
+  ],
+  mace: [
+    (dmg: number) => `둔기로 공격을 막아냈다! (${dmg} 감소)`,
+    (dmg: number) => `철퇴가 적의 공격을 튕겨냈다! ${dmg} 피해 경감!`,
+  ],
+  dagger: [
+    (dmg: number) => `단검으로 급소를 보호했다! (${dmg} 감소)`,
+    (dmg: number) => `재빠르게 단검을 들어올렸다! ${dmg} 피해 경감!`,
+  ],
+  spear: [
+    (dmg: number) => `창대로 공격을 흘렸다! (${dmg} 감소)`,
+    (dmg: number) => `창이 적의 공격을 비틀어냈다! ${dmg} 피해 경감!`,
+  ],
+  bow: [
+    (dmg: number) => `활로 급소를 보호했다! (${dmg} 감소)`,
+  ],
+  crossbow: [
+    (dmg: number) => `석궁으로 급소를 보호했다! (${dmg} 감소)`,
+  ],
+  staff: [
+    (dmg: number) => `지팡이로 공격을 막았다! (${dmg} 감소)`,
+    (dmg: number) => `지팡이에서 마력이 튀어올랐다! ${dmg} 피해 경감!`,
+  ],
+  fist: [
+    (dmg: number) => `팔로 공격을 막았다! (${dmg} 감소)`,
+    (dmg: number) => `팔막기! ${dmg} 피해 경감!`,
+    (dmg: number) => `재빠른 방어 자세! ${dmg} 데미지 감소!`,
+  ],
+};
+
+// 무기막기 특수 효과 메시지
+const WEAPON_BLOCK_SPECIAL_MESSAGES: Record<WeaponBlockSpecial, string[]> = {
+  counter: [
+    "반격 준비 완료!",
+    "반격의 기회!",
+    "막아내며 반격 태세!",
+  ],
+  riposte: [
+    "즉시 반격!",
+    "흘리며 찌르기!",
+    "빠른 반격!",
+  ],
+  stun: [
+    "충격으로 적이 비틀거린다!",
+    "적이 잠시 멈칫했다!",
+    "기절 효과!",
+  ],
+  deflect: [
+    "마법을 반사했다!",
+    "마력이 튕겨나갔다!",
+    "마법 흘리기!",
+  ],
+  disarm: [
+    "적의 무기를 떨어뜨렸다!",
+    "무장해제 성공!",
+    "적의 손에서 무기가 빠져나갔다!",
+  ],
+};
+
+/**
+ * 무기막기 메시지 생성
+ * @param weaponType 무기 타입
+ * @param reducedDamage 감소된 데미지
+ * @param specialEffect 특수 효과 (발동 시)
+ */
+export function getWeaponBlockMessage(
+  weaponType: string,
+  reducedDamage: number,
+  specialEffect?: WeaponBlockSpecial
+): string {
+  const messages = WEAPON_BLOCK_MESSAGES[weaponType] || WEAPON_BLOCK_MESSAGES.fist;
+  let result = randomPick(messages)(reducedDamage);
+
+  // 특수 효과 메시지 추가
+  if (specialEffect) {
+    const specialMessages = WEAPON_BLOCK_SPECIAL_MESSAGES[specialEffect];
+    result = `${result} ${randomPick(specialMessages)}`;
+  }
+
+  return result;
+}
+
+/**
+ * 플레이어 무기막기 메시지 (몬스터 공격에 대한 방어)
+ */
+export function getPlayerWeaponBlockMessage(
+  weaponType: string,
+  reducedDamage: number,
+  specialEffect?: WeaponBlockSpecial
+): string {
+  return getWeaponBlockMessage(weaponType, reducedDamage, specialEffect);
+}
+
+/**
+ * 반격 데미지 메시지
+ */
+export function getCounterDamageMessage(damage: number): string {
+  const messages = [
+    `반격! 적에게 ${damage} 데미지!`,
+    `카운터 어택! ${damage}!`,
+    `되돌려주었다! ${damage} 데미지!`,
+    `막으며 반격! ${damage}!`,
+  ];
+  return randomPick(messages);
 }

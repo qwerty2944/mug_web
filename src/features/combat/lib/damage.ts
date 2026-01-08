@@ -1,5 +1,20 @@
-import type { CharacterStats } from "@/entities/character";
-import type { MagicElement, WeaponType, ProficiencyType, AttackType } from "@/entities/proficiency";
+import type {
+  CharacterStats,
+  ElementBoost,
+  ElementResist,
+} from "@/entities/character";
+import {
+  getElementBoostMultiplier,
+  getElementResistReduction,
+} from "@/entities/character";
+import type {
+  MagicElement,
+  WeaponType,
+  ProficiencyType,
+  AttackType,
+  WeaponBlockInfo,
+  WeaponBlockSpecial,
+} from "@/entities/proficiency";
 import {
   getDamageMultiplier,
   getMagicEffectiveness,
@@ -7,9 +22,13 @@ import {
   isWeaponProficiency,
   isMagicProficiency,
   WEAPON_ATTACK_TYPE,
+  WEAPON_BLOCK_CONFIG,
 } from "@/entities/proficiency";
 import { getElementTimeMultiplier, type Period } from "@/entities/game-time";
-import { getWeatherElementMultiplier, type WeatherType } from "@/entities/weather";
+import {
+  getWeatherElementMultiplier,
+  type WeatherType,
+} from "@/entities/weather";
 import { getKarmaElementMultiplier } from "@/entities/karma";
 
 // 물리 공격 파라미터
@@ -19,7 +38,11 @@ export interface PhysicalAttackParams {
   weaponType: WeaponType;
   proficiencyLevel: number;
   targetDefense: number;
-  attackTypeResistance?: number;  // 공격 타입 저항 배율 (기본 1.0)
+  attackTypeResistance?: number; // 공격 타입 저항 배율 (기본 1.0)
+  // 신규 스탯 (선택적, 제공 시 합산)
+  attackerPhysicalAttack?: number; // 추가 물리공격력
+  targetPhysicalDefense?: number; // 대상 물리방어력 (targetDefense 대체용)
+  attackerPhysicalPenetration?: number; // 물리관통 % (적 방어력 무시)
 }
 
 // 마법 공격 파라미터
@@ -33,6 +56,12 @@ export interface MagicAttackParams {
   period?: Period; // 현재 시간대 (밤낮 버프 적용)
   weather?: WeatherType; // 현재 날씨 (날씨 버프 적용)
   karma?: number; // 플레이어 카르마 (-100 ~ +100)
+  // 신규 스탯 (선택적)
+  attackerMagicAttack?: number; // 추가 마법공격력
+  targetMagicDefense?: number; // 대상 마법방어력 (targetDefense * 0.3 대체)
+  attackerElementBoost?: number; // 해당 속성 강화 % (ElementBoost에서 추출)
+  targetElementResist?: number; // 대상의 해당 속성 저항 %
+  attackerMagicPenetration?: number; // 마법관통 % (적 마법방어력 무시)
 }
 
 // 일반 공격 파라미터 (무기/마법 통합)
@@ -61,7 +90,8 @@ export function applyDamageVariance(damage: number): number {
 
 /**
  * 물리 데미지 계산
- * 공식: (baseDamage + STR * 0.5) * proficiencyMultiplier * attackTypeResistance * variance - targetDefense
+ * 공식: (baseDamage + STR * 0.5 + physicalAttack) * proficiencyMultiplier * attackTypeResistance - effectiveDefense
+ * 관통 적용: effectiveDefense = 방어력 * (1 - 관통% / 100)
  */
 export function calculatePhysicalDamage(params: PhysicalAttackParams): number {
   const {
@@ -70,11 +100,24 @@ export function calculatePhysicalDamage(params: PhysicalAttackParams): number {
     proficiencyLevel,
     targetDefense,
     attackTypeResistance = 1.0,
+    attackerPhysicalAttack = 0,
+    targetPhysicalDefense,
+    attackerPhysicalPenetration = 0,
   } = params;
 
-  const rawDamage = baseDamage + attackerStr * 0.5;
+  // 공격력: 기본 + STR 보너스 + 추가 물리공격력
+  const rawDamage = baseDamage + attackerStr * 0.5 + attackerPhysicalAttack;
   const proficiencyMultiplier = getDamageMultiplier(proficiencyLevel);
-  const baseResult = rawDamage * proficiencyMultiplier * attackTypeResistance - targetDefense;
+
+  // 방어력: 신규 스탯이 있으면 사용, 없으면 기존 targetDefense
+  const baseDefense = targetPhysicalDefense ?? targetDefense;
+
+  // 관통 적용: 방어력의 일부 무시 (관통 30% = 방어력의 70%만 적용)
+  const penetrationRate = Math.min(75, attackerPhysicalPenetration) / 100;
+  const effectiveDefense = baseDefense * (1 - penetrationRate);
+
+  const baseResult =
+    rawDamage * proficiencyMultiplier * attackTypeResistance - effectiveDefense;
   const finalDamage = applyDamageVariance(baseResult);
 
   return Math.max(1, finalDamage); // 최소 1 데미지
@@ -89,13 +132,29 @@ export function getAttackTypeFromWeapon(weaponType: WeaponType): AttackType {
 
 /**
  * 마법 데미지 계산
- * 공식: (baseDamage + INT * 0.8) * proficiencyMultiplier * effectivenessMultiplier * dayBoost * timeBoost * weatherBoost * karmaBoost * variance - (defense * 0.3)
+ * 공식: (baseDamage + INT * 0.8 + magicAttack) * proficiencyMultiplier * effectiveness * dayBoost * timeBoost * weatherBoost * karmaBoost * elementBoost * elementResist - effectiveMagicDefense
+ * 관통 적용: effectiveMagicDefense = 마법방어 * (1 - 관통% / 100)
  */
 export function calculateMagicDamage(params: MagicAttackParams): number {
-  const { baseDamage, attackerInt, element, proficiencyLevel, targetDefense, targetElement, period, weather, karma } =
-    params;
+  const {
+    baseDamage,
+    attackerInt,
+    element,
+    proficiencyLevel,
+    targetDefense,
+    targetElement,
+    period,
+    weather,
+    karma,
+    attackerMagicAttack = 0,
+    targetMagicDefense,
+    attackerElementBoost = 0,
+    targetElementResist = 0,
+    attackerMagicPenetration = 0,
+  } = params;
 
-  const rawDamage = baseDamage + attackerInt * 0.8;
+  // 공격력: 기본 + INT 보너스 + 추가 마법공격력
+  const rawDamage = baseDamage + attackerInt * 0.8 + attackerMagicAttack;
   const proficiencyMultiplier = getDamageMultiplier(proficiencyLevel);
 
   // 상성 배율 (대상 속성이 있을 경우)
@@ -117,24 +176,34 @@ export function calculateMagicDamage(params: MagicAttackParams): number {
     : 1.0;
 
   // 카르마 부스트 (신성/암흑 마법에만 적용)
-  // 선한 카르마 = 신성 +20%, 암흑 -30%
-  // 악한 카르마 = 암흑 +20%, 신성 -30%
-  const karmaMultiplier = karma !== undefined
-    ? getKarmaElementMultiplier(element, karma)
-    : 1.0;
+  const karmaMultiplier =
+    karma !== undefined ? getKarmaElementMultiplier(element, karma) : 1.0;
 
-  // 마법 방어 (물리 방어의 30%만 적용)
-  const magicDefense = targetDefense * 0.3;
+  // 속성 강화 배율 (캐릭터 스탯에서 가져온 값)
+  const elementBoostMultiplier = 1 + attackerElementBoost / 100;
+
+  // 속성 저항으로 데미지 감소 (최대 75%)
+  const resistPercent = Math.min(75, targetElementResist);
+  const elementResistMultiplier = 1 - resistPercent / 100;
+
+  // 마법 방어: 신규 스탯이 있으면 사용, 없으면 기존 방식 (물리방어 * 0.3)
+  const baseMagicDefense = targetMagicDefense ?? targetDefense * 0.3;
+
+  // 마법관통 적용: 마법방어의 일부 무시 (관통 30% = 방어력의 70%만 적용)
+  const penetrationRate = Math.min(75, attackerMagicPenetration) / 100;
+  const effectiveMagicDefense = baseMagicDefense * (1 - penetrationRate);
 
   const baseResult =
     rawDamage *
-    proficiencyMultiplier *
-    effectivenessMultiplier *
-    dayBoostMultiplier *
-    timeBoostMultiplier *
-    weatherMultiplier *
-    karmaMultiplier -
-    magicDefense;
+      proficiencyMultiplier *
+      effectivenessMultiplier *
+      dayBoostMultiplier *
+      timeBoostMultiplier *
+      weatherMultiplier *
+      karmaMultiplier *
+      elementBoostMultiplier *
+      elementResistMultiplier -
+    effectiveMagicDefense;
   const finalDamage = applyDamageVariance(baseResult);
 
   return Math.max(1, finalDamage);
@@ -235,26 +304,26 @@ export function applyCritical(
 
 // ============ 회피/막기/빗맞음 시스템 ============
 
-export type HitResult = "hit" | "critical" | "blocked" | "dodged" | "missed";
+export type HitResult = "hit" | "critical" | "blocked" | "dodged" | "missed" | "weapon_blocked";
 
 /**
- * 회피 확률 계산 (DEX 기반)
- * 공식: 3% + DEX * 0.4 (최대 25%)
+ * 회피 확률 계산 (DEX 기반 + 보너스)
+ * 공식: 3% + DEX * 0.4 + bonus (최대 40%)
  */
-export function getDodgeChance(dex: number): number {
+export function getDodgeChance(dex: number, bonusDodge: number = 0): number {
   const base = 3;
   const dexBonus = dex * 0.4;
-  return Math.min(25, base + dexBonus);
+  return Math.min(40, base + dexBonus + bonusDodge);
 }
 
 /**
- * 막기 확률 계산 (CON 기반)
- * 공식: 5% + CON * 0.3 (최대 20%)
+ * 막기 확률 계산 (CON 기반 + 보너스)
+ * 공식: 5% + CON * 0.3 + bonus (최대 35%)
  */
-export function getBlockChance(con: number): number {
+export function getBlockChance(con: number, bonusBlock: number = 0): number {
   const base = 5;
   const conBonus = con * 0.3;
-  return Math.min(20, base + conBonus);
+  return Math.min(35, base + conBonus + bonusBlock);
 }
 
 /**
@@ -265,14 +334,62 @@ export function getMissChance(): number {
 }
 
 /**
- * 공격 결과 판정
- * 순서: 빗맞음 → 회피 → 막기 → 치명타 → 일반 명중
+ * 공격 결과 판정 (확장)
+ * 순서: 빗맞음 → 회피 → 무기막기 → 막기 → 치명타 → 일반 명중
+ */
+export interface HitResultOptions {
+  attackerStats: { lck: number; dex?: number; int?: number };
+  defenderStats: { dex: number; con: number };
+  isPhysical?: boolean;
+  // 보너스 스탯 (캐릭터 + 장비 합산)
+  bonusDodge?: number;      // 추가 회피 확률
+  bonusBlock?: number;      // 추가 막기 확률
+  // 무기막기 (선택적)
+  weaponType?: WeaponType;  // 방어자 무기 타입
+  weaponProficiency?: number; // 방어자 무기 숙련도
+  bonusWeaponBlock?: number; // 추가 무기막기 확률
+}
+
+export interface HitResultData {
+  result: HitResult;
+  damageMultiplier: number;
+  critMultiplier?: number;
+  // 무기막기 특수 효과 (weapon_blocked일 때)
+  weaponBlockInfo?: WeaponBlockInfo;
+  specialTriggered?: boolean;
+  specialEffect?: WeaponBlockSpecial;
+}
+
+/**
+ * 공격 결과 판정 (기본 - 하위 호환)
  */
 export function determineHitResult(
   attackerStats: { lck: number; dex?: number; int?: number },
   defenderStats: { dex: number; con: number },
   isPhysical: boolean = true
-): { result: HitResult; damageMultiplier: number; critMultiplier?: number } {
+): HitResultData {
+  return determineHitResultEx({
+    attackerStats,
+    defenderStats,
+    isPhysical,
+  });
+}
+
+/**
+ * 공격 결과 판정 (확장 - 보너스/무기막기 지원)
+ */
+export function determineHitResultEx(options: HitResultOptions): HitResultData {
+  const {
+    attackerStats,
+    defenderStats,
+    isPhysical = true,
+    bonusDodge = 0,
+    bonusBlock = 0,
+    weaponType,
+    weaponProficiency = 0,
+    bonusWeaponBlock = 0,
+  } = options;
+
   const roll = Math.random() * 100;
   let threshold = 0;
 
@@ -284,19 +401,38 @@ export function determineHitResult(
     }
   }
 
-  // 2. 회피 체크
-  threshold += getDodgeChance(defenderStats.dex);
+  // 2. 회피 체크 (DEX + 보너스)
+  threshold += getDodgeChance(defenderStats.dex, bonusDodge);
   if (roll < threshold) {
     return { result: "dodged", damageMultiplier: 0 };
   }
 
-  // 3. 막기 체크
-  threshold += getBlockChance(defenderStats.con);
+  // 3. 무기막기 체크 (무기가 있을 때만)
+  if (weaponType) {
+    const weaponBlockResult = attemptWeaponBlock(
+      weaponType,
+      defenderStats.dex,
+      weaponProficiency,
+      bonusWeaponBlock
+    );
+    if (weaponBlockResult.isBlocked) {
+      return {
+        result: "weapon_blocked",
+        damageMultiplier: 1 - weaponBlockResult.damageReduction,
+        weaponBlockInfo: weaponBlockResult.blockInfo,
+        specialTriggered: weaponBlockResult.specialTriggered,
+        specialEffect: weaponBlockResult.specialEffect,
+      };
+    }
+  }
+
+  // 4. 막기 체크 (CON + 보너스)
+  threshold += getBlockChance(defenderStats.con, bonusBlock);
   if (roll < threshold) {
     return { result: "blocked", damageMultiplier: 0.5 };
   }
 
-  // 4. 치명타 체크
+  // 5. 치명타 체크
   const secondaryStat = isPhysical ? (attackerStats.dex ?? 10) : (attackerStats.int ?? 10);
   const critChance = getCriticalChance(attackerStats.lck, secondaryStat);
   if (Math.random() * 100 < critChance) {
@@ -304,7 +440,7 @@ export function determineHitResult(
     return { result: "critical", damageMultiplier: critMultiplier, critMultiplier };
   }
 
-  // 5. 일반 명중
+  // 6. 일반 명중
   return { result: "hit", damageMultiplier: 1.0 };
 }
 
@@ -448,4 +584,119 @@ export function attemptParry(
   }
 
   return { isParried: false, damageReduction: 0, counterDamage: 0 };
+}
+
+// ============ 무기막기 시스템 (Weapon Block) ============
+
+/**
+ * 무기막기 결과 타입
+ */
+export interface WeaponBlockResult {
+  isBlocked: boolean;
+  blockInfo?: WeaponBlockInfo;
+  damageReduction: number;   // 피해 감소율 (0-1)
+  specialTriggered?: boolean;
+  specialEffect?: WeaponBlockSpecial;
+  counterDamage?: number;    // 반격 데미지 (counter 효과)
+}
+
+/**
+ * 무기막기 확률 계산
+ * 공식: 무기기본 + DEX * 0.1 + 숙련도 * 0.05 + 보너스 (최대 30%)
+ */
+export function getWeaponBlockChance(
+  weaponType: WeaponType,
+  dex: number,
+  proficiencyLevel: number,
+  bonus: number = 0
+): number {
+  const config = WEAPON_BLOCK_CONFIG[weaponType];
+  const baseChance = config.blockChance;
+  const dexBonus = dex * 0.1;
+  const profBonus = proficiencyLevel * 0.05;
+  return Math.min(30, baseChance + dexBonus + profBonus + bonus);
+}
+
+/**
+ * 무기막기 시도
+ * @param weaponType 방어자의 무기 타입
+ * @param dex 방어자의 민첩
+ * @param proficiencyLevel 해당 무기 숙련도
+ * @param bonus 추가 무기막기 확률
+ */
+export function attemptWeaponBlock(
+  weaponType: WeaponType,
+  dex: number,
+  proficiencyLevel: number,
+  bonus: number = 0
+): WeaponBlockResult {
+  const config = WEAPON_BLOCK_CONFIG[weaponType];
+  const blockChance = getWeaponBlockChance(weaponType, dex, proficiencyLevel, bonus);
+  const roll = Math.random() * 100;
+
+  if (roll < blockChance) {
+    // 무기막기 성공
+    const result: WeaponBlockResult = {
+      isBlocked: true,
+      blockInfo: config,
+      damageReduction: config.damageReduction,
+    };
+
+    // 특수 효과 발동 체크
+    if (config.specialEffect && config.specialChance) {
+      const specialRoll = Math.random() * 100;
+      if (specialRoll < config.specialChance) {
+        result.specialTriggered = true;
+        result.specialEffect = config.specialEffect;
+
+        // 반격 효과 (counter)인 경우 - 대검 등
+        if (config.specialEffect === "counter") {
+          // 반격 데미지는 나중에 calculateCounterDamage에서 계산
+          result.counterDamage = 0; // placeholder
+        }
+      }
+    }
+
+    return result;
+  }
+
+  return { isBlocked: false, damageReduction: 0 };
+}
+
+/**
+ * 반격 데미지 계산 (counter 특수효과용)
+ * @param blockedDamage 막은 데미지
+ * @param str 공격자 힘
+ * @param proficiencyLevel 무기 숙련도
+ */
+export function calculateCounterDamage(
+  blockedDamage: number,
+  str: number,
+  proficiencyLevel: number
+): number {
+  // 반격 데미지: 막은 피해의 30% + STR * 0.2 + 숙련도 보너스
+  const baseCounter = blockedDamage * 0.3;
+  const strBonus = str * 0.2;
+  const profBonus = 1 + proficiencyLevel * 0.005; // 숙련도 100에서 +50%
+  return Math.floor((baseCounter + strBonus) * profBonus);
+}
+
+/**
+ * 무기막기 특수 효과 설명 가져오기
+ */
+export function getWeaponBlockSpecialDescription(
+  special: WeaponBlockSpecial
+): { nameKo: string; description: string } {
+  switch (special) {
+    case "counter":
+      return { nameKo: "반격", description: "막은 피해의 일부를 적에게 돌려줍니다." };
+    case "riposte":
+      return { nameKo: "즉시 반격", description: "막음과 동시에 빠른 반격을 가합니다." };
+    case "stun":
+      return { nameKo: "기절", description: "적을 1턴간 기절시킵니다." };
+    case "deflect":
+      return { nameKo: "마법 반사", description: "마법 공격을 일부 반사합니다." };
+    case "disarm":
+      return { nameKo: "무장해제", description: "적의 무기를 떨어뜨립니다." };
+  }
 }

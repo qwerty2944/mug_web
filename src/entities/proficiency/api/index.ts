@@ -88,5 +88,21 @@ function mapToProficiencies(data: any): Proficiencies {
     earth: data.earth ?? 0,
     holy: data.holy ?? 0,
     dark: data.dark ?? 0,
+    poison: data.poison ?? 0,
+    // 제작 스킬
+    blacksmithing: data.blacksmithing ?? 0,
+    tailoring: data.tailoring ?? 0,
+    cooking: data.cooking ?? 0,
+    alchemy: data.alchemy ?? 0,
+    jewelcrafting: data.jewelcrafting ?? 0,
+    // 의료 스킬
+    first_aid: data.first_aid ?? 0,
+    herbalism: data.herbalism ?? 0,
+    surgery: data.surgery ?? 0,
+    // 지식 스킬
+    anatomy: data.anatomy ?? 0,
+    metallurgy: data.metallurgy ?? 0,
+    botany: data.botany ?? 0,
+    gemology: data.gemology ?? 0,
   };
 }

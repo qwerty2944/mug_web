@@ -11,6 +11,12 @@ export type {
   MagicEffectiveness,
   AttackType,
   AttackTypeInfo,
+  // 생활 스킬 타입
+  CraftingType,
+  MedicalType,
+  KnowledgeType,
+  LifeSkillType,
+  CombatProficiencyType,
 } from "./types";
 
 // Constants
@@ -33,6 +39,33 @@ export {
   ATTACK_TYPE_INFO,
   WEAPON_ATTACK_TYPE,
   ATTACK_TYPES,
+  // 무기막기 시스템
+  WEAPON_BLOCK_CONFIG,
+  // 생활 스킬 상수
+  CRAFTING_PROFICIENCIES,
+  MEDICAL_PROFICIENCIES,
+  KNOWLEDGE_PROFICIENCIES,
+  LIFE_SKILL_PROFICIENCIES,
+  ALL_PROFICIENCIES_EXTENDED,
+  CRAFTING_TYPES,
+  MEDICAL_TYPES,
+  KNOWLEDGE_TYPES,
+  LIFE_SKILL_TYPES,
+  // 레벨 기반 숙련도 획득
+  LEVEL_DIFF_PROFICIENCY_CHANCE,
+  getProficiencyGainChance,
+  RANK_GAIN_MULTIPLIER,
+  // 지식 스킬 보너스
+  KNOWLEDGE_BONUS_PER_RANK,
+  calculateKnowledgeBonus,
+  ATTACK_TYPE_TO_KNOWLEDGE,
+} from "./types/constants";
+
+// 무기막기 타입 export
+export type {
+  WeaponBlockSpecial,
+  WeaponBlockInfo,
+  KnowledgeBonus,
 } from "./types/constants";
 
 // API
@@ -66,4 +99,18 @@ export {
   getDayBoostedElement,
   getDayBoostMultiplier,
   getTodayBoostInfo,
+  // 레벨 기반 숙련도 획득
+  calculateProficiencyGain,
+  calculateKnowledgeGain,
+  canGainProficiency,
+  getProficiencyGainMessage,
+  getKnowledgeGainMessage,
+} from "./lib";
+
+// 숙련도 획득 타입
+export type {
+  ProficiencyGainResult,
+  ProficiencyGainParams,
+  KnowledgeGainResult,
+  KnowledgeGainParams,
 } from "./lib";

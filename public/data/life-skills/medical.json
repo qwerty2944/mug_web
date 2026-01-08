@@ -1,0 +1,89 @@
+{
+  "version": "1.0.0",
+  "skills": [
+    {
+      "id": "first_aid",
+      "nameKo": "응급처치",
+      "nameEn": "First Aid",
+      "category": "medical",
+      "description": "붕대와 기본 도구로 응급 치료를 수행합니다.",
+      "icon": "🩹",
+      "relatedStats": ["dex", "wis"],
+      "treatsInjury": ["light"],
+      "requiredItems": ["bandage", "clean_water"],
+      "healAmount": {
+        "novice": { "base": 10, "perRank": 2 },
+        "apprentice": { "base": 15, "perRank": 3 },
+        "journeyman": { "base": 20, "perRank": 4 },
+        "expert": { "base": 30, "perRank": 5 },
+        "master": { "base": 40, "perRank": 6 },
+        "grandmaster": { "base": 50, "perRank": 8 }
+      },
+      "successRate": {
+        "novice": 0.8,
+        "apprentice": 0.85,
+        "journeyman": 0.9,
+        "expert": 0.93,
+        "master": 0.96,
+        "grandmaster": 0.99
+      }
+    },
+    {
+      "id": "herbalism",
+      "nameKo": "약초학",
+      "nameEn": "Herbalism",
+      "category": "medical",
+      "description": "약초를 이용한 한방 치료를 수행합니다.",
+      "icon": "🌿",
+      "relatedStats": ["int", "wis"],
+      "treatsInjury": ["light", "medium"],
+      "requiredItems": ["herb_pouch", "mortar"],
+      "canGather": true,
+      "gatherableItems": ["healing_herb", "antidote_herb", "energy_herb"],
+      "healAmount": {
+        "novice": { "base": 15, "perRank": 3 },
+        "apprentice": { "base": 25, "perRank": 5 },
+        "journeyman": { "base": 35, "perRank": 7 },
+        "expert": { "base": 50, "perRank": 10 },
+        "master": { "base": 70, "perRank": 12 },
+        "grandmaster": { "base": 100, "perRank": 15 }
+      },
+      "successRate": {
+        "novice": 0.7,
+        "apprentice": 0.78,
+        "journeyman": 0.85,
+        "expert": 0.9,
+        "master": 0.95,
+        "grandmaster": 0.98
+      },
+      "synergyKnowledge": "botany"
+    },
+    {
+      "id": "surgery",
+      "nameKo": "수술",
+      "nameEn": "Surgery",
+      "category": "medical",
+      "description": "외과 수술로 심각한 부상을 치료합니다.",
+      "icon": "🏥",
+      "relatedStats": ["dex", "int"],
+      "treatsInjury": ["light", "medium", "critical"],
+      "requiredItems": ["surgical_kit", "anesthetic", "clean_bandage"],
+      "minProficiency": 50,
+      "healAmount": {
+        "expert": { "base": 50, "perRank": 10 },
+        "master": { "base": 80, "perRank": 15 },
+        "grandmaster": { "base": 120, "perRank": 20 }
+      },
+      "successRate": {
+        "expert": 0.7,
+        "master": 0.85,
+        "grandmaster": 0.95
+      },
+      "criticalFailureChance": {
+        "expert": 0.1,
+        "master": 0.05,
+        "grandmaster": 0.01
+      }
+    }
+  ]
+}

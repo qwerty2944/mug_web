@@ -29,6 +29,8 @@ export async function fetchProfile(userId: string): Promise<UserProfile> {
     currentMapId: data.current_map_id || "town_square",
     whisperCharges: data.whisper_charges || 0,
     crystalTier: (data.crystal_tier as CrystalTier) || null,
+    currentHp: data.current_hp ?? null,
+    currentMp: data.current_mp ?? null,
   };
 }
 
@@ -52,6 +54,8 @@ export interface UpdateProfileParams {
   gold?: number;
   stamina?: number;
   staminaUpdatedAt?: string;
+  currentHp?: number | null;
+  currentMp?: number | null;
 }
 
 export async function updateProfile(params: UpdateProfileParams): Promise<void> {
@@ -64,6 +68,8 @@ export async function updateProfile(params: UpdateProfileParams): Promise<void> 
   if (updates.gold !== undefined) dbUpdates.gold = updates.gold;
   if (updates.stamina !== undefined) dbUpdates.stamina = updates.stamina;
   if (updates.staminaUpdatedAt !== undefined) dbUpdates.stamina_updated_at = updates.staminaUpdatedAt;
+  if (updates.currentHp !== undefined) dbUpdates.current_hp = updates.currentHp;
+  if (updates.currentMp !== undefined) dbUpdates.current_mp = updates.currentMp;
 
   if (Object.keys(dbUpdates).length === 0) return;
 

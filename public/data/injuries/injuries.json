@@ -1,0 +1,66 @@
+{
+  "version": "1.0.0",
+  "description": "마비노기 스타일 부상 시스템",
+  "injuries": [
+    {
+      "type": "light",
+      "nameKo": "경상",
+      "nameEn": "Light Wound",
+      "maxHpReduction": 0.10,
+      "healMethod": "first_aid",
+      "naturalHealTime": 30,
+      "requiredProficiency": 0,
+      "icon": "🩹",
+      "color": "#FBBF24",
+      "description": "가벼운 상처. 응급처치로 치료 가능."
+    },
+    {
+      "type": "medium",
+      "nameKo": "중상",
+      "nameEn": "Medium Wound",
+      "maxHpReduction": 0.25,
+      "healMethod": "herbalism",
+      "naturalHealTime": 120,
+      "requiredProficiency": 20,
+      "icon": "🩸",
+      "color": "#F97316",
+      "description": "심각한 상처. 약초 치료가 필요."
+    },
+    {
+      "type": "critical",
+      "nameKo": "치명상",
+      "nameEn": "Critical Wound",
+      "maxHpReduction": 0.50,
+      "healMethod": "surgery",
+      "naturalHealTime": null,
+      "requiredProficiency": 50,
+      "icon": "💀",
+      "color": "#EF4444",
+      "description": "생명이 위험한 상처. 수술이 필요."
+    }
+  ],
+  "occurrence": {
+    "hpThreshold": 0.30,
+    "levelDiffMultiplier": {
+      "-5": 0.2,
+      "-3": 0.4,
+      "-1": 0.7,
+      "0": 1.0,
+      "1": 1.2,
+      "3": 1.5,
+      "5": 2.0
+    },
+    "criticalHitMultiplier": 2.0,
+    "baseChance": {
+      "light": 0.30,
+      "medium": 0.15,
+      "critical": 0.05
+    }
+  },
+  "maxTotalReduction": 0.80,
+  "messages": {
+    "light": "{source}에게 🩹 경상을 입었습니다! (최대 HP -10%)",
+    "medium": "{source}에게 🩸 중상을 입었습니다! (최대 HP -25%)",
+    "critical": "{source}에게 💀 치명상을 입었습니다! (최대 HP -50%)"
+  }
+}

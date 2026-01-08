@@ -3,7 +3,12 @@
 
 export type PartType =
   | "body" | "eye" | "hair" | "facehair" | "cloth"
-  | "armor" | "pant" | "helmet" | "back";
+  | "armor" | "pant" | "helmet" | "back"
+  // 무기 파츠 (스프라이트 + 색상 시스템)
+  | "sword" | "shield" | "axe" | "bow" | "wand";
+
+// 무기 파츠 타입
+export type WeaponPartType = "sword" | "shield" | "axe" | "bow" | "wand";
 
 export interface PartInfo {
   label: string;
@@ -30,10 +35,24 @@ export interface ColorInfo {
   applyTo: (target: "hair" | "facehair" | "cloth" | "body" | "armor") => void;
 }
 
+// 무기 색상 정보
+export interface WeaponColorInfo {
+  color: string;
+  setColor: (color: string) => void;
+  applyTo: (target: WeaponPartType) => void;
+}
+
 export interface CharacterActions {
   randomize: () => void;
   clearAll: () => void;
   resetColors: () => void;
+}
+
+// 무기 해제 액션
+export interface WeaponActions {
+  clearLeft: () => void;
+  clearRight: () => void;
+  clearAll: () => void;
 }
 
 // 위젯에 주입할 훅 인터페이스
@@ -41,6 +60,9 @@ export interface CharacterPanelHooks {
   usePart: (type: PartType) => PartInfo;
   useAnimation: () => AnimationInfo;
   useColor: () => ColorInfo;
+  useWeaponColor: () => WeaponColorInfo;
+  useWeaponActions: () => WeaponActions;
   useActions: () => CharacterActions;
   partTypes: PartType[];
+  weaponPartTypes: WeaponPartType[];
 }

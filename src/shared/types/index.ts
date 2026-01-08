@@ -1,9 +1,12 @@
 export type {
   PartType,
+  WeaponPartType,
   PartInfo,
   AnimationInfo,
   ColorInfo,
+  WeaponColorInfo,
   CharacterActions,
+  WeaponActions,
   CharacterPanelHooks,
 } from "./character-panel";
 

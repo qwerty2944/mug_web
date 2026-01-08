@@ -2,7 +2,7 @@ import { useCallback } from "react";
 import { useBattleStore } from "@/application/stores";
 import type { CharacterStats } from "@/entities/character";
 import type { Skill } from "@/entities/skill";
-import type { MagicElement, ProficiencyType, WeaponType } from "@/entities/proficiency";
+import type { MagicElement, ProficiencyType, CombatProficiencyType, WeaponType } from "@/entities/proficiency";
 import type { StatusType } from "@/entities/status";
 import {
   calculateMagicDamage,
@@ -146,7 +146,7 @@ export function useCastSpell(options: UseCastSpellOptions = {}) {
           message = hitCount > 1
             ? `${skill.icon} ${skill.nameKo}! ${hitCount}연속 공격으로 ${battle.monster.nameKo}에게 총 ${totalDamage} 데미지!`
             : getAttackMessage(
-                (skill.proficiencyType || "fist") as ProficiencyType,
+                (skill.proficiencyType || "fist") as CombatProficiencyType,
                 battle.monster.nameKo,
                 totalDamage,
                 isCritical
@@ -251,7 +251,7 @@ export function useCastSpell(options: UseCastSpellOptions = {}) {
           message = getBlockMessage(battle.monster.nameKo, finalDamage);
         } else {
           message = getAttackMessage(
-            skill.element as ProficiencyType,
+            skill.element as CombatProficiencyType,
             battle.monster.nameKo,
             finalDamage,
             isCritical

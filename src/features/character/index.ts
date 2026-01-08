@@ -4,7 +4,10 @@ import {
   useAppearanceAnimation,
   useAppearanceColor,
   useAppearanceActions,
+  useWeaponColor,
+  useWeaponActions,
   PART_TYPES,
+  WEAPON_PART_TYPES,
 } from "@/application/stores";
 
 // Stores (re-export from application stores)
@@ -58,6 +61,9 @@ export const characterPanelHooks: CharacterPanelHooks = {
   usePart: useAppearancePart,
   useAnimation: useAppearanceAnimation,
   useColor: useAppearanceColor,
+  useWeaponColor: useWeaponColor,
+  useWeaponActions: useWeaponActions,
   useActions: useAppearanceActions,
   partTypes: PART_TYPES,
+  weaponPartTypes: WEAPON_PART_TYPES,
 };

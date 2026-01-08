@@ -263,18 +263,96 @@ export interface ConsumableEffect {
   duration?: number;
 }
 
+// ============ Sprite System ============
+
+// Unity 스프라이트 카테고리 (all-sprites.json 기준)
+export type SpriteCategory =
+  // 무기 스프라이트
+  | "sword"    // swordCount: 26
+  | "shield"   // shieldCount: 14
+  | "axe"      // axeCount: 5
+  | "bow"      // bowCount: 10
+  | "wand"     // wandCount: 20
+  // 방어구 스프라이트
+  | "armor"    // armorCount: 59
+  | "cloth"    // clothCount: 131
+  | "helmet"   // helmetCount: 120
+  | "pant";    // pantCount: 60
+
+// 스프라이트 참조 (외형 + 색상)
+export interface SpriteReference {
+  category: SpriteCategory;
+  index: number;             // 0-based 스프라이트 인덱스
+  color?: string;            // hex 색상 (예: "#808080"), undefined면 기본색
+}
+
+// 미리 정의된 색상 프리셋
+export const SPRITE_COLOR_PRESETS = {
+  // 금속 재질
+  iron: "#808080",       // 철 (회색)
+  steel: "#A0A0A0",      // 강철 (밝은 회색)
+  bronze: "#CD7F32",     // 청동
+  silver: "#C0C0C0",     // 은
+  gold: "#FFD700",       // 금
+  mithril: "#E0FFFF",    // 미스릴 (하늘색)
+  adamantite: "#4B0082", // 아다만타이트 (보라)
+
+  // 나무 재질
+  wood: "#8B4513",       // 나무 (갈색)
+  darkwood: "#3B2415",   // 어두운 나무
+  oak: "#6B4423",        // 참나무
+
+  // 속성 색상
+  fire: "#FF4500",       // 화염 (주황빨강)
+  ice: "#00BFFF",        // 냉기 (하늘색)
+  lightning: "#FFFF00",  // 번개 (노랑)
+  earth: "#8B4513",      // 대지 (갈색)
+  holy: "#FFFACD",       // 신성 (연노랑)
+  dark: "#2F1F3F",       // 암흑 (어두운 보라)
+  poison: "#32CD32",     // 독 (연두)
+
+  // 희귀도 색상 (아우라)
+  common: undefined,     // 기본색
+  grand: "#22C55E",      // 고급 (녹색)
+  rare: "#3B82F6",       // 희귀 (파랑)
+  arcane: "#EAB308",     // 고대 (노랑)
+  heroic: "#F97316",     // 영웅 (주황)
+  unique: "#A855F7",     // 유일 (보라)
+  legendary: "#F59E0B",  // 전설 (황금)
+} as const;
+
+export type SpriteColorPreset = keyof typeof SPRITE_COLOR_PRESETS;
+
+// 스프라이트 카테고리 정보
+export const SPRITE_CATEGORY_CONFIG: Record<SpriteCategory, {
+  nameKo: string;
+  unityMethod: string;  // Unity에서 호출할 JS 메서드 접두사
+  maxIndex: number;     // 최대 인덱스 (0-based이므로 count - 1)
+}> = {
+  sword: { nameKo: "검", unityMethod: "JS_SetSword", maxIndex: 25 },
+  shield: { nameKo: "방패", unityMethod: "JS_SetShield", maxIndex: 13 },
+  axe: { nameKo: "도끼", unityMethod: "JS_SetAxe", maxIndex: 4 },
+  bow: { nameKo: "활", unityMethod: "JS_SetBow", maxIndex: 9 },
+  wand: { nameKo: "지팡이", unityMethod: "JS_SetWand", maxIndex: 19 },
+  armor: { nameKo: "갑옷", unityMethod: "JS_SetArmor", maxIndex: 58 },
+  cloth: { nameKo: "의복", unityMethod: "JS_SetCloth", maxIndex: 130 },
+  helmet: { nameKo: "투구", unityMethod: "JS_SetHelmet", maxIndex: 119 },
+  pant: { nameKo: "바지", unityMethod: "JS_SetPant", maxIndex: 59 },
+};
+
 // ============ Equipment Data ============
 
 export interface EquipmentStats {
-  // 기본 스탯
-  attack?: number;
-  defense?: number;
-  magic?: number;
+  // 기본 스탯 (레거시 - 새 스탯에 합산됨)
+  attack?: number; // → physicalAttack에 합산
+  defense?: number; // → physicalDefense에 합산
+  magic?: number; // → magicAttack에 합산
   hp?: number;
   mp?: number;
   speed?: number;
   critRate?: number;
   critDamage?: number;
+
   // 능력치 보너스 (장신구용)
   str?: number;
   dex?: number;
@@ -283,9 +361,49 @@ export interface EquipmentStats {
   wis?: number;
   cha?: number;
   lck?: number;
+
+  // 전투 스탯 (신규)
+  physicalAttack?: number; // 물리공격력
+  physicalDefense?: number; // 물리방어력
+  magicAttack?: number; // 마법공격력
+  magicDefense?: number; // 마법방어력
+
+  // 속성 강화 (%)
+  fireBoost?: number;
+  iceBoost?: number;
+  lightningBoost?: number;
+  earthBoost?: number;
+  holyBoost?: number;
+  darkBoost?: number;
+  poisonBoost?: number;
+
+  // 속성 저항 (%)
+  fireResist?: number;
+  iceResist?: number;
+  lightningResist?: number;
+  earthResist?: number;
+  holyResist?: number;
+  darkResist?: number;
+  poisonResist?: number;
+
+  // 물리 저항 보너스 (배율 감소, -0.1 = 10% 추가 저항)
+  slashResistBonus?: number;  // 베기 저항 보너스
+  pierceResistBonus?: number; // 찌르기 저항 보너스
+  crushResistBonus?: number;  // 타격 저항 보너스
+
+  // 암습 강화
+  ambushChance?: number; // 암습 확률 추가 %
+  ambushDamage?: number; // 암습 피해 추가 %
+
   // 특수 효과
-  blockChance?: number;   // 막기 확률 (방패)
-  lightRadius?: number;   // 시야 반경 (횃불)
+  blockChance?: number; // 막기 확률 (방패)
+  lightRadius?: number; // 시야 반경 (횃불)
+
+  // 전투 추가 스탯
+  dodgeChance?: number;           // 회피 확률 보너스 (%)
+  weaponBlockChance?: number;     // 무기막기 확률 보너스 (%)
+  physicalPenetration?: number;   // 물리관통 (%)
+  magicPenetration?: number;      // 마법관통 (%)
 }
 
 export interface EquipmentData {
@@ -294,7 +412,8 @@ export interface EquipmentData {
   handType?: WeaponHandType;        // 한손/양손 (무기용)
   offHandType?: OffHandItemType;    // 오프핸드 타입 (방패/횃불/무기)
   accessoryType?: AccessoryType;    // 장신구 타입
-  unityPartIndex?: number;          // Unity 스프라이트 인덱스
+  unityPartIndex?: number;          // Unity 스프라이트 인덱스 (deprecated, use sprite)
+  sprite?: SpriteReference;         // 스프라이트 + 색상 (새 시스템)
   stats: EquipmentStats;
   requiredLevel?: number;
 }

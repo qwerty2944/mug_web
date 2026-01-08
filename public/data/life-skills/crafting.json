@@ -1,0 +1,105 @@
+{
+  "version": "1.0.0",
+  "skills": [
+    {
+      "id": "blacksmithing",
+      "nameKo": "대장장이",
+      "nameEn": "Blacksmithing",
+      "category": "crafting",
+      "description": "금속을 다루어 무기와 갑옷을 제작합니다.",
+      "icon": "🔨",
+      "relatedStats": ["str", "con"],
+      "craftableItems": ["weapon", "armor", "metal_material"],
+      "requiredTools": ["anvil", "forge", "hammer"],
+      "synergyKnowledge": "metallurgy",
+      "ranks": {
+        "novice": { "maxTier": "common", "successRate": 0.8 },
+        "apprentice": { "maxTier": "grand", "successRate": 0.85 },
+        "journeyman": { "maxTier": "rare", "successRate": 0.9 },
+        "expert": { "maxTier": "arcane", "successRate": 0.92 },
+        "master": { "maxTier": "heroic", "successRate": 0.95 },
+        "grandmaster": { "maxTier": "unique", "successRate": 0.98 }
+      }
+    },
+    {
+      "id": "tailoring",
+      "nameKo": "재봉",
+      "nameEn": "Tailoring",
+      "category": "crafting",
+      "description": "천과 가죽으로 의류와 장비를 제작합니다.",
+      "icon": "🧵",
+      "relatedStats": ["dex"],
+      "craftableItems": ["cloth_armor", "leather_armor", "cloth_material"],
+      "requiredTools": ["needle", "loom", "leather_kit"],
+      "synergyKnowledge": null,
+      "ranks": {
+        "novice": { "maxTier": "common", "successRate": 0.85 },
+        "apprentice": { "maxTier": "grand", "successRate": 0.88 },
+        "journeyman": { "maxTier": "rare", "successRate": 0.91 },
+        "expert": { "maxTier": "arcane", "successRate": 0.94 },
+        "master": { "maxTier": "heroic", "successRate": 0.96 },
+        "grandmaster": { "maxTier": "unique", "successRate": 0.98 }
+      }
+    },
+    {
+      "id": "cooking",
+      "nameKo": "요리",
+      "nameEn": "Cooking",
+      "category": "crafting",
+      "description": "재료를 조리하여 버프 음식을 만듭니다.",
+      "icon": "🍳",
+      "relatedStats": ["wis"],
+      "craftableItems": ["food", "buff_item"],
+      "requiredTools": ["cooking_pot", "fire"],
+      "synergyKnowledge": "botany",
+      "ranks": {
+        "novice": { "buffDuration": 300, "successRate": 0.9 },
+        "apprentice": { "buffDuration": 600, "successRate": 0.92 },
+        "journeyman": { "buffDuration": 900, "successRate": 0.94 },
+        "expert": { "buffDuration": 1200, "successRate": 0.96 },
+        "master": { "buffDuration": 1800, "successRate": 0.98 },
+        "grandmaster": { "buffDuration": 3600, "successRate": 0.99 }
+      }
+    },
+    {
+      "id": "alchemy",
+      "nameKo": "연금",
+      "nameEn": "Alchemy",
+      "category": "crafting",
+      "description": "약재를 조합하여 포션과 물약을 만듭니다.",
+      "icon": "⚗️",
+      "relatedStats": ["int", "wis"],
+      "craftableItems": ["potion", "elixir", "poison"],
+      "requiredTools": ["alchemy_table", "mortar", "vial"],
+      "synergyKnowledge": "botany",
+      "ranks": {
+        "novice": { "potionPotency": 1.0, "successRate": 0.75 },
+        "apprentice": { "potionPotency": 1.1, "successRate": 0.8 },
+        "journeyman": { "potionPotency": 1.2, "successRate": 0.85 },
+        "expert": { "potionPotency": 1.3, "successRate": 0.9 },
+        "master": { "potionPotency": 1.5, "successRate": 0.95 },
+        "grandmaster": { "potionPotency": 2.0, "successRate": 0.98 }
+      }
+    },
+    {
+      "id": "jewelcrafting",
+      "nameKo": "보석세공",
+      "nameEn": "Jewelcrafting",
+      "category": "crafting",
+      "description": "보석을 가공하여 악세서리를 제작합니다.",
+      "icon": "💎",
+      "relatedStats": ["dex", "int"],
+      "craftableItems": ["ring", "necklace", "bracelet", "gem"],
+      "requiredTools": ["jeweler_bench", "magnifier", "polisher"],
+      "synergyKnowledge": "gemology",
+      "ranks": {
+        "novice": { "maxTier": "common", "gemSlots": 0 },
+        "apprentice": { "maxTier": "grand", "gemSlots": 1 },
+        "journeyman": { "maxTier": "rare", "gemSlots": 1 },
+        "expert": { "maxTier": "arcane", "gemSlots": 2 },
+        "master": { "maxTier": "heroic", "gemSlots": 2 },
+        "grandmaster": { "maxTier": "unique", "gemSlots": 3 }
+      }
+    }
+  ]
+}

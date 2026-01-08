@@ -170,10 +170,76 @@ export default function StatusModal() {
                       </div>
                     </div>
 
+                    {/* HP/MP */}
+                    {mainCharacter?.stats && (
+                      <div className="p-4 space-y-3" style={{ background: theme.colors.bgDark }}>
+                        {/* HP */}
+                        {(() => {
+                          const baseCon = mainCharacter.stats.con ?? 10;
+                          const maxHp = 50 + baseCon * 5 + (profile?.level || 1) * 10;
+                          const currentHp = profile?.currentHp ?? maxHp;
+                          const hpPercent = (currentHp / maxHp) * 100;
+                          return (
+                            <div>
+                              <div className="flex items-center justify-between mb-1">
+                                <span className="font-mono flex items-center gap-2" style={{ color: theme.colors.textMuted }}>
+                                  <span>❤️</span> HP
+                                </span>
+                                <span className="text-lg font-mono font-medium" style={{ color: theme.colors.error }}>
+                                  {currentHp} / {maxHp}
+                                </span>
+                              </div>
+                              <div className="h-3 overflow-hidden" style={{ background: theme.colors.bgLight }}>
+                                <div
+                                  className="h-full transition-all"
+                                  style={{
+                                    width: `${hpPercent}%`,
+                                    background: hpPercent > 50 ? theme.colors.error : hpPercent > 20 ? theme.colors.warning : "#ff3333",
+                                  }}
+                                />
+                              </div>
+                            </div>
+                          );
+                        })()}
+
+                        {/* MP */}
+                        {(() => {
+                          const baseInt = mainCharacter.stats.int ?? 10;
+                          const baseWis = mainCharacter.stats.wis ?? 10;
+                          const maxMp = 20 + baseWis * 3 + baseInt;
+                          const currentMp = profile?.currentMp ?? maxMp;
+                          const mpPercent = (currentMp / maxMp) * 100;
+                          return (
+                            <div>
+                              <div className="flex items-center justify-between mb-1">
+                                <span className="font-mono flex items-center gap-2" style={{ color: theme.colors.textMuted }}>
+                                  <span>💧</span> MP
+                                </span>
+                                <span className="text-lg font-mono font-medium" style={{ color: theme.colors.primary }}>
+                                  {currentMp} / {maxMp}
+                                </span>
+                              </div>
+                              <div className="h-3 overflow-hidden" style={{ background: theme.colors.bgLight }}>
+                                <div
+                                  className="h-full transition-all"
+                                  style={{
+                                    width: `${mpPercent}%`,
+                                    background: theme.colors.primary,
+                                  }}
+                                />
+                              </div>
+                            </div>
+                          );
+                        })()}
+                      </div>
+                    )}
+
                     {/* 스태미나 */}
                     <div className="p-4" style={{ background: theme.colors.bgDark }}>
                       <div className="flex items-center justify-between mb-2">
-                        <span className="font-mono" style={{ color: theme.colors.textMuted }}>스태미나</span>
+                        <span className="font-mono flex items-center gap-2" style={{ color: theme.colors.textMuted }}>
+                          <span>⚡</span> 스태미나
+                        </span>
                         <span className="text-lg font-mono font-medium" style={{ color: theme.colors.text }}>
                           {profile?.stamina || 0} / {profile?.maxStamina || 100}
                         </span>

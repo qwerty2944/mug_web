@@ -224,3 +224,17 @@ export function getTodayBoostInfo(): {
     multiplier: element ? DAY_BOOST_MULTIPLIER : 1.0,
   };
 }
+
+// ============ 레벨 기반 숙련도 획득 ============
+
+export {
+  calculateProficiencyGain,
+  calculateKnowledgeGain,
+  canGainProficiency,
+  getProficiencyGainMessage,
+  getKnowledgeGainMessage,
+  type ProficiencyGainResult,
+  type ProficiencyGainParams,
+  type KnowledgeGainResult,
+  type KnowledgeGainParams,
+} from "./gain";

@@ -1,0 +1,56 @@
+{
+  "version": "1.0.0",
+  "description": "레벨 기반 숙련도 획득 시스템 설정",
+  "levelDifferenceChance": {
+    "description": "몬스터레벨 - 플레이어레벨에 따른 획득 확률",
+    "values": {
+      "3": { "chance": 0.80, "label": "+3 이상" },
+      "2": { "chance": 0.60, "label": "+2" },
+      "1": { "chance": 0.40, "label": "+1" },
+      "0": { "chance": 0.25, "label": "동레벨" },
+      "-1": { "chance": 0.10, "label": "-1" },
+      "-2": { "chance": 0, "label": "-2 이하 (획득 불가)" }
+    }
+  },
+  "rankMultiplier": {
+    "description": "고랭크일수록 성장 속도 감소",
+    "values": {
+      "novice": 1.0,
+      "apprentice": 0.8,
+      "journeyman": 0.6,
+      "expert": 0.4,
+      "master": 0.2,
+      "grandmaster": 0.1
+    }
+  },
+  "knowledgeGain": {
+    "description": "지식 스킬 획득 설정",
+    "baseChance": 0.15,
+    "combatGainTypes": {
+      "anatomy": ["slash", "pierce"],
+      "metallurgy": ["crush"],
+      "botany": ["poison", "healing"],
+      "gemology": ["fire", "ice", "lightning", "earth", "holy", "dark"]
+    }
+  },
+  "craftingGain": {
+    "description": "제작 시 숙련도 획득",
+    "baseAmount": 1,
+    "successBonus": 1,
+    "qualityBonus": {
+      "crude": 0,
+      "common": 0,
+      "fine": 1,
+      "masterwork": 2
+    }
+  },
+  "medicalGain": {
+    "description": "치료 시 숙련도 획득",
+    "baseAmount": 1,
+    "injuryBonus": {
+      "light": 0,
+      "medium": 1,
+      "critical": 2
+    }
+  }
+}
