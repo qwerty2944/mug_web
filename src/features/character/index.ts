@@ -6,6 +6,7 @@ import {
   useAppearanceActions,
   useWeaponColor,
   useWeaponActions,
+  useHandWeapon,
   PART_TYPES,
   WEAPON_PART_TYPES,
 } from "@/application/stores";
@@ -64,6 +65,7 @@ export const characterPanelHooks: CharacterPanelHooks = {
   useWeaponColor: useWeaponColor,
   useWeaponActions: useWeaponActions,
   useActions: useAppearanceActions,
+  useHandWeapon: useHandWeapon,
   partTypes: PART_TYPES,
   weaponPartTypes: WEAPON_PART_TYPES,
 };

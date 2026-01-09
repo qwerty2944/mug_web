@@ -11,14 +11,18 @@ export {
   useAppearanceActions,
   useWeaponColor,
   useWeaponActions,
+  useHandWeapon,
   PART_TYPES,
   WEAPON_PART_TYPES,
   type PartType,
   type WeaponPartType,
   type SpriteCounts,
+  type SpriteNames,
   type CharacterState,
   type AnimationState,
   type AnimationCounts,
+  type HandType,
+  type HandWeaponState,
 } from "./appearanceStore";
 
 // ============ Game ============

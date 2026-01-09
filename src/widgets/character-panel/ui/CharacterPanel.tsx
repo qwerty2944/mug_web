@@ -1,7 +1,7 @@
 "use client";
 
 import { createContext, useContext, type ReactNode } from "react";
-import type { CharacterPanelHooks, PartType, WeaponPartType } from "../types";
+import type { CharacterPanelHooks, PartType, WeaponPartType, HandType } from "../types";
 
 // 훅 주입을 위한 컨텍스트
 const HooksContext = createContext<CharacterPanelHooks | null>(null);
@@ -31,13 +31,21 @@ export function CharacterPanel({ hooks, className = "" }: CharacterPanelProps) {
           </div>
         </Section>
 
-        <Section title="무기">
-          <div className="space-y-1">
-            {hooks.weaponPartTypes.map((type) => (
-              <WeaponSelector key={type} type={type} />
-            ))}
-          </div>
-          <WeaponActions />
+        <Section title="손별 무기">
+          {hooks.useHandWeapon ? (
+            <div className="space-y-2">
+              <HandWeaponSelector hand="left" />
+              <HandWeaponSelector hand="right" />
+              <WeaponActions />
+            </div>
+          ) : (
+            <div className="space-y-1">
+              {hooks.weaponPartTypes.map((type) => (
+                <WeaponSelector key={type} type={type} />
+              ))}
+              <WeaponActions />
+            </div>
+          )}
         </Section>
 
         <Section title="색상">
@@ -216,6 +224,59 @@ function WeaponActions() {
       <button onClick={clearAll} className="btn-sm flex-1 bg-red-700">
         전체 해제
       </button>
+    </div>
+  );
+}
+
+function HandWeaponSelector({ hand }: { hand: HandType }) {
+  const { useHandWeapon, weaponPartTypes } = useHooks();
+  if (!useHandWeapon) return null;
+
+  const { weaponType, index, total, name, setWeaponType, next, prev } = useHandWeapon(hand);
+
+  const handLabel = hand === "left" ? "🤚 왼손" : "✋ 오른손";
+  const weaponLabels: Record<WeaponPartType, string> = {
+    sword: "검",
+    shield: "방패",
+    axe: "도끼",
+    bow: "활",
+    wand: "지팡이",
+  };
+
+  return (
+    <div className="bg-gray-700/50 rounded p-2 space-y-1">
+      {/* 손 라벨 + 무기 타입 선택 */}
+      <div className="flex items-center justify-between">
+        <span className="text-sm font-medium text-gray-300">{handLabel}</span>
+        <select
+          value={weaponType ?? ""}
+          onChange={(e) => setWeaponType(e.target.value ? (e.target.value as WeaponPartType) : null)}
+          className="bg-gray-800 text-sm rounded px-2 py-1 border border-gray-600"
+        >
+          <option value="">없음</option>
+          {weaponPartTypes.map((type) => (
+            <option key={type} value={type}>
+              {weaponLabels[type]}
+            </option>
+          ))}
+        </select>
+      </div>
+
+      {/* 무기 선택 시 인덱스 네비게이션 + 파일명 */}
+      {weaponType && (
+        <div className="flex items-center justify-between text-sm">
+          <div className="flex items-center gap-1">
+            <button onClick={prev} className="btn-icon">&lt;</button>
+            <span className="w-12 text-center text-xs">
+              {index + 1}/{total}
+            </span>
+            <button onClick={next} className="btn-icon">&gt;</button>
+          </div>
+          <span className="text-xs text-gray-400 truncate max-w-[120px]" title={name}>
+            {name || "-"}
+          </span>
+        </div>
+      )}
     </div>
   );
 }

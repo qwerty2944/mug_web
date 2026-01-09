@@ -55,6 +55,21 @@ export interface WeaponActions {
   clearAll: () => void;
 }
 
+// 손별 무기 정보 (왼손/오른손)
+export type HandType = "left" | "right";
+
+export interface HandWeaponInfo {
+  hand: HandType;
+  weaponType: WeaponPartType | null;
+  index: number;
+  total: number;
+  name: string; // 원본 파일명
+  setWeaponType: (type: WeaponPartType | null) => void;
+  next: () => void;
+  prev: () => void;
+  clear: () => void;
+}
+
 // 위젯에 주입할 훅 인터페이스
 export interface CharacterPanelHooks {
   usePart: (type: PartType) => PartInfo;
@@ -63,6 +78,7 @@ export interface CharacterPanelHooks {
   useWeaponColor: () => WeaponColorInfo;
   useWeaponActions: () => WeaponActions;
   useActions: () => CharacterActions;
+  useHandWeapon?: (hand: HandType) => HandWeaponInfo; // 새로운 손별 무기 훅
   partTypes: PartType[];
   weaponPartTypes: WeaponPartType[];
 }

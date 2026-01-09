@@ -2,11 +2,13 @@
 export type {
   PartType,
   WeaponPartType,
+  HandType,
   PartInfo,
   AnimationInfo,
   ColorInfo,
   WeaponColorInfo,
   CharacterActions,
   WeaponActions,
+  HandWeaponInfo,
   CharacterPanelHooks,
 } from "@/shared/types";

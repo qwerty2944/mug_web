@@ -31,6 +31,28 @@ export interface SpriteCounts {
   wandCount: number;
 }
 
+// 스프라이트 이름 데이터 (all-sprites.json)
+export interface SpriteNames {
+  swordNames: string[];
+  shieldNames: string[];
+  axeNames: string[];
+  bowNames: string[];
+  wandNames: string[];
+  helmetNames: string[];
+  pantNames: string[];
+  backNames: string[];
+  armorNames: string[];
+  clothNames: string[];
+}
+
+// 손별 무기 상태
+export interface HandWeaponState {
+  weaponType: WeaponPartType | null;
+  index: number; // -1이면 없음
+}
+
+export type HandType = "left" | "right";
+
 export interface CharacterState {
   bodyIndex: number;
   eyeIndex: number;
@@ -116,17 +138,22 @@ interface AppearanceStore {
   // 상태
   isUnityLoaded: boolean;
   spriteCounts: SpriteCounts | null;
+  spriteNames: SpriteNames | null;
   characterState: CharacterState | null;
   animationState: AnimationState | null;
   animationCounts: AnimationCounts | null;
   unityObjectName: string;
   sendMessage: SendMessageFn | null;
   selectedColor: string;
+  // 손별 무기 상태
+  leftHandWeapon: HandWeaponState;
+  rightHandWeapon: HandWeaponState;
 
   // Unity 연결
   setUnityLoaded: (loaded: boolean) => void;
   setSendMessage: (fn: SendMessageFn, objectName: string) => void;
   setSpriteCounts: (counts: SpriteCounts) => void;
+  setSpriteNames: (names: SpriteNames) => void;
   setCharacterState: (state: CharacterState) => void;
   setAnimationState: (state: AnimationState) => void;
   setAnimationCounts: (counts: AnimationCounts) => void;
@@ -138,6 +165,13 @@ interface AppearanceStore {
   // 파츠 조작
   nextPart: (type: PartType) => void;
   prevPart: (type: PartType) => void;
+
+  // 손별 무기 조작
+  setHandWeaponType: (hand: HandType, weaponType: WeaponPartType | null) => void;
+  nextHandWeapon: (hand: HandType) => void;
+  prevHandWeapon: (hand: HandType) => void;
+  clearHandWeapon: (hand: HandType) => void;
+  getHandWeaponName: (hand: HandType) => string;
 
   // 색상
   applyColorTo: (target: "hair" | "facehair" | "cloth" | "body" | "armor") => void;
@@ -174,17 +208,22 @@ export const useAppearanceStore = create<AppearanceStore>((set, get) => ({
   // 초기 상태
   isUnityLoaded: false,
   spriteCounts: null,
+  spriteNames: null,
   characterState: null,
   animationState: null,
   animationCounts: null,
   unityObjectName: "",
   sendMessage: null,
   selectedColor: "#FF0000",
+  // 손별 무기 상태
+  leftHandWeapon: { weaponType: null, index: -1 },
+  rightHandWeapon: { weaponType: null, index: -1 },
 
   // Unity 연결
   setUnityLoaded: (loaded) => set({ isUnityLoaded: loaded }),
   setSendMessage: (fn, objectName) => set({ sendMessage: fn, unityObjectName: objectName }),
   setSpriteCounts: (counts) => set({ spriteCounts: counts }),
+  setSpriteNames: (names) => set({ spriteNames: names }),
   setCharacterState: (state) => set({ characterState: state }),
   setAnimationState: (state) => set({ animationState: state }),
   setAnimationCounts: (counts) => set({ animationCounts: counts }),
@@ -460,6 +499,92 @@ export const useAppearanceStore = create<AppearanceStore>((set, get) => ({
     }
   },
 
+  // 손별 무기 조작
+  setHandWeaponType: (hand, weaponType) => {
+    const stateKey = hand === "left" ? "leftHandWeapon" : "rightHandWeapon";
+    set({ [stateKey]: { weaponType, index: weaponType ? 0 : -1 } });
+
+    // Unity에 무기 설정
+    const { callUnity, isUnityLoaded } = get();
+    if (!isUnityLoaded) return;
+
+    const method = hand === "left" ? "JS_SetLeftWeapon" : "JS_SetRightWeapon";
+    if (weaponType) {
+      const typeName = weaponType.charAt(0).toUpperCase() + weaponType.slice(1);
+      callUnity(method, `${typeName},0`);
+    } else {
+      const clearMethod = hand === "left" ? "JS_ClearLeftWeapon" : "JS_ClearRightWeapon";
+      callUnity(clearMethod);
+    }
+  },
+
+  nextHandWeapon: (hand) => {
+    const { spriteCounts, callUnity, isUnityLoaded } = get();
+    const stateKey = hand === "left" ? "leftHandWeapon" : "rightHandWeapon";
+    const current = get()[stateKey];
+
+    if (!current.weaponType || !spriteCounts) return;
+
+    const countKey = `${current.weaponType}Count` as keyof SpriteCounts;
+    const total = spriteCounts[countKey] as number;
+    if (total === 0) return;
+
+    const nextIndex = current.index + 1 >= total ? 0 : current.index + 1;
+    set({ [stateKey]: { ...current, index: nextIndex } });
+
+    if (isUnityLoaded) {
+      const method = hand === "left" ? "JS_SetLeftWeapon" : "JS_SetRightWeapon";
+      const typeName = current.weaponType.charAt(0).toUpperCase() + current.weaponType.slice(1);
+      callUnity(method, `${typeName},${nextIndex}`);
+    }
+  },
+
+  prevHandWeapon: (hand) => {
+    const { spriteCounts, callUnity, isUnityLoaded } = get();
+    const stateKey = hand === "left" ? "leftHandWeapon" : "rightHandWeapon";
+    const current = get()[stateKey];
+
+    if (!current.weaponType || !spriteCounts) return;
+
+    const countKey = `${current.weaponType}Count` as keyof SpriteCounts;
+    const total = spriteCounts[countKey] as number;
+    if (total === 0) return;
+
+    const prevIndex = current.index <= 0 ? total - 1 : current.index - 1;
+    set({ [stateKey]: { ...current, index: prevIndex } });
+
+    if (isUnityLoaded) {
+      const method = hand === "left" ? "JS_SetLeftWeapon" : "JS_SetRightWeapon";
+      const typeName = current.weaponType.charAt(0).toUpperCase() + current.weaponType.slice(1);
+      callUnity(method, `${typeName},${prevIndex}`);
+    }
+  },
+
+  clearHandWeapon: (hand) => {
+    const stateKey = hand === "left" ? "leftHandWeapon" : "rightHandWeapon";
+    set({ [stateKey]: { weaponType: null, index: -1 } });
+
+    const { callUnity, isUnityLoaded } = get();
+    if (isUnityLoaded) {
+      const method = hand === "left" ? "JS_ClearLeftWeapon" : "JS_ClearRightWeapon";
+      callUnity(method);
+    }
+  },
+
+  getHandWeaponName: (hand) => {
+    const { spriteNames } = get();
+    const stateKey = hand === "left" ? "leftHandWeapon" : "rightHandWeapon";
+    const current = get()[stateKey];
+
+    if (!current.weaponType || current.index < 0 || !spriteNames) {
+      return "";
+    }
+
+    const namesKey = `${current.weaponType}Names` as keyof SpriteNames;
+    const names = spriteNames[namesKey] as string[];
+    return names?.[current.index] ?? "";
+  },
+
   // Computed
   getPartInfo: (type) => {
     const { characterState, spriteCounts } = get();
@@ -556,5 +681,30 @@ export function useWeaponActions() {
     clearLeft: () => store.clearWeapon("left"),
     clearRight: () => store.clearWeapon("right"),
     clearAll: () => store.clearWeapon("both"),
+  };
+}
+
+// 손별 무기 훅
+export function useHandWeapon(hand: HandType) {
+  const store = useAppearanceStore();
+  const spriteCounts = store.spriteCounts;
+  const handState = hand === "left" ? store.leftHandWeapon : store.rightHandWeapon;
+
+  const getTotal = () => {
+    if (!handState.weaponType || !spriteCounts) return 0;
+    const countKey = `${handState.weaponType}Count` as keyof SpriteCounts;
+    return (spriteCounts[countKey] as number) ?? 0;
+  };
+
+  return {
+    hand,
+    weaponType: handState.weaponType,
+    index: handState.index,
+    total: getTotal(),
+    name: store.getHandWeaponName(hand),
+    setWeaponType: (type: WeaponPartType | null) => store.setHandWeaponType(hand, type),
+    next: () => store.nextHandWeapon(hand),
+    prev: () => store.prevHandWeapon(hand),
+    clear: () => store.clearHandWeapon(hand),
   };
 }

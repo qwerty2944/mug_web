@@ -2,7 +2,7 @@
 
 import { createContext, useContext, useEffect, ReactNode } from "react";
 import { useUnityContext } from "react-unity-webgl";
-import { useAppearanceStore } from "@/application/stores";
+import { useAppearanceStore, type SpriteNames } from "@/application/stores";
 
 const UNITY_OBJECT_NAME = "SPUM_20260103203421028";
 
@@ -19,6 +19,7 @@ export function UnityProvider({ children }: { children: ReactNode }) {
     setUnityLoaded,
     setSendMessage,
     setSpriteCounts,
+    setSpriteNames,
     setCharacterState,
     setAnimationState,
     setAnimationCounts,
@@ -35,13 +36,33 @@ export function UnityProvider({ children }: { children: ReactNode }) {
     },
   });
 
-  // Unity 로드 상태 동기화
+  // Unity 로드 상태 동기화 및 스프라이트 이름 로드
   useEffect(() => {
     if (isLoaded) {
       setUnityLoaded(true);
       setSendMessage(sendMessage, UNITY_OBJECT_NAME);
+
+      // 스프라이트 이름 로드 (all-sprites.json에서)
+      fetch("/data/character/all-sprites.json")
+        .then((res) => res.json())
+        .then((data) => {
+          const names: SpriteNames = {
+            swordNames: data.swordNames || [],
+            shieldNames: data.shieldNames || [],
+            axeNames: data.axeNames || [],
+            bowNames: data.bowNames || [],
+            wandNames: data.wandNames || [],
+            helmetNames: data.helmetNames || [],
+            pantNames: data.pantNames || [],
+            backNames: data.backNames || [],
+            armorNames: data.armorNames || [],
+            clothNames: data.clothNames || [],
+          };
+          setSpriteNames(names);
+        })
+        .catch((err) => console.error("Failed to load sprite names:", err));
     }
-  }, [isLoaded, sendMessage, setUnityLoaded, setSendMessage]);
+  }, [isLoaded, sendMessage, setUnityLoaded, setSendMessage, setSpriteNames]);
 
   // Unity 이벤트 리스너
   useEffect(() => {
