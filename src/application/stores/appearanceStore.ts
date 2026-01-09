@@ -114,14 +114,14 @@ type SendMessageFn = (objectName: string, methodName: string, param?: string) =>
 
 const PART_META: Record<PartType, { label: string; indexKey: keyof CharacterState; countKey: keyof SpriteCounts; required: boolean; colorKey?: keyof CharacterState }> = {
   body: { label: "종족", indexKey: "bodyIndex", countKey: "bodyCount", required: true }, // 종족 색상 변경 비활성화
-  eye: { label: "눈", indexKey: "eyeIndex", countKey: "eyeCount", required: true, colorKey: "eyeColor" },
+  eye: { label: "눈", indexKey: "eyeIndex", countKey: "eyeCount", required: true }, // 눈 색상은 좌우 분리 (별도 처리)
   hair: { label: "머리", indexKey: "hairIndex", countKey: "hairCount", required: false, colorKey: "hairColor" },
   facehair: { label: "수염", indexKey: "facehairIndex", countKey: "facehairCount", required: false, colorKey: "facehairColor" },
   cloth: { label: "옷", indexKey: "clothIndex", countKey: "clothCount", required: false, colorKey: "clothColor" },
   armor: { label: "갑옷", indexKey: "armorIndex", countKey: "armorCount", required: false, colorKey: "armorColor" },
   pant: { label: "바지", indexKey: "pantIndex", countKey: "pantCount", required: false, colorKey: "pantColor" },
-  helmet: { label: "투구", indexKey: "helmetIndex", countKey: "helmetCount", required: false, colorKey: "helmetColor" },
-  back: { label: "등", indexKey: "backIndex", countKey: "backCount", required: false, colorKey: "backColor" },
+  helmet: { label: "투구", indexKey: "helmetIndex", countKey: "helmetCount", required: false }, // Unity 색상 미구현
+  back: { label: "등", indexKey: "backIndex", countKey: "backCount", required: false }, // Unity 색상 미구현
   // 무기 파츠
   sword: { label: "검", indexKey: "swordIndex", countKey: "swordCount", required: false, colorKey: "swordColor" },
   shield: { label: "방패", indexKey: "shieldIndex", countKey: "shieldCount", required: false, colorKey: "shieldColor" },
@@ -197,6 +197,8 @@ interface AppearanceStore {
   loadAppearance: (appearance: CharacterAppearance, colors: CharacterColors) => void;
   setPart: (type: PartType, index: number) => void;
   setColor: (target: "body" | "eye" | "hair" | "facehair" | "cloth" | "armor" | "pant" | "helmet" | "back", hex: string) => void;
+  setLeftEyeColor: (hex: string) => void;
+  setRightEyeColor: (hex: string) => void;
 
   // 장비 외형 연동
   setEquipmentAppearance: (slot: EquipmentSlot, index: number | null) => void;
@@ -398,6 +400,16 @@ export const useAppearanceStore = create<AppearanceStore>((set, get) => ({
       back: "JS_SetBackColor",
     };
     get().callUnity(methodMap[target], cleanHex);
+  },
+
+  setLeftEyeColor: (hex) => {
+    const cleanHex = hex.replace("#", "");
+    get().callUnity("JS_SetLeftEyeColor", cleanHex);
+  },
+
+  setRightEyeColor: (hex) => {
+    const cleanHex = hex.replace("#", "");
+    get().callUnity("JS_SetRightEyeColor", cleanHex);
   },
 
   // 저장된 캐릭터 외형 로드

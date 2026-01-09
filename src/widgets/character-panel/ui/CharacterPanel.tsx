@@ -2,6 +2,7 @@
 
 import { createContext, useContext, useState, type ReactNode } from "react";
 import type { CharacterPanelHooks, PartType, WeaponPartType, HandType } from "../types";
+import { useAppearanceStore } from "@/application/stores";
 
 // 훅 주입을 위한 컨텍스트
 const HooksContext = createContext<CharacterPanelHooks | null>(null);
@@ -81,10 +82,16 @@ const DEFAULT_COLORS: Partial<Record<PartType, string>> = {
 function PartSelector({ type }: { type: PartType }) {
   const { usePart } = useHooks();
   const { label, current, total, name, hasColor, isRequired, next, prev, clear, setColor } = usePart(type);
+  const { setLeftEyeColor, setRightEyeColor } = useAppearanceStore();
+
   const [showColorPicker, setShowColorPicker] = useState(false);
   const [localColor, setLocalColor] = useState(DEFAULT_COLORS[type] || "#FFFFFF");
+  // 눈 색상 분리용
+  const [leftEyeColor, setLeftEyeLocalColor] = useState(DEFAULT_COLORS.eye || "#6B4226");
+  const [rightEyeColor, setRightEyeLocalColor] = useState(DEFAULT_COLORS.eye || "#6B4226");
 
   const isEmpty = current < 0;
+  const isEye = type === "eye";
 
   // 인덱스 표시: 필수 파츠는 항상 숫자, 선택 파츠는 "없음" 가능
   const displayIndex = isEmpty ? "없음" : `${current + 1}`;
@@ -95,7 +102,29 @@ function PartSelector({ type }: { type: PartType }) {
       <div className="flex items-center justify-between text-sm">
         <div className="flex items-center gap-1">
           <span className="w-10 text-gray-400 text-xs">{label}</span>
-          {hasColor && (
+          {/* 눈: 왼쪽/오른쪽 분리 색상 버튼 */}
+          {isEye && (
+            <>
+              <button
+                onClick={() => setShowColorPicker(!showColorPicker)}
+                className="w-5 h-5 rounded border border-gray-500 text-xs flex items-center justify-center"
+                style={{ backgroundColor: leftEyeColor }}
+                title="왼쪽 눈 색상"
+              >
+                <span className="text-[8px] text-white drop-shadow">L</span>
+              </button>
+              <button
+                onClick={() => setShowColorPicker(!showColorPicker)}
+                className="w-5 h-5 rounded border border-gray-500 text-xs flex items-center justify-center"
+                style={{ backgroundColor: rightEyeColor }}
+                title="오른쪽 눈 색상"
+              >
+                <span className="text-[8px] text-white drop-shadow">R</span>
+              </button>
+            </>
+          )}
+          {/* 일반 색상 버튼 */}
+          {hasColor && !isEye && (
             <button
               onClick={() => setShowColorPicker(!showColorPicker)}
               className="w-5 h-5 rounded border border-gray-500 text-xs"
@@ -128,8 +157,62 @@ function PartSelector({ type }: { type: PartType }) {
         {isEmpty ? "(없음)" : (name || "-")}
       </div>
 
-      {/* 색상 피커 (토글) */}
-      {showColorPicker && hasColor && (
+      {/* 눈 색상 피커 (좌우 분리) */}
+      {showColorPicker && isEye && (
+        <div className="space-y-2 pt-1">
+          {/* 왼쪽 눈 */}
+          <div className="flex items-center gap-1 flex-wrap">
+            <span className="text-xs text-gray-400 w-8">왼쪽</span>
+            <input
+              type="color"
+              value={leftEyeColor}
+              onChange={(e) => {
+                setLeftEyeLocalColor(e.target.value);
+                setLeftEyeColor(e.target.value);
+              }}
+              className="w-6 h-6 rounded cursor-pointer"
+            />
+            {COLOR_PRESETS.slice(0, 5).map((c) => (
+              <button
+                key={`left-${c}`}
+                onClick={() => {
+                  setLeftEyeLocalColor(c);
+                  setLeftEyeColor(c);
+                }}
+                className="w-4 h-4 rounded border border-gray-600"
+                style={{ backgroundColor: c }}
+              />
+            ))}
+          </div>
+          {/* 오른쪽 눈 */}
+          <div className="flex items-center gap-1 flex-wrap">
+            <span className="text-xs text-gray-400 w-8">오른쪽</span>
+            <input
+              type="color"
+              value={rightEyeColor}
+              onChange={(e) => {
+                setRightEyeLocalColor(e.target.value);
+                setRightEyeColor(e.target.value);
+              }}
+              className="w-6 h-6 rounded cursor-pointer"
+            />
+            {COLOR_PRESETS.slice(0, 5).map((c) => (
+              <button
+                key={`right-${c}`}
+                onClick={() => {
+                  setRightEyeLocalColor(c);
+                  setRightEyeColor(c);
+                }}
+                className="w-4 h-4 rounded border border-gray-600"
+                style={{ backgroundColor: c }}
+              />
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* 일반 색상 피커 (토글) */}
+      {showColorPicker && hasColor && !isEye && (
         <div className="flex items-center gap-1 pt-1 flex-wrap">
           <input
             type="color"
