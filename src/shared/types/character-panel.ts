@@ -14,8 +14,11 @@ export interface PartInfo {
   label: string;
   current: number;
   total: number;
+  name: string;
+  hasColor: boolean;
   next: () => void;
   prev: () => void;
+  setColor: (hex: string) => void;
 }
 
 export interface AnimationInfo {

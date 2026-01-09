@@ -47,16 +47,20 @@ export function UnityProvider({ children }: { children: ReactNode }) {
         .then((res) => res.json())
         .then((data) => {
           const names: SpriteNames = {
+            bodyNames: data.bodyNames || [],
+            eyeNames: data.eyeNames || [],
+            hairNames: data.hairNames || [],
+            facehairNames: data.facehairNames || [],
+            clothNames: data.clothNames || [],
+            armorNames: data.armorNames || [],
+            pantNames: data.pantNames || [],
+            helmetNames: data.helmetNames || [],
+            backNames: data.backNames || [],
             swordNames: data.swordNames || [],
             shieldNames: data.shieldNames || [],
             axeNames: data.axeNames || [],
             bowNames: data.bowNames || [],
             wandNames: data.wandNames || [],
-            helmetNames: data.helmetNames || [],
-            pantNames: data.pantNames || [],
-            backNames: data.backNames || [],
-            armorNames: data.armorNames || [],
-            clothNames: data.clothNames || [],
           };
           setSpriteNames(names);
         })

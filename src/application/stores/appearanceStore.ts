@@ -33,16 +33,20 @@ export interface SpriteCounts {
 
 // 스프라이트 이름 데이터 (all-sprites.json)
 export interface SpriteNames {
+  bodyNames: string[];
+  eyeNames: string[];
+  hairNames: string[];
+  facehairNames: string[];
+  clothNames: string[];
+  armorNames: string[];
+  pantNames: string[];
+  helmetNames: string[];
+  backNames: string[];
   swordNames: string[];
   shieldNames: string[];
   axeNames: string[];
   bowNames: string[];
   wandNames: string[];
-  helmetNames: string[];
-  pantNames: string[];
-  backNames: string[];
-  armorNames: string[];
-  clothNames: string[];
 }
 
 // 손별 무기 상태
@@ -200,7 +204,7 @@ interface AppearanceStore {
   clearWeapon: (hand: "left" | "right" | "both") => void;
 
   // Computed (선택자)
-  getPartInfo: (type: PartType) => { label: string; current: number; total: number };
+  getPartInfo: (type: PartType) => { label: string; current: number; total: number; name: string; hasColor: boolean };
   getAnimationInfo: () => { state: string; index: number; total: number; name: string; states: string[] };
 }
 
@@ -612,11 +616,25 @@ export const useAppearanceStore = create<AppearanceStore>((set, get) => ({
 
   // Computed
   getPartInfo: (type) => {
-    const { characterState, spriteCounts } = get();
+    const { characterState, spriteCounts, spriteNames } = get();
     const meta = PART_META[type];
     const current = (characterState?.[meta.indexKey] as number) ?? (meta.required ? 0 : -1);
     const total = (spriteCounts?.[meta.countKey] as number) ?? 0;
-    return { label: meta.label, current, total };
+
+    // 파트 이름 가져오기
+    let name = "";
+    if (spriteNames && current >= 0) {
+      const namesKey = `${type}Names` as keyof SpriteNames;
+      const names = spriteNames[namesKey];
+      if (names) {
+        name = names[current] ?? "";
+      }
+    }
+
+    // 색상 적용 가능 여부
+    const hasColor = !!meta.colorKey;
+
+    return { label: meta.label, current, total, name, hasColor };
   },
 
   getAnimationInfo: () => {
@@ -641,6 +659,13 @@ export function useAppearancePart(type: PartType) {
     ...info,
     next: () => store.nextPart(type),
     prev: () => store.prevPart(type),
+    setColor: (hex: string) => {
+      // 색상 적용 가능한 파츠만
+      const meta = PART_META[type];
+      if (meta.colorKey) {
+        store.setColor(type as "body" | "eye" | "hair" | "facehair" | "cloth" | "armor" | "pant", hex);
+      }
+    },
   };
 }
 
