@@ -72,11 +72,16 @@ function Section({ title, children }: { title: string; children: ReactNode }) {
 
 const COLOR_PRESETS = ["#FF0000", "#00FF00", "#0000FF", "#FFFF00", "#FF00FF", "#00FFFF", "#FFFFFF", "#000000", "#808080", "#FFD700"];
 
-// 파츠별 기본 색상
+// 파츠별 기본 색상 (눈/머리/수염만 갈색, 나머지는 미지정)
 const DEFAULT_COLORS: Partial<Record<PartType, string>> = {
   eye: "#6B4226", // 눈: 갈색
   hair: "#6B4226", // 머리: 갈색
   facehair: "#6B4226", // 수염: 갈색
+};
+
+// 색상 미지정 표시용 체크무늬 스타일
+const UNSET_COLOR_STYLE = {
+  background: "repeating-conic-gradient(#808080 0% 25%, #404040 0% 50%) 50% / 8px 8px",
 };
 
 function PartSelector({ type }: { type: PartType }) {
@@ -85,10 +90,14 @@ function PartSelector({ type }: { type: PartType }) {
   const { setLeftEyeColor, setRightEyeColor } = useAppearanceStore();
 
   const [showColorPicker, setShowColorPicker] = useState(false);
-  const [localColor, setLocalColor] = useState(DEFAULT_COLORS[type] || "#FFFFFF");
+  // 눈/머리/수염은 기본 갈색, 나머지는 미지정("")
+  const [localColor, setLocalColor] = useState(DEFAULT_COLORS[type] || "");
   // 눈 색상 분리용
   const [leftEyeColor, setLeftEyeLocalColor] = useState(DEFAULT_COLORS.eye || "#6B4226");
   const [rightEyeColor, setRightEyeLocalColor] = useState(DEFAULT_COLORS.eye || "#6B4226");
+
+  // 색상이 지정되었는지 여부
+  const hasColorSet = localColor !== "";
 
   const isEmpty = current < 0;
   const isEye = type === "eye";
@@ -128,8 +137,8 @@ function PartSelector({ type }: { type: PartType }) {
             <button
               onClick={() => setShowColorPicker(!showColorPicker)}
               className="w-5 h-5 rounded border border-gray-500 text-xs"
-              style={{ backgroundColor: localColor }}
-              title="색상 변경"
+              style={hasColorSet ? { backgroundColor: localColor } : UNSET_COLOR_STYLE}
+              title={hasColorSet ? "색상 변경" : "색상 미지정 (클릭하여 설정)"}
             />
           )}
           {/* 없음 버튼 (필수 파츠가 아닌 경우에만 표시) */}
@@ -214,9 +223,21 @@ function PartSelector({ type }: { type: PartType }) {
       {/* 일반 색상 피커 (토글) */}
       {showColorPicker && hasColor && !isEye && (
         <div className="flex items-center gap-1 pt-1 flex-wrap">
+          {/* 미지정 버튼 */}
+          <button
+            onClick={() => {
+              setLocalColor("");
+              setColor("");
+            }}
+            className="w-6 h-6 rounded border border-gray-600 text-[8px] text-gray-400"
+            style={UNSET_COLOR_STYLE}
+            title="색상 미지정 (원본)"
+          >
+            ✕
+          </button>
           <input
             type="color"
-            value={localColor}
+            value={localColor || "#FFFFFF"}
             onChange={(e) => {
               setLocalColor(e.target.value);
               setColor(e.target.value);
