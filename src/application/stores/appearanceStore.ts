@@ -203,12 +203,68 @@ export const useAppearanceStore = create<AppearanceStore>((set, get) => ({
 
   // 파츠 조작
   nextPart: (type) => {
-    const method = `JS_Next${type.charAt(0).toUpperCase() + type.slice(1)}`;
-    get().callUnity(method);
+    const weaponTypes: WeaponPartType[] = ["sword", "shield", "axe", "bow", "wand"];
+
+    if (weaponTypes.includes(type as WeaponPartType)) {
+      // 무기는 JS_SetRightWeapon/JS_SetLeftWeapon 사용
+      const { characterState, spriteCounts, callUnity } = get();
+      const meta = PART_META[type];
+      const current = (characterState?.[meta.indexKey] as number) ?? -1;
+      const total = (spriteCounts?.[meta.countKey] as number) ?? 0;
+
+      if (total === 0) return;
+
+      // 다음 인덱스 계산: -1 → 0 → 1 → ... → total-1 → -1
+      const next = current + 1 >= total ? -1 : current + 1;
+
+      // shield는 왼손, 나머지는 오른손
+      const method = type === "shield" ? "JS_SetLeftWeapon" : "JS_SetRightWeapon";
+      const weaponTypeName = type.charAt(0).toUpperCase() + type.slice(1);
+      callUnity(method, `${weaponTypeName},${next}`);
+
+      // 로컬 상태 업데이트
+      set((state) => ({
+        characterState: state.characterState ? {
+          ...state.characterState,
+          [meta.indexKey]: next,
+        } : null,
+      }));
+    } else {
+      const method = `JS_Next${type.charAt(0).toUpperCase() + type.slice(1)}`;
+      get().callUnity(method);
+    }
   },
   prevPart: (type) => {
-    const method = `JS_Prev${type.charAt(0).toUpperCase() + type.slice(1)}`;
-    get().callUnity(method);
+    const weaponTypes: WeaponPartType[] = ["sword", "shield", "axe", "bow", "wand"];
+
+    if (weaponTypes.includes(type as WeaponPartType)) {
+      // 무기는 JS_SetRightWeapon/JS_SetLeftWeapon 사용
+      const { characterState, spriteCounts, callUnity } = get();
+      const meta = PART_META[type];
+      const current = (characterState?.[meta.indexKey] as number) ?? -1;
+      const total = (spriteCounts?.[meta.countKey] as number) ?? 0;
+
+      if (total === 0) return;
+
+      // 이전 인덱스 계산: -1 ← 0 ← 1 ← ... ← total-1
+      const prev = current <= -1 ? total - 1 : current - 1;
+
+      // shield는 왼손, 나머지는 오른손
+      const method = type === "shield" ? "JS_SetLeftWeapon" : "JS_SetRightWeapon";
+      const weaponTypeName = type.charAt(0).toUpperCase() + type.slice(1);
+      callUnity(method, `${weaponTypeName},${prev}`);
+
+      // 로컬 상태 업데이트
+      set((state) => ({
+        characterState: state.characterState ? {
+          ...state.characterState,
+          [meta.indexKey]: prev,
+        } : null,
+      }));
+    } else {
+      const method = `JS_Prev${type.charAt(0).toUpperCase() + type.slice(1)}`;
+      get().callUnity(method);
+    }
   },
 
   // 색상
