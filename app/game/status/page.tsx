@@ -13,10 +13,12 @@ import {
 } from "@/entities/user";
 import { useInventory } from "@/entities/inventory";
 import { useThemeStore } from "@/shared/config";
-import { useProficiencies, WEAPON_PROFICIENCIES, MAGIC_PROFICIENCIES, getRankInfo } from "@/entities/proficiency";
+import { useProficiencies, WEAPON_PROFICIENCIES, MAGIC_PROFICIENCIES, getRankInfo, getProficiencyValue } from "@/entities/proficiency";
 import type { ProficiencyType } from "@/entities/proficiency";
 import { useEquipmentStore } from "@/application/stores";
 import { SLOT_CONFIG, type EquipmentSlot } from "@/entities/item";
+import { useCharacterTraitsWithDetails, TraitList, TRAIT_CATEGORIES, TRAIT_CATEGORY_ORDER, TRAIT_RARITIES, formatTraitEffects } from "@/entities/trait";
+import type { TraitCategory, Trait } from "@/entities/trait";
 
 export default function StatusPage() {
   const router = useRouter();
@@ -28,12 +30,13 @@ export default function StatusPage() {
   const { data: profile, isLoading: profileLoading } = useProfile(session?.user?.id);
   const { data: inventory = [] } = useInventory(session?.user?.id);
   const { data: proficiencies } = useProficiencies(session?.user?.id);
+  const { data: characterTraits = [] } = useCharacterTraitsWithDetails(session?.user?.id);
 
   // 장비 스토어
   const equipmentStore = useEquipmentStore();
 
   // 로컬 UI 상태 (탭 전환)
-  const [activeTab, setActiveTab] = useState<"status" | "proficiency" | "skills" | "equipment" | "inventory">("status");
+  const [activeTab, setActiveTab] = useState<"status" | "traits" | "proficiency" | "skills" | "equipment" | "inventory">("status");
 
   const mainCharacter = getMainCharacter(profile);
 
@@ -68,6 +71,7 @@ export default function StatusPage() {
         <div className="flex gap-1 flex-wrap">
           {[
             { id: "status", label: "상태" },
+            { id: "traits", label: "특성" },
             { id: "proficiency", label: "숙련도" },
             { id: "skills", label: "스킬" },
             { id: "equipment", label: "장비" },
@@ -256,6 +260,51 @@ export default function StatusPage() {
               </div>
             </div>
 
+            {/* 특성 탭 */}
+            <div className={`col-start-1 row-start-1 ${activeTab === "traits" ? "" : "invisible"}`}>
+              {characterTraits.length === 0 ? (
+                <div
+                  className="flex flex-col items-center justify-center h-64 font-mono"
+                  style={{ color: theme.colors.textMuted }}
+                >
+                  <p className="text-4xl mb-4">🏷️</p>
+                  <p>보유한 특성이 없습니다</p>
+                </div>
+              ) : (
+                <div className="space-y-6">
+                  {TRAIT_CATEGORY_ORDER.map((category) => {
+                    const categoryInfo = TRAIT_CATEGORIES[category];
+                    const categoryTraits = characterTraits
+                      .filter((ct) => ct.trait?.category === category)
+                      .map((ct) => ct.trait)
+                      .filter((t): t is Trait => t !== undefined);
+
+                    if (categoryTraits.length === 0) return null;
+
+                    return (
+                      <div key={category}>
+                        <h3
+                          className="text-lg font-mono font-bold mb-3 flex items-center gap-2"
+                          style={{ color: theme.colors.text }}
+                        >
+                          <span>{categoryInfo.icon}</span>
+                          <span>{categoryInfo.nameKo}</span>
+                          <span className="text-sm font-normal" style={{ color: theme.colors.textMuted }}>
+                            ({categoryTraits.length})
+                          </span>
+                        </h3>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                          {categoryTraits.map((trait) => (
+                            <TraitCard key={trait.id} trait={trait} theme={theme} />
+                          ))}
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
+            </div>
+
             {/* 숙련도 탭 */}
             <div className={`col-start-1 row-start-1 ${activeTab === "proficiency" ? "" : "invisible"}`}>
               <div className="space-y-6">
@@ -266,7 +315,7 @@ export default function StatusPage() {
                   </h3>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                     {WEAPON_PROFICIENCIES.map((prof) => {
-                      const level = proficiencies?.[prof.id as ProficiencyType] ?? 0;
+                      const level = getProficiencyValue(proficiencies, prof.id as ProficiencyType) ?? 0;
                       const rank = getRankInfo(level);
                       return (
                         <div
@@ -310,7 +359,7 @@ export default function StatusPage() {
                   </h3>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                     {MAGIC_PROFICIENCIES.map((prof) => {
-                      const level = proficiencies?.[prof.id as ProficiencyType] ?? 0;
+                      const level = getProficiencyValue(proficiencies, prof.id as ProficiencyType) ?? 0;
                       const rank = getRankInfo(level);
                       return (
                         <div
@@ -606,6 +655,64 @@ export default function StatusPage() {
           </div>
         )}
       </div>
+    </div>
+  );
+}
+
+// 특성 카드 컴포넌트
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function TraitCard({ trait, theme }: { trait: Trait; theme: any }) {
+  const rarityInfo = TRAIT_RARITIES[trait.rarity];
+  const effects = formatTraitEffects(trait.effects);
+
+  return (
+    <div
+      className="p-4 rounded"
+      style={{
+        background: theme.colors.bgDark,
+        border: `1px solid ${rarityInfo.color}40`,
+      }}
+    >
+      {/* 헤더 */}
+      <div className="flex items-start gap-3 mb-2">
+        <span className="text-2xl">{trait.icon}</span>
+        <div className="flex-1">
+          <div className="font-mono font-bold" style={{ color: rarityInfo.color }}>
+            {trait.nameKo}
+          </div>
+          <div className="text-xs font-mono" style={{ color: theme.colors.textMuted }}>
+            {rarityInfo.nameKo}
+          </div>
+        </div>
+      </div>
+
+      {/* 설명 */}
+      <p className="text-xs font-mono mb-2" style={{ color: theme.colors.textMuted }}>
+        {trait.description}
+      </p>
+
+      {/* 효과 */}
+      {effects.length > 0 && (
+        <div className="border-t pt-2" style={{ borderColor: theme.colors.border }}>
+          <div className="flex flex-wrap gap-2">
+            {effects.map((effect, i) => {
+              const isNegative = effect.includes("-");
+              return (
+                <span
+                  key={i}
+                  className="text-xs font-mono px-2 py-0.5 rounded"
+                  style={{
+                    background: isNegative ? `${theme.colors.error}20` : `${theme.colors.success}20`,
+                    color: isNegative ? theme.colors.error : theme.colors.success,
+                  }}
+                >
+                  {effect}
+                </span>
+              );
+            })}
+          </div>
+        </div>
+      )}
     </div>
   );
 }

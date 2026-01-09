@@ -292,19 +292,26 @@ function AnimationSelector() {
 
 function ActionButtons() {
   const { useActions } = useHooks();
-  const { randomize, clearAll, resetColors } = useActions();
+  const { randomizeAppearance, randomizeEquipment, clearAll, resetColors } = useActions();
 
   return (
-    <div className="flex gap-2">
-      <button onClick={randomize} className="btn-action flex-1 bg-purple-600">
-        랜덤
-      </button>
-      <button onClick={clearAll} className="btn-action flex-1 bg-gray-600">
-        초기화
-      </button>
-      <button onClick={resetColors} className="btn-action flex-1 bg-gray-600">
-        색상 리셋
-      </button>
+    <div className="space-y-2">
+      <div className="flex gap-2">
+        <button onClick={randomizeAppearance} className="btn-action flex-1 bg-purple-600">
+          외형 랜덤
+        </button>
+        <button onClick={randomizeEquipment} className="btn-action flex-1 bg-indigo-600">
+          장비 랜덤
+        </button>
+      </div>
+      <div className="flex gap-2">
+        <button onClick={clearAll} className="btn-action flex-1 bg-gray-600">
+          초기화
+        </button>
+        <button onClick={resetColors} className="btn-action flex-1 bg-gray-600">
+          색상 리셋
+        </button>
+      </div>
     </div>
   );
 }

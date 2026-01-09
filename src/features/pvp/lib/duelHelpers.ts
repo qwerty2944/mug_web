@@ -1,6 +1,7 @@
 import type { DuelParticipant } from "@/application/stores";
 import { calculateDamage, applyCritical } from "@/features/combat";
 import type { ProficiencyType, CombatProficiencyType } from "@/entities/proficiency";
+import { getProficiencyValue } from "@/entities/proficiency";
 
 // ============ 선공 결정 ============
 
@@ -68,7 +69,7 @@ export function calculatePvpDamage(params: PvpDamageParams): {
     : calculatePvpMagicDefense(defender.stats.wis);
 
   // 숙련도 레벨
-  const proficiencyLevel = attacker.proficiencies[attackType] ?? 0;
+  const proficiencyLevel = getProficiencyValue(attacker.proficiencies, attackType);
 
   // 기본 데미지 계산
   const damage = calculateDamage({

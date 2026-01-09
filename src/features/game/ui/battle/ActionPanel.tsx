@@ -3,8 +3,8 @@
 import { useThemeStore } from "@/shared/config";
 import { useBattleStore, useEquipmentStore } from "@/application/stores";
 import type { Skill } from "@/entities/skill";
-import type { ProficiencyType, CombatProficiencyType, WeaponType } from "@/entities/proficiency";
-import { getProficiencyInfo } from "@/entities/proficiency";
+import type { ProficiencyType, CombatProficiencyType, WeaponType, Proficiencies } from "@/entities/proficiency";
+import { getProficiencyInfo, getProficiencyValue } from "@/entities/proficiency";
 import { useSkills } from "@/entities/skill";
 import type { BattleActionTab } from "./ActionTabs";
 
@@ -13,7 +13,7 @@ export type DefenseAction = "guard" | "dodge" | "counter";
 
 interface ActionPanelProps {
   activeTab: BattleActionTab;
-  proficiencies: Record<ProficiencyType, number>;
+  proficiencies: Proficiencies | undefined;
   onWeaponAttack: (weaponType: CombatProficiencyType) => void;
   onDefenseAction: (action: DefenseAction) => void;
   onCastSkill: (skill: Skill) => void;
@@ -95,7 +95,7 @@ export function ActionPanel({
                   className="text-xs"
                   style={{ color: theme.colors.textMuted }}
                 >
-                  {weaponInfo?.nameKo ?? "무기"} · Lv.{proficiencies[equippedWeaponType] || 0}
+                  {weaponInfo?.nameKo ?? "무기"} · Lv.{getProficiencyValue(proficiencies, equippedWeaponType)}
                 </div>
               </div>
               <div
@@ -275,7 +275,7 @@ export function ActionPanel({
                     key={skill.id}
                     skill={skill}
                     proficiency={
-                      proficiencies[skill.proficiencyType as ProficiencyType] || 0
+                      getProficiencyValue(proficiencies, skill.proficiencyType as ProficiencyType)
                     }
                     canCast={canCast}
                     disabled={disabled || !canCast}

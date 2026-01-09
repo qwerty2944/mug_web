@@ -72,13 +72,12 @@ export type ProficiencyRank =
   | "master"
   | "grandmaster";
 
-// ============ 숙련도 데이터 ============
+// ============ 숙련도 데이터 (카테고리별 JSONB) ============
 
-export interface Proficiencies {
-  // 무기 숙련
-  light_sword: number; // 세검
-  medium_sword: number; // 중검
-  great_sword: number; // 대검
+export interface WeaponProficiencies {
+  light_sword: number;
+  medium_sword: number;
+  great_sword: number;
   axe: number;
   mace: number;
   dagger: number;
@@ -87,30 +86,76 @@ export interface Proficiencies {
   crossbow: number;
   staff: number;
   fist: number;
-  // 마법 숙련
+}
+
+export interface MagicProficiencies {
   fire: number;
   ice: number;
   lightning: number;
   earth: number;
   holy: number;
   dark: number;
-  poison: number; // 독속성 숙련
-  // 제작 스킬 숙련
-  blacksmithing: number;  // 대장장이
-  tailoring: number;      // 재봉
-  cooking: number;        // 요리
-  alchemy: number;        // 연금
-  jewelcrafting: number;  // 보석세공
-  // 의료 스킬 숙련
-  first_aid: number;      // 응급처치
-  herbalism: number;      // 약초학
-  surgery: number;        // 수술
-  // 지식 스킬 숙련
-  anatomy: number;        // 해부학
-  metallurgy: number;     // 금속학
-  botany: number;         // 식물학
-  gemology: number;       // 보석학
+  poison: number;
 }
+
+export interface CraftingProficiencies {
+  blacksmithing: number;
+  tailoring: number;
+  cooking: number;
+  alchemy: number;
+  jewelcrafting: number;
+}
+
+export interface MedicalProficiencies {
+  first_aid: number;
+  herbalism: number;
+  surgery: number;
+}
+
+export interface KnowledgeProficiencies {
+  anatomy: number;
+  metallurgy: number;
+  botany: number;
+  gemology: number;
+}
+
+export interface Proficiencies {
+  weapon: WeaponProficiencies;
+  magic: MagicProficiencies;
+  crafting: CraftingProficiencies;
+  medical: MedicalProficiencies;
+  knowledge: KnowledgeProficiencies;
+}
+
+// 기본값
+export const DEFAULT_WEAPON_PROFICIENCIES: WeaponProficiencies = {
+  light_sword: 0, medium_sword: 0, great_sword: 0, axe: 0, mace: 0,
+  dagger: 0, spear: 0, bow: 0, crossbow: 0, staff: 0, fist: 0,
+};
+
+export const DEFAULT_MAGIC_PROFICIENCIES: MagicProficiencies = {
+  fire: 0, ice: 0, lightning: 0, earth: 0, holy: 0, dark: 0, poison: 0,
+};
+
+export const DEFAULT_CRAFTING_PROFICIENCIES: CraftingProficiencies = {
+  blacksmithing: 0, tailoring: 0, cooking: 0, alchemy: 0, jewelcrafting: 0,
+};
+
+export const DEFAULT_MEDICAL_PROFICIENCIES: MedicalProficiencies = {
+  first_aid: 0, herbalism: 0, surgery: 0,
+};
+
+export const DEFAULT_KNOWLEDGE_PROFICIENCIES: KnowledgeProficiencies = {
+  anatomy: 0, metallurgy: 0, botany: 0, gemology: 0,
+};
+
+export const DEFAULT_PROFICIENCIES: Proficiencies = {
+  weapon: DEFAULT_WEAPON_PROFICIENCIES,
+  magic: DEFAULT_MAGIC_PROFICIENCIES,
+  crafting: DEFAULT_CRAFTING_PROFICIENCIES,
+  medical: DEFAULT_MEDICAL_PROFICIENCIES,
+  knowledge: DEFAULT_KNOWLEDGE_PROFICIENCIES,
+};
 
 // ============ 메타 정보 ============
 

@@ -1,0 +1,697 @@
+{
+  "traits": [
+    {
+      "id": "heterochromia",
+      "nameKo": "오드아이",
+      "nameEn": "Heterochromia",
+      "description": "양쪽 눈의 색이 다른 희귀한 외모. 신비로운 느낌을 준다.",
+      "icon": "👁️",
+      "category": "appearance",
+      "rarity": "rare",
+      "effects": {
+        "statModifiers": { "cha": 2 },
+        "specialEffects": [
+          { "type": "magic_damage", "value": 5, "isPercentage": true }
+        ],
+        "npcReactions": [
+          { "type": "priest", "modifier": 10 },
+          { "type": "commoner", "modifier": -5 }
+        ]
+      },
+      "requirements": [
+        { "type": "appearance", "appearance": { "type": "odd_eyes" }, "description": "눈 색깔이 서로 다름" }
+      ]
+    },
+    {
+      "id": "beautiful",
+      "nameKo": "미인",
+      "nameEn": "Beautiful",
+      "description": "타고난 아름다운 외모. 사람들의 시선을 사로잡는다.",
+      "icon": "✨",
+      "category": "appearance",
+      "rarity": "uncommon",
+      "effects": {
+        "statModifiers": { "cha": 3 },
+        "specialEffects": [
+          { "type": "persuasion", "value": 10, "isPercentage": true }
+        ],
+        "npcReactions": [
+          { "type": "noble", "modifier": 10 },
+          { "type": "merchant", "modifier": 5 }
+        ]
+      },
+      "conflicts": [
+        { "traitId": "scarred", "reason": "흉터가 아름다움을 가린다" }
+      ]
+    },
+    {
+      "id": "giant",
+      "nameKo": "거인",
+      "nameEn": "Giant",
+      "description": "평균보다 훨씬 큰 체격. 힘은 강하지만 민첩하지 못하다.",
+      "icon": "🗿",
+      "category": "appearance",
+      "rarity": "uncommon",
+      "effects": {
+        "statModifiers": { "str": 2, "con": 1, "dex": -1 },
+        "specialEffects": [
+          { "type": "intimidation", "value": 10, "isPercentage": true }
+        ]
+      },
+      "requirements": [
+        { "type": "appearance", "appearance": { "type": "body_type", "value": "large" }, "description": "대형 체형" }
+      ],
+      "conflicts": [
+        { "traitId": "small", "reason": "거인과 소인은 양립 불가" }
+      ]
+    },
+    {
+      "id": "small",
+      "nameKo": "소인",
+      "nameEn": "Small",
+      "description": "평균보다 작은 체격. 민첩하지만 힘이 약하다.",
+      "icon": "🐁",
+      "category": "appearance",
+      "rarity": "uncommon",
+      "effects": {
+        "statModifiers": { "dex": 2, "str": -1 },
+        "specialEffects": [
+          { "type": "dodge_chance", "value": 5, "isPercentage": true }
+        ]
+      },
+      "requirements": [
+        { "type": "appearance", "appearance": { "type": "body_type", "value": "small" }, "description": "소형 체형" }
+      ],
+      "conflicts": [
+        { "traitId": "giant", "reason": "소인과 거인은 양립 불가" }
+      ]
+    },
+    {
+      "id": "scarred",
+      "nameKo": "흉터투성이",
+      "nameEn": "Scarred",
+      "description": "전투의 흔적이 얼굴과 몸에 남아있다. 위협적인 인상을 준다.",
+      "icon": "🩹",
+      "category": "appearance",
+      "rarity": "common",
+      "effects": {
+        "statModifiers": { "cha": -1 },
+        "specialEffects": [
+          { "type": "intimidation", "value": 5, "isPercentage": true }
+        ],
+        "npcReactions": [
+          { "type": "guard", "modifier": 5 },
+          { "type": "criminal", "modifier": 10 }
+        ]
+      },
+      "requirements": [
+        { "type": "event", "description": "전투에서 부상" }
+      ],
+      "conflicts": [
+        { "traitId": "beautiful", "reason": "흉터가 아름다움을 가린다" }
+      ]
+    },
+    {
+      "id": "albino",
+      "nameKo": "알비노",
+      "nameEn": "Albino",
+      "description": "하얀 피부와 머리카락, 붉은 눈을 가진 희귀한 외모.",
+      "icon": "🐇",
+      "category": "appearance",
+      "rarity": "rare",
+      "effects": {
+        "statModifiers": { "cha": 1 },
+        "specialEffects": [
+          { "type": "holy_resistance", "value": 15, "isPercentage": true },
+          { "type": "dark_resistance", "value": -15, "isPercentage": true },
+          { "type": "day_bonus", "value": -10, "isPercentage": true }
+        ],
+        "npcReactions": [
+          { "type": "priest", "modifier": 15 }
+        ]
+      },
+      "requirements": [
+        { "type": "appearance", "appearance": { "type": "hair_color", "value": "white" }, "description": "흰 머리카락" }
+      ]
+    },
+    {
+      "id": "brave",
+      "nameKo": "용감함",
+      "nameEn": "Brave",
+      "description": "두려움을 모르는 성격. 위험 앞에서도 물러서지 않는다.",
+      "icon": "🦁",
+      "category": "personality",
+      "rarity": "uncommon",
+      "effects": {
+        "specialEffects": [
+          { "type": "fear_resistance", "value": 50, "isPercentage": true },
+          { "type": "flee_chance", "value": -20, "isPercentage": true }
+        ],
+        "npcReactions": [
+          { "type": "guard", "modifier": 10 }
+        ]
+      },
+      "conflicts": [
+        { "traitId": "coward", "reason": "용감함과 겁쟁이는 양립 불가" }
+      ]
+    },
+    {
+      "id": "coward",
+      "nameKo": "겁쟁이",
+      "nameEn": "Coward",
+      "description": "위험을 피하는 것이 최우선. 도망치는 것도 생존 전략이다.",
+      "icon": "🐔",
+      "category": "personality",
+      "rarity": "common",
+      "effects": {
+        "specialEffects": [
+          { "type": "flee_chance", "value": 20, "isPercentage": true },
+          { "type": "fear_resistance", "value": -30, "isPercentage": true }
+        ],
+        "npcReactions": [
+          { "type": "guard", "modifier": -10 }
+        ]
+      },
+      "conflicts": [
+        { "traitId": "brave", "reason": "겁쟁이와 용감함은 양립 불가" }
+      ]
+    },
+    {
+      "id": "greedy",
+      "nameKo": "탐욕",
+      "nameEn": "Greedy",
+      "description": "재물에 대한 강한 집착. 더 많은 금화를 원한다.",
+      "icon": "💰",
+      "category": "personality",
+      "rarity": "common",
+      "effects": {
+        "specialEffects": [
+          { "type": "gold_gain", "value": 10, "isPercentage": true },
+          { "type": "purchase_cost", "value": 5, "isPercentage": true }
+        ],
+        "npcReactions": [
+          { "type": "merchant", "modifier": -10 }
+        ]
+      },
+      "conflicts": [
+        { "traitId": "generous", "reason": "탐욕과 관대함은 양립 불가" }
+      ]
+    },
+    {
+      "id": "generous",
+      "nameKo": "관대함",
+      "nameEn": "Generous",
+      "description": "나눔을 좋아하는 성격. 사람들의 호감을 산다.",
+      "icon": "🎁",
+      "category": "personality",
+      "rarity": "common",
+      "effects": {
+        "specialEffects": [
+          { "type": "gold_gain", "value": -5, "isPercentage": true },
+          { "type": "purchase_cost", "value": -10, "isPercentage": true }
+        ],
+        "npcReactions": [
+          { "type": "commoner", "modifier": 15 },
+          { "type": "merchant", "modifier": 10 }
+        ]
+      },
+      "conflicts": [
+        { "traitId": "greedy", "reason": "관대함과 탐욕은 양립 불가" }
+      ]
+    },
+    {
+      "id": "kind",
+      "nameKo": "친절함",
+      "nameEn": "Kind",
+      "description": "타인을 배려하는 따뜻한 마음. 치유의 효과가 증가한다.",
+      "icon": "💗",
+      "category": "personality",
+      "rarity": "common",
+      "effects": {
+        "specialEffects": [
+          { "type": "healing_power", "value": 10, "isPercentage": true }
+        ],
+        "npcReactions": [
+          { "type": "commoner", "modifier": 10 },
+          { "type": "priest", "modifier": 10 }
+        ]
+      },
+      "conflicts": [
+        { "traitId": "cruel", "reason": "친절함과 잔인함은 양립 불가" }
+      ]
+    },
+    {
+      "id": "cruel",
+      "nameKo": "잔인함",
+      "nameEn": "Cruel",
+      "description": "냉혹하고 무자비한 성격. 적에게 더 큰 피해를 준다.",
+      "icon": "💀",
+      "category": "personality",
+      "rarity": "uncommon",
+      "effects": {
+        "specialEffects": [
+          { "type": "physical_damage", "value": 5, "isPercentage": true },
+          { "type": "healing_power", "value": -10, "isPercentage": true }
+        ],
+        "npcReactions": [
+          { "type": "commoner", "modifier": -15 },
+          { "type": "criminal", "modifier": 15 }
+        ]
+      },
+      "conflicts": [
+        { "traitId": "kind", "reason": "잔인함과 친절함은 양립 불가" }
+      ]
+    },
+    {
+      "id": "patient",
+      "nameKo": "인내",
+      "nameEn": "Patient",
+      "description": "차분하고 인내심이 강한 성격. 숙련도를 더 빨리 습득한다.",
+      "icon": "🧘",
+      "category": "personality",
+      "rarity": "common",
+      "effects": {
+        "specialEffects": [
+          { "type": "proficiency_gain", "value": 10, "isPercentage": true }
+        ]
+      },
+      "conflicts": [
+        { "traitId": "hasty", "reason": "인내와 성급함은 양립 불가" }
+      ]
+    },
+    {
+      "id": "hasty",
+      "nameKo": "성급함",
+      "nameEn": "Hasty",
+      "description": "참을성이 없는 성격. 빠르지만 실수가 많다.",
+      "icon": "⚡",
+      "category": "personality",
+      "rarity": "common",
+      "effects": {
+        "statModifiers": { "dex": 1 },
+        "specialEffects": [
+          { "type": "accuracy", "value": -5, "isPercentage": true }
+        ]
+      },
+      "conflicts": [
+        { "traitId": "patient", "reason": "성급함과 인내는 양립 불가" }
+      ]
+    },
+    {
+      "id": "robust",
+      "nameKo": "건장함",
+      "nameEn": "Robust",
+      "description": "튼튼한 체질. 질병과 독에 강한 저항력을 가진다.",
+      "icon": "💪",
+      "category": "health",
+      "rarity": "uncommon",
+      "effects": {
+        "statModifiers": { "con": 2 },
+        "specialEffects": [
+          { "type": "disease_resistance", "value": 30, "isPercentage": true },
+          { "type": "poison_resistance", "value": 20, "isPercentage": true }
+        ]
+      },
+      "requirements": [
+        { "type": "stat", "stat": { "stat": "con", "operator": ">=", "value": 15 }, "description": "CON 15 이상" }
+      ],
+      "conflicts": [
+        { "traitId": "frail", "reason": "건장함과 허약함은 양립 불가" }
+      ]
+    },
+    {
+      "id": "frail",
+      "nameKo": "허약함",
+      "nameEn": "Frail",
+      "description": "약한 체질. 질병과 독에 취약하다.",
+      "icon": "🤒",
+      "category": "health",
+      "rarity": "common",
+      "effects": {
+        "statModifiers": { "con": -2 },
+        "specialEffects": [
+          { "type": "disease_resistance", "value": -30, "isPercentage": true },
+          { "type": "poison_resistance", "value": -20, "isPercentage": true }
+        ]
+      },
+      "requirements": [
+        { "type": "stat", "stat": { "stat": "con", "operator": "<=", "value": 8 }, "description": "CON 8 이하" }
+      ],
+      "conflicts": [
+        { "traitId": "robust", "reason": "허약함과 건장함은 양립 불가" }
+      ]
+    },
+    {
+      "id": "disease_immune",
+      "nameKo": "면역체질",
+      "nameEn": "Disease Immune",
+      "description": "질병에 걸리지 않는 특이 체질.",
+      "icon": "🛡️",
+      "category": "health",
+      "rarity": "legendary",
+      "effects": {
+        "specialEffects": [
+          { "type": "disease_resistance", "value": 100, "isPercentage": true }
+        ]
+      },
+      "hidden": true
+    },
+    {
+      "id": "night_owl",
+      "nameKo": "야행성",
+      "nameEn": "Night Owl",
+      "description": "밤에 더 활동적인 체질. 낮에는 다소 둔하다.",
+      "icon": "🦉",
+      "category": "health",
+      "rarity": "uncommon",
+      "effects": {
+        "specialEffects": [
+          { "type": "night_bonus", "value": 15, "isPercentage": true },
+          { "type": "day_bonus", "value": -10, "isPercentage": true }
+        ]
+      },
+      "conflicts": [
+        { "traitId": "early_bird", "reason": "야행성과 주행성은 양립 불가" }
+      ]
+    },
+    {
+      "id": "early_bird",
+      "nameKo": "주행성",
+      "nameEn": "Early Bird",
+      "description": "낮에 더 활동적인 체질. 밤에는 다소 둔하다.",
+      "icon": "🐓",
+      "category": "health",
+      "rarity": "common",
+      "effects": {
+        "specialEffects": [
+          { "type": "day_bonus", "value": 15, "isPercentage": true },
+          { "type": "night_bonus", "value": -10, "isPercentage": true }
+        ]
+      },
+      "conflicts": [
+        { "traitId": "night_owl", "reason": "주행성과 야행성은 양립 불가" }
+      ]
+    },
+    {
+      "id": "quick_recovery",
+      "nameKo": "빠른 회복",
+      "nameEn": "Quick Recovery",
+      "description": "상처가 빨리 낫는 체질. HP 회복량이 증가한다.",
+      "icon": "💊",
+      "category": "health",
+      "rarity": "uncommon",
+      "effects": {
+        "specialEffects": [
+          { "type": "healing_power", "value": 15, "isPercentage": true }
+        ]
+      }
+    },
+    {
+      "id": "genius",
+      "nameKo": "천재",
+      "nameEn": "Genius",
+      "description": "타고난 지능. 학습이 빠르고 마법에 강하다.",
+      "icon": "🧠",
+      "category": "talent",
+      "rarity": "rare",
+      "effects": {
+        "statModifiers": { "int": 3 },
+        "specialEffects": [
+          { "type": "proficiency_gain", "value": 20, "isPercentage": true },
+          { "type": "exp_gain", "value": 10, "isPercentage": true }
+        ]
+      },
+      "requirements": [
+        { "type": "stat", "stat": { "stat": "int", "operator": ">=", "value": 18 }, "description": "INT 18 이상" }
+      ]
+    },
+    {
+      "id": "natural_warrior",
+      "nameKo": "타고난 전사",
+      "nameEn": "Natural Warrior",
+      "description": "전투에 대한 타고난 재능. 무기 숙련도가 빨리 오른다.",
+      "icon": "⚔️",
+      "category": "talent",
+      "rarity": "uncommon",
+      "effects": {
+        "specialEffects": [
+          { "type": "proficiency_gain", "value": 15, "isPercentage": true },
+          { "type": "physical_damage", "value": 5, "isPercentage": true }
+        ]
+      },
+      "requirements": [
+        { "type": "stat", "stat": { "stat": "str", "operator": ">=", "value": 14 }, "description": "STR 14 이상" }
+      ]
+    },
+    {
+      "id": "left_handed",
+      "nameKo": "왼손잡이",
+      "nameEn": "Left-Handed",
+      "description": "왼손을 주로 사용하는 특성. 적의 예상을 빗나가게 한다.",
+      "icon": "🤚",
+      "category": "talent",
+      "rarity": "uncommon",
+      "effects": {
+        "specialEffects": [
+          { "type": "accuracy", "value": 5, "isPercentage": true }
+        ]
+      },
+      "requirements": [
+        { "type": "handedness", "handedness": "left", "description": "왼손잡이" }
+      ],
+      "conflicts": [
+        { "traitId": "ambidextrous", "reason": "왼손잡이와 양손잡이는 양립 불가" }
+      ]
+    },
+    {
+      "id": "ambidextrous",
+      "nameKo": "양손잡이",
+      "nameEn": "Ambidextrous",
+      "description": "양손을 자유자재로 사용할 수 있는 재능.",
+      "icon": "🙌",
+      "category": "talent",
+      "rarity": "rare",
+      "effects": {
+        "specialEffects": [
+          { "type": "dual_wield", "value": 15, "isPercentage": true }
+        ]
+      },
+      "requirements": [
+        { "type": "handedness", "handedness": "ambidextrous", "description": "양손잡이" }
+      ],
+      "conflicts": [
+        { "traitId": "left_handed", "reason": "양손잡이와 왼손잡이는 양립 불가" }
+      ]
+    },
+    {
+      "id": "lucky",
+      "nameKo": "행운아",
+      "nameEn": "Lucky",
+      "description": "타고난 행운. 좋은 일이 자주 일어난다.",
+      "icon": "🍀",
+      "category": "talent",
+      "rarity": "rare",
+      "effects": {
+        "statModifiers": { "lck": 3 },
+        "specialEffects": [
+          { "type": "rare_drop", "value": 10, "isPercentage": true },
+          { "type": "critical_chance", "value": 5, "isPercentage": true }
+        ]
+      },
+      "requirements": [
+        { "type": "stat", "stat": { "stat": "lck", "operator": ">=", "value": 15 }, "description": "LCK 15 이상" }
+      ]
+    },
+    {
+      "id": "quick_learner",
+      "nameKo": "빠른 학습",
+      "nameEn": "Quick Learner",
+      "description": "새로운 것을 빨리 배우는 재능.",
+      "icon": "📚",
+      "category": "talent",
+      "rarity": "uncommon",
+      "effects": {
+        "specialEffects": [
+          { "type": "exp_gain", "value": 15, "isPercentage": true },
+          { "type": "proficiency_gain", "value": 10, "isPercentage": true }
+        ]
+      }
+    },
+    {
+      "id": "iron_will",
+      "nameKo": "강철 의지",
+      "nameEn": "Iron Will",
+      "description": "굳은 의지력. 정신적 공격에 강한 저항력을 가진다.",
+      "icon": "🏛️",
+      "category": "talent",
+      "rarity": "uncommon",
+      "effects": {
+        "statModifiers": { "wis": 2 },
+        "specialEffects": [
+          { "type": "fear_resistance", "value": 30, "isPercentage": true }
+        ]
+      },
+      "requirements": [
+        { "type": "stat", "stat": { "stat": "wis", "operator": ">=", "value": 14 }, "description": "WIS 14 이상" }
+      ]
+    },
+    {
+      "id": "blessed",
+      "nameKo": "축복받은 자",
+      "nameEn": "Blessed",
+      "description": "신의 축복을 받은 자. 신성한 힘에 친화적이다.",
+      "icon": "🙏",
+      "category": "misc",
+      "rarity": "rare",
+      "effects": {
+        "statModifiers": { "lck": 2 },
+        "specialEffects": [
+          { "type": "dark_resistance", "value": 25, "isPercentage": true },
+          { "type": "holy_resistance", "value": 25, "isPercentage": true },
+          { "type": "magic_damage", "value": 10, "isPercentage": true }
+        ],
+        "npcReactions": [
+          { "type": "priest", "modifier": 20 }
+        ]
+      },
+      "requirements": [
+        { "type": "event", "description": "특별한 이벤트" }
+      ],
+      "conflicts": [
+        { "traitId": "cursed", "reason": "축복과 저주는 양립 불가" }
+      ]
+    },
+    {
+      "id": "cursed",
+      "nameKo": "저주받은 자",
+      "nameEn": "Cursed",
+      "description": "어둠의 저주가 내려진 자. 불운이 따라다닌다.",
+      "icon": "☠️",
+      "category": "misc",
+      "rarity": "uncommon",
+      "effects": {
+        "statModifiers": { "lck": -3 },
+        "specialEffects": [
+          { "type": "dark_resistance", "value": -25, "isPercentage": true }
+        ],
+        "npcReactions": [
+          { "type": "priest", "modifier": -20 },
+          { "type": "criminal", "modifier": 10 }
+        ]
+      },
+      "requirements": [
+        { "type": "event", "description": "저주 이벤트" }
+      ],
+      "conflicts": [
+        { "traitId": "blessed", "reason": "저주와 축복은 양립 불가" }
+      ]
+    },
+    {
+      "id": "noble_blood",
+      "nameKo": "귀족 혈통",
+      "nameEn": "Noble Blood",
+      "description": "명문가의 피가 흐른다. 귀족들에게 호감을 산다.",
+      "icon": "👑",
+      "category": "misc",
+      "rarity": "uncommon",
+      "effects": {
+        "statModifiers": { "cha": 2 },
+        "specialEffects": [
+          { "type": "persuasion", "value": 10, "isPercentage": true }
+        ],
+        "npcReactions": [
+          { "type": "noble", "modifier": 20 },
+          { "type": "commoner", "modifier": -5 }
+        ]
+      },
+      "requirements": [
+        { "type": "birth", "description": "캐릭터 생성 시 선택" }
+      ]
+    },
+    {
+      "id": "commoner_born",
+      "nameKo": "평민 출신",
+      "nameEn": "Commoner Born",
+      "description": "평범한 가정에서 태어났다. 평민들과 잘 어울린다.",
+      "icon": "🏠",
+      "category": "misc",
+      "rarity": "common",
+      "effects": {
+        "specialEffects": [
+          { "type": "purchase_cost", "value": -5, "isPercentage": true }
+        ],
+        "npcReactions": [
+          { "type": "commoner", "modifier": 15 },
+          { "type": "noble", "modifier": -10 }
+        ]
+      },
+      "requirements": [
+        { "type": "birth", "description": "캐릭터 생성 시 기본" }
+      ]
+    },
+    {
+      "id": "dragonblood",
+      "nameKo": "용의 피",
+      "nameEn": "Dragonblood",
+      "description": "용의 피가 흐르는 자. 화염에 강하고 화염 마법이 강화된다.",
+      "icon": "🐉",
+      "category": "misc",
+      "rarity": "legendary",
+      "effects": {
+        "specialEffects": [
+          { "type": "fire_resistance", "value": 50, "isPercentage": true },
+          { "type": "magic_damage", "value": 20, "isPercentage": true }
+        ],
+        "npcReactions": [
+          { "type": "monster", "modifier": -20 }
+        ]
+      },
+      "requirements": [
+        { "type": "hidden", "description": "히든 조건" }
+      ],
+      "hidden": true
+    },
+    {
+      "id": "outlaw",
+      "nameKo": "무법자",
+      "nameEn": "Outlaw",
+      "description": "법의 테두리 밖에 있는 자. 범죄자들과 잘 어울린다.",
+      "icon": "🎭",
+      "category": "misc",
+      "rarity": "uncommon",
+      "effects": {
+        "specialEffects": [
+          { "type": "flee_chance", "value": 10, "isPercentage": true }
+        ],
+        "npcReactions": [
+          { "type": "criminal", "modifier": 20 },
+          { "type": "guard", "modifier": -20 }
+        ]
+      },
+      "requirements": [
+        { "type": "event", "description": "범죄 행위" }
+      ]
+    },
+    {
+      "id": "merchant_blood",
+      "nameKo": "상인의 피",
+      "nameEn": "Merchant Blood",
+      "description": "상인 가문 출신. 거래에 능하다.",
+      "icon": "💎",
+      "category": "misc",
+      "rarity": "uncommon",
+      "effects": {
+        "specialEffects": [
+          { "type": "gold_gain", "value": 15, "isPercentage": true },
+          { "type": "purchase_cost", "value": -10, "isPercentage": true }
+        ],
+        "npcReactions": [
+          { "type": "merchant", "modifier": 15 }
+        ]
+      },
+      "requirements": [
+        { "type": "birth", "description": "캐릭터 생성 시 선택" }
+      ]
+    }
+  ]
+}

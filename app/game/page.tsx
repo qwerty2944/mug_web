@@ -98,15 +98,12 @@ export default function GamePage() {
     }
 
     if (profile && !profileLoading) {
-      if (!profile.characters?.length) {
+      if (!profile.character) {
         router.push("/character-create");
         return;
       }
 
-      const main = getMainCharacter(profile);
-      if (main) {
-        setMyCharacterName(main.name);
-      }
+      setMyCharacterName(profile.character.name);
     }
   }, [session, profile, profileLoading, router, setMyCharacterName]);
 
@@ -454,7 +451,7 @@ export default function GamePage() {
       {battle.isInBattle && mainCharacter?.stats && (
         <BattlePanel
           characterStats={mainCharacter.stats}
-          proficiencies={proficiencies || ({} as Record<ProficiencyType, number>)}
+          proficiencies={proficiencies}
           onFlee={handleFlee}
           onVictory={handleVictory}
           onDefeat={handleDefeat}

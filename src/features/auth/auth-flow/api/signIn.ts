@@ -24,11 +24,11 @@ export async function signIn(params: SignInParams): Promise<SignInResult> {
   // 캐릭터 존재 여부 확인
   const { data: profile } = await supabase
     .from("profiles")
-    .select("characters")
+    .select("character")
     .eq("id", authData.user.id)
     .single();
 
-  const hasCharacter = profile?.characters && profile.characters.length > 0;
+  const hasCharacter = profile?.character !== null;
 
   return {
     userId: authData.user.id,

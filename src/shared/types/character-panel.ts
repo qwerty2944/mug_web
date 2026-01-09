@@ -49,6 +49,8 @@ export interface WeaponColorInfo {
 
 export interface CharacterActions {
   randomize: () => void;
+  randomizeAppearance: () => void;
+  randomizeEquipment: () => void;
   clearAll: () => void;
   resetColors: () => void;
 }

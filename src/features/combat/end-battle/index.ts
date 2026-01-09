@@ -28,6 +28,7 @@ import {
   calculateProficiencyGain,
   canGainProficiency,
   useProficiencies,
+  getProficiencyValue,
 } from "@/entities/proficiency";
 import {
   checkInjuryOccurrence,
@@ -95,7 +96,7 @@ export function useEndBattle(options: UseEndBattleOptions) {
     let proficiencyGain: BattleRewards["proficiencyGain"] = undefined;
     if (currentBattle.usedWeaponType && currentBattle.monster) {
       const profType = currentBattle.usedWeaponType as ProficiencyType;
-      const currentProf = proficiencies?.[profType as keyof typeof proficiencies] ?? 0;
+      const currentProf = getProficiencyValue(proficiencies, profType) ?? 0;
       const monsterLevel = currentBattle.monster.level;
 
       // 레벨 기반 숙련도 획득 계산
@@ -270,7 +271,7 @@ export function useEndBattle(options: UseEndBattleOptions) {
       }
 
       // 2. 귀환 위치 결정 (종교 제단 또는 시작 마을)
-      const respawnMapId = await getRespawnLocation(profile.religionId);
+      const respawnMapId = await getRespawnLocation(profile.religion?.id ?? null);
       const respawnMap = getMapById(maps, respawnMapId);
       const respawnMapName = respawnMap ? getMapDisplayName(respawnMap) : "시작 마을";
 

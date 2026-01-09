@@ -17,6 +17,22 @@ export type {
   KnowledgeType,
   LifeSkillType,
   CombatProficiencyType,
+  // 카테고리별 숙련도 인터페이스
+  WeaponProficiencies,
+  MagicProficiencies,
+  CraftingProficiencies,
+  MedicalProficiencies,
+  KnowledgeProficiencies,
+} from "./types";
+
+// Default values
+export {
+  DEFAULT_PROFICIENCIES,
+  DEFAULT_WEAPON_PROFICIENCIES,
+  DEFAULT_MAGIC_PROFICIENCIES,
+  DEFAULT_CRAFTING_PROFICIENCIES,
+  DEFAULT_MEDICAL_PROFICIENCIES,
+  DEFAULT_KNOWLEDGE_PROFICIENCIES,
 } from "./types";
 
 // Constants
@@ -73,6 +89,8 @@ export {
   fetchProficiencies,
   increaseProficiency,
   setProficiency,
+  getCategoryForType,
+  getProficiencyValue,
 } from "./api";
 
 // Queries

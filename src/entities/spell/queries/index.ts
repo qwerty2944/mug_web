@@ -1,5 +1,5 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import type { MagicElement } from "@/entities/proficiency";
+import type { MagicElement, MagicProficiencies } from "@/entities/proficiency";
 import type { Spell, SpellProficiency, SpellType } from "../types";
 import {
   fetchSpells,
@@ -177,7 +177,7 @@ export function useAvailableSpells(
     karma?: number;
     piety?: number;
     religion?: string;
-    proficiencies?: Record<MagicElement, number>;
+    proficiencies?: MagicProficiencies;
   }
 ) {
   const { data: spells, isLoading } = useSpells();

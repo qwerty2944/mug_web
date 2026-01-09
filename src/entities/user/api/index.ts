@@ -1,5 +1,5 @@
 import { supabase } from "@/shared/api";
-import type { UserProfile, CrystalTier } from "../types";
+import type { UserProfile, CrystalTier, ReligionData } from "../types";
 import type { CharacterInjury } from "@/entities/injury";
 import { filterNaturallyHealedInjuries } from "@/entities/injury";
 
@@ -41,7 +41,7 @@ export async function fetchProfile(userId: string): Promise<UserProfile> {
     staminaUpdatedAt: data.stamina_updated_at || new Date().toISOString(),
     isPremium: data.is_premium || false,
     premiumUntil: data.premium_until,
-    characters: data.characters || [],
+    character: data.character || null,
     buffs: data.buffs || [],
     currentMapId: data.current_map_id || "town_square",
     whisperCharges: data.whisper_charges || 0,
@@ -49,7 +49,7 @@ export async function fetchProfile(userId: string): Promise<UserProfile> {
     currentHp: data.current_hp ?? null,
     currentMp: data.current_mp ?? null,
     injuries,
-    religionId: data.religion_id || null,
+    religion: data.religion as ReligionData | null,
   };
 }
 

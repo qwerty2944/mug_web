@@ -28,11 +28,10 @@ export function useProfile(userId: string | undefined) {
 // ============ Helper Functions ============
 
 /**
- * 메인 캐릭터 가져오기
+ * 캐릭터 가져오기
  */
 export function getMainCharacter(profile: UserProfile | undefined): SavedCharacter | null {
-  if (!profile?.characters?.length) return null;
-  return profile.characters.find((c) => c.isMain) || profile.characters[0];
+  return profile?.character ?? null;
 }
 
 /**

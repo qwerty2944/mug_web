@@ -1,6 +1,14 @@
 import type { SavedCharacter } from "@/entities/character";
 import type { CharacterInjury } from "@/entities/injury";
 
+// ============ 종교 타입 ============
+
+export interface ReligionData {
+  id: string;
+  piety: number;
+  joinedAt: string;
+}
+
 // ============ 프로필 타입 ============
 
 export type CrystalTier = "basic" | "advanced" | "superior" | null;
@@ -17,7 +25,7 @@ export interface UserProfile {
   staminaUpdatedAt: string;
   isPremium: boolean;
   premiumUntil: string | null;
-  characters: SavedCharacter[];
+  character: SavedCharacter | null;
   buffs: any[];
   currentMapId: string;
   // 귓속말 크리스탈 시스템
@@ -29,5 +37,5 @@ export interface UserProfile {
   // 부상 시스템
   injuries: CharacterInjury[];
   // 종교 시스템
-  religionId: string | null;
+  religion: ReligionData | null;
 }

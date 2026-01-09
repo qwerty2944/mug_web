@@ -19,6 +19,7 @@ import {
   MEDICAL_PROFICIENCIES,
   KNOWLEDGE_PROFICIENCIES,
   getRankInfo,
+  getProficiencyValue,
 } from "@/entities/proficiency";
 import type { ProficiencyType } from "@/entities/proficiency";
 import { useEquipmentStore } from "@/application/stores";
@@ -523,7 +524,7 @@ export default function StatusModal() {
                     </h3>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                       {WEAPON_PROFICIENCIES.map((prof) => {
-                        const level = proficiencies?.[prof.id as ProficiencyType] ?? 0;
+                        const level = getProficiencyValue(proficiencies, prof.id as ProficiencyType) ?? 0;
                         const rank = getRankInfo(level);
                         return (
                           <div
@@ -567,7 +568,7 @@ export default function StatusModal() {
                     </h3>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                       {MAGIC_PROFICIENCIES.map((prof) => {
-                        const level = proficiencies?.[prof.id as ProficiencyType] ?? 0;
+                        const level = getProficiencyValue(proficiencies, prof.id as ProficiencyType) ?? 0;
                         const rank = getRankInfo(level);
                         return (
                           <div
@@ -611,7 +612,7 @@ export default function StatusModal() {
                     </h3>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                       {CRAFTING_PROFICIENCIES.map((prof) => {
-                        const level = proficiencies?.[prof.id as ProficiencyType] ?? 0;
+                        const level = getProficiencyValue(proficiencies, prof.id as ProficiencyType) ?? 0;
                         const rank = getRankInfo(level);
                         return (
                           <div
@@ -655,7 +656,7 @@ export default function StatusModal() {
                     </h3>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                       {MEDICAL_PROFICIENCIES.map((prof) => {
-                        const level = proficiencies?.[prof.id as ProficiencyType] ?? 0;
+                        const level = getProficiencyValue(proficiencies, prof.id as ProficiencyType) ?? 0;
                         const rank = getRankInfo(level);
                         return (
                           <div
@@ -699,7 +700,7 @@ export default function StatusModal() {
                     </h3>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                       {KNOWLEDGE_PROFICIENCIES.map((prof) => {
-                        const level = proficiencies?.[prof.id as ProficiencyType] ?? 0;
+                        const level = getProficiencyValue(proficiencies, prof.id as ProficiencyType) ?? 0;
                         const rank = getRankInfo(level);
                         return (
                           <div

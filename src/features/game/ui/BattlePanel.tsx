@@ -4,7 +4,8 @@ import { useState, useEffect, useCallback } from "react";
 import { useBattleStore } from "@/application/stores";
 import { useThemeStore } from "@/shared/config";
 import type { CharacterStats } from "@/entities/character";
-import type { ProficiencyType, CombatProficiencyType } from "@/entities/proficiency";
+import type { ProficiencyType, CombatProficiencyType, Proficiencies } from "@/entities/proficiency";
+import { getProficiencyValue } from "@/entities/proficiency";
 import type { Skill } from "@/entities/skill";
 import { useAttack, useCastSpell, calculateMonsterDamage, usePassiveSkills } from "@/features/combat";
 import { BattleHeader } from "./battle/BattleHeader";
@@ -14,7 +15,7 @@ import { ActionPanel, type DefenseAction } from "./battle/ActionPanel";
 
 interface BattlePanelProps {
   characterStats: CharacterStats;
-  proficiencies: Record<ProficiencyType, number>;
+  proficiencies: Proficiencies | undefined;
   onFlee: () => void;
   onVictory: () => void;
   onDefeat: () => void;
@@ -109,7 +110,7 @@ export function BattlePanel({
       setIsProcessing(true);
 
       const stats = characterStats;
-      const profLevel = proficiencies[weaponType] ?? 0;
+      const profLevel = getProficiencyValue(proficiencies, weaponType);
 
       // 상태이상 처리 (턴 시작)
       processStatusEffects();
@@ -156,7 +157,7 @@ export function BattlePanel({
       processStatusEffects();
 
       const profLevel = skill.proficiencyType
-        ? proficiencies[skill.proficiencyType as ProficiencyType] ?? 0
+        ? getProficiencyValue(proficiencies, skill.proficiencyType as ProficiencyType)
         : 0;
 
       castSpell({
