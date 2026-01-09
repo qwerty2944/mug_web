@@ -31,7 +31,6 @@ export function UnityProvider({ children }: { children: ReactNode }) {
 
   // 초기화 완료 추적
   const isInitialized = useRef(false);
-  const spritesReady = useRef(false);
 
   const { unityProvider, sendMessage, isLoaded, loadingProgression } = useUnityContext({
     loaderUrl: "/unity/characterbuilder.loader.js",
@@ -52,32 +51,30 @@ export function UnityProvider({ children }: { children: ReactNode }) {
     }
   }, [isLoaded, sendMessage, setUnityLoaded, setSendMessage]);
 
-  // 기본값 적용 함수
-  const applyDefaults = () => {
-    if (isInitialized.current || !spritesReady.current) return;
-    isInitialized.current = true;
-
-    console.log("[UnityProvider] Applying defaults: body=11, colors=brown");
-
-    // 기본값 설정: 종족 12번 (인덱스 11)
-    sendMessage(UNITY_OBJECT_NAME, "JS_SetBody", DEFAULT_BODY_INDEX.toString());
-
-    // 색상 설정: 눈, 머리, 수염 모두 갈색
-    sendMessage(UNITY_OBJECT_NAME, "JS_SetLeftEyeColor", DEFAULT_BROWN_COLOR);
-    sendMessage(UNITY_OBJECT_NAME, "JS_SetRightEyeColor", DEFAULT_BROWN_COLOR);
-    sendMessage(UNITY_OBJECT_NAME, "JS_SetHairColor", DEFAULT_BROWN_COLOR);
-    sendMessage(UNITY_OBJECT_NAME, "JS_SetFacehairColor", DEFAULT_BROWN_COLOR);
-  };
-
   // Unity 이벤트 리스너
   useEffect(() => {
     const handleCharacterChanged = (e: CustomEvent) => {
-      setCharacterState(e.detail);
+      const state = e.detail;
 
-      // 스프라이트 준비 완료 후 첫 캐릭터 상태 수신 시 기본값 적용
-      if (spritesReady.current && !isInitialized.current) {
-        // 약간의 딜레이 후 기본값 적용 (Unity 상태 안정화)
-        setTimeout(applyDefaults, 50);
+      // 첫 번째 캐릭터 상태 수신 시 기본값 강제 적용
+      if (!isInitialized.current) {
+        isInitialized.current = true;
+
+        // bodyIndex를 12번(인덱스 11)으로 강제 변경
+        const modifiedState = {
+          ...state,
+          bodyIndex: DEFAULT_BODY_INDEX,
+        };
+        setCharacterState(modifiedState);
+
+        // Unity에도 기본값 설정
+        sendMessage(UNITY_OBJECT_NAME, "JS_SetBody", DEFAULT_BODY_INDEX.toString());
+        sendMessage(UNITY_OBJECT_NAME, "JS_SetLeftEyeColor", DEFAULT_BROWN_COLOR);
+        sendMessage(UNITY_OBJECT_NAME, "JS_SetRightEyeColor", DEFAULT_BROWN_COLOR);
+        sendMessage(UNITY_OBJECT_NAME, "JS_SetHairColor", DEFAULT_BROWN_COLOR);
+        sendMessage(UNITY_OBJECT_NAME, "JS_SetFacehairColor", DEFAULT_BROWN_COLOR);
+      } else {
+        setCharacterState(state);
       }
     };
 
@@ -110,10 +107,6 @@ export function UnityProvider({ children }: { children: ReactNode }) {
           wandNames: jsonData.wandNames || [],
         };
         setSpriteNames(names);
-        spritesReady.current = true;
-
-        // 스프라이트 로드 후 기본값 적용 (충분한 딜레이로 Unity 안정화 대기)
-        setTimeout(applyDefaults, 500);
       } catch (err) {
         console.error("Failed to load sprite names:", err);
       }
