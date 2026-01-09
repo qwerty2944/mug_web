@@ -233,7 +233,23 @@ export const useAppearanceStore = create<AppearanceStore>((set, get) => ({
   setSendMessage: (fn, objectName) => set({ sendMessage: fn, unityObjectName: objectName }),
   setSpriteCounts: (counts) => set({ spriteCounts: counts }),
   setSpriteNames: (names) => set({ spriteNames: names }),
-  setCharacterState: (state) => set({ characterState: state }),
+  setCharacterState: (state) => {
+    // 손별 무기 상태도 동기화
+    const leftWeaponType = state.leftWeaponType?.toLowerCase() as WeaponPartType | null;
+    const rightWeaponType = state.rightWeaponType?.toLowerCase() as WeaponPartType | null;
+
+    set({
+      characterState: state,
+      leftHandWeapon: {
+        weaponType: leftWeaponType && leftWeaponType !== "" ? leftWeaponType : null,
+        index: state.leftWeaponIndex ?? -1,
+      },
+      rightHandWeapon: {
+        weaponType: rightWeaponType && rightWeaponType !== "" ? rightWeaponType : null,
+        index: state.rightWeaponIndex ?? -1,
+      },
+    });
+  },
   setAnimationState: (state) => set({ animationState: state }),
   setAnimationCounts: (counts) => set({ animationCounts: counts }),
   setSelectedColor: (color) => set({ selectedColor: color }),
