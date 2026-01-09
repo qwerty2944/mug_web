@@ -260,88 +260,114 @@ export default function GamePage() {
 
       {/* 헤더 */}
       <header
-        className="flex-none px-3 py-2 border-b"
+        className="flex-none px-2 sm:px-3 py-2 border-b"
         style={{
           background: theme.colors.bgLight,
           borderColor: theme.colors.border,
         }}
       >
-        {/* 피로도 텍스트 + 게임 시간 */}
-        <div className="flex items-center justify-between mb-2">
-          <div className="flex items-center gap-4">
-            <div className="flex items-center gap-2 text-xs font-mono" style={{ color: theme.colors.textMuted }}>
-              <span>피로도</span>
-              <span style={{ color: staminaPercent <= 20 ? theme.colors.error : theme.colors.textDim }}>
-                {profile.stamina} / {getMaxStaminaFromProfile(profile)}
-              </span>
-            </div>
+        {/* 상단 바: 피로도 + 시간/날씨 + 설정 */}
+        <div className="flex items-center justify-between gap-2 mb-2">
+          {/* 왼쪽: 피로도 */}
+          <div className="flex items-center gap-1.5 text-[10px] sm:text-xs font-mono min-w-0">
+            <span style={{ color: theme.colors.textMuted }}>SP</span>
+            <span
+              className="font-medium"
+              style={{ color: staminaPercent <= 20 ? theme.colors.error : theme.colors.textDim }}
+            >
+              {profile.stamina}/{getMaxStaminaFromProfile(profile)}
+            </span>
+          </div>
+
+          {/* 중앙: 시간 + 날씨 (모바일에서 아이콘만) */}
+          <div className="flex items-center gap-1 sm:gap-2">
             <GameTimeClock compact />
             <WeatherDisplay compact />
           </div>
-          <div className="flex items-center gap-3">
-            {/* 테마 버튼 */}
+
+          {/* 오른쪽: 테마 + 로그아웃 */}
+          <div className="flex items-center gap-1.5 sm:gap-3">
             <button
               onClick={() => setShowThemeModal(true)}
-              className="flex items-center gap-1 text-xs font-mono transition-colors"
+              className="flex items-center gap-1 text-[10px] sm:text-xs font-mono transition-colors p-1"
               style={{ color: theme.colors.textMuted }}
+              title="테마 설정"
             >
               <span
-                className="w-2.5 h-2.5 rounded-full"
+                className="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full flex-shrink-0"
                 style={{ background: theme.colors.primary }}
               />
-              테마
+              <span className="hidden sm:inline">테마</span>
             </button>
             <button
               onClick={handleSignOut}
-              className="text-xs font-mono transition-colors"
+              className="text-[10px] sm:text-xs font-mono transition-colors p-1"
               style={{ color: theme.colors.textMuted }}
+              title="로그아웃"
             >
-              로그아웃
+              <span className="sm:hidden">🚪</span>
+              <span className="hidden sm:inline">로그아웃</span>
             </button>
           </div>
         </div>
 
-        {/* 메인 헤더 */}
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <span className="text-xl">
+        {/* 메인 헤더: 맵 정보 + 캐릭터 */}
+        <div className="flex items-center justify-between gap-2">
+          {/* 왼쪽: 맵 아이콘 + 정보 */}
+          <div className="flex items-center gap-2 min-w-0 flex-1">
+            <span className="text-lg sm:text-xl flex-shrink-0">
               {getMapById(maps, mapId || "town_square")?.icon || "🏠"}
             </span>
-            <div className="min-w-0">
-              <h1 className="text-lg font-bold font-mono" style={{ color: theme.colors.text }}>
+            <div className="min-w-0 flex-1">
+              <h1
+                className="text-sm sm:text-lg font-bold font-mono truncate"
+                style={{ color: theme.colors.text }}
+              >
                 {currentMap?.name || "시작 마을"}
               </h1>
-              <p className="text-xs font-mono" style={{ color: theme.colors.textMuted }}>
+              <p
+                className="text-[10px] sm:text-xs font-mono truncate hidden sm:block"
+                style={{ color: theme.colors.textMuted }}
+              >
                 {currentMap?.description}
               </p>
-              <AtmosphericText mapId={mapId || "starting_village"} className="mt-1" />
+              <AtmosphericText mapId={mapId || "starting_village"} className="mt-0.5 sm:mt-1 hidden md:block" />
             </div>
           </div>
-          <div className="flex items-center gap-3">
+
+          {/* 오른쪽: 캐릭터 정보 + 접속 상태 */}
+          <div className="flex items-center gap-1.5 sm:gap-3 flex-shrink-0">
             {/* 상태창 링크 */}
             <Link
               href="/game/status"
-              className="flex items-center gap-2 px-3 py-1.5 transition-colors"
+              className="flex items-center gap-1 sm:gap-2 px-2 sm:px-3 py-1 sm:py-1.5 transition-colors"
               style={{
                 background: theme.colors.bgDark,
                 border: `1px solid ${theme.colors.border}`,
                 color: theme.colors.text,
               }}
             >
-              <span className="text-sm">👤</span>
-              <span className="text-sm font-mono font-medium">{myCharacterName}</span>
-              <span className="text-xs font-mono" style={{ color: theme.colors.textMuted }}>
+              <span className="text-xs sm:text-sm">👤</span>
+              <span className="text-xs sm:text-sm font-mono font-medium max-w-[60px] sm:max-w-none truncate">
+                {myCharacterName}
+              </span>
+              <span
+                className="text-[10px] sm:text-xs font-mono"
+                style={{ color: theme.colors.textMuted }}
+              >
                 Lv.{profile.level}
               </span>
             </Link>
-            {/* 재화 표시 */}
-            <div className="hidden sm:flex items-center gap-3 text-sm font-mono">
+            {/* 재화 표시 (태블릿 이상) */}
+            <div className="hidden md:flex items-center gap-2 text-xs sm:text-sm font-mono">
               <span style={{ color: theme.colors.warning }}>💰 {profile.gold.toLocaleString()}</span>
               <span style={{ color: theme.colors.primary }}>💎 {profile.gems.toLocaleString()}</span>
             </div>
+            {/* 접속 상태 */}
             <span
-              className="w-2 h-2 rounded-full"
+              className="w-2 h-2 rounded-full flex-shrink-0"
               style={{ background: isConnected ? theme.colors.success : theme.colors.error }}
+              title={isConnected ? "접속됨" : "연결 끊김"}
             />
           </div>
         </div>
