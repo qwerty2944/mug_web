@@ -503,21 +503,29 @@ export const useAppearanceStore = create<AppearanceStore>((set, get) => ({
   setHandWeaponType: (hand, weaponType) => {
     const stateKey = hand === "left" ? "leftHandWeapon" : "rightHandWeapon";
     const { callUnity, isUnityLoaded } = get();
+    const currentWeapon = get()[stateKey];
 
-    // 먼저 해당 손의 기존 무기 해제 (Unity에서 다른 타입 무기가 중첩되지 않도록)
-    if (isUnityLoaded) {
-      const clearMethod = hand === "left" ? "JS_ClearLeftWeapon" : "JS_ClearRightWeapon";
-      callUnity(clearMethod);
+    // 같은 무기 타입이면 무시
+    if (currentWeapon.weaponType === weaponType) return;
+
+    // 먼저 해당 손의 기존 무기 해제 (모든 무기 타입 클리어)
+    if (isUnityLoaded && currentWeapon.weaponType) {
+      // 기존 무기 타입을 -1로 설정하여 해제
+      const method = hand === "left" ? "JS_SetLeftWeapon" : "JS_SetRightWeapon";
+      const oldTypeName = currentWeapon.weaponType.charAt(0).toUpperCase() + currentWeapon.weaponType.slice(1);
+      callUnity(method, `${oldTypeName},-1`);
     }
 
     // 상태 업데이트
     set({ [stateKey]: { weaponType, index: weaponType ? 0 : -1 } });
 
-    // 새 무기 설정
+    // 새 무기 설정 (약간의 딜레이로 Unity가 처리할 시간 확보)
     if (isUnityLoaded && weaponType) {
-      const method = hand === "left" ? "JS_SetLeftWeapon" : "JS_SetRightWeapon";
-      const typeName = weaponType.charAt(0).toUpperCase() + weaponType.slice(1);
-      callUnity(method, `${typeName},0`);
+      setTimeout(() => {
+        const method = hand === "left" ? "JS_SetLeftWeapon" : "JS_SetRightWeapon";
+        const typeName = weaponType.charAt(0).toUpperCase() + weaponType.slice(1);
+        callUnity(method, `${typeName},0`);
+      }, 50);
     }
   },
 
