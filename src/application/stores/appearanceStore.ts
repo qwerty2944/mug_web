@@ -331,7 +331,12 @@ export const useAppearanceStore = create<AppearanceStore>((set, get) => ({
 
   // 유틸리티
   randomize: () => get().callUnity("JS_Randomize"),
-  clearAll: () => get().callUnity("JS_ClearAll"),
+  clearAll: () => {
+    const { callUnity } = get();
+    callUnity("JS_ClearAll");
+    // Unity ClearAll에서 수염이 빠져있어서 추가로 호출
+    callUnity("JS_SetFacehair", "-1");
+  },
   resetColors: () => get().callUnity("JS_ResetColors"),
 
   // 파츠/색상 직접 설정

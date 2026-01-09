@@ -36,42 +36,40 @@ export function UnityProvider({ children }: { children: ReactNode }) {
     },
   });
 
-  // Unity 로드 상태 동기화 및 스프라이트 이름 로드
+  // Unity 로드 상태 동기화
   useEffect(() => {
     if (isLoaded) {
       setUnityLoaded(true);
       setSendMessage(sendMessage, UNITY_OBJECT_NAME);
-
-      // 스프라이트 이름 로드 (all-sprites.json에서)
-      fetch("/data/character/all-sprites.json")
-        .then((res) => res.json())
-        .then((data) => {
-          const names: SpriteNames = {
-            bodyNames: data.bodyNames || [],
-            eyeNames: data.eyeNames || [],
-            hairNames: data.hairNames || [],
-            facehairNames: data.facehairNames || [],
-            clothNames: data.clothNames || [],
-            armorNames: data.armorNames || [],
-            pantNames: data.pantNames || [],
-            helmetNames: data.helmetNames || [],
-            backNames: data.backNames || [],
-            swordNames: data.swordNames || [],
-            shieldNames: data.shieldNames || [],
-            axeNames: data.axeNames || [],
-            bowNames: data.bowNames || [],
-            wandNames: data.wandNames || [],
-          };
-          setSpriteNames(names);
-        })
-        .catch((err) => console.error("Failed to load sprite names:", err));
     }
-  }, [isLoaded, sendMessage, setUnityLoaded, setSendMessage, setSpriteNames]);
+  }, [isLoaded, sendMessage, setUnityLoaded, setSendMessage]);
 
   // Unity 이벤트 리스너
   useEffect(() => {
     const handleCharacterChanged = (e: CustomEvent) => setCharacterState(e.detail);
-    const handleSpritesLoaded = (e: CustomEvent) => setSpriteCounts(e.detail);
+    const handleSpritesLoaded = (e: CustomEvent) => {
+      const data = e.detail;
+      // counts 설정
+      setSpriteCounts(data);
+      // names 설정 (Unity에서 보내는 이름 사용)
+      const names: SpriteNames = {
+        bodyNames: data.bodyNames || [],
+        eyeNames: data.eyeNames || [],
+        hairNames: data.hairNames || [],
+        facehairNames: data.facehairNames || [],
+        clothNames: data.clothNames || [],
+        armorNames: data.armorNames || [],
+        pantNames: data.pantNames || [],
+        helmetNames: data.helmetNames || [],
+        backNames: data.backNames || [],
+        swordNames: data.swordNames || [],
+        shieldNames: data.shieldNames || [],
+        axeNames: data.axeNames || [],
+        bowNames: data.bowNames || [],
+        wandNames: data.wandNames || [],
+      };
+      setSpriteNames(names);
+    };
     const handleAnimationsLoaded = (e: CustomEvent) => setAnimationCounts(e.detail);
     const handleAnimationChanged = (e: CustomEvent) => setAnimationState(e.detail);
 
@@ -86,7 +84,7 @@ export function UnityProvider({ children }: { children: ReactNode }) {
       window.removeEventListener("unityAnimationsLoaded", handleAnimationsLoaded as EventListener);
       window.removeEventListener("unityAnimationChanged", handleAnimationChanged as EventListener);
     };
-  }, [setCharacterState, setSpriteCounts, setAnimationCounts, setAnimationState]);
+  }, [setCharacterState, setSpriteCounts, setAnimationCounts, setAnimationState, setSpriteNames]);
 
   return (
     <UnityCtx.Provider value={{ unityProvider, isLoaded, loadingProgression }}>
