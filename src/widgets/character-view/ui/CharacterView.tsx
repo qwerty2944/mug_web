@@ -24,7 +24,7 @@ export function CharacterView({
     <div className={`relative flex flex-col lg:flex-row h-full ${className}`}>
       {/* Unity 캔버스 */}
       <div className="flex-1 min-h-0 flex items-center justify-center p-2">
-        <div className="w-full h-full max-w-lg relative">
+        <div className="w-full h-full max-w-2xl relative">
           <UnityCanvas />
 
           {/* 토글 버튼 */}
