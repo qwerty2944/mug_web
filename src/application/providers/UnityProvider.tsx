@@ -96,15 +96,14 @@ export function UnityProvider({ children }: { children: ReactNode }) {
           facehairNames: unityData.facehairNames?.length ? unityData.facehairNames : (jsonData.facehairNames || []),
           clothNames: unityData.clothNames?.length ? unityData.clothNames : (jsonData.clothNames || []),
           armorNames: unityData.armorNames?.length ? unityData.armorNames : (jsonData.armorNames || []),
-          // Unity에서 안 보내는 것들은 JSON에서
-          pantNames: jsonData.pantNames || [],
-          helmetNames: jsonData.helmetNames || [],
-          backNames: jsonData.backNames || [],
-          swordNames: jsonData.swordNames || [],
-          shieldNames: jsonData.shieldNames || [],
-          axeNames: jsonData.axeNames || [],
-          bowNames: jsonData.bowNames || [],
-          wandNames: jsonData.wandNames || [],
+          pantNames: unityData.pantNames?.length ? unityData.pantNames : (jsonData.pantNames || []),
+          helmetNames: unityData.helmetNames?.length ? unityData.helmetNames : (jsonData.helmetNames || []),
+          backNames: unityData.backNames?.length ? unityData.backNames : (jsonData.backNames || []),
+          swordNames: unityData.swordNames?.length ? unityData.swordNames : (jsonData.swordNames || []),
+          shieldNames: unityData.shieldNames?.length ? unityData.shieldNames : (jsonData.shieldNames || []),
+          axeNames: unityData.axeNames?.length ? unityData.axeNames : (jsonData.axeNames || []),
+          bowNames: unityData.bowNames?.length ? unityData.bowNames : (jsonData.bowNames || []),
+          wandNames: unityData.wandNames?.length ? unityData.wandNames : (jsonData.wandNames || []),
         };
         setSpriteNames(names);
       } catch (err) {
