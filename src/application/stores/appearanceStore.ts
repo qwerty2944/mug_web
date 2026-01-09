@@ -662,7 +662,9 @@ export const useAppearanceStore = create<AppearanceStore>((set, get) => ({
   getPartInfo: (type) => {
     const { characterState, spriteCounts, spriteNames } = get();
     const meta = PART_META[type];
-    const current = (characterState?.[meta.indexKey] as number) ?? (meta.required ? 0 : -1);
+    // body 기본값은 11(12번 종족), 나머지 필수 파츠는 0, 선택 파츠는 -1
+    const defaultValue = type === "body" ? 11 : (meta.required ? 0 : -1);
+    const current = (characterState?.[meta.indexKey] as number) ?? defaultValue;
     const total = (spriteCounts?.[meta.countKey] as number) ?? 0;
 
     // 파트 이름 가져오기
