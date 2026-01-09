@@ -20,19 +20,35 @@ interface CharacterPanelProps {
   className?: string;
 }
 
+// 외형 파츠 (body, eye, hair, facehair)
+const APPEARANCE_PARTS: PartType[] = ["body", "eye", "hair", "facehair"];
+// 장비 파츠 (cloth, armor, pant, helmet, back)
+const EQUIPMENT_PARTS: PartType[] = ["helmet", "armor", "cloth", "pant", "back"];
+
 export function CharacterPanel({ hooks, className = "" }: CharacterPanelProps) {
   return (
     <HooksContext.Provider value={hooks}>
       <div className={`space-y-3 bg-gray-800 p-3 ${className}`}>
-        <Section title="파츠">
+        {/* 외형 섹션 */}
+        <Section title="👤 외형" color="purple">
           <div className="space-y-1">
-            {hooks.partTypes.map((type) => (
+            {APPEARANCE_PARTS.map((type) => (
               <PartSelector key={type} type={type} />
             ))}
           </div>
         </Section>
 
-        <Section title="손별 무기">
+        {/* 장비 섹션 */}
+        <Section title="🛡️ 장비" color="indigo">
+          <div className="space-y-1">
+            {EQUIPMENT_PARTS.map((type) => (
+              <PartSelector key={type} type={type} />
+            ))}
+          </div>
+        </Section>
+
+        {/* 손별 무기 */}
+        <Section title="⚔️ 무기" color="amber">
           {hooks.useHandWeapon ? (
             <div className="space-y-2">
               <HandWeaponSelector hand="left" />
@@ -47,10 +63,12 @@ export function CharacterPanel({ hooks, className = "" }: CharacterPanelProps) {
           )}
         </Section>
 
-        <Section title="애니메이션">
+        {/* 애니메이션 */}
+        <Section title="🎬 애니메이션" color="gray">
           <AnimationSelector />
         </Section>
 
+        {/* 액션 버튼 */}
         <Section title="">
           <ActionButtons />
         </Section>
@@ -61,10 +79,19 @@ export function CharacterPanel({ hooks, className = "" }: CharacterPanelProps) {
 
 // ============ 내부 컴포넌트 ============
 
-function Section({ title, children }: { title: string; children: ReactNode }) {
+const SECTION_COLORS = {
+  purple: "border-purple-500/50 bg-purple-500/5",
+  indigo: "border-indigo-500/50 bg-indigo-500/5",
+  amber: "border-amber-500/50 bg-amber-500/5",
+  gray: "border-gray-500/50 bg-gray-500/5",
+};
+
+function Section({ title, children, color }: { title: string; children: ReactNode; color?: keyof typeof SECTION_COLORS }) {
+  const colorClass = color ? SECTION_COLORS[color] : "";
+
   return (
-    <section>
-      {title && <h2 className="text-sm font-semibold mb-2 text-gray-400">{title}</h2>}
+    <section className={color ? `rounded-lg border ${colorClass} p-2` : ""}>
+      {title && <h2 className="text-sm font-semibold mb-2 text-gray-300">{title}</h2>}
       {children}
     </section>
   );
