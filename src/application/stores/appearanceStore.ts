@@ -406,7 +406,7 @@ export const useAppearanceStore = create<AppearanceStore>((set, get) => ({
   // 외형만 랜덤화 (장비는 유지)
   // 외형: 종족, 눈, 머리, 수염
   randomizeAppearance: () => {
-    const { callUnity, spriteCounts, characterState } = get();
+    const { callUnity, spriteCounts } = get();
     if (!spriteCounts) return;
 
     // 랜덤 인덱스 생성 (필수 파츠는 항상 값 존재)
@@ -429,22 +429,56 @@ export const useAppearanceStore = create<AppearanceStore>((set, get) => ({
     callUnity("JS_SetHair", hairIdx.toString());
     callUnity("JS_SetFacehair", facehairIdx.toString());
 
-    // Store 상태 업데이트
-    set({
-      characterState: characterState ? {
-        ...characterState,
+    // Store 상태 업데이트 (함수형으로 최신 상태 사용)
+    set((state) => ({
+      characterState: state.characterState ? {
+        ...state.characterState,
         bodyIndex: bodyIdx,
         eyeIndex: eyeIdx,
         hairIndex: hairIdx,
         facehairIndex: facehairIdx,
-      } : null,
-    });
+      } : {
+        // characterState가 null이면 기본값으로 새로 생성
+        bodyIndex: bodyIdx,
+        eyeIndex: eyeIdx,
+        hairIndex: hairIdx,
+        facehairIndex: facehairIdx,
+        clothIndex: -1,
+        armorIndex: -1,
+        pantIndex: -1,
+        helmetIndex: -1,
+        backIndex: -1,
+        swordIndex: -1,
+        shieldIndex: -1,
+        axeIndex: -1,
+        bowIndex: -1,
+        wandIndex: -1,
+        leftWeaponIndex: -1,
+        rightWeaponIndex: -1,
+        leftWeaponType: "",
+        rightWeaponType: "",
+        bodyColor: "",
+        eyeColor: "",
+        hairColor: "",
+        facehairColor: "",
+        clothColor: "",
+        armorColor: "",
+        pantColor: "",
+        helmetColor: "",
+        backColor: "",
+        swordColor: "",
+        shieldColor: "",
+        axeColor: "",
+        bowColor: "",
+        wandColor: "",
+      },
+    }));
   },
 
   // 장비만 랜덤화 (캐릭터 외형은 유지)
   // 장비: 투구, 갑옷, 의복, 바지, 등, 무기, 방패
   randomizeEquipment: () => {
-    const { callUnity, spriteCounts, characterState } = get();
+    const { callUnity, spriteCounts } = get();
     if (!spriteCounts) return;
 
     // 랜덤 인덱스 생성 (30% 확률로 없음)
@@ -495,16 +529,50 @@ export const useAppearanceStore = create<AppearanceStore>((set, get) => ({
       callUnity("JS_SetLeftWeapon", `Shield,${leftWeaponIndex}`);
     }
 
-    // Store 상태 업데이트 - 방어구
-    set({
-      characterState: characterState ? {
-        ...characterState,
+    // Store 상태 업데이트 (함수형으로 최신 상태 사용)
+    set((state) => ({
+      characterState: state.characterState ? {
+        ...state.characterState,
         helmetIndex: helmetIdx,
         armorIndex: armorIdx,
         clothIndex: clothIdx,
         pantIndex: pantIdx,
         backIndex: backIdx,
-      } : null,
+      } : {
+        // characterState가 null이면 기본값으로 새로 생성
+        bodyIndex: 0,
+        eyeIndex: 0,
+        hairIndex: -1,
+        facehairIndex: -1,
+        clothIndex: clothIdx,
+        armorIndex: armorIdx,
+        pantIndex: pantIdx,
+        helmetIndex: helmetIdx,
+        backIndex: backIdx,
+        swordIndex: -1,
+        shieldIndex: -1,
+        axeIndex: -1,
+        bowIndex: -1,
+        wandIndex: -1,
+        leftWeaponIndex: leftWeaponIndex,
+        rightWeaponIndex: rightWeaponIndex,
+        leftWeaponType: leftType || "",
+        rightWeaponType: rightType || "",
+        bodyColor: "",
+        eyeColor: "",
+        hairColor: "",
+        facehairColor: "",
+        clothColor: "",
+        armorColor: "",
+        pantColor: "",
+        helmetColor: "",
+        backColor: "",
+        swordColor: "",
+        shieldColor: "",
+        axeColor: "",
+        bowColor: "",
+        wandColor: "",
+      },
       // 손 무기 상태 업데이트
       rightHandWeapon: {
         weaponType: rightType,
@@ -514,7 +582,7 @@ export const useAppearanceStore = create<AppearanceStore>((set, get) => ({
         weaponType: leftType,
         index: leftWeaponIndex,
       },
-    });
+    }));
   },
   clearAll: () => {
     const { callUnity } = get();
