@@ -2,7 +2,7 @@
  * 종족 JSON 파일들을 읽어서 통합 JSON 생성
  *
  * 폴더 구조:
- *   public/data/races/
+ *   public/data/appearance/races/
  *   ├── humans/*.json
  *   ├── elves/*.json
  *   ├── dwarves/*.json
@@ -12,7 +12,7 @@
  *   └── appearance/         (외형 데이터 - 별도 처리)
  *
  * 출력:
- *   public/data/races/races.json
+ *   public/data/appearance/races/races.json
  *
  * 사용법: npx tsx scripts/generate-races.ts
  */
@@ -21,8 +21,8 @@ import fs from "fs";
 import path from "path";
 
 // 경로 설정
-const RACES_DIR = "public/data/races";
-const OUTPUT_FILE = "public/data/races/races.json";
+const RACES_DIR = "public/data/appearance/races";
+const OUTPUT_FILE = "public/data/appearance/races/races.json";
 
 // 종족 카테고리 (appearance 제외)
 const RACE_FOLDERS = ["humans", "elves", "dwarves", "orcs", "undead", "others"];

@@ -5,20 +5,14 @@ import Link from "next/link";
 const TEST_ROUTES = [
   {
     href: "/test/game",
-    title: "게임 테스트",
-    description: "종족별 장비 테스트 (외형, 무기, 방어구)",
+    title: "게임 테스트 (DB ID 기반)",
+    description: "실제 DB에 저장되는 형식 테스트 - 아이템/외형 ID 기반",
     icon: "🎮",
   },
   {
-    href: "/test/sprite",
-    title: "스프라이트 테스트",
-    description: "장비 스프라이트 드롭다운 테스트",
-    icon: "🖼️",
-  },
-  {
     href: "/test/unity",
-    title: "유니티 테스트",
-    description: "캐릭터 뷰어 및 패널 테스트",
+    title: "유니티 테스트 (스프라이트 인덱스 기반)",
+    description: "Unity가 이해하는 형식 테스트 - 스프라이트 인덱스 기반",
     icon: "🎯",
   },
 ];

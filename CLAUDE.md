@@ -270,6 +270,94 @@ function MyComponent() {
 - `ThemeSettingsModal` 컴포넌트로 테마 선택 UI 제공
 - 5가지 테마: amber(골드), green(터미널), cyan(사이버), purple(마법), red(지옥)
 
+## 테스트 페이지 (`/test`)
+
+개발용 테스트 페이지. 두 가지 형식의 차이를 명확히 이해해야 함.
+
+### 게임 테스트 (`/test/game`) - DB ID 기반
+
+**용도**: 실제 게임에서 DB에 저장되는 형식 테스트
+
+**저장 형식 (profiles 테이블)**:
+```typescript
+// equipment (JSONB)
+{
+  "rightHandId": "iron_sword",      // 아이템 ID (items/*.json의 id)
+  "leftHandId": "wooden_shield",
+  "helmetId": null,
+  "armorId": "leather_armor",
+  "clothId": null,
+  "pantsId": "cloth_pants",
+  "backId": null
+}
+
+// appearance (JSONB)
+{
+  "raceId": "eastern_human",        // 종족 ID (races.json의 id)
+  "eyeId": "eye1",                  // 눈 ID (eye.json의 id)
+  "hairId": "elf_hair_01",          // 머리 ID (hair.json의 id)
+  "facehairId": null,               // 수염 ID (facehair.json의 id)
+  "hairColor": "#8B4513",           // 색상 hex
+  "leftEyeColor": "#4A3728",
+  "rightEyeColor": "#4A3728",
+  "faceHairColor": "#8B4513"
+}
+```
+
+**ID 매핑 흐름**:
+1. 사용자가 "녹슨 검" 선택
+2. `equipment.rightHandId = "rusty_sword"` (DB에 저장)
+3. 게임 로드 시 `rusty_sword` → `spriteId: "elf_weapon_01"` → Unity 인덱스 변환
+
+### 유니티 테스트 (`/test/unity`) - 스프라이트 인덱스 기반
+
+**용도**: Unity WebGL이 직접 이해하는 형식 테스트
+
+**저장 형식 (Unity 내부)**:
+```typescript
+// Unity가 받는 값 (JS_Set* 메서드 파라미터)
+{
+  rightWeapon: "Sword,3",           // "무기타입,스프라이트인덱스"
+  leftWeapon: "Shield,0",
+  helmet: 5,                        // 스프라이트 인덱스
+  armor: 2,
+  cloth: -1,                        // -1 = 없음
+  pants: 1,
+  back: -1
+}
+
+// Unity appearance
+{
+  bodyIndex: 3,                     // 신체 스프라이트 인덱스
+  eyeIndex: 2,
+  hairIndex: 5,
+  facehairIndex: -1,
+  hairColor: "#8B4513",
+  leftEyeColor: "#4A3728",
+  rightEyeColor: "#4A3728",
+  faceHairColor: "#8B4513"
+}
+```
+
+### 두 형식의 관계
+
+```
+[게임 DB]                    [변환]                      [Unity]
+equipment.rightHandId  →  items.json에서 spriteId 조회  →  JS_SetRightWeapon("Sword,3")
+  "iron_sword"              "elf_weapon_03"                 인덱스 3
+
+appearance.eyeId       →  eye.json에서 index 조회       →  JS_SetEye("2")
+  "eye1"                    index: 2                        인덱스 2
+```
+
+**핵심 차이**:
+| 항목 | 게임 테스트 (DB) | 유니티 테스트 |
+|------|------------------|---------------|
+| 저장 값 | 아이템/외형 ID | 스프라이트 인덱스 |
+| 용도 | 게임 저장/로드 | Unity 렌더링 |
+| 예시 | `"iron_sword"` | `3` |
+| 변환 필요 | O (ID → 인덱스) | X (직접 사용) |
+
 ## 주요 명령어
 
 ```bash
@@ -292,9 +380,12 @@ items/
 │   │   ├── swords.json
 │   │   ├── axes.json
 │   │   └── ...
-│   ├── armors/
+│   ├── wearables/          # 방어구 (armors → wearables로 변경)
 │   │   ├── helmets.json
-│   │   ├── chests.json
+│   │   ├── armors.json     # 갑옷 (chests.json → armors.json으로 변경)
+│   │   ├── clothes.json
+│   │   ├── pants.json
+│   │   ├── backs.json
 │   │   └── ...
 │   └── accessories/
 │       ├── rings.json
@@ -311,7 +402,7 @@ items/
 │   ├── keys.json
 │   └── quest.json
 ├── metadata.json           # 메타데이터 (등급, 색상 시스템 등)
-├── equipment.json          # ← 생성됨 (weapons + armors + accessories)
+├── equipment.json          # ← 생성됨 (weapons + wearables + accessories)
 ├── consumables.json        # ← 생성됨
 ├── materials.json          # ← 생성됨
 └── misc.json               # ← 생성됨
@@ -322,10 +413,10 @@ items/
 npx tsx scripts/generate-items.ts
 ```
 
-### 종족 데이터 (`/public/data/races/`)
+### 종족 데이터 (`/public/data/appearance/races/`)
 
 ```
-races/
+appearance/races/
 ├── humans/                 # 인간 변종 (개별 파일)
 │   ├── northern.json
 │   ├── southern.json

@@ -3,49 +3,49 @@
   "description": "종족 데이터 인덱스",
   "categories": {
     "human": {
-      "path": "/data/races/humans",
+      "path": "/data/appearance/races/humans",
       "nameKo": "인간",
       "nameEn": "Human",
       "variants": ["northern", "southern", "eastern", "western"],
       "playable": true
     },
     "elf": {
-      "path": "/data/races/elves",
+      "path": "/data/appearance/races/elves",
       "nameKo": "엘프",
       "nameEn": "Elf",
       "variants": ["wood_elf", "high_elf", "dark_elf", "moon_elf"],
       "playable": true
     },
     "dwarf": {
-      "path": "/data/races/dwarves",
+      "path": "/data/appearance/races/dwarves",
       "nameKo": "드워프",
       "nameEn": "Dwarf",
       "variants": ["mountain", "hill"],
       "playable": true
     },
     "orc": {
-      "path": "/data/races/orcs",
+      "path": "/data/appearance/races/orcs",
       "nameKo": "오크",
       "nameEn": "Orc",
       "variants": ["green_orc", "gray_orc"],
       "playable": true
     },
     "halfling": {
-      "path": "/data/races/others",
+      "path": "/data/appearance/races/others",
       "nameKo": "하플링",
       "nameEn": "Halfling",
       "variants": ["halfling"],
       "playable": true
     },
     "undead": {
-      "path": "/data/races/undead",
+      "path": "/data/appearance/races/undead",
       "nameKo": "언데드",
       "nameEn": "Undead",
       "variants": ["skeleton", "zombie", "vampire"],
       "playable": false
     },
     "demon": {
-      "path": "/data/races/others",
+      "path": "/data/appearance/races/others",
       "nameKo": "악마",
       "nameEn": "Demon",
       "variants": ["tiefling"],
