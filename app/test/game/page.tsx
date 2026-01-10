@@ -1,8 +1,9 @@
 "use client";
 
 import { useState, useEffect, useMemo, useCallback } from "react";
-import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { DynamicUnityCanvas, useAppearanceStore } from "@/features/character";
+import { globalStyles } from "@/shared/ui";
 
 // ===== 타입 정의 =====
 interface EquipmentItem {
@@ -117,7 +118,6 @@ const ARMOR_SLOTS: { slot: keyof EquipmentState; label: string; category: string
 ];
 
 export default function GameTestPage() {
-  const router = useRouter();
   const { callUnity, clearAll } = useAppearanceStore();
 
   // 데이터 로딩 상태
@@ -525,33 +525,36 @@ export default function GameTestPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-900 text-white flex items-center justify-center">
+      <div className="h-dvh w-full bg-gray-900 text-white flex items-center justify-center">
         <p>데이터 로딩 중...</p>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gray-900 text-white">
-      <div className="flex h-screen">
+    <div className="h-dvh w-full bg-gray-900 text-white flex flex-col overflow-hidden">
+      {/* 헤더 */}
+      <header className="flex-none p-3 border-b border-gray-700 safe-area-top flex items-center justify-between relative z-50">
+        <h1 className="text-lg font-bold">게임 테스트 (ID 기반)</h1>
+        <Link
+          href="/test"
+          className="text-sm text-gray-400 hover:text-white px-3 py-2"
+        >
+          ← 목록
+        </Link>
+      </header>
+
+      {/* 메인 컨텐츠 */}
+      <div className="flex-1 min-h-0 flex flex-col lg:flex-row safe-area-bottom">
         {/* Unity 캔버스 */}
-        <div className="flex-1 flex items-center justify-center p-4">
-          <div className="w-full max-w-md aspect-square">
+        <div className="flex-1 min-h-0 flex items-center justify-center p-2">
+          <div className="w-full h-full max-w-2xl relative">
             <DynamicUnityCanvas />
           </div>
         </div>
 
         {/* 설정 패널 */}
-        <div className="w-[420px] bg-gray-800 p-4 overflow-y-auto">
-          <div className="flex items-center justify-between mb-4">
-            <h1 className="text-xl font-bold">게임 테스트 (ID 기반)</h1>
-            <button
-              onClick={() => router.push("/test")}
-              className="text-sm text-gray-400 hover:text-white px-3 py-2"
-            >
-              ← 목록
-            </button>
-          </div>
+        <div className="flex-none lg:w-80 max-h-[45vh] lg:max-h-full overflow-y-auto bg-gray-800 p-4">
 
           {/* 종족 선택 */}
           <section className="mb-6 p-3 bg-gray-700 rounded-lg">
@@ -853,6 +856,8 @@ export default function GameTestPage() {
           </section>
         </div>
       </div>
+
+      <style jsx global>{globalStyles}</style>
     </div>
   );
 }

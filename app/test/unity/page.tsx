@@ -1,13 +1,12 @@
 "use client";
 
 import { useEffect } from "react";
-import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { characterPanelHooks, useAppearanceStore } from "@/features/character";
 import { CharacterView } from "@/widgets/character-view";
 import { globalStyles } from "@/shared/ui";
 
 export default function UnityTestPage() {
-  const router = useRouter();
   const { clearAll, callUnity } = useAppearanceStore();
 
   // 페이지 진입 시 Unity 상태 초기화 (장비 + 외형)
@@ -24,12 +23,12 @@ export default function UnityTestPage() {
       {/* 헤더 */}
       <header className="flex-none p-3 border-b border-gray-700 safe-area-top flex items-center justify-between relative z-50">
         <h1 className="text-lg font-bold">유니티 테스트</h1>
-<button
-          onClick={() => router.push("/test")}
+<Link
+          href="/test"
           className="text-sm text-gray-400 hover:text-white px-3 py-2"
         >
           ← 목록
-        </button>
+        </Link>
       </header>
 
       {/* 메인 컨텐츠 */}
