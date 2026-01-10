@@ -2,7 +2,6 @@
 
 import { createContext, useEffect, useRef, ReactNode, useState, useCallback } from "react";
 import { Unity, useUnityContext } from "react-unity-webgl";
-import { createPortal } from "react-dom";
 import { useAppearanceStore, type SpriteNames } from "@/application/stores";
 
 const UNITY_OBJECT_NAME = "SPUM_20260103203421028";
@@ -165,14 +164,31 @@ export function UnityProviderInner({ children }: { children: ReactNode }) {
   // 현재 활성 viewport 엘리먼트
   const activeViewport = activeViewportId ? viewports.get(activeViewportId) : null;
 
-  // Unity canvas 렌더링 (항상 DOM에 유지)
-  const unityElement = unityProvider ? (
-    <Unity
-      unityProvider={unityProvider}
-      devicePixelRatio={typeof window !== "undefined" ? window.devicePixelRatio : 1}
-      style={{ width: "100%", height: "100%", background: "transparent" }}
-    />
-  ) : null;
+  // Unity 컨테이너 ref
+  const unityContainerRef = useRef<HTMLDivElement>(null);
+  const hiddenContainerRef = useRef<HTMLDivElement>(null);
+
+  // viewport 변경 시 Unity 컨테이너를 DOM 조작으로 이동
+  useEffect(() => {
+    const unityContainer = unityContainerRef.current;
+    if (!unityContainer) return;
+
+    if (activeViewport) {
+      // viewport로 이동
+      activeViewport.appendChild(unityContainer);
+      unityContainer.style.position = "relative";
+      unityContainer.style.width = "100%";
+      unityContainer.style.height = "100%";
+      unityContainer.style.opacity = "1";
+    } else if (hiddenContainerRef.current) {
+      // 숨김 컨테이너로 이동
+      hiddenContainerRef.current.appendChild(unityContainer);
+      unityContainer.style.position = "absolute";
+      unityContainer.style.width = "1px";
+      unityContainer.style.height = "1px";
+      unityContainer.style.opacity = "0";
+    }
+  }, [activeViewport]);
 
   return (
     <UnityCtx.Provider
@@ -187,28 +203,31 @@ export function UnityProviderInner({ children }: { children: ReactNode }) {
     >
       {children}
 
-      {/* Unity canvas - 항상 DOM에 유지 */}
-      {unityElement && (
-        activeViewport
-          ? // viewport가 있으면 Portal로 이동
-            createPortal(unityElement, activeViewport)
-          : // viewport가 없으면 숨김 처리 (but still mounted)
-            <div
-              style={{
-                position: "fixed",
-                top: 0,
-                left: 0,
-                width: 1,
-                height: 1,
-                overflow: "hidden",
-                opacity: 0,
-                pointerEvents: "none",
-                zIndex: -9999,
-              }}
-            >
-              {unityElement}
-            </div>
-      )}
+      {/* 숨김 컨테이너 (viewport 없을 때 Unity가 여기에 있음) */}
+      <div
+        ref={hiddenContainerRef}
+        style={{
+          position: "fixed",
+          top: 0,
+          left: 0,
+          width: 1,
+          height: 1,
+          overflow: "hidden",
+          pointerEvents: "none",
+          zIndex: -9999,
+        }}
+      >
+        {/* Unity 컨테이너 (DOM 조작으로 이동됨) */}
+        {unityProvider && (
+          <div ref={unityContainerRef} style={{ width: "100%", height: "100%" }}>
+            <Unity
+              unityProvider={unityProvider}
+              devicePixelRatio={typeof window !== "undefined" ? window.devicePixelRatio : 1}
+              style={{ width: "100%", height: "100%", background: "transparent" }}
+            />
+          </div>
+        )}
+      </div>
     </UnityCtx.Provider>
   );
 }
