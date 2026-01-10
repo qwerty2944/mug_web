@@ -1,6 +1,5 @@
 // 프리셋 및 상수
 export {
-  STARTER_PRESETS,
   GENDERS,
   RACES,
   BASE_STATS,
@@ -9,7 +8,6 @@ export {
   MIN_STAT,
   STAT_NAMES,
   calculateTotalStats,
-  type StarterPreset,
   type Gender,
   type Race,
   type BodyType,

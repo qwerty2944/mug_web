@@ -28,7 +28,6 @@ export { useUnityBridge } from "@/application/providers";
 
 // Presets (keep in model)
 export {
-  STARTER_PRESETS,
   GENDERS,
   RACES,
   BASE_STATS,
@@ -37,7 +36,6 @@ export {
   MIN_STAT,
   STAT_NAMES,
   calculateTotalStats,
-  type StarterPreset,
   type Gender,
   type Race,
   type BodyType,

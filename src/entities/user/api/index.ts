@@ -41,6 +41,7 @@ export async function fetchProfile(userId: string): Promise<UserProfile> {
     staminaUpdatedAt: data.stamina_updated_at || new Date().toISOString(),
     isPremium: data.is_premium || false,
     premiumUntil: data.premium_until,
+    characterId: data.character_id || null,
     character: data.character || null,
     appearance: data.appearance || null,
     buffs: data.buffs || [],

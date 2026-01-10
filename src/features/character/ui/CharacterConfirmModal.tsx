@@ -19,7 +19,7 @@ export function CharacterConfirmModal({
   loading = false,
 }: CharacterConfirmModalProps) {
   const { theme } = useThemeStore();
-  const { name, gender, race, bodyType, preset, getFinalStats } =
+  const { name, gender, race, bodyType, getFinalStats } =
     useProfileStore();
   const { characterState } = useAppearanceStore();
 
@@ -30,7 +30,6 @@ export function CharacterConfirmModal({
     { label: "성별", value: gender === "male" ? "남성" : "여성" },
     { label: "종족", value: race.name },
     { label: "체형", value: bodyType.name },
-    { label: "직업", value: preset.name },
   ];
 
   const appearanceRows = [
@@ -118,14 +117,6 @@ export function CharacterConfirmModal({
               </div>
             </section>
 
-            {/* 시작 장비 설명 */}
-            <section className="p-3" style={{ background: theme.colors.bgDark }}>
-              <div className="flex items-center gap-2 mb-1">
-                <span className="text-lg">{preset.icon}</span>
-                <span className="font-mono font-medium" style={{ color: theme.colors.text }}>{preset.name}</span>
-              </div>
-              <p className="text-xs font-mono" style={{ color: theme.colors.textMuted }}>{preset.description}</p>
-            </section>
           </Modal.Body>
 
           <Modal.Footer>

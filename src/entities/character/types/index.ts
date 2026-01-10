@@ -38,13 +38,10 @@ export interface ProfileAppearance {
 // ============ 저장된 캐릭터 타입 ============
 
 export interface SavedCharacter {
-  id: string;
   name: string;
   isMain: boolean;
   gender?: "male" | "female";
-  preset?: string;
   stats?: CharacterStats;
-  createdAt?: string;
 }
 
 // ============ 속성 강화/저항 타입 ============

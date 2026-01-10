@@ -25,6 +25,7 @@ export interface UserProfile {
   staminaUpdatedAt: string;
   isPremium: boolean;
   premiumUntil: string | null;
+  characterId: string | null;
   character: SavedCharacter | null;
   // 외형 데이터 (별도 컬럼)
   appearance: ProfileAppearance | null;

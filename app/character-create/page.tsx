@@ -8,7 +8,6 @@ import {
   useProfileStore,
   CharacterConfirmModal,
   useSaveCharacter,
-  STARTER_PRESETS,
   GENDERS,
   RACES,
   BASE_STATS,
@@ -33,14 +32,12 @@ export default function CharacterCreatePage() {
     gender,
     race,
     bodyType,
-    preset,
     allocatedStats,
     setStep,
     setName,
     setGender,
     setRace,
     setBodyType,
-    setPreset,
     increaseStat,
     decreaseStat,
     resetStats,
@@ -79,7 +76,6 @@ export default function CharacterCreatePage() {
       gender,
       race: race.id,
       bodyType: bodyType.index,
-      preset: preset.id,
       stats: getFinalStats(),
       appearance: {
         bodyIndex: bodyType.index,
@@ -210,32 +206,6 @@ export default function CharacterCreatePage() {
             </section>
           )}
 
-          {/* 시작 장비 */}
-          <section>
-            <label className="block text-sm font-medium text-gray-400 mb-2">
-              시작 장비
-            </label>
-            <div className="grid grid-cols-3 gap-2">
-              {STARTER_PRESETS.map((p) => (
-                <button
-                  key={p.id}
-                  onClick={() => setPreset(p)}
-                  className={`p-3 rounded-lg border-2 text-center transition-colors ${
-                    preset.id === p.id
-                      ? "border-blue-500 bg-blue-500/20"
-                      : "border-gray-700 bg-gray-800"
-                  }`}
-                >
-                  <div className="text-2xl">{p.icon}</div>
-                  <div className="text-sm font-medium">{p.name}</div>
-                  <div className="text-xs text-gray-400 truncate">
-                    {p.description}
-                  </div>
-                </button>
-              ))}
-            </div>
-          </section>
-
           {/* 능력치 배분 */}
           <section>
             <div className="flex items-center justify-between mb-2">
@@ -311,7 +281,7 @@ export default function CharacterCreatePage() {
             </div>
 
             <p className="text-xs text-gray-500 mt-2">
-              종족과 장비에 따라 보너스 스탯이 적용됩니다.
+              종족에 따라 보너스 스탯이 적용됩니다.
             </p>
           </section>
 

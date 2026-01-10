@@ -1,6 +1,5 @@
 import { create } from "zustand";
 import {
-  STARTER_PRESETS,
   RACES,
   BASE_STATS,
   BONUS_POINTS,
@@ -9,7 +8,6 @@ import {
   type Gender,
   type Race,
   type BodyType,
-  type StarterPreset,
   type CharacterStats,
 } from "@/features/character/types/presets";
 import { useAppearanceStore } from "./appearanceStore";
@@ -25,7 +23,6 @@ interface ProfileState {
   gender: Gender;
   race: Race;
   bodyType: BodyType;
-  preset: StarterPreset;
   allocatedStats: CharacterStats;
 
   // 액션
@@ -34,7 +31,6 @@ interface ProfileState {
   setGender: (gender: Gender) => void;
   setRace: (race: Race) => void;
   setBodyType: (bodyType: BodyType) => void;
-  setPreset: (preset: StarterPreset) => void;
 
   // 스탯 관련
   increaseStat: (stat: keyof CharacterStats) => void;
@@ -60,7 +56,6 @@ export const useProfileStore = create<ProfileState>((set, get) => ({
   gender: "male",
   race: RACES[0],
   bodyType: RACES[0].bodyTypes[0],
-  preset: STARTER_PRESETS[0],
   allocatedStats: { ...BASE_STATS },
 
   // 기본 액션
@@ -79,34 +74,6 @@ export const useProfileStore = create<ProfileState>((set, get) => ({
   setBodyType: (bodyType) => {
     set({ bodyType });
     useAppearanceStore.getState().callUnity("JS_SetBody", bodyType.index.toString());
-  },
-
-  // 프리셋 선택 (장비 적용)
-  setPreset: (preset) => {
-    set({ preset });
-    const { bodyType } = get();
-    const { callUnity } = useAppearanceStore.getState();
-
-    // 장비 초기화 후 프리셋 적용
-    callUnity("JS_ClearAll");
-    callUnity("JS_SetBody", bodyType.index.toString());
-
-    const { appearance } = preset;
-    if (appearance.clothIndex !== undefined) {
-      callUnity("JS_SetCloth", appearance.clothIndex.toString());
-    }
-    if (appearance.armorIndex !== undefined) {
-      callUnity("JS_SetArmor", appearance.armorIndex.toString());
-    }
-    if (appearance.pantIndex !== undefined) {
-      callUnity("JS_SetPant", appearance.pantIndex.toString());
-    }
-    if (appearance.helmetIndex !== undefined) {
-      callUnity("JS_SetHelmet", appearance.helmetIndex.toString());
-    }
-    if (appearance.backIndex !== undefined) {
-      callUnity("JS_SetBack", appearance.backIndex.toString());
-    }
   },
 
   // 스탯 증가
@@ -153,9 +120,9 @@ export const useProfileStore = create<ProfileState>((set, get) => ({
     return BONUS_POINTS - get().getUsedPoints();
   },
 
-  // 최종 스탯 (종족 + 프리셋 보너스 포함)
+  // 최종 스탯 (종족 보너스 포함)
   getFinalStats: () => {
-    const { allocatedStats, race, preset } = get();
+    const { allocatedStats, race } = get();
     const result = { ...allocatedStats };
 
     // 종족 보너스 적용
@@ -163,22 +130,13 @@ export const useProfileStore = create<ProfileState>((set, get) => ({
       result[key as keyof CharacterStats] += value;
     }
 
-    // 프리셋 보너스 적용
-    if (preset.bonusStats) {
-      for (const [key, value] of Object.entries(preset.bonusStats)) {
-        result[key as keyof CharacterStats] += value;
-      }
-    }
-
     return result;
   },
 
-  // 특정 스탯의 보너스 (종족 + 프리셋)
+  // 특정 스탯의 보너스 (종족)
   getStatBonus: (stat) => {
-    const { race, preset } = get();
-    const raceBonus = race.statBonus[stat] ?? 0;
-    const presetBonus = preset.bonusStats?.[stat] ?? 0;
-    return raceBonus + presetBonus;
+    const { race } = get();
+    return race.statBonus[stat] ?? 0;
   },
 
   // 전체 초기화
@@ -189,7 +147,6 @@ export const useProfileStore = create<ProfileState>((set, get) => ({
       gender: "male",
       race: RACES[0],
       bodyType: RACES[0].bodyTypes[0],
-      preset: STARTER_PRESETS[0],
       allocatedStats: { ...BASE_STATS },
     }),
 }));

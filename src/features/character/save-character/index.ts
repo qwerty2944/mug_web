@@ -13,7 +13,6 @@ export interface SaveCharacterParams {
   gender: "male" | "female";
   race: string;
   bodyType: number;
-  preset: string;
   stats: CharacterStats;
   appearance: CharacterAppearance;
   colors: CharacterColors;
@@ -25,11 +24,9 @@ interface CharacterData {
   gender: "male" | "female";
   race: string;
   bodyType: number;
-  preset: string;
   stats: CharacterStats;
   appearance: CharacterAppearance;
   colors: CharacterColors;
-  createdAt: string;
 }
 
 // ============ API ============
@@ -38,7 +35,6 @@ export async function saveCharacter({ userId, ...params }: SaveCharacterParams) 
   const character: CharacterData = {
     ...params,
     isMain: true,
-    createdAt: new Date().toISOString(),
   };
 
   const { data, error } = await supabase.rpc("save_character", {

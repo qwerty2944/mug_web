@@ -1,20 +1,3 @@
-// 시작 장비 프리셋 (직업 대신 장비 세트)
-export interface StarterPreset {
-  id: string;
-  name: string;
-  description: string;
-  icon: string;
-  appearance: {
-    clothIndex?: number;
-    armorIndex?: number;
-    pantIndex?: number;
-    helmetIndex?: number;
-    backIndex?: number;
-  };
-  // 프리셋별 보너스 스탯
-  bonusStats?: Partial<CharacterStats>;
-}
-
 // 능력치 시스템
 export interface CharacterStats {
   str: number; // 힘 - 물리 공격력, 무게 제한
@@ -57,73 +40,6 @@ export const BASE_STATS: CharacterStats = {
 export const BONUS_POINTS = 10;
 export const MAX_STAT = 20;
 export const MIN_STAT = 5;
-
-export const STARTER_PRESETS: StarterPreset[] = [
-  {
-    id: "warrior",
-    name: "전사",
-    description: "튼튼한 갑옷과 검",
-    icon: "⚔️",
-    appearance: {
-      armorIndex: 0,
-      pantIndex: 0,
-      helmetIndex: 0,
-    },
-    bonusStats: { str: 2, con: 1 },
-  },
-  {
-    id: "mage",
-    name: "마법사",
-    description: "로브와 지팡이",
-    icon: "🔮",
-    appearance: {
-      clothIndex: 0,
-      backIndex: 0,
-    },
-    bonusStats: { int: 2, wis: 1 },
-  },
-  {
-    id: "priest",
-    name: "성직자",
-    description: "신성한 법의와 지팡이",
-    icon: "✨",
-    appearance: {
-      clothIndex: 1,
-      backIndex: 1,
-    },
-    bonusStats: { wis: 2, cha: 1 },
-  },
-  {
-    id: "thief",
-    name: "도적",
-    description: "가벼운 가죽 장비",
-    icon: "🗡️",
-    appearance: {
-      clothIndex: 2,
-      pantIndex: 1,
-    },
-    bonusStats: { dex: 2, cha: 1 },
-  },
-  {
-    id: "archer",
-    name: "궁수",
-    description: "경갑과 활",
-    icon: "🏹",
-    appearance: {
-      armorIndex: 1,
-      pantIndex: 2,
-      backIndex: 2,
-    },
-    bonusStats: { dex: 2, con: 1 },
-  },
-  {
-    id: "none",
-    name: "평민",
-    description: "아무것도 없이 시작",
-    icon: "👤",
-    appearance: {},
-  },
-];
 
 // 성별
 export type Gender = "male" | "female";
@@ -217,7 +133,6 @@ export const RACES: Race[] = [
 // 스탯 계산 유틸
 export function calculateTotalStats(
   raceBonus: Partial<CharacterStats>,
-  presetBonus: Partial<CharacterStats> | undefined,
   allocatedStats: CharacterStats
 ): CharacterStats {
   const result = { ...BASE_STATS };
@@ -225,13 +140,6 @@ export function calculateTotalStats(
   // 종족 보너스 적용
   for (const [key, value] of Object.entries(raceBonus)) {
     result[key as keyof CharacterStats] += value;
-  }
-
-  // 프리셋 보너스 적용
-  if (presetBonus) {
-    for (const [key, value] of Object.entries(presetBonus)) {
-      result[key as keyof CharacterStats] += value;
-    }
   }
 
   // 배분된 스탯 적용
