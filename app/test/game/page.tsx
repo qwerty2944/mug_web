@@ -27,29 +27,13 @@ interface Race {
   category: string;
   nameKo: string;
   nameEn: string;
-  appearance: {
-    body: {
-      availableIndices: number[];
-      spriteNames: string[];
+  appearance?: {
+    body?: {
+      availableSpriteIds?: string[];
     };
-    eye: {
-      availableIndices: number[];
-      colors: {
-        available: string[];
-        default: string;
-        values: Record<string, string>;
-      };
-    };
-    hair: {
-      availableIndices: number[] | "all";
-      colors: {
-        available: string[];
-        default: string;
-        values: Record<string, string>;
-      };
-    };
-    facehair?: {
-      availableIndices: number[];
+    skinTones?: {
+      available: string[];
+      default: string;
     };
   };
 }
@@ -342,16 +326,15 @@ export default function GameTestPage() {
   // 종족별 필터링된 신체 목록
   const filteredBodies = useMemo(() => {
     if (!selectedRace) return appearanceData.body;
-    const availableIndices = selectedRace.appearance.body.availableIndices;
-    return appearanceData.body.filter(b => availableIndices.includes(b.index));
+    const availableSpriteIds = selectedRace.appearance?.body?.availableSpriteIds;
+    if (!availableSpriteIds) return appearanceData.body;
+    return appearanceData.body.filter(b => availableSpriteIds.includes(b.sprite));
   }, [selectedRace, appearanceData.body]);
 
-  // 종족별 필터링된 눈 목록
+  // 종족별 필터링된 눈 목록 (종족 필터가 없으면 전체 반환)
   const filteredEyes = useMemo(() => {
-    if (!selectedRace) return appearanceData.eye;
-    const availableIndices = selectedRace.appearance.eye.availableIndices;
-    return appearanceData.eye.filter(e => availableIndices.includes(e.index));
-  }, [selectedRace, appearanceData.eye]);
+    return appearanceData.eye;
+  }, [appearanceData.eye]);
 
   // 스프라이트 ID → Unity 인덱스 및 스프라이트 이름 변환
   const getSpriteInfo = useCallback((category: string, spriteId: string): { index: number; name: string } => {
@@ -522,30 +505,17 @@ export default function GameTestPage() {
 
     // 해당 종족의 첫 번째 신체로 Unity 초기화
     const race = races.find(r => r.id === raceId);
-    if (race && race.appearance.body.availableIndices.length > 0) {
-      const firstBodyIndex = race.appearance.body.availableIndices[0];
+    const availableSpriteIds = race?.appearance?.body?.availableSpriteIds;
+    if (race && availableSpriteIds && availableSpriteIds.length > 0) {
+      // 스프라이트 ID로 body 데이터에서 인덱스 찾기
+      const firstSpriteId = availableSpriteIds[0];
+      const bodyItem = appearanceData.body.find(b => b.sprite === firstSpriteId);
+      const firstBodyIndex = bodyItem?.index ?? 0;
+
       setUnityAppearance(prev => ({ ...prev, bodyIndex: firstBodyIndex }));
       callUnity("JS_SetBody", firstBodyIndex.toString());
-
-      // 색상도 종족 기본값으로
-      if (race.appearance.hair?.colors?.values) {
-        const defaultHairColor = race.appearance.hair.colors.values[race.appearance.hair.colors.default];
-        if (defaultHairColor) {
-          setAppearance(prev => ({ ...prev, hairColor: defaultHairColor }));
-          setUnityAppearance(prev => ({ ...prev, hairColor: defaultHairColor }));
-          callUnity("JS_SetHairColor", defaultHairColor);
-        }
-      }
-      if (race.appearance.eye?.colors?.values) {
-        const defaultEyeColor = race.appearance.eye.colors.values[race.appearance.eye.colors.default];
-        if (defaultEyeColor) {
-          setAppearance(prev => ({ ...prev, leftEyeColor: defaultEyeColor, rightEyeColor: defaultEyeColor }));
-          setUnityAppearance(prev => ({ ...prev, leftEyeColor: defaultEyeColor, rightEyeColor: defaultEyeColor }));
-          callUnity("JS_SetEyeColor", defaultEyeColor);
-        }
-      }
     }
-  }, [races, callUnity]);
+  }, [races, callUnity, appearanceData.body]);
 
   if (loading) {
     return (
@@ -656,106 +626,63 @@ export default function GameTestPage() {
                 </select>
               </div>
 
-              {/* 색상 */}
-              {selectedRace && (
-                <div className="space-y-2 mt-2">
-                  {/* 머리 색상 */}
-                  <div>
-                    <label className="block text-xs text-gray-400 mb-1">머리 색상</label>
-                    <div className="flex flex-wrap gap-1">
-                      {selectedRace.appearance.hair?.colors?.available?.map((colorKey) => {
-                        const colorValue = selectedRace.appearance.hair.colors.values[colorKey];
-                        return (
-                          <button
-                            key={colorKey}
-                            onClick={() => handleColorSelect("hair", colorValue)}
-                            className={`w-6 h-6 rounded border-2 ${appearance.hairColor === colorValue ? "border-yellow-400" : "border-gray-500"}`}
-                            style={{ backgroundColor: colorValue }}
-                            title={colorKey}
-                          />
-                        );
-                      })}
-                    </div>
-                  </div>
+              {/* 색상 - 기본 색상 팔레트 사용 */}
+              <div className="space-y-2 mt-2">
+                {/* 머리 색상 */}
+                <div>
+                  <label className="block text-xs text-gray-400 mb-1">머리 색상</label>
+                  <input
+                    type="color"
+                    value={appearance.hairColor}
+                    onChange={(e) => handleColorSelect("hair", e.target.value)}
+                    className="w-8 h-8 rounded cursor-pointer"
+                  />
+                </div>
 
-                  {/* 눈 색상 (양쪽 동시) */}
-                  <div>
-                    <label className="block text-xs text-gray-400 mb-1">눈 색상 (양쪽)</label>
-                    <div className="flex flex-wrap gap-1">
-                      {selectedRace.appearance.eye?.colors?.available?.map((colorKey) => {
-                        const colorValue = selectedRace.appearance.eye.colors.values[colorKey];
-                        const isSelected = appearance.leftEyeColor === colorValue && appearance.rightEyeColor === colorValue;
-                        return (
-                          <button
-                            key={colorKey}
-                            onClick={() => handleBothEyeColorSelect(colorValue)}
-                            className={`w-6 h-6 rounded border-2 ${isSelected ? "border-yellow-400" : "border-gray-500"}`}
-                            style={{ backgroundColor: colorValue }}
-                            title={colorKey}
-                          />
-                        );
-                      })}
-                    </div>
-                  </div>
+                {/* 눈 색상 */}
+                <div>
+                  <label className="block text-xs text-gray-400 mb-1">눈 색상 (양쪽)</label>
+                  <input
+                    type="color"
+                    value={appearance.leftEyeColor}
+                    onChange={(e) => handleBothEyeColorSelect(e.target.value)}
+                    className="w-8 h-8 rounded cursor-pointer"
+                  />
+                </div>
 
-                  {/* 개별 눈 색상 */}
-                  <div className="grid grid-cols-2 gap-2">
-                    <div>
-                      <label className="block text-xs text-gray-400 mb-1">왼쪽 눈</label>
-                      <div className="flex flex-wrap gap-1">
-                        {selectedRace.appearance.eye?.colors?.available?.map((colorKey) => {
-                          const colorValue = selectedRace.appearance.eye.colors.values[colorKey];
-                          return (
-                            <button
-                              key={colorKey}
-                              onClick={() => handleColorSelect("leftEye", colorValue)}
-                              className={`w-5 h-5 rounded border-2 ${appearance.leftEyeColor === colorValue ? "border-yellow-400" : "border-gray-500"}`}
-                              style={{ backgroundColor: colorValue }}
-                              title={colorKey}
-                            />
-                          );
-                        })}
-                      </div>
-                    </div>
-                    <div>
-                      <label className="block text-xs text-gray-400 mb-1">오른쪽 눈</label>
-                      <div className="flex flex-wrap gap-1">
-                        {selectedRace.appearance.eye?.colors?.available?.map((colorKey) => {
-                          const colorValue = selectedRace.appearance.eye.colors.values[colorKey];
-                          return (
-                            <button
-                              key={colorKey}
-                              onClick={() => handleColorSelect("rightEye", colorValue)}
-                              className={`w-5 h-5 rounded border-2 ${appearance.rightEyeColor === colorValue ? "border-yellow-400" : "border-gray-500"}`}
-                              style={{ backgroundColor: colorValue }}
-                              title={colorKey}
-                            />
-                          );
-                        })}
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* 수염 색상 */}
+                {/* 개별 눈 색상 */}
+                <div className="grid grid-cols-2 gap-2">
                   <div>
-                    <label className="block text-xs text-gray-400 mb-1">수염 색상</label>
-                    <div className="flex flex-wrap gap-1">
-                      {selectedRace.appearance.hair?.colors?.available?.map((colorKey) => {
-                        const colorValue = selectedRace.appearance.hair.colors.values[colorKey];
-                        return (
-                          <button
-                            key={colorKey}
-                            onClick={() => handleColorSelect("facehair", colorValue)}
-                            className={`w-6 h-6 rounded border-2 ${appearance.faceHairColor === colorValue ? "border-yellow-400" : "border-gray-500"}`}
-                            style={{ backgroundColor: colorValue }}
-                            title={colorKey}
-                          />
-                        );
-                      })}
-                    </div>
+                    <label className="block text-xs text-gray-400 mb-1">왼쪽 눈</label>
+                    <input
+                      type="color"
+                      value={appearance.leftEyeColor}
+                      onChange={(e) => handleColorSelect("leftEye", e.target.value)}
+                      className="w-6 h-6 rounded cursor-pointer"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-xs text-gray-400 mb-1">오른쪽 눈</label>
+                    <input
+                      type="color"
+                      value={appearance.rightEyeColor}
+                      onChange={(e) => handleColorSelect("rightEye", e.target.value)}
+                      className="w-6 h-6 rounded cursor-pointer"
+                    />
                   </div>
                 </div>
-              )}
+
+                {/* 수염 색상 */}
+                <div>
+                  <label className="block text-xs text-gray-400 mb-1">수염 색상</label>
+                  <input
+                    type="color"
+                    value={appearance.faceHairColor}
+                    onChange={(e) => handleColorSelect("facehair", e.target.value)}
+                    className="w-8 h-8 rounded cursor-pointer"
+                  />
+                </div>
+              </div>
             </div>
           </section>
 
