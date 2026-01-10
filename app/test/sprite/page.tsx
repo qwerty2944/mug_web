@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { DynamicUnityCanvas, useAppearanceStore } from "@/features/character";
 
 interface SpriteItem {
@@ -35,14 +35,19 @@ function spritesToItems(sprites: string[]): SpriteItem[] {
 }
 
 export default function SpriteTestPage() {
+  const router = useRouter();
   const { callUnity, characterState, clearAll } = useAppearanceStore();
   const [categories, setCategories] = useState<Record<string, CategoryData>>({});
   const [loading, setLoading] = useState(true);
 
-  // 페이지 진입 시 Unity 상태 초기화
+  // 페이지 진입 시 Unity 상태 초기화 (장비 + 외형)
   useEffect(() => {
     clearAll();
-  }, [clearAll]);
+    // 외형도 기본값으로 초기화
+    callUnity("JS_SetBody", "0");
+    callUnity("JS_SetHair", "-1");
+    callUnity("JS_SetFacehair", "-1");
+  }, [clearAll, callUnity]);
 
   useEffect(() => {
     async function loadMappings() {
@@ -154,9 +159,12 @@ export default function SpriteTestPage() {
         <div className="w-96 bg-gray-800 p-4 overflow-y-auto">
           <div className="flex items-center justify-between mb-4">
             <h1 className="text-xl font-bold">스프라이트 테스트</h1>
-            <Link href="/test" className="text-sm text-gray-400 hover:text-white px-3 py-2">
+            <button
+              onClick={() => router.push("/test")}
+              className="text-sm text-gray-400 hover:text-white px-3 py-2"
+            >
               ← 목록
-            </Link>
+            </button>
           </div>
 
           {/* 외형 섹션 */}
