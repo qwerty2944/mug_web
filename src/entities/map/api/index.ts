@@ -1,27 +1,25 @@
-import { supabase } from "@/shared/api";
 import type { GameMap } from "../types";
 
 // ============ 맵 API ============
 
+interface MapsJson {
+  version: string;
+  generatedAt: string;
+  maps: GameMap[];
+  summary: Record<string, unknown>;
+}
+
+/**
+ * public/data/world/maps.json에서 맵 데이터 로드
+ */
 export async function fetchMaps(): Promise<GameMap[]> {
-  const { data, error } = await supabase
-    .from("maps")
-    .select("*")
-    .order("min_level", { ascending: true });
+  const res = await fetch("/data/world/maps.json");
+  if (!res.ok) {
+    throw new Error(`Failed to fetch maps: ${res.status}`);
+  }
 
-  if (error) throw error;
+  const data: MapsJson = await res.json();
 
-  return (data || []).map((row: any) => ({
-    id: row.id,
-    nameKo: row.name_ko,
-    nameEn: row.name_en,
-    descriptionKo: row.description_ko,
-    descriptionEn: row.description_en,
-    icon: row.icon || "🏠",
-    minLevel: row.min_level || 1,
-    maxPlayers: row.max_players || 100,
-    isPvp: row.is_pvp || false,
-    isSafeZone: row.is_safe_zone ?? true,
-    connectedMaps: row.connected_maps || [],
-  }));
+  // minLevel 기준 정렬
+  return data.maps.sort((a, b) => a.minLevel - b.minLevel);
 }
