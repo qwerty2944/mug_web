@@ -121,5 +121,969 @@
     "Undead_Helmet_06",
     "Undead_Helmet_07"
   ],
-  "count": 120
+  "count": 120,
+  "helmets": [
+    {
+      "id": "elf_helmet_01",
+      "index": 0,
+      "sprite": "Elf_Helmet_01",
+      "ko": "엘프 투구 01",
+      "en": "Elf Helmet 01"
+    },
+    {
+      "id": "elf_helmet_02",
+      "index": 1,
+      "sprite": "Elf_Helmet_02",
+      "ko": "엘프 투구 02",
+      "en": "Elf Helmet 02"
+    },
+    {
+      "id": "elf_helmet_03",
+      "index": 2,
+      "sprite": "Elf_Helmet_03",
+      "ko": "엘프 투구 03",
+      "en": "Elf Helmet 03"
+    },
+    {
+      "id": "elf_helmet_04",
+      "index": 3,
+      "sprite": "Elf_Helmet_04",
+      "ko": "엘프 투구 04",
+      "en": "Elf Helmet 04"
+    },
+    {
+      "id": "elf_helmet_05",
+      "index": 4,
+      "sprite": "Elf_Helmet_05",
+      "ko": "엘프 투구 05",
+      "en": "Elf Helmet 05"
+    },
+    {
+      "id": "elf_helmet_06",
+      "index": 5,
+      "sprite": "Elf_Helmet_06",
+      "ko": "엘프 투구 06",
+      "en": "Elf Helmet 06"
+    },
+    {
+      "id": "elf_helmet_07",
+      "index": 6,
+      "sprite": "Elf_Helmet_07",
+      "ko": "엘프 투구 07",
+      "en": "Elf Helmet 07"
+    },
+    {
+      "id": "elf_helmet_08",
+      "index": 7,
+      "sprite": "Elf_Helmet_08",
+      "ko": "엘프 투구 08",
+      "en": "Elf Helmet 08"
+    },
+    {
+      "id": "elf_helmet_09",
+      "index": 8,
+      "sprite": "Elf_Helmet_09",
+      "ko": "엘프 투구 09",
+      "en": "Elf Helmet 09"
+    },
+    {
+      "id": "elf_helmet_10",
+      "index": 9,
+      "sprite": "Elf_Helmet_10",
+      "ko": "엘프 투구 10",
+      "en": "Elf Helmet 10"
+    },
+    {
+      "id": "elf_helmet_11",
+      "index": 10,
+      "sprite": "Elf_Helmet_11",
+      "ko": "엘프 투구 11",
+      "en": "Elf Helmet 11"
+    },
+    {
+      "id": "elf_helmet_12",
+      "index": 11,
+      "sprite": "Elf_Helmet_12",
+      "ko": "엘프 투구 12",
+      "en": "Elf Helmet 12"
+    },
+    {
+      "id": "elf_helmet_13",
+      "index": 12,
+      "sprite": "Elf_Helmet_13",
+      "ko": "엘프 투구 13",
+      "en": "Elf Helmet 13"
+    },
+    {
+      "id": "elf_helmet_14",
+      "index": 13,
+      "sprite": "Elf_Helmet_14",
+      "ko": "엘프 투구 14",
+      "en": "Elf Helmet 14"
+    },
+    {
+      "id": "elf_helmet_15",
+      "index": 14,
+      "sprite": "Elf_Helmet_15",
+      "ko": "엘프 투구 15",
+      "en": "Elf Helmet 15"
+    },
+    {
+      "id": "elf_helmet_16",
+      "index": 15,
+      "sprite": "Elf_Helmet_16",
+      "ko": "엘프 투구 16",
+      "en": "Elf Helmet 16"
+    },
+    {
+      "id": "elf_helmet_17",
+      "index": 16,
+      "sprite": "Elf_Helmet_17",
+      "ko": "엘프 투구 17",
+      "en": "Elf Helmet 17"
+    },
+    {
+      "id": "elf_helmet_18",
+      "index": 17,
+      "sprite": "Elf_Helmet_18",
+      "ko": "엘프 투구 18",
+      "en": "Elf Helmet 18"
+    },
+    {
+      "id": "elf_helmet_19",
+      "index": 18,
+      "sprite": "Elf_Helmet_19",
+      "ko": "엘프 투구 19",
+      "en": "Elf Helmet 19"
+    },
+    {
+      "id": "elf_helmet_20",
+      "index": 19,
+      "sprite": "Elf_Helmet_20",
+      "ko": "엘프 투구 20",
+      "en": "Elf Helmet 20"
+    },
+    {
+      "id": "f_sr_helmet",
+      "index": 20,
+      "sprite": "F_SR_Helmet",
+      "ko": "특수 Helmet",
+      "en": "F SR Helmet"
+    },
+    {
+      "id": "helmet_1",
+      "index": 21,
+      "sprite": "Helmet_1",
+      "ko": "투구 1",
+      "en": "Helmet 1"
+    },
+    {
+      "id": "helmet_2",
+      "index": 22,
+      "sprite": "Helmet_2",
+      "ko": "투구 2",
+      "en": "Helmet 2"
+    },
+    {
+      "id": "helmet_3",
+      "index": 23,
+      "sprite": "Helmet_3",
+      "ko": "투구 3",
+      "en": "Helmet 3"
+    },
+    {
+      "id": "helmet_4",
+      "index": 24,
+      "sprite": "Helmet_4",
+      "ko": "투구 4",
+      "en": "Helmet 4"
+    },
+    {
+      "id": "helmet_5",
+      "index": 25,
+      "sprite": "Helmet_5",
+      "ko": "투구 5",
+      "en": "Helmet 5"
+    },
+    {
+      "id": "helmet_6",
+      "index": 26,
+      "sprite": "Helmet_6",
+      "ko": "투구 6",
+      "en": "Helmet 6"
+    },
+    {
+      "id": "helmet_7",
+      "index": 27,
+      "sprite": "Helmet_7",
+      "ko": "투구 7",
+      "en": "Helmet 7"
+    },
+    {
+      "id": "helmet_8",
+      "index": 28,
+      "sprite": "Helmet_8",
+      "ko": "투구 8",
+      "en": "Helmet 8"
+    },
+    {
+      "id": "helmet_9",
+      "index": 29,
+      "sprite": "Helmet_9",
+      "ko": "투구 9",
+      "en": "Helmet 9"
+    },
+    {
+      "id": "helmet_archer_1",
+      "index": 30,
+      "sprite": "Helmet_Archer_1",
+      "ko": "Helmet 궁수 1",
+      "en": "Helmet Archer 1"
+    },
+    {
+      "id": "helmet_archer_2",
+      "index": 31,
+      "sprite": "Helmet_Archer_2",
+      "ko": "Helmet 궁수 2",
+      "en": "Helmet Archer 2"
+    },
+    {
+      "id": "helmet_healer_1",
+      "index": 32,
+      "sprite": "Helmet_Healer_1",
+      "ko": "Helmet 힐러 1",
+      "en": "Helmet Healer 1"
+    },
+    {
+      "id": "helmet_healer_2",
+      "index": 33,
+      "sprite": "Helmet_Healer_2",
+      "ko": "Helmet 힐러 2",
+      "en": "Helmet Healer 2"
+    },
+    {
+      "id": "helmet_knight_1",
+      "index": 34,
+      "sprite": "Helmet_Knight_1",
+      "ko": "Helmet 기사 1",
+      "en": "Helmet Knight 1"
+    },
+    {
+      "id": "helmet_knight_2",
+      "index": 35,
+      "sprite": "Helmet_Knight_2",
+      "ko": "Helmet 기사 2",
+      "en": "Helmet Knight 2"
+    },
+    {
+      "id": "helmet_m01",
+      "index": 36,
+      "sprite": "Helmet_m01",
+      "ko": "모자 01",
+      "en": "Helmet m01"
+    },
+    {
+      "id": "helmet_m01_black",
+      "index": 37,
+      "sprite": "Helmet_m01_black",
+      "ko": "모자 01 검정",
+      "en": "Helmet m01 black"
+    },
+    {
+      "id": "helmet_m01_blonde",
+      "index": 38,
+      "sprite": "Helmet_m01_blonde",
+      "ko": "모자 01 금발",
+      "en": "Helmet m01 blonde"
+    },
+    {
+      "id": "helmet_m01_brown",
+      "index": 39,
+      "sprite": "Helmet_m01_brown",
+      "ko": "모자 01 갈색",
+      "en": "Helmet m01 brown"
+    },
+    {
+      "id": "helmet_m01_color",
+      "index": 40,
+      "sprite": "Helmet_m01_color",
+      "ko": "모자 01 컬러",
+      "en": "Helmet m01 color"
+    },
+    {
+      "id": "helmet_m02",
+      "index": 41,
+      "sprite": "Helmet_m02",
+      "ko": "모자 02",
+      "en": "Helmet m02"
+    },
+    {
+      "id": "helmet_m02_black",
+      "index": 42,
+      "sprite": "Helmet_m02_black",
+      "ko": "모자 02 검정",
+      "en": "Helmet m02 black"
+    },
+    {
+      "id": "helmet_m02_blonde",
+      "index": 43,
+      "sprite": "Helmet_m02_blonde",
+      "ko": "모자 02 금발",
+      "en": "Helmet m02 blonde"
+    },
+    {
+      "id": "helmet_m02_brown",
+      "index": 44,
+      "sprite": "Helmet_m02_brown",
+      "ko": "모자 02 갈색",
+      "en": "Helmet m02 brown"
+    },
+    {
+      "id": "helmet_m02_color",
+      "index": 45,
+      "sprite": "Helmet_m02_color",
+      "ko": "모자 02 컬러",
+      "en": "Helmet m02 color"
+    },
+    {
+      "id": "helmet_m03",
+      "index": 46,
+      "sprite": "Helmet_m03",
+      "ko": "모자 03",
+      "en": "Helmet m03"
+    },
+    {
+      "id": "helmet_m03_black",
+      "index": 47,
+      "sprite": "Helmet_m03_black",
+      "ko": "모자 03 검정",
+      "en": "Helmet m03 black"
+    },
+    {
+      "id": "helmet_m03_blonde",
+      "index": 48,
+      "sprite": "Helmet_m03_blonde",
+      "ko": "모자 03 금발",
+      "en": "Helmet m03 blonde"
+    },
+    {
+      "id": "helmet_m03_brown",
+      "index": 49,
+      "sprite": "Helmet_m03_brown",
+      "ko": "모자 03 갈색",
+      "en": "Helmet m03 brown"
+    },
+    {
+      "id": "helmet_m03_color",
+      "index": 50,
+      "sprite": "Helmet_m03_color",
+      "ko": "모자 03 컬러",
+      "en": "Helmet m03 color"
+    },
+    {
+      "id": "helmet_m04",
+      "index": 51,
+      "sprite": "Helmet_m04",
+      "ko": "모자 04",
+      "en": "Helmet m04"
+    },
+    {
+      "id": "helmet_m04_black",
+      "index": 52,
+      "sprite": "Helmet_m04_black",
+      "ko": "모자 04 검정",
+      "en": "Helmet m04 black"
+    },
+    {
+      "id": "helmet_m04_blonde",
+      "index": 53,
+      "sprite": "Helmet_m04_blonde",
+      "ko": "모자 04 금발",
+      "en": "Helmet m04 blonde"
+    },
+    {
+      "id": "helmet_m04_brown",
+      "index": 54,
+      "sprite": "Helmet_m04_brown",
+      "ko": "모자 04 갈색",
+      "en": "Helmet m04 brown"
+    },
+    {
+      "id": "helmet_m04_color",
+      "index": 55,
+      "sprite": "Helmet_m04_color",
+      "ko": "모자 04 컬러",
+      "en": "Helmet m04 color"
+    },
+    {
+      "id": "helmet_m05",
+      "index": 56,
+      "sprite": "Helmet_m05",
+      "ko": "모자 05",
+      "en": "Helmet m05"
+    },
+    {
+      "id": "helmet_m05_black",
+      "index": 57,
+      "sprite": "Helmet_m05_black",
+      "ko": "모자 05 검정",
+      "en": "Helmet m05 black"
+    },
+    {
+      "id": "helmet_m05_blonde",
+      "index": 58,
+      "sprite": "Helmet_m05_blonde",
+      "ko": "모자 05 금발",
+      "en": "Helmet m05 blonde"
+    },
+    {
+      "id": "helmet_m05_brown",
+      "index": 59,
+      "sprite": "Helmet_m05_brown",
+      "ko": "모자 05 갈색",
+      "en": "Helmet m05 brown"
+    },
+    {
+      "id": "helmet_m05_color",
+      "index": 60,
+      "sprite": "Helmet_m05_color",
+      "ko": "모자 05 컬러",
+      "en": "Helmet m05 color"
+    },
+    {
+      "id": "helmet_m06",
+      "index": 61,
+      "sprite": "Helmet_m06",
+      "ko": "모자 06",
+      "en": "Helmet m06"
+    },
+    {
+      "id": "helmet_m06_black",
+      "index": 62,
+      "sprite": "Helmet_m06_black",
+      "ko": "모자 06 검정",
+      "en": "Helmet m06 black"
+    },
+    {
+      "id": "helmet_m06_blonde",
+      "index": 63,
+      "sprite": "Helmet_m06_blonde",
+      "ko": "모자 06 금발",
+      "en": "Helmet m06 blonde"
+    },
+    {
+      "id": "helmet_m06_brown",
+      "index": 64,
+      "sprite": "Helmet_m06_brown",
+      "ko": "모자 06 갈색",
+      "en": "Helmet m06 brown"
+    },
+    {
+      "id": "helmet_m06_color",
+      "index": 65,
+      "sprite": "Helmet_m06_color",
+      "ko": "모자 06 컬러",
+      "en": "Helmet m06 color"
+    },
+    {
+      "id": "helmet_m07",
+      "index": 66,
+      "sprite": "Helmet_m07",
+      "ko": "모자 07",
+      "en": "Helmet m07"
+    },
+    {
+      "id": "helmet_m07_black",
+      "index": 67,
+      "sprite": "Helmet_m07_black",
+      "ko": "모자 07 검정",
+      "en": "Helmet m07 black"
+    },
+    {
+      "id": "helmet_m07_blonde",
+      "index": 68,
+      "sprite": "Helmet_m07_blonde",
+      "ko": "모자 07 금발",
+      "en": "Helmet m07 blonde"
+    },
+    {
+      "id": "helmet_m07_brown",
+      "index": 69,
+      "sprite": "Helmet_m07_brown",
+      "ko": "모자 07 갈색",
+      "en": "Helmet m07 brown"
+    },
+    {
+      "id": "helmet_m07_color",
+      "index": 70,
+      "sprite": "Helmet_m07_color",
+      "ko": "모자 07 컬러",
+      "en": "Helmet m07 color"
+    },
+    {
+      "id": "helmet_m08",
+      "index": 71,
+      "sprite": "Helmet_m08",
+      "ko": "모자 08",
+      "en": "Helmet m08"
+    },
+    {
+      "id": "helmet_m08_black",
+      "index": 72,
+      "sprite": "Helmet_m08_black",
+      "ko": "모자 08 검정",
+      "en": "Helmet m08 black"
+    },
+    {
+      "id": "helmet_m08_blonde",
+      "index": 73,
+      "sprite": "Helmet_m08_blonde",
+      "ko": "모자 08 금발",
+      "en": "Helmet m08 blonde"
+    },
+    {
+      "id": "helmet_m08_brown",
+      "index": 74,
+      "sprite": "Helmet_m08_brown",
+      "ko": "모자 08 갈색",
+      "en": "Helmet m08 brown"
+    },
+    {
+      "id": "helmet_m08_color",
+      "index": 75,
+      "sprite": "Helmet_m08_color",
+      "ko": "모자 08 컬러",
+      "en": "Helmet m08 color"
+    },
+    {
+      "id": "helmet_m09",
+      "index": 76,
+      "sprite": "Helmet_m09",
+      "ko": "모자 09",
+      "en": "Helmet m09"
+    },
+    {
+      "id": "helmet_m09_black",
+      "index": 77,
+      "sprite": "Helmet_m09_black",
+      "ko": "모자 09 검정",
+      "en": "Helmet m09 black"
+    },
+    {
+      "id": "helmet_m09_blonde",
+      "index": 78,
+      "sprite": "Helmet_m09_blonde",
+      "ko": "모자 09 금발",
+      "en": "Helmet m09 blonde"
+    },
+    {
+      "id": "helmet_m09_brown",
+      "index": 79,
+      "sprite": "Helmet_m09_brown",
+      "ko": "모자 09 갈색",
+      "en": "Helmet m09 brown"
+    },
+    {
+      "id": "helmet_m09_color",
+      "index": 80,
+      "sprite": "Helmet_m09_color",
+      "ko": "모자 09 컬러",
+      "en": "Helmet m09 color"
+    },
+    {
+      "id": "helmet_m10",
+      "index": 81,
+      "sprite": "Helmet_m10",
+      "ko": "모자 10",
+      "en": "Helmet m10"
+    },
+    {
+      "id": "helmet_m10_black",
+      "index": 82,
+      "sprite": "Helmet_m10_black",
+      "ko": "모자 10 검정",
+      "en": "Helmet m10 black"
+    },
+    {
+      "id": "helmet_m10_blonde",
+      "index": 83,
+      "sprite": "Helmet_m10_blonde",
+      "ko": "모자 10 금발",
+      "en": "Helmet m10 blonde"
+    },
+    {
+      "id": "helmet_m10_brown",
+      "index": 84,
+      "sprite": "Helmet_m10_brown",
+      "ko": "모자 10 갈색",
+      "en": "Helmet m10 brown"
+    },
+    {
+      "id": "helmet_m10_color",
+      "index": 85,
+      "sprite": "Helmet_m10_color",
+      "ko": "모자 10 컬러",
+      "en": "Helmet m10 color"
+    },
+    {
+      "id": "helmet_m11",
+      "index": 86,
+      "sprite": "Helmet_m11",
+      "ko": "모자 11",
+      "en": "Helmet m11"
+    },
+    {
+      "id": "helmet_m11_black",
+      "index": 87,
+      "sprite": "Helmet_m11_black",
+      "ko": "모자 11 검정",
+      "en": "Helmet m11 black"
+    },
+    {
+      "id": "helmet_m11_blonde",
+      "index": 88,
+      "sprite": "Helmet_m11_blonde",
+      "ko": "모자 11 금발",
+      "en": "Helmet m11 blonde"
+    },
+    {
+      "id": "helmet_m11_brown",
+      "index": 89,
+      "sprite": "Helmet_m11_brown",
+      "ko": "모자 11 갈색",
+      "en": "Helmet m11 brown"
+    },
+    {
+      "id": "helmet_m11_color",
+      "index": 90,
+      "sprite": "Helmet_m11_color",
+      "ko": "모자 11 컬러",
+      "en": "Helmet m11 color"
+    },
+    {
+      "id": "helmet_rogue_1",
+      "index": 91,
+      "sprite": "Helmet_Rogue_1",
+      "ko": "Helmet 도적 1",
+      "en": "Helmet Rogue 1"
+    },
+    {
+      "id": "helmet_rogue_2",
+      "index": 92,
+      "sprite": "Helmet_Rogue_2",
+      "ko": "Helmet 도적 2",
+      "en": "Helmet Rogue 2"
+    },
+    {
+      "id": "helmet_sorcerer",
+      "index": 93,
+      "sprite": "Helmet_Sorcerer",
+      "ko": "Helmet 마법사",
+      "en": "Helmet Sorcerer"
+    },
+    {
+      "id": "helmet_sorceress",
+      "index": 94,
+      "sprite": "Helmet_Sorceress",
+      "ko": "Helmet 마녀",
+      "en": "Helmet Sorceress"
+    },
+    {
+      "id": "new_helmet_01",
+      "index": 95,
+      "sprite": "New_Helmet_01",
+      "ko": "신규 투구 01",
+      "en": "New Helmet 01"
+    },
+    {
+      "id": "new_helmet_02",
+      "index": 96,
+      "sprite": "New_Helmet_02",
+      "ko": "신규 투구 02",
+      "en": "New Helmet 02"
+    },
+    {
+      "id": "new_helmet_03",
+      "index": 97,
+      "sprite": "New_Helmet_03",
+      "ko": "신규 투구 03",
+      "en": "New Helmet 03"
+    },
+    {
+      "id": "new_helmet_04",
+      "index": 98,
+      "sprite": "New_Helmet_04",
+      "ko": "신규 투구 04",
+      "en": "New Helmet 04"
+    },
+    {
+      "id": "new_helmet_05",
+      "index": 99,
+      "sprite": "New_Helmet_05",
+      "ko": "신규 투구 05",
+      "en": "New Helmet 05"
+    },
+    {
+      "id": "new_helmet_06",
+      "index": 100,
+      "sprite": "New_Helmet_06",
+      "ko": "신규 투구 06",
+      "en": "New Helmet 06"
+    },
+    {
+      "id": "new_helmet_07",
+      "index": 101,
+      "sprite": "New_Helmet_07",
+      "ko": "신규 투구 07",
+      "en": "New Helmet 07"
+    },
+    {
+      "id": "new_helmet_08",
+      "index": 102,
+      "sprite": "New_Helmet_08",
+      "ko": "신규 투구 08",
+      "en": "New Helmet 08"
+    },
+    {
+      "id": "new_helmet_09",
+      "index": 103,
+      "sprite": "New_Helmet_09",
+      "ko": "신규 투구 09",
+      "en": "New Helmet 09"
+    },
+    {
+      "id": "new_helmet_10",
+      "index": 104,
+      "sprite": "New_Helmet_10",
+      "ko": "신규 투구 10",
+      "en": "New Helmet 10"
+    },
+    {
+      "id": "normal_helmet1",
+      "index": 105,
+      "sprite": "Normal_Helmet1",
+      "ko": "일반 Helmet1",
+      "en": "Normal Helmet1"
+    },
+    {
+      "id": "normal_helmet2",
+      "index": 106,
+      "sprite": "Normal_Helmet2",
+      "ko": "일반 Helmet2",
+      "en": "Normal Helmet2"
+    },
+    {
+      "id": "normal_helmet3",
+      "index": 107,
+      "sprite": "Normal_Helmet3",
+      "ko": "일반 Helmet3",
+      "en": "Normal Helmet3"
+    },
+    {
+      "id": "orc_helmet_02",
+      "index": 108,
+      "sprite": "Orc_Helmet_02",
+      "ko": "오크 투구 02",
+      "en": "Orc Helmet 02"
+    },
+    {
+      "id": "orc_helmet_03",
+      "index": 109,
+      "sprite": "Orc_Helmet_03",
+      "ko": "오크 투구 03",
+      "en": "Orc Helmet 03"
+    },
+    {
+      "id": "orc_helmet_04",
+      "index": 110,
+      "sprite": "Orc_Helmet_04",
+      "ko": "오크 투구 04",
+      "en": "Orc Helmet 04"
+    },
+    {
+      "id": "orc_helmet_05",
+      "index": 111,
+      "sprite": "Orc_Helmet_05",
+      "ko": "오크 투구 05",
+      "en": "Orc Helmet 05"
+    },
+    {
+      "id": "orc_helmet_06",
+      "index": 112,
+      "sprite": "Orc_Helmet_06",
+      "ko": "오크 투구 06",
+      "en": "Orc Helmet 06"
+    },
+    {
+      "id": "undead_helmet_01",
+      "index": 113,
+      "sprite": "Undead_Helmet_01",
+      "ko": "언데드 투구 01",
+      "en": "Undead Helmet 01"
+    },
+    {
+      "id": "undead_helmet_02",
+      "index": 114,
+      "sprite": "Undead_Helmet_02",
+      "ko": "언데드 투구 02",
+      "en": "Undead Helmet 02"
+    },
+    {
+      "id": "undead_helmet_03",
+      "index": 115,
+      "sprite": "Undead_Helmet_03",
+      "ko": "언데드 투구 03",
+      "en": "Undead Helmet 03"
+    },
+    {
+      "id": "undead_helmet_04",
+      "index": 116,
+      "sprite": "Undead_Helmet_04",
+      "ko": "언데드 투구 04",
+      "en": "Undead Helmet 04"
+    },
+    {
+      "id": "undead_helmet_05",
+      "index": 117,
+      "sprite": "Undead_Helmet_05",
+      "ko": "언데드 투구 05",
+      "en": "Undead Helmet 05"
+    },
+    {
+      "id": "undead_helmet_06",
+      "index": 118,
+      "sprite": "Undead_Helmet_06",
+      "ko": "언데드 투구 06",
+      "en": "Undead Helmet 06"
+    },
+    {
+      "id": "undead_helmet_07",
+      "index": 119,
+      "sprite": "Undead_Helmet_07",
+      "ko": "언데드 투구 07",
+      "en": "Undead Helmet 07"
+    }
+  ],
+  "idToIndex": {
+    "elf_helmet_01": 0,
+    "elf_helmet_02": 1,
+    "elf_helmet_03": 2,
+    "elf_helmet_04": 3,
+    "elf_helmet_05": 4,
+    "elf_helmet_06": 5,
+    "elf_helmet_07": 6,
+    "elf_helmet_08": 7,
+    "elf_helmet_09": 8,
+    "elf_helmet_10": 9,
+    "elf_helmet_11": 10,
+    "elf_helmet_12": 11,
+    "elf_helmet_13": 12,
+    "elf_helmet_14": 13,
+    "elf_helmet_15": 14,
+    "elf_helmet_16": 15,
+    "elf_helmet_17": 16,
+    "elf_helmet_18": 17,
+    "elf_helmet_19": 18,
+    "elf_helmet_20": 19,
+    "f_sr_helmet": 20,
+    "helmet_1": 21,
+    "helmet_2": 22,
+    "helmet_3": 23,
+    "helmet_4": 24,
+    "helmet_5": 25,
+    "helmet_6": 26,
+    "helmet_7": 27,
+    "helmet_8": 28,
+    "helmet_9": 29,
+    "helmet_archer_1": 30,
+    "helmet_archer_2": 31,
+    "helmet_healer_1": 32,
+    "helmet_healer_2": 33,
+    "helmet_knight_1": 34,
+    "helmet_knight_2": 35,
+    "helmet_m01": 36,
+    "helmet_m01_black": 37,
+    "helmet_m01_blonde": 38,
+    "helmet_m01_brown": 39,
+    "helmet_m01_color": 40,
+    "helmet_m02": 41,
+    "helmet_m02_black": 42,
+    "helmet_m02_blonde": 43,
+    "helmet_m02_brown": 44,
+    "helmet_m02_color": 45,
+    "helmet_m03": 46,
+    "helmet_m03_black": 47,
+    "helmet_m03_blonde": 48,
+    "helmet_m03_brown": 49,
+    "helmet_m03_color": 50,
+    "helmet_m04": 51,
+    "helmet_m04_black": 52,
+    "helmet_m04_blonde": 53,
+    "helmet_m04_brown": 54,
+    "helmet_m04_color": 55,
+    "helmet_m05": 56,
+    "helmet_m05_black": 57,
+    "helmet_m05_blonde": 58,
+    "helmet_m05_brown": 59,
+    "helmet_m05_color": 60,
+    "helmet_m06": 61,
+    "helmet_m06_black": 62,
+    "helmet_m06_blonde": 63,
+    "helmet_m06_brown": 64,
+    "helmet_m06_color": 65,
+    "helmet_m07": 66,
+    "helmet_m07_black": 67,
+    "helmet_m07_blonde": 68,
+    "helmet_m07_brown": 69,
+    "helmet_m07_color": 70,
+    "helmet_m08": 71,
+    "helmet_m08_black": 72,
+    "helmet_m08_blonde": 73,
+    "helmet_m08_brown": 74,
+    "helmet_m08_color": 75,
+    "helmet_m09": 76,
+    "helmet_m09_black": 77,
+    "helmet_m09_blonde": 78,
+    "helmet_m09_brown": 79,
+    "helmet_m09_color": 80,
+    "helmet_m10": 81,
+    "helmet_m10_black": 82,
+    "helmet_m10_blonde": 83,
+    "helmet_m10_brown": 84,
+    "helmet_m10_color": 85,
+    "helmet_m11": 86,
+    "helmet_m11_black": 87,
+    "helmet_m11_blonde": 88,
+    "helmet_m11_brown": 89,
+    "helmet_m11_color": 90,
+    "helmet_rogue_1": 91,
+    "helmet_rogue_2": 92,
+    "helmet_sorcerer": 93,
+    "helmet_sorceress": 94,
+    "new_helmet_01": 95,
+    "new_helmet_02": 96,
+    "new_helmet_03": 97,
+    "new_helmet_04": 98,
+    "new_helmet_05": 99,
+    "new_helmet_06": 100,
+    "new_helmet_07": 101,
+    "new_helmet_08": 102,
+    "new_helmet_09": 103,
+    "new_helmet_10": 104,
+    "normal_helmet1": 105,
+    "normal_helmet2": 106,
+    "normal_helmet3": 107,
+    "orc_helmet_02": 108,
+    "orc_helmet_03": 109,
+    "orc_helmet_04": 110,
+    "orc_helmet_05": 111,
+    "orc_helmet_06": 112,
+    "undead_helmet_01": 113,
+    "undead_helmet_02": 114,
+    "undead_helmet_03": 115,
+    "undead_helmet_04": 116,
+    "undead_helmet_05": 117,
+    "undead_helmet_06": 118,
+    "undead_helmet_07": 119
+  }
 }

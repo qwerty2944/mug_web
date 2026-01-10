@@ -45,5 +45,28 @@
     "Zombie_4": 18,
     "Zombie_5": 19,
     "Zombie_6": 20
-  }
+  },
+  "bodies": [
+    { "index": 0, "ko": "악마", "en": "Devil", "race": "tiefling" },
+    { "index": 1, "ko": "엘프 1", "en": "Elf 1", "race": "elf" },
+    { "index": 2, "ko": "엘프 2", "en": "Elf 2", "race": "elf" },
+    { "index": 3, "ko": "인간 1", "en": "Human 1", "race": "human" },
+    { "index": 4, "ko": "인간 2", "en": "Human 2", "race": "human" },
+    { "index": 5, "ko": "인간 3", "en": "Human 3", "race": "human" },
+    { "index": 6, "ko": "인간 4", "en": "Human 4", "race": "human" },
+    { "index": 7, "ko": "인간 5", "en": "Human 5", "race": "human" },
+    { "index": 8, "ko": "신규 엘프 1", "en": "New Elf 1", "race": "elf" },
+    { "index": 9, "ko": "신규 엘프 2", "en": "New Elf 2", "race": "elf" },
+    { "index": 10, "ko": "오크 1", "en": "Orc 1", "race": "orc" },
+    { "index": 11, "ko": "오크 2", "en": "Orc 2", "race": "orc" },
+    { "index": 12, "ko": "오크 3", "en": "Orc 3", "race": "orc" },
+    { "index": 13, "ko": "오크 4", "en": "Orc 4", "race": "orc" },
+    { "index": 14, "ko": "스켈레톤", "en": "Skeleton", "race": "undead" },
+    { "index": 15, "ko": "좀비 1", "en": "Zombie 1", "race": "undead" },
+    { "index": 16, "ko": "좀비 2", "en": "Zombie 2", "race": "undead" },
+    { "index": 17, "ko": "좀비 3", "en": "Zombie 3", "race": "undead" },
+    { "index": 18, "ko": "좀비 4", "en": "Zombie 4", "race": "undead" },
+    { "index": 19, "ko": "좀비 5", "en": "Zombie 5", "race": "undead" },
+    { "index": 20, "ko": "좀비 6", "en": "Zombie 6", "race": "undead" }
+  ]
 }

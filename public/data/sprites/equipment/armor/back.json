@@ -35,5 +35,281 @@
     "Undead_Back_01",
     "Undead_Back_02"
   ],
-  "count": 34
+  "count": 34,
+  "backs": [
+    {
+      "id": "back_1",
+      "index": 0,
+      "sprite": "Back_1",
+      "ko": "망토 1",
+      "en": "Back 1"
+    },
+    {
+      "id": "back_2",
+      "index": 1,
+      "sprite": "Back_2",
+      "ko": "망토 2",
+      "en": "Back 2"
+    },
+    {
+      "id": "back_3",
+      "index": 2,
+      "sprite": "Back_3",
+      "ko": "망토 3",
+      "en": "Back 3"
+    },
+    {
+      "id": "back_archer_1",
+      "index": 3,
+      "sprite": "Back_Archer_1",
+      "ko": "Back 궁수 1",
+      "en": "Back Archer 1"
+    },
+    {
+      "id": "back_archer_2",
+      "index": 4,
+      "sprite": "Back_Archer_2",
+      "ko": "Back 궁수 2",
+      "en": "Back Archer 2"
+    },
+    {
+      "id": "back_healer_1",
+      "index": 5,
+      "sprite": "Back_Healer_1",
+      "ko": "Back 힐러 1",
+      "en": "Back Healer 1"
+    },
+    {
+      "id": "back_healer_2",
+      "index": 6,
+      "sprite": "Back_Healer_2",
+      "ko": "Back 힐러 2",
+      "en": "Back Healer 2"
+    },
+    {
+      "id": "back_knight_1",
+      "index": 7,
+      "sprite": "Back_Knight_1",
+      "ko": "Back 기사 1",
+      "en": "Back Knight 1"
+    },
+    {
+      "id": "back_knight_2",
+      "index": 8,
+      "sprite": "Back_Knight_2",
+      "ko": "Back 기사 2",
+      "en": "Back Knight 2"
+    },
+    {
+      "id": "back_rogue_1",
+      "index": 9,
+      "sprite": "Back_Rogue_1",
+      "ko": "Back 도적 1",
+      "en": "Back Rogue 1"
+    },
+    {
+      "id": "back_rogue_2",
+      "index": 10,
+      "sprite": "Back_Rogue_2",
+      "ko": "Back 도적 2",
+      "en": "Back Rogue 2"
+    },
+    {
+      "id": "back_sorcerer",
+      "index": 11,
+      "sprite": "Back_Sorcerer",
+      "ko": "Back 마법사",
+      "en": "Back Sorcerer"
+    },
+    {
+      "id": "back_sorceress",
+      "index": 12,
+      "sprite": "Back_Sorceress",
+      "ko": "Back 마녀",
+      "en": "Back Sorceress"
+    },
+    {
+      "id": "bowback_1",
+      "index": 13,
+      "sprite": "BowBack_1",
+      "ko": "활집 1",
+      "en": "BowBack 1"
+    },
+    {
+      "id": "elf_back_01",
+      "index": 14,
+      "sprite": "Elf_Back_01",
+      "ko": "엘프 망토 01",
+      "en": "Elf Back 01"
+    },
+    {
+      "id": "elf_back_02",
+      "index": 15,
+      "sprite": "Elf_Back_02",
+      "ko": "엘프 망토 02",
+      "en": "Elf Back 02"
+    },
+    {
+      "id": "elf_back_03",
+      "index": 16,
+      "sprite": "Elf_Back_03",
+      "ko": "엘프 망토 03",
+      "en": "Elf Back 03"
+    },
+    {
+      "id": "elf_back_04",
+      "index": 17,
+      "sprite": "Elf_Back_04",
+      "ko": "엘프 망토 04",
+      "en": "Elf Back 04"
+    },
+    {
+      "id": "elf_back_05",
+      "index": 18,
+      "sprite": "Elf_Back_05",
+      "ko": "엘프 망토 05",
+      "en": "Elf Back 05"
+    },
+    {
+      "id": "elf_back_06",
+      "index": 19,
+      "sprite": "Elf_Back_06",
+      "ko": "엘프 망토 06",
+      "en": "Elf Back 06"
+    },
+    {
+      "id": "elf_back_07",
+      "index": 20,
+      "sprite": "Elf_Back_07",
+      "ko": "엘프 망토 07",
+      "en": "Elf Back 07"
+    },
+    {
+      "id": "elf_back_08",
+      "index": 21,
+      "sprite": "Elf_Back_08",
+      "ko": "엘프 망토 08",
+      "en": "Elf Back 08"
+    },
+    {
+      "id": "elf_back_09",
+      "index": 22,
+      "sprite": "Elf_Back_09",
+      "ko": "엘프 망토 09",
+      "en": "Elf Back 09"
+    },
+    {
+      "id": "elf_back_10",
+      "index": 23,
+      "sprite": "Elf_Back_10",
+      "ko": "엘프 망토 10",
+      "en": "Elf Back 10"
+    },
+    {
+      "id": "elf_back_11",
+      "index": 24,
+      "sprite": "Elf_Back_11",
+      "ko": "엘프 망토 11",
+      "en": "Elf Back 11"
+    },
+    {
+      "id": "elf_back_12",
+      "index": 25,
+      "sprite": "Elf_Back_12",
+      "ko": "엘프 망토 12",
+      "en": "Elf Back 12"
+    },
+    {
+      "id": "new_back_01",
+      "index": 26,
+      "sprite": "New_Back_01",
+      "ko": "신규 망토 01",
+      "en": "New Back 01"
+    },
+    {
+      "id": "new_back_02",
+      "index": 27,
+      "sprite": "New_Back_02",
+      "ko": "신규 망토 02",
+      "en": "New Back 02"
+    },
+    {
+      "id": "orc_back_01",
+      "index": 28,
+      "sprite": "Orc_Back_01",
+      "ko": "오크 망토 01",
+      "en": "Orc Back 01"
+    },
+    {
+      "id": "orc_back_02",
+      "index": 29,
+      "sprite": "Orc_Back_02",
+      "ko": "오크 망토 02",
+      "en": "Orc Back 02"
+    },
+    {
+      "id": "orc_back_03",
+      "index": 30,
+      "sprite": "Orc_Back_03",
+      "ko": "오크 망토 03",
+      "en": "Orc Back 03"
+    },
+    {
+      "id": "soon_back1",
+      "index": 31,
+      "sprite": "Soon_Back1",
+      "ko": "순 Back1",
+      "en": "Soon Back1"
+    },
+    {
+      "id": "undead_back_01",
+      "index": 32,
+      "sprite": "Undead_Back_01",
+      "ko": "언데드 망토 01",
+      "en": "Undead Back 01"
+    },
+    {
+      "id": "undead_back_02",
+      "index": 33,
+      "sprite": "Undead_Back_02",
+      "ko": "언데드 망토 02",
+      "en": "Undead Back 02"
+    }
+  ],
+  "idToIndex": {
+    "back_1": 0,
+    "back_2": 1,
+    "back_3": 2,
+    "back_archer_1": 3,
+    "back_archer_2": 4,
+    "back_healer_1": 5,
+    "back_healer_2": 6,
+    "back_knight_1": 7,
+    "back_knight_2": 8,
+    "back_rogue_1": 9,
+    "back_rogue_2": 10,
+    "back_sorcerer": 11,
+    "back_sorceress": 12,
+    "bowback_1": 13,
+    "elf_back_01": 14,
+    "elf_back_02": 15,
+    "elf_back_03": 16,
+    "elf_back_04": 17,
+    "elf_back_05": 18,
+    "elf_back_06": 19,
+    "elf_back_07": 20,
+    "elf_back_08": 21,
+    "elf_back_09": 22,
+    "elf_back_10": 23,
+    "elf_back_11": 24,
+    "elf_back_12": 25,
+    "new_back_01": 26,
+    "new_back_02": 27,
+    "orc_back_01": 28,
+    "orc_back_02": 29,
+    "orc_back_03": 30,
+    "soon_back1": 31,
+    "undead_back_01": 32,
+    "undead_back_02": 33
+  }
 }

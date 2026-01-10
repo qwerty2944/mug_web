@@ -60,5 +60,481 @@
     "Undead_Armor_06",
     "Undead_Armor_07"
   ],
-  "count": 59
+  "count": 59,
+  "armors": [
+    {
+      "id": "armor_1",
+      "index": 0,
+      "sprite": "Armor_1",
+      "ko": "갑옷 1",
+      "en": "Armor 1"
+    },
+    {
+      "id": "armor_2",
+      "index": 1,
+      "sprite": "Armor_2",
+      "ko": "갑옷 2",
+      "en": "Armor 2"
+    },
+    {
+      "id": "armor_3",
+      "index": 2,
+      "sprite": "Armor_3",
+      "ko": "갑옷 3",
+      "en": "Armor 3"
+    },
+    {
+      "id": "armor_4",
+      "index": 3,
+      "sprite": "Armor_4",
+      "ko": "갑옷 4",
+      "en": "Armor 4"
+    },
+    {
+      "id": "armor_5",
+      "index": 4,
+      "sprite": "Armor_5",
+      "ko": "갑옷 5",
+      "en": "Armor 5"
+    },
+    {
+      "id": "armor_6",
+      "index": 5,
+      "sprite": "Armor_6",
+      "ko": "갑옷 6",
+      "en": "Armor 6"
+    },
+    {
+      "id": "armor_7",
+      "index": 6,
+      "sprite": "Armor_7",
+      "ko": "갑옷 7",
+      "en": "Armor 7"
+    },
+    {
+      "id": "armor_8",
+      "index": 7,
+      "sprite": "Armor_8",
+      "ko": "갑옷 8",
+      "en": "Armor 8"
+    },
+    {
+      "id": "armor_archer_1",
+      "index": 8,
+      "sprite": "Armor_Archer_1",
+      "ko": "Armor 궁수 1",
+      "en": "Armor Archer 1"
+    },
+    {
+      "id": "armor_archer_2",
+      "index": 9,
+      "sprite": "Armor_Archer_2",
+      "ko": "Armor 궁수 2",
+      "en": "Armor Archer 2"
+    },
+    {
+      "id": "armor_healer_1",
+      "index": 10,
+      "sprite": "Armor_Healer_1",
+      "ko": "Armor 힐러 1",
+      "en": "Armor Healer 1"
+    },
+    {
+      "id": "armor_healer_2",
+      "index": 11,
+      "sprite": "Armor_Healer_2",
+      "ko": "Armor 힐러 2",
+      "en": "Armor Healer 2"
+    },
+    {
+      "id": "armor_knight_1",
+      "index": 12,
+      "sprite": "Armor_Knight_1",
+      "ko": "Armor 기사 1",
+      "en": "Armor Knight 1"
+    },
+    {
+      "id": "armor_knight_2",
+      "index": 13,
+      "sprite": "Armor_Knight_2",
+      "ko": "Armor 기사 2",
+      "en": "Armor Knight 2"
+    },
+    {
+      "id": "armor_rogue_1",
+      "index": 14,
+      "sprite": "Armor_Rogue_1",
+      "ko": "Armor 도적 1",
+      "en": "Armor Rogue 1"
+    },
+    {
+      "id": "armor_rogue_2",
+      "index": 15,
+      "sprite": "Armor_Rogue_2",
+      "ko": "Armor 도적 2",
+      "en": "Armor Rogue 2"
+    },
+    {
+      "id": "armor_sorcerer",
+      "index": 16,
+      "sprite": "Armor_Sorcerer",
+      "ko": "Armor 마법사",
+      "en": "Armor Sorcerer"
+    },
+    {
+      "id": "elf_armor_01",
+      "index": 17,
+      "sprite": "Elf_Armor_01",
+      "ko": "엘프 갑옷 01",
+      "en": "Elf Armor 01"
+    },
+    {
+      "id": "elf_armor_02",
+      "index": 18,
+      "sprite": "Elf_Armor_02",
+      "ko": "엘프 갑옷 02",
+      "en": "Elf Armor 02"
+    },
+    {
+      "id": "elf_armor_03",
+      "index": 19,
+      "sprite": "Elf_Armor_03",
+      "ko": "엘프 갑옷 03",
+      "en": "Elf Armor 03"
+    },
+    {
+      "id": "elf_armor_04",
+      "index": 20,
+      "sprite": "Elf_Armor_04",
+      "ko": "엘프 갑옷 04",
+      "en": "Elf Armor 04"
+    },
+    {
+      "id": "elf_armor_05",
+      "index": 21,
+      "sprite": "Elf_Armor_05",
+      "ko": "엘프 갑옷 05",
+      "en": "Elf Armor 05"
+    },
+    {
+      "id": "elf_armor_06",
+      "index": 22,
+      "sprite": "Elf_Armor_06",
+      "ko": "엘프 갑옷 06",
+      "en": "Elf Armor 06"
+    },
+    {
+      "id": "elf_armor_07",
+      "index": 23,
+      "sprite": "Elf_Armor_07",
+      "ko": "엘프 갑옷 07",
+      "en": "Elf Armor 07"
+    },
+    {
+      "id": "elf_armor_08",
+      "index": 24,
+      "sprite": "Elf_Armor_08",
+      "ko": "엘프 갑옷 08",
+      "en": "Elf Armor 08"
+    },
+    {
+      "id": "elf_armor_09",
+      "index": 25,
+      "sprite": "Elf_Armor_09",
+      "ko": "엘프 갑옷 09",
+      "en": "Elf Armor 09"
+    },
+    {
+      "id": "elf_armor_10",
+      "index": 26,
+      "sprite": "Elf_Armor_10",
+      "ko": "엘프 갑옷 10",
+      "en": "Elf Armor 10"
+    },
+    {
+      "id": "elf_armor_11",
+      "index": 27,
+      "sprite": "Elf_Armor_11",
+      "ko": "엘프 갑옷 11",
+      "en": "Elf Armor 11"
+    },
+    {
+      "id": "elf_armor_12",
+      "index": 28,
+      "sprite": "Elf_Armor_12",
+      "ko": "엘프 갑옷 12",
+      "en": "Elf Armor 12"
+    },
+    {
+      "id": "elf_armor_13",
+      "index": 29,
+      "sprite": "Elf_Armor_13",
+      "ko": "엘프 갑옷 13",
+      "en": "Elf Armor 13"
+    },
+    {
+      "id": "elf_armor_14",
+      "index": 30,
+      "sprite": "Elf_Armor_14",
+      "ko": "엘프 갑옷 14",
+      "en": "Elf Armor 14"
+    },
+    {
+      "id": "elf_armor_15",
+      "index": 31,
+      "sprite": "Elf_Armor_15",
+      "ko": "엘프 갑옷 15",
+      "en": "Elf Armor 15"
+    },
+    {
+      "id": "elf_armor_16",
+      "index": 32,
+      "sprite": "Elf_Armor_16",
+      "ko": "엘프 갑옷 16",
+      "en": "Elf Armor 16"
+    },
+    {
+      "id": "elf_armor_17",
+      "index": 33,
+      "sprite": "Elf_Armor_17",
+      "ko": "엘프 갑옷 17",
+      "en": "Elf Armor 17"
+    },
+    {
+      "id": "elf_armor_18",
+      "index": 34,
+      "sprite": "Elf_Armor_18",
+      "ko": "엘프 갑옷 18",
+      "en": "Elf Armor 18"
+    },
+    {
+      "id": "elf_armor_19",
+      "index": 35,
+      "sprite": "Elf_Armor_19",
+      "ko": "엘프 갑옷 19",
+      "en": "Elf Armor 19"
+    },
+    {
+      "id": "new_armor_01",
+      "index": 36,
+      "sprite": "New_Armor_01",
+      "ko": "신규 갑옷 01",
+      "en": "New Armor 01"
+    },
+    {
+      "id": "new_armor_02",
+      "index": 37,
+      "sprite": "New_Armor_02",
+      "ko": "신규 갑옷 02",
+      "en": "New Armor 02"
+    },
+    {
+      "id": "new_armor_03",
+      "index": 38,
+      "sprite": "New_Armor_03",
+      "ko": "신규 갑옷 03",
+      "en": "New Armor 03"
+    },
+    {
+      "id": "new_armor_04",
+      "index": 39,
+      "sprite": "New_Armor_04",
+      "ko": "신규 갑옷 04",
+      "en": "New Armor 04"
+    },
+    {
+      "id": "new_armor_05",
+      "index": 40,
+      "sprite": "New_Armor_05",
+      "ko": "신규 갑옷 05",
+      "en": "New Armor 05"
+    },
+    {
+      "id": "new_armor_06",
+      "index": 41,
+      "sprite": "New_Armor_06",
+      "ko": "신규 갑옷 06",
+      "en": "New Armor 06"
+    },
+    {
+      "id": "new_armor_07",
+      "index": 42,
+      "sprite": "New_Armor_07",
+      "ko": "신규 갑옷 07",
+      "en": "New Armor 07"
+    },
+    {
+      "id": "new_armor_08",
+      "index": 43,
+      "sprite": "New_Armor_08",
+      "ko": "신규 갑옷 08",
+      "en": "New Armor 08"
+    },
+    {
+      "id": "new_armor_09",
+      "index": 44,
+      "sprite": "New_Armor_09",
+      "ko": "신규 갑옷 09",
+      "en": "New Armor 09"
+    },
+    {
+      "id": "new_armor_10",
+      "index": 45,
+      "sprite": "New_Armor_10",
+      "ko": "신규 갑옷 10",
+      "en": "New Armor 10"
+    },
+    {
+      "id": "new_armor_12",
+      "index": 46,
+      "sprite": "New_Armor_12",
+      "ko": "신규 갑옷 12",
+      "en": "New Armor 12"
+    },
+    {
+      "id": "normal_armor1",
+      "index": 47,
+      "sprite": "Normal_Armor1",
+      "ko": "일반 Armor1",
+      "en": "Normal Armor1"
+    },
+    {
+      "id": "orc_armor_01",
+      "index": 48,
+      "sprite": "Orc_Armor_01",
+      "ko": "오크 갑옷 01",
+      "en": "Orc Armor 01"
+    },
+    {
+      "id": "orc_armor_02",
+      "index": 49,
+      "sprite": "Orc_Armor_02",
+      "ko": "오크 갑옷 02",
+      "en": "Orc Armor 02"
+    },
+    {
+      "id": "orc_armor_03",
+      "index": 50,
+      "sprite": "Orc_Armor_03",
+      "ko": "오크 갑옷 03",
+      "en": "Orc Armor 03"
+    },
+    {
+      "id": "orc_armor_04",
+      "index": 51,
+      "sprite": "Orc_Armor_04",
+      "ko": "오크 갑옷 04",
+      "en": "Orc Armor 04"
+    },
+    {
+      "id": "undead_armor_01",
+      "index": 52,
+      "sprite": "Undead_Armor_01",
+      "ko": "언데드 갑옷 01",
+      "en": "Undead Armor 01"
+    },
+    {
+      "id": "undead_armor_02",
+      "index": 53,
+      "sprite": "Undead_Armor_02",
+      "ko": "언데드 갑옷 02",
+      "en": "Undead Armor 02"
+    },
+    {
+      "id": "undead_armor_03",
+      "index": 54,
+      "sprite": "Undead_Armor_03",
+      "ko": "언데드 갑옷 03",
+      "en": "Undead Armor 03"
+    },
+    {
+      "id": "undead_armor_04",
+      "index": 55,
+      "sprite": "Undead_Armor_04",
+      "ko": "언데드 갑옷 04",
+      "en": "Undead Armor 04"
+    },
+    {
+      "id": "undead_armor_05",
+      "index": 56,
+      "sprite": "Undead_Armor_05",
+      "ko": "언데드 갑옷 05",
+      "en": "Undead Armor 05"
+    },
+    {
+      "id": "undead_armor_06",
+      "index": 57,
+      "sprite": "Undead_Armor_06",
+      "ko": "언데드 갑옷 06",
+      "en": "Undead Armor 06"
+    },
+    {
+      "id": "undead_armor_07",
+      "index": 58,
+      "sprite": "Undead_Armor_07",
+      "ko": "언데드 갑옷 07",
+      "en": "Undead Armor 07"
+    }
+  ],
+  "idToIndex": {
+    "armor_1": 0,
+    "armor_2": 1,
+    "armor_3": 2,
+    "armor_4": 3,
+    "armor_5": 4,
+    "armor_6": 5,
+    "armor_7": 6,
+    "armor_8": 7,
+    "armor_archer_1": 8,
+    "armor_archer_2": 9,
+    "armor_healer_1": 10,
+    "armor_healer_2": 11,
+    "armor_knight_1": 12,
+    "armor_knight_2": 13,
+    "armor_rogue_1": 14,
+    "armor_rogue_2": 15,
+    "armor_sorcerer": 16,
+    "elf_armor_01": 17,
+    "elf_armor_02": 18,
+    "elf_armor_03": 19,
+    "elf_armor_04": 20,
+    "elf_armor_05": 21,
+    "elf_armor_06": 22,
+    "elf_armor_07": 23,
+    "elf_armor_08": 24,
+    "elf_armor_09": 25,
+    "elf_armor_10": 26,
+    "elf_armor_11": 27,
+    "elf_armor_12": 28,
+    "elf_armor_13": 29,
+    "elf_armor_14": 30,
+    "elf_armor_15": 31,
+    "elf_armor_16": 32,
+    "elf_armor_17": 33,
+    "elf_armor_18": 34,
+    "elf_armor_19": 35,
+    "new_armor_01": 36,
+    "new_armor_02": 37,
+    "new_armor_03": 38,
+    "new_armor_04": 39,
+    "new_armor_05": 40,
+    "new_armor_06": 41,
+    "new_armor_07": 42,
+    "new_armor_08": 43,
+    "new_armor_09": 44,
+    "new_armor_10": 45,
+    "new_armor_12": 46,
+    "normal_armor1": 47,
+    "orc_armor_01": 48,
+    "orc_armor_02": 49,
+    "orc_armor_03": 50,
+    "orc_armor_04": 51,
+    "undead_armor_01": 52,
+    "undead_armor_02": 53,
+    "undead_armor_03": 54,
+    "undead_armor_04": 55,
+    "undead_armor_05": 56,
+    "undead_armor_06": 57,
+    "undead_armor_07": 58
+  }
 }
