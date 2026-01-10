@@ -10,7 +10,8 @@
     "capture-sprites": "tsx scripts/capture-sprite-names.ts",
     "sync-data": "tsx scripts/sync-data.ts",
     "sync-data:dry": "tsx scripts/sync-data.ts --dry",
-    "upload-data": "tsx scripts/upload-data.ts"
+    "upload-data": "tsx scripts/upload-data.ts",
+    "sync-sprites": "node scripts/sync-sprite-mappings.js"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",

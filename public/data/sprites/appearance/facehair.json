@@ -1,5 +1,9 @@
 {
   "sprites": [
+    "Orc_Mouse_01 ",
+    "Orc_Mouse_02",
+    "Orc_Mouse_03",
+    "Orc_Mouse_04",
     "face_acc_m01",
     "face_acc_m02",
     "face_acc_m03",
@@ -15,55 +19,193 @@
     "FaceHair_4",
     "FaceHair_5",
     "Normal_Mustache1",
-    "Normal_Mustache2",
-    "Orc_Mouse_01 ",
-    "Orc_Mouse_02",
-    "Orc_Mouse_03",
-    "Orc_Mouse_04"
+    "Normal_Mustache2"
   ],
   "count": 20,
   "nameToIndex": {
-    "face_acc_m01": 0,
-    "face_acc_m02": 1,
-    "face_acc_m03": 2,
-    "face_acc_m04": 3,
-    "face_acc_m05": 4,
-    "face_acc_m06": 5,
-    "face_cheek": 6,
-    "face_eyelash": 7,
-    "face_lip": 8,
-    "FaceHair_1": 9,
-    "FaceHair_2": 10,
-    "FaceHair_3": 11,
-    "FaceHair_4": 12,
-    "FaceHair_5": 13,
-    "Normal_Mustache1": 14,
-    "Normal_Mustache2": 15,
-    "Orc_Mouse_01 ": 16,
-    "Orc_Mouse_02": 17,
-    "Orc_Mouse_03": 18,
-    "Orc_Mouse_04": 19
+    "Orc_Mouse_01 ": 0,
+    "Orc_Mouse_02": 1,
+    "Orc_Mouse_03": 2,
+    "Orc_Mouse_04": 3,
+    "face_acc_m01": 4,
+    "face_acc_m02": 5,
+    "face_acc_m03": 6,
+    "face_acc_m04": 7,
+    "face_acc_m05": 8,
+    "face_acc_m06": 9,
+    "face_cheek": 10,
+    "face_eyelash": 11,
+    "face_lip": 12,
+    "FaceHair_1": 13,
+    "FaceHair_2": 14,
+    "FaceHair_3": 15,
+    "FaceHair_4": 16,
+    "FaceHair_5": 17,
+    "Normal_Mustache1": 18,
+    "Normal_Mustache2": 19
   },
   "facehairs": [
-    { "index": 0, "ko": "흉터 1", "en": "Scar 1", "type": "accessory" },
-    { "index": 1, "ko": "흉터 2", "en": "Scar 2", "type": "accessory" },
-    { "index": 2, "ko": "문신 1", "en": "Tattoo 1", "type": "accessory" },
-    { "index": 3, "ko": "문신 2", "en": "Tattoo 2", "type": "accessory" },
-    { "index": 4, "ko": "점/사마귀", "en": "Mole", "type": "accessory" },
-    { "index": 5, "ko": "상처", "en": "Wound", "type": "accessory" },
-    { "index": 6, "ko": "볼터치", "en": "Blush", "type": "makeup" },
-    { "index": 7, "ko": "속눈썹", "en": "Eyelash", "type": "makeup" },
-    { "index": 8, "ko": "립스틱", "en": "Lipstick", "type": "makeup" },
-    { "index": 9, "ko": "짧은 수염", "en": "Short Beard", "type": "beard" },
-    { "index": 10, "ko": "중간 수염", "en": "Medium Beard", "type": "beard" },
-    { "index": 11, "ko": "긴 수염", "en": "Long Beard", "type": "beard" },
-    { "index": 12, "ko": "풍성한 수염", "en": "Full Beard", "type": "beard" },
-    { "index": 13, "ko": "턱수염", "en": "Goatee", "type": "beard" },
-    { "index": 14, "ko": "일반 콧수염", "en": "Normal Mustache", "type": "mustache" },
-    { "index": 15, "ko": "멋진 콧수염", "en": "Fancy Mustache", "type": "mustache" },
-    { "index": 16, "ko": "작은 엄니", "en": "Small Tusks", "type": "orc" },
-    { "index": 17, "ko": "중간 엄니", "en": "Medium Tusks", "type": "orc" },
-    { "index": 18, "ko": "큰 엄니", "en": "Large Tusks", "type": "orc" },
-    { "index": 19, "ko": "장식된 엄니", "en": "Decorated Tusks", "type": "orc" }
-  ]
+    {
+      "id": "orc_mouse_01_",
+      "index": 0,
+      "sprite": "Orc_Mouse_01 ",
+      "ko": "오크 Mouse 01",
+      "en": "Orc Mouse 01 "
+    },
+    {
+      "id": "orc_mouse_02",
+      "index": 1,
+      "sprite": "Orc_Mouse_02",
+      "ko": "오크 Mouse 02",
+      "en": "Orc Mouse 02"
+    },
+    {
+      "id": "orc_mouse_03",
+      "index": 2,
+      "sprite": "Orc_Mouse_03",
+      "ko": "오크 Mouse 03",
+      "en": "Orc Mouse 03"
+    },
+    {
+      "id": "orc_mouse_04",
+      "index": 3,
+      "sprite": "Orc_Mouse_04",
+      "ko": "오크 Mouse 04",
+      "en": "Orc Mouse 04"
+    },
+    {
+      "id": "face_acc_m01",
+      "index": 4,
+      "sprite": "face_acc_m01",
+      "ko": "얼굴장식 01",
+      "en": "face acc m01"
+    },
+    {
+      "id": "face_acc_m02",
+      "index": 5,
+      "sprite": "face_acc_m02",
+      "ko": "얼굴장식 02",
+      "en": "face acc m02"
+    },
+    {
+      "id": "face_acc_m03",
+      "index": 6,
+      "sprite": "face_acc_m03",
+      "ko": "얼굴장식 03",
+      "en": "face acc m03"
+    },
+    {
+      "id": "face_acc_m04",
+      "index": 7,
+      "sprite": "face_acc_m04",
+      "ko": "얼굴장식 04",
+      "en": "face acc m04"
+    },
+    {
+      "id": "face_acc_m05",
+      "index": 8,
+      "sprite": "face_acc_m05",
+      "ko": "얼굴장식 05",
+      "en": "face acc m05"
+    },
+    {
+      "id": "face_acc_m06",
+      "index": 9,
+      "sprite": "face_acc_m06",
+      "ko": "얼굴장식 06",
+      "en": "face acc m06"
+    },
+    {
+      "id": "face_cheek",
+      "index": 10,
+      "sprite": "face_cheek",
+      "ko": "볼터치",
+      "en": "face cheek"
+    },
+    {
+      "id": "face_eyelash",
+      "index": 11,
+      "sprite": "face_eyelash",
+      "ko": "속눈썹",
+      "en": "face eyelash"
+    },
+    {
+      "id": "face_lip",
+      "index": 12,
+      "sprite": "face_lip",
+      "ko": "립스틱",
+      "en": "face lip"
+    },
+    {
+      "id": "facehair_1",
+      "index": 13,
+      "sprite": "FaceHair_1",
+      "ko": "Face머리 1",
+      "en": "FaceHair 1"
+    },
+    {
+      "id": "facehair_2",
+      "index": 14,
+      "sprite": "FaceHair_2",
+      "ko": "Face머리 2",
+      "en": "FaceHair 2"
+    },
+    {
+      "id": "facehair_3",
+      "index": 15,
+      "sprite": "FaceHair_3",
+      "ko": "Face머리 3",
+      "en": "FaceHair 3"
+    },
+    {
+      "id": "facehair_4",
+      "index": 16,
+      "sprite": "FaceHair_4",
+      "ko": "Face머리 4",
+      "en": "FaceHair 4"
+    },
+    {
+      "id": "facehair_5",
+      "index": 17,
+      "sprite": "FaceHair_5",
+      "ko": "Face머리 5",
+      "en": "FaceHair 5"
+    },
+    {
+      "id": "normal_mustache1",
+      "index": 18,
+      "sprite": "Normal_Mustache1",
+      "ko": "일반 Mustache1",
+      "en": "Normal Mustache1"
+    },
+    {
+      "id": "normal_mustache2",
+      "index": 19,
+      "sprite": "Normal_Mustache2",
+      "ko": "일반 Mustache2",
+      "en": "Normal Mustache2"
+    }
+  ],
+  "idToIndex": {
+    "orc_mouse_01_": 0,
+    "orc_mouse_02": 1,
+    "orc_mouse_03": 2,
+    "orc_mouse_04": 3,
+    "face_acc_m01": 4,
+    "face_acc_m02": 5,
+    "face_acc_m03": 6,
+    "face_acc_m04": 7,
+    "face_acc_m05": 8,
+    "face_acc_m06": 9,
+    "face_cheek": 10,
+    "face_eyelash": 11,
+    "face_lip": 12,
+    "facehair_1": 13,
+    "facehair_2": 14,
+    "facehair_3": 15,
+    "facehair_4": 16,
+    "facehair_5": 17,
+    "normal_mustache1": 18,
+    "normal_mustache2": 19
+  }
 }

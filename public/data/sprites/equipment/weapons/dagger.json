@@ -1,11 +1,33 @@
 {
-  "category": "dagger",
+  "sprites": [
+    "Weapon_Rogue_1",
+    "Weapon_Rogue_2"
+  ],
   "count": 2,
+  "nameToIndex": {
+    "Weapon_Rogue_1": 0,
+    "Weapon_Rogue_2": 1
+  },
   "daggers": [
-    { "id": "weapon_rogue_1", "index": 0, "sprite": "Weapon_Rogue_1", "ko": "도적의 단검 1", "en": "Rogue Dagger 1", "style": "rogue" },
-    { "id": "weapon_rogue_2", "index": 1, "sprite": "Weapon_Rogue_2", "ko": "도적의 단검 2", "en": "Rogue Dagger 2", "style": "rogue" }
+    {
+      "id": "weapon_rogue_1",
+      "index": 0,
+      "sprite": "Weapon_Rogue_1",
+      "ko": "Weapon 도적 1",
+      "en": "Weapon Rogue 1",
+      "style": "rogue"
+    },
+    {
+      "id": "weapon_rogue_2",
+      "index": 1,
+      "sprite": "Weapon_Rogue_2",
+      "ko": "Weapon 도적 2",
+      "en": "Weapon Rogue 2",
+      "style": "rogue"
+    }
   ],
   "idToIndex": {
-    "weapon_rogue_1": 0, "weapon_rogue_2": 1
+    "weapon_rogue_1": 0,
+    "weapon_rogue_2": 1
   }
 }

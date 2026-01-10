@@ -1,26 +1,165 @@
 {
-  "category": "shield",
+  "sprites": [
+    "Elf_Shield_01",
+    "Elf_Shield_02",
+    "Elf_Shield_03",
+    "Elf_Shield_04",
+    "Elf_Weapon_16",
+    "Orc_Shield_01",
+    "Undead_Shield_01",
+    "Undead_Shield_02",
+    "Undead_Shield_03",
+    "Shield_Knight_1",
+    "Shield_Knight_2",
+    "Shield_Sorcerer",
+    "Shield_Sorceress",
+    "Shield_1"
+  ],
   "count": 14,
+  "nameToIndex": {
+    "Elf_Shield_01": 0,
+    "Elf_Shield_02": 1,
+    "Elf_Shield_03": 2,
+    "Elf_Shield_04": 3,
+    "Elf_Weapon_16": 4,
+    "Orc_Shield_01": 5,
+    "Undead_Shield_01": 6,
+    "Undead_Shield_02": 7,
+    "Undead_Shield_03": 8,
+    "Shield_Knight_1": 9,
+    "Shield_Knight_2": 10,
+    "Shield_Sorcerer": 11,
+    "Shield_Sorceress": 12,
+    "Shield_1": 13
+  },
   "shields": [
-    { "id": "elf_shield_01", "index": 0, "sprite": "Elf_Shield_01", "ko": "엘프 방패 1", "en": "Elf Shield 1", "style": "elf" },
-    { "id": "elf_shield_02", "index": 1, "sprite": "Elf_Shield_02", "ko": "엘프 방패 2", "en": "Elf Shield 2", "style": "elf" },
-    { "id": "elf_shield_03", "index": 2, "sprite": "Elf_Shield_03", "ko": "엘프 방패 3", "en": "Elf Shield 3", "style": "elf" },
-    { "id": "elf_shield_04", "index": 3, "sprite": "Elf_Shield_04", "ko": "엘프 방패 4", "en": "Elf Shield 4", "style": "elf" },
-    { "id": "elf_weapon_16", "index": 4, "sprite": "Elf_Weapon_16", "ko": "엘프 방패 5", "en": "Elf Shield 5", "style": "elf" },
-    { "id": "orc_shield_01", "index": 5, "sprite": "Orc_Shield_01", "ko": "오크 방패", "en": "Orc Shield", "style": "orc" },
-    { "id": "undead_shield_01", "index": 6, "sprite": "Undead_Shield_01", "ko": "언데드 방패 1", "en": "Undead Shield 1", "style": "undead" },
-    { "id": "undead_shield_02", "index": 7, "sprite": "Undead_Shield_02", "ko": "언데드 방패 2", "en": "Undead Shield 2", "style": "undead" },
-    { "id": "undead_shield_03", "index": 8, "sprite": "Undead_Shield_03", "ko": "언데드 방패 3", "en": "Undead Shield 3", "style": "undead" },
-    { "id": "shield_knight_1", "index": 9, "sprite": "Shield_Knight_1", "ko": "기사의 방패 1", "en": "Knight Shield 1", "style": "knight" },
-    { "id": "shield_knight_2", "index": 10, "sprite": "Shield_Knight_2", "ko": "기사의 방패 2", "en": "Knight Shield 2", "style": "knight" },
-    { "id": "shield_sorcerer", "index": 11, "sprite": "Shield_Sorcerer", "ko": "마법사의 방패", "en": "Sorcerer Shield", "style": "mage" },
-    { "id": "shield_sorceress", "index": 12, "sprite": "Shield_Sorceress", "ko": "마녀의 방패", "en": "Sorceress Shield", "style": "mage" },
-    { "id": "shield_1", "index": 13, "sprite": "Shield_1", "ko": "일반 방패", "en": "Shield", "style": "common" }
+    {
+      "id": "elf_shield_01",
+      "index": 0,
+      "sprite": "Elf_Shield_01",
+      "ko": "엘프 방패 01",
+      "en": "Elf Shield 01",
+      "style": "elf"
+    },
+    {
+      "id": "elf_shield_02",
+      "index": 1,
+      "sprite": "Elf_Shield_02",
+      "ko": "엘프 방패 02",
+      "en": "Elf Shield 02",
+      "style": "elf"
+    },
+    {
+      "id": "elf_shield_03",
+      "index": 2,
+      "sprite": "Elf_Shield_03",
+      "ko": "엘프 방패 03",
+      "en": "Elf Shield 03",
+      "style": "elf"
+    },
+    {
+      "id": "elf_shield_04",
+      "index": 3,
+      "sprite": "Elf_Shield_04",
+      "ko": "엘프 방패 04",
+      "en": "Elf Shield 04",
+      "style": "elf"
+    },
+    {
+      "id": "elf_weapon_16",
+      "index": 4,
+      "sprite": "Elf_Weapon_16",
+      "ko": "엘프 Weapon 16",
+      "en": "Elf Weapon 16",
+      "style": "elf"
+    },
+    {
+      "id": "orc_shield_01",
+      "index": 5,
+      "sprite": "Orc_Shield_01",
+      "ko": "오크 방패 01",
+      "en": "Orc Shield 01",
+      "style": "orc"
+    },
+    {
+      "id": "undead_shield_01",
+      "index": 6,
+      "sprite": "Undead_Shield_01",
+      "ko": "언데드 방패 01",
+      "en": "Undead Shield 01",
+      "style": "undead"
+    },
+    {
+      "id": "undead_shield_02",
+      "index": 7,
+      "sprite": "Undead_Shield_02",
+      "ko": "언데드 방패 02",
+      "en": "Undead Shield 02",
+      "style": "undead"
+    },
+    {
+      "id": "undead_shield_03",
+      "index": 8,
+      "sprite": "Undead_Shield_03",
+      "ko": "언데드 방패 03",
+      "en": "Undead Shield 03",
+      "style": "undead"
+    },
+    {
+      "id": "shield_knight_1",
+      "index": 9,
+      "sprite": "Shield_Knight_1",
+      "ko": "Shield 기사 1",
+      "en": "Shield Knight 1",
+      "style": "knight"
+    },
+    {
+      "id": "shield_knight_2",
+      "index": 10,
+      "sprite": "Shield_Knight_2",
+      "ko": "Shield 기사 2",
+      "en": "Shield Knight 2",
+      "style": "knight"
+    },
+    {
+      "id": "shield_sorcerer",
+      "index": 11,
+      "sprite": "Shield_Sorcerer",
+      "ko": "마법사 방패",
+      "en": "Shield Sorcerer",
+      "style": "mage"
+    },
+    {
+      "id": "shield_sorceress",
+      "index": 12,
+      "sprite": "Shield_Sorceress",
+      "ko": "마녀 방패",
+      "en": "Shield Sorceress",
+      "style": "mage"
+    },
+    {
+      "id": "shield_1",
+      "index": 13,
+      "sprite": "Shield_1",
+      "ko": "방패 1",
+      "en": "Shield 1",
+      "style": "common"
+    }
   ],
   "idToIndex": {
-    "elf_shield_01": 0, "elf_shield_02": 1, "elf_shield_03": 2, "elf_shield_04": 3,
-    "elf_weapon_16": 4, "orc_shield_01": 5, "undead_shield_01": 6, "undead_shield_02": 7,
-    "undead_shield_03": 8, "shield_knight_1": 9, "shield_knight_2": 10,
-    "shield_sorcerer": 11, "shield_sorceress": 12, "shield_1": 13
+    "elf_shield_01": 0,
+    "elf_shield_02": 1,
+    "elf_shield_03": 2,
+    "elf_shield_04": 3,
+    "elf_weapon_16": 4,
+    "orc_shield_01": 5,
+    "undead_shield_01": 6,
+    "undead_shield_02": 7,
+    "undead_shield_03": 8,
+    "shield_knight_1": 9,
+    "shield_knight_2": 10,
+    "shield_sorcerer": 11,
+    "shield_sorceress": 12,
+    "shield_1": 13
   }
 }

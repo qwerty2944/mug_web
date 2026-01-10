@@ -1,5 +1,13 @@
 {
   "sprites": [
+    "New_Elf_1",
+    "New_Elf_2",
+    "Zombie_1",
+    "Zombie_2",
+    "Zombie_3",
+    "Zombie_4",
+    "Zombie_5",
+    "Zombie_6",
     "Devil_1",
     "Elf_1",
     "Elf_2",
@@ -8,65 +16,227 @@
     "Human_3",
     "Human_4",
     "Human_5",
-    "New_Elf_1",
-    "New_Elf_2",
     "Orc_1",
     "Orc_2",
     "Orc_3",
     "Orc_4",
-    "Skelton_1",
-    "Zombie_1",
-    "Zombie_2",
-    "Zombie_3",
-    "Zombie_4",
-    "Zombie_5",
-    "Zombie_6"
+    "Skelton_1"
   ],
   "count": 21,
   "nameToIndex": {
-    "Devil_1": 0,
-    "Elf_1": 1,
-    "Elf_2": 2,
-    "Human_1": 3,
-    "Human_2": 4,
-    "Human_3": 5,
-    "Human_4": 6,
-    "Human_5": 7,
-    "New_Elf_1": 8,
-    "New_Elf_2": 9,
-    "Orc_1": 10,
-    "Orc_2": 11,
-    "Orc_3": 12,
-    "Orc_4": 13,
-    "Skelton_1": 14,
-    "Zombie_1": 15,
-    "Zombie_2": 16,
-    "Zombie_3": 17,
-    "Zombie_4": 18,
-    "Zombie_5": 19,
-    "Zombie_6": 20
+    "New_Elf_1": 0,
+    "New_Elf_2": 1,
+    "Zombie_1": 2,
+    "Zombie_2": 3,
+    "Zombie_3": 4,
+    "Zombie_4": 5,
+    "Zombie_5": 6,
+    "Zombie_6": 7,
+    "Devil_1": 8,
+    "Elf_1": 9,
+    "Elf_2": 10,
+    "Human_1": 11,
+    "Human_2": 12,
+    "Human_3": 13,
+    "Human_4": 14,
+    "Human_5": 15,
+    "Orc_1": 16,
+    "Orc_2": 17,
+    "Orc_3": 18,
+    "Orc_4": 19,
+    "Skelton_1": 20
   },
   "bodies": [
-    { "index": 0, "ko": "악마", "en": "Devil", "race": "tiefling" },
-    { "index": 1, "ko": "엘프 1", "en": "Elf 1", "race": "elf" },
-    { "index": 2, "ko": "엘프 2", "en": "Elf 2", "race": "elf" },
-    { "index": 3, "ko": "인간 1", "en": "Human 1", "race": "human" },
-    { "index": 4, "ko": "인간 2", "en": "Human 2", "race": "human" },
-    { "index": 5, "ko": "인간 3", "en": "Human 3", "race": "human" },
-    { "index": 6, "ko": "인간 4", "en": "Human 4", "race": "human" },
-    { "index": 7, "ko": "인간 5", "en": "Human 5", "race": "human" },
-    { "index": 8, "ko": "신규 엘프 1", "en": "New Elf 1", "race": "elf" },
-    { "index": 9, "ko": "신규 엘프 2", "en": "New Elf 2", "race": "elf" },
-    { "index": 10, "ko": "오크 1", "en": "Orc 1", "race": "orc" },
-    { "index": 11, "ko": "오크 2", "en": "Orc 2", "race": "orc" },
-    { "index": 12, "ko": "오크 3", "en": "Orc 3", "race": "orc" },
-    { "index": 13, "ko": "오크 4", "en": "Orc 4", "race": "orc" },
-    { "index": 14, "ko": "스켈레톤", "en": "Skeleton", "race": "undead" },
-    { "index": 15, "ko": "좀비 1", "en": "Zombie 1", "race": "undead" },
-    { "index": 16, "ko": "좀비 2", "en": "Zombie 2", "race": "undead" },
-    { "index": 17, "ko": "좀비 3", "en": "Zombie 3", "race": "undead" },
-    { "index": 18, "ko": "좀비 4", "en": "Zombie 4", "race": "undead" },
-    { "index": 19, "ko": "좀비 5", "en": "Zombie 5", "race": "undead" },
-    { "index": 20, "ko": "좀비 6", "en": "Zombie 6", "race": "undead" }
-  ]
+    {
+      "id": "new_elf_1",
+      "index": 0,
+      "sprite": "New_Elf_1",
+      "ko": "신규 엘프 1",
+      "en": "New Elf 1",
+      "race": "elf"
+    },
+    {
+      "id": "new_elf_2",
+      "index": 1,
+      "sprite": "New_Elf_2",
+      "ko": "신규 엘프 2",
+      "en": "New Elf 2",
+      "race": "elf"
+    },
+    {
+      "id": "zombie_1",
+      "index": 2,
+      "sprite": "Zombie_1",
+      "ko": "좀비 1",
+      "en": "Zombie 1",
+      "race": "undead"
+    },
+    {
+      "id": "zombie_2",
+      "index": 3,
+      "sprite": "Zombie_2",
+      "ko": "좀비 2",
+      "en": "Zombie 2",
+      "race": "undead"
+    },
+    {
+      "id": "zombie_3",
+      "index": 4,
+      "sprite": "Zombie_3",
+      "ko": "좀비 3",
+      "en": "Zombie 3",
+      "race": "undead"
+    },
+    {
+      "id": "zombie_4",
+      "index": 5,
+      "sprite": "Zombie_4",
+      "ko": "좀비 4",
+      "en": "Zombie 4",
+      "race": "undead"
+    },
+    {
+      "id": "zombie_5",
+      "index": 6,
+      "sprite": "Zombie_5",
+      "ko": "좀비 5",
+      "en": "Zombie 5",
+      "race": "undead"
+    },
+    {
+      "id": "zombie_6",
+      "index": 7,
+      "sprite": "Zombie_6",
+      "ko": "좀비 6",
+      "en": "Zombie 6",
+      "race": "undead"
+    },
+    {
+      "id": "devil_1",
+      "index": 8,
+      "sprite": "Devil_1",
+      "ko": "악마 1",
+      "en": "Devil 1",
+      "race": "tiefling"
+    },
+    {
+      "id": "elf_1",
+      "index": 9,
+      "sprite": "Elf_1",
+      "ko": "엘프 1",
+      "en": "Elf 1",
+      "race": "elf"
+    },
+    {
+      "id": "elf_2",
+      "index": 10,
+      "sprite": "Elf_2",
+      "ko": "엘프 2",
+      "en": "Elf 2",
+      "race": "elf"
+    },
+    {
+      "id": "human_1",
+      "index": 11,
+      "sprite": "Human_1",
+      "ko": "인간 1",
+      "en": "Human 1",
+      "race": "human"
+    },
+    {
+      "id": "human_2",
+      "index": 12,
+      "sprite": "Human_2",
+      "ko": "인간 2",
+      "en": "Human 2",
+      "race": "human"
+    },
+    {
+      "id": "human_3",
+      "index": 13,
+      "sprite": "Human_3",
+      "ko": "인간 3",
+      "en": "Human 3",
+      "race": "human"
+    },
+    {
+      "id": "human_4",
+      "index": 14,
+      "sprite": "Human_4",
+      "ko": "인간 4",
+      "en": "Human 4",
+      "race": "human"
+    },
+    {
+      "id": "human_5",
+      "index": 15,
+      "sprite": "Human_5",
+      "ko": "인간 5",
+      "en": "Human 5",
+      "race": "human"
+    },
+    {
+      "id": "orc_1",
+      "index": 16,
+      "sprite": "Orc_1",
+      "ko": "오크 1",
+      "en": "Orc 1",
+      "race": "orc"
+    },
+    {
+      "id": "orc_2",
+      "index": 17,
+      "sprite": "Orc_2",
+      "ko": "오크 2",
+      "en": "Orc 2",
+      "race": "orc"
+    },
+    {
+      "id": "orc_3",
+      "index": 18,
+      "sprite": "Orc_3",
+      "ko": "오크 3",
+      "en": "Orc 3",
+      "race": "orc"
+    },
+    {
+      "id": "orc_4",
+      "index": 19,
+      "sprite": "Orc_4",
+      "ko": "오크 4",
+      "en": "Orc 4",
+      "race": "orc"
+    },
+    {
+      "id": "skelton_1",
+      "index": 20,
+      "sprite": "Skelton_1",
+      "ko": "스켈레톤 1",
+      "en": "Skelton 1",
+      "race": "undead"
+    }
+  ],
+  "idToIndex": {
+    "new_elf_1": 0,
+    "new_elf_2": 1,
+    "zombie_1": 2,
+    "zombie_2": 3,
+    "zombie_3": 4,
+    "zombie_4": 5,
+    "zombie_5": 6,
+    "zombie_6": 7,
+    "devil_1": 8,
+    "elf_1": 9,
+    "elf_2": 10,
+    "human_1": 11,
+    "human_2": 12,
+    "human_3": 13,
+    "human_4": 14,
+    "human_5": 15,
+    "orc_1": 16,
+    "orc_2": 17,
+    "orc_3": 18,
+    "orc_4": 19,
+    "skelton_1": 20
+  }
 }

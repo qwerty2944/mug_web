@@ -20,16 +20,34 @@
     "Elf_Pant_18",
     "Elf_Pant_19",
     "Elf_Pant_20",
-    "F_SR_Pants",
-    "Foot_1",
-    "Foot_2",
-    "Foot_3",
-    "Foot_4",
+    "Orc_Pant_01",
+    "Orc_Pant_02",
+    "Orc_Pant_03",
+    "Orc_Pant_04",
+    "Undead_Pant_01",
+    "Undead_Pant_02",
+    "Undead_Pant_03",
+    "Undead_Pant_04",
+    "Undead_Pant_05",
     "Foot_m01",
     "Foot_m02",
     "Foot_m03",
     "Foot_m04",
     "Foot_m05",
+    "Pant_Archer_2",
+    "Pant_Healer_1",
+    "Pant_Healer_2",
+    "Pant_Knight_1",
+    "Pant_Knight_2",
+    "Pant_Rogue_1",
+    "Pant_Rogue_2",
+    "Pant_Sorcerer",
+    "Pant_Sorceress",
+    "F_SR_Pants",
+    "Foot_1",
+    "Foot_2",
+    "Foot_3",
+    "Foot_4",
     "New_Pant_01",
     "New_Pant_02",
     "New_Pant_03",
@@ -41,447 +59,551 @@
     "New_Pant_09",
     "New_Pant_10",
     "New_Pant_11",
-    "New_Pant_12",
-    "Orc_Pant_01",
-    "Orc_Pant_02",
-    "Orc_Pant_03",
-    "Orc_Pant_04",
-    "Pant_Archer_2",
-    "Pant_Healer_1",
-    "Pant_Healer_2",
-    "Pant_Knight_1",
-    "Pant_Knight_2",
-    "Pant_Rogue_1",
-    "Pant_Rogue_2",
-    "Pant_Sorcerer",
-    "Pant_Sorceress",
-    "Undead_Pant_01",
-    "Undead_Pant_02",
-    "Undead_Pant_03",
-    "Undead_Pant_04",
-    "Undead_Pant_05"
+    "New_Pant_12"
   ],
   "count": 60,
+  "nameToIndex": {
+    "Elf_Pant_01": 0,
+    "Elf_Pant_02": 1,
+    "Elf_Pant_03": 2,
+    "Elf_Pant_04": 3,
+    "Elf_Pant_05": 4,
+    "Elf_Pant_06": 5,
+    "Elf_Pant_07": 6,
+    "Elf_Pant_08": 7,
+    "Elf_Pant_09": 8,
+    "Elf_Pant_10": 9,
+    "Elf_Pant_11": 10,
+    "Elf_Pant_12": 11,
+    "Elf_Pant_13": 12,
+    "Elf_Pant_14": 13,
+    "Elf_Pant_15": 14,
+    "Elf_Pant_16": 15,
+    "Elf_Pant_17": 16,
+    "Elf_Pant_18": 17,
+    "Elf_Pant_19": 18,
+    "Elf_Pant_20": 19,
+    "Orc_Pant_01": 20,
+    "Orc_Pant_02": 21,
+    "Orc_Pant_03": 22,
+    "Orc_Pant_04": 23,
+    "Undead_Pant_01": 24,
+    "Undead_Pant_02": 25,
+    "Undead_Pant_03": 26,
+    "Undead_Pant_04": 27,
+    "Undead_Pant_05": 28,
+    "Foot_m01": 29,
+    "Foot_m02": 30,
+    "Foot_m03": 31,
+    "Foot_m04": 32,
+    "Foot_m05": 33,
+    "Pant_Archer_2": 34,
+    "Pant_Healer_1": 35,
+    "Pant_Healer_2": 36,
+    "Pant_Knight_1": 37,
+    "Pant_Knight_2": 38,
+    "Pant_Rogue_1": 39,
+    "Pant_Rogue_2": 40,
+    "Pant_Sorcerer": 41,
+    "Pant_Sorceress": 42,
+    "F_SR_Pants": 43,
+    "Foot_1": 44,
+    "Foot_2": 45,
+    "Foot_3": 46,
+    "Foot_4": 47,
+    "New_Pant_01": 48,
+    "New_Pant_02": 49,
+    "New_Pant_03": 50,
+    "New_Pant_04": 51,
+    "New_Pant_05": 52,
+    "New_Pant_06": 53,
+    "New_Pant_07": 54,
+    "New_Pant_08": 55,
+    "New_Pant_09": 56,
+    "New_Pant_10": 57,
+    "New_Pant_11": 58,
+    "New_Pant_12": 59
+  },
   "pants": [
     {
       "id": "elf_pant_01",
       "index": 0,
       "sprite": "Elf_Pant_01",
       "ko": "엘프 바지 01",
-      "en": "Elf Pant 01"
+      "en": "Elf Pant 01",
+      "style": "elf"
     },
     {
       "id": "elf_pant_02",
       "index": 1,
       "sprite": "Elf_Pant_02",
       "ko": "엘프 바지 02",
-      "en": "Elf Pant 02"
+      "en": "Elf Pant 02",
+      "style": "elf"
     },
     {
       "id": "elf_pant_03",
       "index": 2,
       "sprite": "Elf_Pant_03",
       "ko": "엘프 바지 03",
-      "en": "Elf Pant 03"
+      "en": "Elf Pant 03",
+      "style": "elf"
     },
     {
       "id": "elf_pant_04",
       "index": 3,
       "sprite": "Elf_Pant_04",
       "ko": "엘프 바지 04",
-      "en": "Elf Pant 04"
+      "en": "Elf Pant 04",
+      "style": "elf"
     },
     {
       "id": "elf_pant_05",
       "index": 4,
       "sprite": "Elf_Pant_05",
       "ko": "엘프 바지 05",
-      "en": "Elf Pant 05"
+      "en": "Elf Pant 05",
+      "style": "elf"
     },
     {
       "id": "elf_pant_06",
       "index": 5,
       "sprite": "Elf_Pant_06",
       "ko": "엘프 바지 06",
-      "en": "Elf Pant 06"
+      "en": "Elf Pant 06",
+      "style": "elf"
     },
     {
       "id": "elf_pant_07",
       "index": 6,
       "sprite": "Elf_Pant_07",
       "ko": "엘프 바지 07",
-      "en": "Elf Pant 07"
+      "en": "Elf Pant 07",
+      "style": "elf"
     },
     {
       "id": "elf_pant_08",
       "index": 7,
       "sprite": "Elf_Pant_08",
       "ko": "엘프 바지 08",
-      "en": "Elf Pant 08"
+      "en": "Elf Pant 08",
+      "style": "elf"
     },
     {
       "id": "elf_pant_09",
       "index": 8,
       "sprite": "Elf_Pant_09",
       "ko": "엘프 바지 09",
-      "en": "Elf Pant 09"
+      "en": "Elf Pant 09",
+      "style": "elf"
     },
     {
       "id": "elf_pant_10",
       "index": 9,
       "sprite": "Elf_Pant_10",
       "ko": "엘프 바지 10",
-      "en": "Elf Pant 10"
+      "en": "Elf Pant 10",
+      "style": "elf"
     },
     {
       "id": "elf_pant_11",
       "index": 10,
       "sprite": "Elf_Pant_11",
       "ko": "엘프 바지 11",
-      "en": "Elf Pant 11"
+      "en": "Elf Pant 11",
+      "style": "elf"
     },
     {
       "id": "elf_pant_12",
       "index": 11,
       "sprite": "Elf_Pant_12",
       "ko": "엘프 바지 12",
-      "en": "Elf Pant 12"
+      "en": "Elf Pant 12",
+      "style": "elf"
     },
     {
       "id": "elf_pant_13",
       "index": 12,
       "sprite": "Elf_Pant_13",
       "ko": "엘프 바지 13",
-      "en": "Elf Pant 13"
+      "en": "Elf Pant 13",
+      "style": "elf"
     },
     {
       "id": "elf_pant_14",
       "index": 13,
       "sprite": "Elf_Pant_14",
       "ko": "엘프 바지 14",
-      "en": "Elf Pant 14"
+      "en": "Elf Pant 14",
+      "style": "elf"
     },
     {
       "id": "elf_pant_15",
       "index": 14,
       "sprite": "Elf_Pant_15",
       "ko": "엘프 바지 15",
-      "en": "Elf Pant 15"
+      "en": "Elf Pant 15",
+      "style": "elf"
     },
     {
       "id": "elf_pant_16",
       "index": 15,
       "sprite": "Elf_Pant_16",
       "ko": "엘프 바지 16",
-      "en": "Elf Pant 16"
+      "en": "Elf Pant 16",
+      "style": "elf"
     },
     {
       "id": "elf_pant_17",
       "index": 16,
       "sprite": "Elf_Pant_17",
       "ko": "엘프 바지 17",
-      "en": "Elf Pant 17"
+      "en": "Elf Pant 17",
+      "style": "elf"
     },
     {
       "id": "elf_pant_18",
       "index": 17,
       "sprite": "Elf_Pant_18",
       "ko": "엘프 바지 18",
-      "en": "Elf Pant 18"
+      "en": "Elf Pant 18",
+      "style": "elf"
     },
     {
       "id": "elf_pant_19",
       "index": 18,
       "sprite": "Elf_Pant_19",
       "ko": "엘프 바지 19",
-      "en": "Elf Pant 19"
+      "en": "Elf Pant 19",
+      "style": "elf"
     },
     {
       "id": "elf_pant_20",
       "index": 19,
       "sprite": "Elf_Pant_20",
       "ko": "엘프 바지 20",
-      "en": "Elf Pant 20"
-    },
-    {
-      "id": "f_sr_pants",
-      "index": 20,
-      "sprite": "F_SR_Pants",
-      "ko": "특수 Pants",
-      "en": "F SR Pants"
-    },
-    {
-      "id": "foot_1",
-      "index": 21,
-      "sprite": "Foot_1",
-      "ko": "신발 1",
-      "en": "Foot 1"
-    },
-    {
-      "id": "foot_2",
-      "index": 22,
-      "sprite": "Foot_2",
-      "ko": "신발 2",
-      "en": "Foot 2"
-    },
-    {
-      "id": "foot_3",
-      "index": 23,
-      "sprite": "Foot_3",
-      "ko": "신발 3",
-      "en": "Foot 3"
-    },
-    {
-      "id": "foot_4",
-      "index": 24,
-      "sprite": "Foot_4",
-      "ko": "신발 4",
-      "en": "Foot 4"
-    },
-    {
-      "id": "foot_m01",
-      "index": 25,
-      "sprite": "Foot_m01",
-      "ko": "신발 m01",
-      "en": "Foot m01"
-    },
-    {
-      "id": "foot_m02",
-      "index": 26,
-      "sprite": "Foot_m02",
-      "ko": "신발 m02",
-      "en": "Foot m02"
-    },
-    {
-      "id": "foot_m03",
-      "index": 27,
-      "sprite": "Foot_m03",
-      "ko": "신발 m03",
-      "en": "Foot m03"
-    },
-    {
-      "id": "foot_m04",
-      "index": 28,
-      "sprite": "Foot_m04",
-      "ko": "신발 m04",
-      "en": "Foot m04"
-    },
-    {
-      "id": "foot_m05",
-      "index": 29,
-      "sprite": "Foot_m05",
-      "ko": "신발 m05",
-      "en": "Foot m05"
-    },
-    {
-      "id": "new_pant_01",
-      "index": 30,
-      "sprite": "New_Pant_01",
-      "ko": "신규 바지 01",
-      "en": "New Pant 01"
-    },
-    {
-      "id": "new_pant_02",
-      "index": 31,
-      "sprite": "New_Pant_02",
-      "ko": "신규 바지 02",
-      "en": "New Pant 02"
-    },
-    {
-      "id": "new_pant_03",
-      "index": 32,
-      "sprite": "New_Pant_03",
-      "ko": "신규 바지 03",
-      "en": "New Pant 03"
-    },
-    {
-      "id": "new_pant_04",
-      "index": 33,
-      "sprite": "New_Pant_04",
-      "ko": "신규 바지 04",
-      "en": "New Pant 04"
-    },
-    {
-      "id": "new_pant_05",
-      "index": 34,
-      "sprite": "New_Pant_05",
-      "ko": "신규 바지 05",
-      "en": "New Pant 05"
-    },
-    {
-      "id": "new_pant_06",
-      "index": 35,
-      "sprite": "New_Pant_06",
-      "ko": "신규 바지 06",
-      "en": "New Pant 06"
-    },
-    {
-      "id": "new_pant_07",
-      "index": 36,
-      "sprite": "New_Pant_07",
-      "ko": "신규 바지 07",
-      "en": "New Pant 07"
-    },
-    {
-      "id": "new_pant_08",
-      "index": 37,
-      "sprite": "New_Pant_08",
-      "ko": "신규 바지 08",
-      "en": "New Pant 08"
-    },
-    {
-      "id": "new_pant_09",
-      "index": 38,
-      "sprite": "New_Pant_09",
-      "ko": "신규 바지 09",
-      "en": "New Pant 09"
-    },
-    {
-      "id": "new_pant_10",
-      "index": 39,
-      "sprite": "New_Pant_10",
-      "ko": "신규 바지 10",
-      "en": "New Pant 10"
-    },
-    {
-      "id": "new_pant_11",
-      "index": 40,
-      "sprite": "New_Pant_11",
-      "ko": "신규 바지 11",
-      "en": "New Pant 11"
-    },
-    {
-      "id": "new_pant_12",
-      "index": 41,
-      "sprite": "New_Pant_12",
-      "ko": "신규 바지 12",
-      "en": "New Pant 12"
+      "en": "Elf Pant 20",
+      "style": "elf"
     },
     {
       "id": "orc_pant_01",
-      "index": 42,
+      "index": 20,
       "sprite": "Orc_Pant_01",
       "ko": "오크 바지 01",
-      "en": "Orc Pant 01"
+      "en": "Orc Pant 01",
+      "style": "orc"
     },
     {
       "id": "orc_pant_02",
-      "index": 43,
+      "index": 21,
       "sprite": "Orc_Pant_02",
       "ko": "오크 바지 02",
-      "en": "Orc Pant 02"
+      "en": "Orc Pant 02",
+      "style": "orc"
     },
     {
       "id": "orc_pant_03",
-      "index": 44,
+      "index": 22,
       "sprite": "Orc_Pant_03",
       "ko": "오크 바지 03",
-      "en": "Orc Pant 03"
+      "en": "Orc Pant 03",
+      "style": "orc"
     },
     {
       "id": "orc_pant_04",
-      "index": 45,
+      "index": 23,
       "sprite": "Orc_Pant_04",
       "ko": "오크 바지 04",
-      "en": "Orc Pant 04"
-    },
-    {
-      "id": "pant_archer_2",
-      "index": 46,
-      "sprite": "Pant_Archer_2",
-      "ko": "Pant 궁수 2",
-      "en": "Pant Archer 2"
-    },
-    {
-      "id": "pant_healer_1",
-      "index": 47,
-      "sprite": "Pant_Healer_1",
-      "ko": "Pant 힐러 1",
-      "en": "Pant Healer 1"
-    },
-    {
-      "id": "pant_healer_2",
-      "index": 48,
-      "sprite": "Pant_Healer_2",
-      "ko": "Pant 힐러 2",
-      "en": "Pant Healer 2"
-    },
-    {
-      "id": "pant_knight_1",
-      "index": 49,
-      "sprite": "Pant_Knight_1",
-      "ko": "Pant 기사 1",
-      "en": "Pant Knight 1"
-    },
-    {
-      "id": "pant_knight_2",
-      "index": 50,
-      "sprite": "Pant_Knight_2",
-      "ko": "Pant 기사 2",
-      "en": "Pant Knight 2"
-    },
-    {
-      "id": "pant_rogue_1",
-      "index": 51,
-      "sprite": "Pant_Rogue_1",
-      "ko": "Pant 도적 1",
-      "en": "Pant Rogue 1"
-    },
-    {
-      "id": "pant_rogue_2",
-      "index": 52,
-      "sprite": "Pant_Rogue_2",
-      "ko": "Pant 도적 2",
-      "en": "Pant Rogue 2"
-    },
-    {
-      "id": "pant_sorcerer",
-      "index": 53,
-      "sprite": "Pant_Sorcerer",
-      "ko": "Pant 마법사",
-      "en": "Pant Sorcerer"
-    },
-    {
-      "id": "pant_sorceress",
-      "index": 54,
-      "sprite": "Pant_Sorceress",
-      "ko": "Pant 마녀",
-      "en": "Pant Sorceress"
+      "en": "Orc Pant 04",
+      "style": "orc"
     },
     {
       "id": "undead_pant_01",
-      "index": 55,
+      "index": 24,
       "sprite": "Undead_Pant_01",
       "ko": "언데드 바지 01",
-      "en": "Undead Pant 01"
+      "en": "Undead Pant 01",
+      "style": "undead"
     },
     {
       "id": "undead_pant_02",
-      "index": 56,
+      "index": 25,
       "sprite": "Undead_Pant_02",
       "ko": "언데드 바지 02",
-      "en": "Undead Pant 02"
+      "en": "Undead Pant 02",
+      "style": "undead"
     },
     {
       "id": "undead_pant_03",
-      "index": 57,
+      "index": 26,
       "sprite": "Undead_Pant_03",
       "ko": "언데드 바지 03",
-      "en": "Undead Pant 03"
+      "en": "Undead Pant 03",
+      "style": "undead"
     },
     {
       "id": "undead_pant_04",
-      "index": 58,
+      "index": 27,
       "sprite": "Undead_Pant_04",
       "ko": "언데드 바지 04",
-      "en": "Undead Pant 04"
+      "en": "Undead Pant 04",
+      "style": "undead"
     },
     {
       "id": "undead_pant_05",
-      "index": 59,
+      "index": 28,
       "sprite": "Undead_Pant_05",
       "ko": "언데드 바지 05",
-      "en": "Undead Pant 05"
+      "en": "Undead Pant 05",
+      "style": "undead"
+    },
+    {
+      "id": "foot_m01",
+      "index": 29,
+      "sprite": "Foot_m01",
+      "ko": "신발 01",
+      "en": "Foot m01",
+      "style": "common"
+    },
+    {
+      "id": "foot_m02",
+      "index": 30,
+      "sprite": "Foot_m02",
+      "ko": "신발 02",
+      "en": "Foot m02",
+      "style": "common"
+    },
+    {
+      "id": "foot_m03",
+      "index": 31,
+      "sprite": "Foot_m03",
+      "ko": "신발 03",
+      "en": "Foot m03",
+      "style": "common"
+    },
+    {
+      "id": "foot_m04",
+      "index": 32,
+      "sprite": "Foot_m04",
+      "ko": "신발 04",
+      "en": "Foot m04",
+      "style": "common"
+    },
+    {
+      "id": "foot_m05",
+      "index": 33,
+      "sprite": "Foot_m05",
+      "ko": "신발 05",
+      "en": "Foot m05",
+      "style": "common"
+    },
+    {
+      "id": "pant_archer_2",
+      "index": 34,
+      "sprite": "Pant_Archer_2",
+      "ko": "Pant 궁수 2",
+      "en": "Pant Archer 2",
+      "style": "archer"
+    },
+    {
+      "id": "pant_healer_1",
+      "index": 35,
+      "sprite": "Pant_Healer_1",
+      "ko": "Pant 힐러 1",
+      "en": "Pant Healer 1",
+      "style": "healer"
+    },
+    {
+      "id": "pant_healer_2",
+      "index": 36,
+      "sprite": "Pant_Healer_2",
+      "ko": "Pant 힐러 2",
+      "en": "Pant Healer 2",
+      "style": "healer"
+    },
+    {
+      "id": "pant_knight_1",
+      "index": 37,
+      "sprite": "Pant_Knight_1",
+      "ko": "Pant 기사 1",
+      "en": "Pant Knight 1",
+      "style": "knight"
+    },
+    {
+      "id": "pant_knight_2",
+      "index": 38,
+      "sprite": "Pant_Knight_2",
+      "ko": "Pant 기사 2",
+      "en": "Pant Knight 2",
+      "style": "knight"
+    },
+    {
+      "id": "pant_rogue_1",
+      "index": 39,
+      "sprite": "Pant_Rogue_1",
+      "ko": "Pant 도적 1",
+      "en": "Pant Rogue 1",
+      "style": "rogue"
+    },
+    {
+      "id": "pant_rogue_2",
+      "index": 40,
+      "sprite": "Pant_Rogue_2",
+      "ko": "Pant 도적 2",
+      "en": "Pant Rogue 2",
+      "style": "rogue"
+    },
+    {
+      "id": "pant_sorcerer",
+      "index": 41,
+      "sprite": "Pant_Sorcerer",
+      "ko": "마법사 바지",
+      "en": "Pant Sorcerer",
+      "style": "mage"
+    },
+    {
+      "id": "pant_sorceress",
+      "index": 42,
+      "sprite": "Pant_Sorceress",
+      "ko": "마녀 바지",
+      "en": "Pant Sorceress",
+      "style": "mage"
+    },
+    {
+      "id": "f_sr_pants",
+      "index": 43,
+      "sprite": "F_SR_Pants",
+      "ko": "특수 Pants",
+      "en": "F SR Pants",
+      "style": "common"
+    },
+    {
+      "id": "foot_1",
+      "index": 44,
+      "sprite": "Foot_1",
+      "ko": "신발 1",
+      "en": "Foot 1",
+      "style": "common"
+    },
+    {
+      "id": "foot_2",
+      "index": 45,
+      "sprite": "Foot_2",
+      "ko": "신발 2",
+      "en": "Foot 2",
+      "style": "common"
+    },
+    {
+      "id": "foot_3",
+      "index": 46,
+      "sprite": "Foot_3",
+      "ko": "신발 3",
+      "en": "Foot 3",
+      "style": "common"
+    },
+    {
+      "id": "foot_4",
+      "index": 47,
+      "sprite": "Foot_4",
+      "ko": "신발 4",
+      "en": "Foot 4",
+      "style": "common"
+    },
+    {
+      "id": "new_pant_01",
+      "index": 48,
+      "sprite": "New_Pant_01",
+      "ko": "신규 바지 01",
+      "en": "New Pant 01",
+      "style": "common"
+    },
+    {
+      "id": "new_pant_02",
+      "index": 49,
+      "sprite": "New_Pant_02",
+      "ko": "신규 바지 02",
+      "en": "New Pant 02",
+      "style": "common"
+    },
+    {
+      "id": "new_pant_03",
+      "index": 50,
+      "sprite": "New_Pant_03",
+      "ko": "신규 바지 03",
+      "en": "New Pant 03",
+      "style": "common"
+    },
+    {
+      "id": "new_pant_04",
+      "index": 51,
+      "sprite": "New_Pant_04",
+      "ko": "신규 바지 04",
+      "en": "New Pant 04",
+      "style": "common"
+    },
+    {
+      "id": "new_pant_05",
+      "index": 52,
+      "sprite": "New_Pant_05",
+      "ko": "신규 바지 05",
+      "en": "New Pant 05",
+      "style": "common"
+    },
+    {
+      "id": "new_pant_06",
+      "index": 53,
+      "sprite": "New_Pant_06",
+      "ko": "신규 바지 06",
+      "en": "New Pant 06",
+      "style": "common"
+    },
+    {
+      "id": "new_pant_07",
+      "index": 54,
+      "sprite": "New_Pant_07",
+      "ko": "신규 바지 07",
+      "en": "New Pant 07",
+      "style": "common"
+    },
+    {
+      "id": "new_pant_08",
+      "index": 55,
+      "sprite": "New_Pant_08",
+      "ko": "신규 바지 08",
+      "en": "New Pant 08",
+      "style": "common"
+    },
+    {
+      "id": "new_pant_09",
+      "index": 56,
+      "sprite": "New_Pant_09",
+      "ko": "신규 바지 09",
+      "en": "New Pant 09",
+      "style": "common"
+    },
+    {
+      "id": "new_pant_10",
+      "index": 57,
+      "sprite": "New_Pant_10",
+      "ko": "신규 바지 10",
+      "en": "New Pant 10",
+      "style": "common"
+    },
+    {
+      "id": "new_pant_11",
+      "index": 58,
+      "sprite": "New_Pant_11",
+      "ko": "신규 바지 11",
+      "en": "New Pant 11",
+      "style": "common"
+    },
+    {
+      "id": "new_pant_12",
+      "index": 59,
+      "sprite": "New_Pant_12",
+      "ko": "신규 바지 12",
+      "en": "New Pant 12",
+      "style": "common"
     }
   ],
   "idToIndex": {
@@ -505,45 +627,45 @@
     "elf_pant_18": 17,
     "elf_pant_19": 18,
     "elf_pant_20": 19,
-    "f_sr_pants": 20,
-    "foot_1": 21,
-    "foot_2": 22,
-    "foot_3": 23,
-    "foot_4": 24,
-    "foot_m01": 25,
-    "foot_m02": 26,
-    "foot_m03": 27,
-    "foot_m04": 28,
-    "foot_m05": 29,
-    "new_pant_01": 30,
-    "new_pant_02": 31,
-    "new_pant_03": 32,
-    "new_pant_04": 33,
-    "new_pant_05": 34,
-    "new_pant_06": 35,
-    "new_pant_07": 36,
-    "new_pant_08": 37,
-    "new_pant_09": 38,
-    "new_pant_10": 39,
-    "new_pant_11": 40,
-    "new_pant_12": 41,
-    "orc_pant_01": 42,
-    "orc_pant_02": 43,
-    "orc_pant_03": 44,
-    "orc_pant_04": 45,
-    "pant_archer_2": 46,
-    "pant_healer_1": 47,
-    "pant_healer_2": 48,
-    "pant_knight_1": 49,
-    "pant_knight_2": 50,
-    "pant_rogue_1": 51,
-    "pant_rogue_2": 52,
-    "pant_sorcerer": 53,
-    "pant_sorceress": 54,
-    "undead_pant_01": 55,
-    "undead_pant_02": 56,
-    "undead_pant_03": 57,
-    "undead_pant_04": 58,
-    "undead_pant_05": 59
+    "orc_pant_01": 20,
+    "orc_pant_02": 21,
+    "orc_pant_03": 22,
+    "orc_pant_04": 23,
+    "undead_pant_01": 24,
+    "undead_pant_02": 25,
+    "undead_pant_03": 26,
+    "undead_pant_04": 27,
+    "undead_pant_05": 28,
+    "foot_m01": 29,
+    "foot_m02": 30,
+    "foot_m03": 31,
+    "foot_m04": 32,
+    "foot_m05": 33,
+    "pant_archer_2": 34,
+    "pant_healer_1": 35,
+    "pant_healer_2": 36,
+    "pant_knight_1": 37,
+    "pant_knight_2": 38,
+    "pant_rogue_1": 39,
+    "pant_rogue_2": 40,
+    "pant_sorcerer": 41,
+    "pant_sorceress": 42,
+    "f_sr_pants": 43,
+    "foot_1": 44,
+    "foot_2": 45,
+    "foot_3": 46,
+    "foot_4": 47,
+    "new_pant_01": 48,
+    "new_pant_02": 49,
+    "new_pant_03": 50,
+    "new_pant_04": 51,
+    "new_pant_05": 52,
+    "new_pant_06": 53,
+    "new_pant_07": 54,
+    "new_pant_08": 55,
+    "new_pant_09": 56,
+    "new_pant_10": 57,
+    "new_pant_11": 58,
+    "new_pant_12": 59
   }
 }

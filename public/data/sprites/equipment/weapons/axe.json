@@ -1,14 +1,66 @@
 {
-  "category": "axe",
+  "sprites": [
+    "Orc_Weapon_02",
+    "Orc_Weapon_06",
+    "Orc_Weapon_07",
+    "Undead_Weapon_06",
+    "Axe_1"
+  ],
   "count": 5,
+  "nameToIndex": {
+    "Orc_Weapon_02": 0,
+    "Orc_Weapon_06": 1,
+    "Orc_Weapon_07": 2,
+    "Undead_Weapon_06": 3,
+    "Axe_1": 4
+  },
   "axes": [
-    { "id": "orc_weapon_02", "index": 0, "sprite": "Orc_Weapon_02", "ko": "오크 도끼 1", "en": "Orc Axe 1", "style": "orc" },
-    { "id": "orc_weapon_06", "index": 1, "sprite": "Orc_Weapon_06", "ko": "오크 도끼 2", "en": "Orc Axe 2", "style": "orc" },
-    { "id": "orc_weapon_07", "index": 2, "sprite": "Orc_Weapon_07", "ko": "오크 도끼 3", "en": "Orc Axe 3", "style": "orc" },
-    { "id": "undead_weapon_06", "index": 3, "sprite": "Undead_Weapon_06", "ko": "언데드 도끼", "en": "Undead Axe", "style": "undead" },
-    { "id": "axe_1", "index": 4, "sprite": "Axe_1", "ko": "일반 도끼", "en": "Axe", "style": "common" }
+    {
+      "id": "orc_weapon_02",
+      "index": 0,
+      "sprite": "Orc_Weapon_02",
+      "ko": "오크 Weapon 02",
+      "en": "Orc Weapon 02",
+      "style": "orc"
+    },
+    {
+      "id": "orc_weapon_06",
+      "index": 1,
+      "sprite": "Orc_Weapon_06",
+      "ko": "오크 Weapon 06",
+      "en": "Orc Weapon 06",
+      "style": "orc"
+    },
+    {
+      "id": "orc_weapon_07",
+      "index": 2,
+      "sprite": "Orc_Weapon_07",
+      "ko": "오크 Weapon 07",
+      "en": "Orc Weapon 07",
+      "style": "orc"
+    },
+    {
+      "id": "undead_weapon_06",
+      "index": 3,
+      "sprite": "Undead_Weapon_06",
+      "ko": "언데드 Weapon 06",
+      "en": "Undead Weapon 06",
+      "style": "undead"
+    },
+    {
+      "id": "axe_1",
+      "index": 4,
+      "sprite": "Axe_1",
+      "ko": "도끼 1",
+      "en": "Axe 1",
+      "style": "common"
+    }
   ],
   "idToIndex": {
-    "orc_weapon_02": 0, "orc_weapon_06": 1, "orc_weapon_07": 2, "undead_weapon_06": 3, "axe_1": 4
+    "orc_weapon_02": 0,
+    "orc_weapon_06": 1,
+    "orc_weapon_07": 2,
+    "undead_weapon_06": 3,
+    "axe_1": 4
   }
 }

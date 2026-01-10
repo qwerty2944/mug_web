@@ -1,21 +1,121 @@
 {
-  "category": "bow",
+  "sprites": [
+    "Elf_Weapon_02",
+    "Elf_Weapon_06",
+    "Elf_Weapon_14",
+    "Elf_Weapon_18",
+    "Orc_Weapon_03",
+    "Undead_Weapon_04",
+    "Undead_Weapon_05",
+    "Weapon_Archer_1",
+    "Weapon_Archer_2",
+    "Bow_1"
+  ],
   "count": 10,
+  "nameToIndex": {
+    "Elf_Weapon_02": 0,
+    "Elf_Weapon_06": 1,
+    "Elf_Weapon_14": 2,
+    "Elf_Weapon_18": 3,
+    "Orc_Weapon_03": 4,
+    "Undead_Weapon_04": 5,
+    "Undead_Weapon_05": 6,
+    "Weapon_Archer_1": 7,
+    "Weapon_Archer_2": 8,
+    "Bow_1": 9
+  },
   "bows": [
-    { "id": "elf_weapon_02", "index": 0, "sprite": "Elf_Weapon_02", "ko": "엘프 활 1", "en": "Elf Bow 1", "style": "elf" },
-    { "id": "elf_weapon_06", "index": 1, "sprite": "Elf_Weapon_06", "ko": "엘프 활 2", "en": "Elf Bow 2", "style": "elf" },
-    { "id": "elf_weapon_14", "index": 2, "sprite": "Elf_Weapon_14", "ko": "엘프 활 3", "en": "Elf Bow 3", "style": "elf" },
-    { "id": "elf_weapon_18", "index": 3, "sprite": "Elf_Weapon_18", "ko": "엘프 활 4", "en": "Elf Bow 4", "style": "elf" },
-    { "id": "orc_weapon_03", "index": 4, "sprite": "Orc_Weapon_03", "ko": "오크 활", "en": "Orc Bow", "style": "orc" },
-    { "id": "undead_weapon_04", "index": 5, "sprite": "Undead_Weapon_04", "ko": "언데드 활 1", "en": "Undead Bow 1", "style": "undead" },
-    { "id": "undead_weapon_05", "index": 6, "sprite": "Undead_Weapon_05", "ko": "언데드 활 2", "en": "Undead Bow 2", "style": "undead" },
-    { "id": "weapon_archer_1", "index": 7, "sprite": "Weapon_Archer_1", "ko": "궁수의 활 1", "en": "Archer Bow 1", "style": "archer" },
-    { "id": "weapon_archer_2", "index": 8, "sprite": "Weapon_Archer_2", "ko": "궁수의 활 2", "en": "Archer Bow 2", "style": "archer" },
-    { "id": "bow_1", "index": 9, "sprite": "Bow_1", "ko": "일반 활", "en": "Bow", "style": "common" }
+    {
+      "id": "elf_weapon_02",
+      "index": 0,
+      "sprite": "Elf_Weapon_02",
+      "ko": "엘프 Weapon 02",
+      "en": "Elf Weapon 02",
+      "style": "elf"
+    },
+    {
+      "id": "elf_weapon_06",
+      "index": 1,
+      "sprite": "Elf_Weapon_06",
+      "ko": "엘프 Weapon 06",
+      "en": "Elf Weapon 06",
+      "style": "elf"
+    },
+    {
+      "id": "elf_weapon_14",
+      "index": 2,
+      "sprite": "Elf_Weapon_14",
+      "ko": "엘프 Weapon 14",
+      "en": "Elf Weapon 14",
+      "style": "elf"
+    },
+    {
+      "id": "elf_weapon_18",
+      "index": 3,
+      "sprite": "Elf_Weapon_18",
+      "ko": "엘프 Weapon 18",
+      "en": "Elf Weapon 18",
+      "style": "elf"
+    },
+    {
+      "id": "orc_weapon_03",
+      "index": 4,
+      "sprite": "Orc_Weapon_03",
+      "ko": "오크 Weapon 03",
+      "en": "Orc Weapon 03",
+      "style": "orc"
+    },
+    {
+      "id": "undead_weapon_04",
+      "index": 5,
+      "sprite": "Undead_Weapon_04",
+      "ko": "언데드 Weapon 04",
+      "en": "Undead Weapon 04",
+      "style": "undead"
+    },
+    {
+      "id": "undead_weapon_05",
+      "index": 6,
+      "sprite": "Undead_Weapon_05",
+      "ko": "언데드 Weapon 05",
+      "en": "Undead Weapon 05",
+      "style": "undead"
+    },
+    {
+      "id": "weapon_archer_1",
+      "index": 7,
+      "sprite": "Weapon_Archer_1",
+      "ko": "Weapon 궁수 1",
+      "en": "Weapon Archer 1",
+      "style": "archer"
+    },
+    {
+      "id": "weapon_archer_2",
+      "index": 8,
+      "sprite": "Weapon_Archer_2",
+      "ko": "Weapon 궁수 2",
+      "en": "Weapon Archer 2",
+      "style": "archer"
+    },
+    {
+      "id": "bow_1",
+      "index": 9,
+      "sprite": "Bow_1",
+      "ko": "활 1",
+      "en": "Bow 1",
+      "style": "common"
+    }
   ],
   "idToIndex": {
-    "elf_weapon_02": 0, "elf_weapon_06": 1, "elf_weapon_14": 2, "elf_weapon_18": 3,
-    "orc_weapon_03": 4, "undead_weapon_04": 5, "undead_weapon_05": 6,
-    "weapon_archer_1": 7, "weapon_archer_2": 8, "bow_1": 9
+    "elf_weapon_02": 0,
+    "elf_weapon_06": 1,
+    "elf_weapon_14": 2,
+    "elf_weapon_18": 3,
+    "orc_weapon_03": 4,
+    "undead_weapon_04": 5,
+    "undead_weapon_05": 6,
+    "weapon_archer_1": 7,
+    "weapon_archer_2": 8,
+    "bow_1": 9
   }
 }

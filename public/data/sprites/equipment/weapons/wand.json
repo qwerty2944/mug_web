@@ -1,34 +1,231 @@
 {
-  "category": "wand",
+  "sprites": [
+    "Elf_Weapon_01",
+    "Elf_Weapon_04",
+    "Elf_Weapon_09",
+    "Elf_Weapon_10",
+    "Elf_Weapon_12",
+    "Elf_Weapon_15",
+    "Elf_Weapon_20",
+    "Orc_Weapon_04",
+    "Orc_Weapon_08",
+    "Orc_Weapon_09",
+    "Undead_Weapon_01",
+    "Undead_Weapon_02",
+    "Undead_Weapon_07",
+    "Undead_Weapon_09",
+    "Weapon_Healer_1",
+    "Weapon_Healer_2",
+    "Weapon_Sorcerer",
+    "Weapon_Sorceress",
+    "Ward_1",
+    "New_Weapon_03"
+  ],
   "count": 20,
+  "nameToIndex": {
+    "Elf_Weapon_01": 0,
+    "Elf_Weapon_04": 1,
+    "Elf_Weapon_09": 2,
+    "Elf_Weapon_10": 3,
+    "Elf_Weapon_12": 4,
+    "Elf_Weapon_15": 5,
+    "Elf_Weapon_20": 6,
+    "Orc_Weapon_04": 7,
+    "Orc_Weapon_08": 8,
+    "Orc_Weapon_09": 9,
+    "Undead_Weapon_01": 10,
+    "Undead_Weapon_02": 11,
+    "Undead_Weapon_07": 12,
+    "Undead_Weapon_09": 13,
+    "Weapon_Healer_1": 14,
+    "Weapon_Healer_2": 15,
+    "Weapon_Sorcerer": 16,
+    "Weapon_Sorceress": 17,
+    "Ward_1": 18,
+    "New_Weapon_03": 19
+  },
   "wands": [
-    { "id": "elf_weapon_01", "index": 0, "sprite": "Elf_Weapon_01", "ko": "엘프 지팡이 1", "en": "Elf Wand 1", "style": "elf" },
-    { "id": "elf_weapon_04", "index": 1, "sprite": "Elf_Weapon_04", "ko": "엘프 지팡이 2", "en": "Elf Wand 2", "style": "elf" },
-    { "id": "elf_weapon_09", "index": 2, "sprite": "Elf_Weapon_09", "ko": "엘프 지팡이 3", "en": "Elf Wand 3", "style": "elf" },
-    { "id": "elf_weapon_10", "index": 3, "sprite": "Elf_Weapon_10", "ko": "엘프 지팡이 4", "en": "Elf Wand 4", "style": "elf" },
-    { "id": "elf_weapon_12", "index": 4, "sprite": "Elf_Weapon_12", "ko": "엘프 지팡이 5", "en": "Elf Wand 5", "style": "elf" },
-    { "id": "elf_weapon_15", "index": 5, "sprite": "Elf_Weapon_15", "ko": "엘프 지팡이 6", "en": "Elf Wand 6", "style": "elf" },
-    { "id": "elf_weapon_20", "index": 6, "sprite": "Elf_Weapon_20", "ko": "엘프 지팡이 7", "en": "Elf Wand 7", "style": "elf" },
-    { "id": "orc_weapon_04", "index": 7, "sprite": "Orc_Weapon_04", "ko": "오크 지팡이 1", "en": "Orc Wand 1", "style": "orc" },
-    { "id": "orc_weapon_08", "index": 8, "sprite": "Orc_Weapon_08", "ko": "오크 지팡이 2", "en": "Orc Wand 2", "style": "orc" },
-    { "id": "orc_weapon_09", "index": 9, "sprite": "Orc_Weapon_09", "ko": "오크 지팡이 3", "en": "Orc Wand 3", "style": "orc" },
-    { "id": "undead_weapon_01", "index": 10, "sprite": "Undead_Weapon_01", "ko": "언데드 지팡이 1", "en": "Undead Wand 1", "style": "undead" },
-    { "id": "undead_weapon_02", "index": 11, "sprite": "Undead_Weapon_02", "ko": "언데드 지팡이 2", "en": "Undead Wand 2", "style": "undead" },
-    { "id": "undead_weapon_07", "index": 12, "sprite": "Undead_Weapon_07", "ko": "언데드 지팡이 3", "en": "Undead Wand 3", "style": "undead" },
-    { "id": "undead_weapon_09", "index": 13, "sprite": "Undead_Weapon_09", "ko": "언데드 지팡이 4", "en": "Undead Wand 4", "style": "undead" },
-    { "id": "weapon_healer_1", "index": 14, "sprite": "Weapon_Healer_1", "ko": "힐러의 지팡이 1", "en": "Healer Wand 1", "style": "healer" },
-    { "id": "weapon_healer_2", "index": 15, "sprite": "Weapon_Healer_2", "ko": "힐러의 지팡이 2", "en": "Healer Wand 2", "style": "healer" },
-    { "id": "weapon_sorcerer", "index": 16, "sprite": "Weapon_Sorcerer", "ko": "마법사의 지팡이", "en": "Sorcerer Wand", "style": "mage" },
-    { "id": "weapon_sorceress", "index": 17, "sprite": "Weapon_Sorceress", "ko": "마녀의 지팡이", "en": "Sorceress Wand", "style": "mage" },
-    { "id": "ward_1", "index": 18, "sprite": "Ward_1", "ko": "수호 지팡이", "en": "Ward", "style": "common" },
-    { "id": "new_weapon_03", "index": 19, "sprite": "New_Weapon_03", "ko": "신규 지팡이", "en": "New Wand", "style": "common" }
+    {
+      "id": "elf_weapon_01",
+      "index": 0,
+      "sprite": "Elf_Weapon_01",
+      "ko": "엘프 Weapon 01",
+      "en": "Elf Weapon 01",
+      "style": "elf"
+    },
+    {
+      "id": "elf_weapon_04",
+      "index": 1,
+      "sprite": "Elf_Weapon_04",
+      "ko": "엘프 Weapon 04",
+      "en": "Elf Weapon 04",
+      "style": "elf"
+    },
+    {
+      "id": "elf_weapon_09",
+      "index": 2,
+      "sprite": "Elf_Weapon_09",
+      "ko": "엘프 Weapon 09",
+      "en": "Elf Weapon 09",
+      "style": "elf"
+    },
+    {
+      "id": "elf_weapon_10",
+      "index": 3,
+      "sprite": "Elf_Weapon_10",
+      "ko": "엘프 Weapon 10",
+      "en": "Elf Weapon 10",
+      "style": "elf"
+    },
+    {
+      "id": "elf_weapon_12",
+      "index": 4,
+      "sprite": "Elf_Weapon_12",
+      "ko": "엘프 Weapon 12",
+      "en": "Elf Weapon 12",
+      "style": "elf"
+    },
+    {
+      "id": "elf_weapon_15",
+      "index": 5,
+      "sprite": "Elf_Weapon_15",
+      "ko": "엘프 Weapon 15",
+      "en": "Elf Weapon 15",
+      "style": "elf"
+    },
+    {
+      "id": "elf_weapon_20",
+      "index": 6,
+      "sprite": "Elf_Weapon_20",
+      "ko": "엘프 Weapon 20",
+      "en": "Elf Weapon 20",
+      "style": "elf"
+    },
+    {
+      "id": "orc_weapon_04",
+      "index": 7,
+      "sprite": "Orc_Weapon_04",
+      "ko": "오크 Weapon 04",
+      "en": "Orc Weapon 04",
+      "style": "orc"
+    },
+    {
+      "id": "orc_weapon_08",
+      "index": 8,
+      "sprite": "Orc_Weapon_08",
+      "ko": "오크 Weapon 08",
+      "en": "Orc Weapon 08",
+      "style": "orc"
+    },
+    {
+      "id": "orc_weapon_09",
+      "index": 9,
+      "sprite": "Orc_Weapon_09",
+      "ko": "오크 Weapon 09",
+      "en": "Orc Weapon 09",
+      "style": "orc"
+    },
+    {
+      "id": "undead_weapon_01",
+      "index": 10,
+      "sprite": "Undead_Weapon_01",
+      "ko": "언데드 Weapon 01",
+      "en": "Undead Weapon 01",
+      "style": "undead"
+    },
+    {
+      "id": "undead_weapon_02",
+      "index": 11,
+      "sprite": "Undead_Weapon_02",
+      "ko": "언데드 Weapon 02",
+      "en": "Undead Weapon 02",
+      "style": "undead"
+    },
+    {
+      "id": "undead_weapon_07",
+      "index": 12,
+      "sprite": "Undead_Weapon_07",
+      "ko": "언데드 Weapon 07",
+      "en": "Undead Weapon 07",
+      "style": "undead"
+    },
+    {
+      "id": "undead_weapon_09",
+      "index": 13,
+      "sprite": "Undead_Weapon_09",
+      "ko": "언데드 Weapon 09",
+      "en": "Undead Weapon 09",
+      "style": "undead"
+    },
+    {
+      "id": "weapon_healer_1",
+      "index": 14,
+      "sprite": "Weapon_Healer_1",
+      "ko": "Weapon 힐러 1",
+      "en": "Weapon Healer 1",
+      "style": "healer"
+    },
+    {
+      "id": "weapon_healer_2",
+      "index": 15,
+      "sprite": "Weapon_Healer_2",
+      "ko": "Weapon 힐러 2",
+      "en": "Weapon Healer 2",
+      "style": "healer"
+    },
+    {
+      "id": "weapon_sorcerer",
+      "index": 16,
+      "sprite": "Weapon_Sorcerer",
+      "ko": "마법사 지팡이",
+      "en": "Weapon Sorcerer",
+      "style": "mage"
+    },
+    {
+      "id": "weapon_sorceress",
+      "index": 17,
+      "sprite": "Weapon_Sorceress",
+      "ko": "마녀 지팡이",
+      "en": "Weapon Sorceress",
+      "style": "mage"
+    },
+    {
+      "id": "ward_1",
+      "index": 18,
+      "sprite": "Ward_1",
+      "ko": "수호 지팡이 1",
+      "en": "Ward 1",
+      "style": "common"
+    },
+    {
+      "id": "new_weapon_03",
+      "index": 19,
+      "sprite": "New_Weapon_03",
+      "ko": "신규 Weapon 03",
+      "en": "New Weapon 03",
+      "style": "common"
+    }
   ],
   "idToIndex": {
-    "elf_weapon_01": 0, "elf_weapon_04": 1, "elf_weapon_09": 2, "elf_weapon_10": 3,
-    "elf_weapon_12": 4, "elf_weapon_15": 5, "elf_weapon_20": 6,
-    "orc_weapon_04": 7, "orc_weapon_08": 8, "orc_weapon_09": 9,
-    "undead_weapon_01": 10, "undead_weapon_02": 11, "undead_weapon_07": 12, "undead_weapon_09": 13,
-    "weapon_healer_1": 14, "weapon_healer_2": 15, "weapon_sorcerer": 16, "weapon_sorceress": 17,
-    "ward_1": 18, "new_weapon_03": 19
+    "elf_weapon_01": 0,
+    "elf_weapon_04": 1,
+    "elf_weapon_09": 2,
+    "elf_weapon_10": 3,
+    "elf_weapon_12": 4,
+    "elf_weapon_15": 5,
+    "elf_weapon_20": 6,
+    "orc_weapon_04": 7,
+    "orc_weapon_08": 8,
+    "orc_weapon_09": 9,
+    "undead_weapon_01": 10,
+    "undead_weapon_02": 11,
+    "undead_weapon_07": 12,
+    "undead_weapon_09": 13,
+    "weapon_healer_1": 14,
+    "weapon_healer_2": 15,
+    "weapon_sorcerer": 16,
+    "weapon_sorceress": 17,
+    "ward_1": 18,
+    "new_weapon_03": 19
   }
 }

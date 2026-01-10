@@ -1,7 +1,6 @@
 {
   "sprites": [
     "Eye",
-    "Eye_Close",
     "Eye0",
     "Eye1",
     "Eye10",
@@ -14,41 +13,149 @@
     "Eye6",
     "Eye7",
     "Eye8",
-    "Eye9"
+    "Eye9",
+    "Eye_Close"
   ],
   "count": 15,
   "nameToIndex": {
     "Eye": 0,
-    "Eye_Close": 1,
-    "Eye0": 2,
-    "Eye1": 3,
-    "Eye10": 4,
-    "Eye11": 5,
-    "Eye16": 6,
-    "Eye2": 7,
-    "Eye3": 8,
-    "Eye4": 9,
-    "Eye5": 10,
-    "Eye6": 11,
-    "Eye7": 12,
-    "Eye8": 13,
-    "Eye9": 14
+    "Eye0": 1,
+    "Eye1": 2,
+    "Eye10": 3,
+    "Eye11": 4,
+    "Eye16": 5,
+    "Eye2": 6,
+    "Eye3": 7,
+    "Eye4": 8,
+    "Eye5": 9,
+    "Eye6": 10,
+    "Eye7": 11,
+    "Eye8": 12,
+    "Eye9": 13,
+    "Eye_Close": 14
   },
   "eyes": [
-    { "index": 0, "ko": "기본 눈", "en": "Normal Eye" },
-    { "index": 1, "ko": "감은 눈", "en": "Closed Eye" },
-    { "index": 2, "ko": "둥근 눈", "en": "Round Eye" },
-    { "index": 3, "ko": "날카로운 눈", "en": "Sharp Eye" },
-    { "index": 4, "ko": "큰 눈", "en": "Big Eye" },
-    { "index": 5, "ko": "가는 눈", "en": "Thin Eye" },
-    { "index": 6, "ko": "무표정 눈", "en": "Blank Eye" },
-    { "index": 7, "ko": "부드러운 눈", "en": "Soft Eye" },
-    { "index": 8, "ko": "강한 눈", "en": "Strong Eye" },
-    { "index": 9, "ko": "차가운 눈", "en": "Cold Eye" },
-    { "index": 10, "ko": "따뜻한 눈", "en": "Warm Eye" },
-    { "index": 11, "ko": "호기심 눈", "en": "Curious Eye" },
-    { "index": 12, "ko": "지친 눈", "en": "Tired Eye" },
-    { "index": 13, "ko": "매서운 눈", "en": "Fierce Eye" },
-    { "index": 14, "ko": "온화한 눈", "en": "Gentle Eye" }
-  ]
+    {
+      "id": "eye",
+      "index": 0,
+      "sprite": "Eye",
+      "ko": "눈",
+      "en": "Eye"
+    },
+    {
+      "id": "eye0",
+      "index": 1,
+      "sprite": "Eye0",
+      "ko": "눈 0",
+      "en": "Eye0"
+    },
+    {
+      "id": "eye1",
+      "index": 2,
+      "sprite": "Eye1",
+      "ko": "눈 1",
+      "en": "Eye1"
+    },
+    {
+      "id": "eye10",
+      "index": 3,
+      "sprite": "Eye10",
+      "ko": "눈 10",
+      "en": "Eye10"
+    },
+    {
+      "id": "eye11",
+      "index": 4,
+      "sprite": "Eye11",
+      "ko": "눈 11",
+      "en": "Eye11"
+    },
+    {
+      "id": "eye16",
+      "index": 5,
+      "sprite": "Eye16",
+      "ko": "눈 16",
+      "en": "Eye16"
+    },
+    {
+      "id": "eye2",
+      "index": 6,
+      "sprite": "Eye2",
+      "ko": "눈 2",
+      "en": "Eye2"
+    },
+    {
+      "id": "eye3",
+      "index": 7,
+      "sprite": "Eye3",
+      "ko": "눈 3",
+      "en": "Eye3"
+    },
+    {
+      "id": "eye4",
+      "index": 8,
+      "sprite": "Eye4",
+      "ko": "눈 4",
+      "en": "Eye4"
+    },
+    {
+      "id": "eye5",
+      "index": 9,
+      "sprite": "Eye5",
+      "ko": "눈 5",
+      "en": "Eye5"
+    },
+    {
+      "id": "eye6",
+      "index": 10,
+      "sprite": "Eye6",
+      "ko": "눈 6",
+      "en": "Eye6"
+    },
+    {
+      "id": "eye7",
+      "index": 11,
+      "sprite": "Eye7",
+      "ko": "눈 7",
+      "en": "Eye7"
+    },
+    {
+      "id": "eye8",
+      "index": 12,
+      "sprite": "Eye8",
+      "ko": "눈 8",
+      "en": "Eye8"
+    },
+    {
+      "id": "eye9",
+      "index": 13,
+      "sprite": "Eye9",
+      "ko": "눈 9",
+      "en": "Eye9"
+    },
+    {
+      "id": "eye_close",
+      "index": 14,
+      "sprite": "Eye_Close",
+      "ko": "감은 눈",
+      "en": "Eye Close"
+    }
+  ],
+  "idToIndex": {
+    "eye": 0,
+    "eye0": 1,
+    "eye1": 2,
+    "eye10": 3,
+    "eye11": 4,
+    "eye16": 5,
+    "eye2": 6,
+    "eye3": 7,
+    "eye4": 8,
+    "eye5": 9,
+    "eye6": 10,
+    "eye7": 11,
+    "eye8": 12,
+    "eye9": 13,
+    "eye_close": 14
+  }
 }

@@ -1,41 +1,297 @@
 {
-  "category": "sword",
+  "sprites": [
+    "Elf_Weapon_03",
+    "Elf_Weapon_05",
+    "Elf_Weapon_07",
+    "Elf_Weapon_08",
+    "Elf_Weapon_11",
+    "Elf_Weapon_13",
+    "Elf_Weapon_17",
+    "Elf_Weapon_19",
+    "Orc_Weapon_05",
+    "Undead_Weapon_03",
+    "Undead_Weapon_08",
+    "Undead_Weapon_10",
+    "Weapon_Knight_1",
+    "Weapon_Knight_2",
+    "Sword_1",
+    "Sword_2",
+    "Sword_3",
+    "Sword_4",
+    "Sword_5",
+    "Sword_6",
+    "New_Weapon_01",
+    "New_Weapon_06",
+    "New_Weapon_17",
+    "New_Weapon_18",
+    "New_Weapon_19",
+    "New_Weapon_20"
+  ],
   "count": 26,
+  "nameToIndex": {
+    "Elf_Weapon_03": 0,
+    "Elf_Weapon_05": 1,
+    "Elf_Weapon_07": 2,
+    "Elf_Weapon_08": 3,
+    "Elf_Weapon_11": 4,
+    "Elf_Weapon_13": 5,
+    "Elf_Weapon_17": 6,
+    "Elf_Weapon_19": 7,
+    "Orc_Weapon_05": 8,
+    "Undead_Weapon_03": 9,
+    "Undead_Weapon_08": 10,
+    "Undead_Weapon_10": 11,
+    "Weapon_Knight_1": 12,
+    "Weapon_Knight_2": 13,
+    "Sword_1": 14,
+    "Sword_2": 15,
+    "Sword_3": 16,
+    "Sword_4": 17,
+    "Sword_5": 18,
+    "Sword_6": 19,
+    "New_Weapon_01": 20,
+    "New_Weapon_06": 21,
+    "New_Weapon_17": 22,
+    "New_Weapon_18": 23,
+    "New_Weapon_19": 24,
+    "New_Weapon_20": 25
+  },
   "swords": [
-    { "id": "elf_weapon_03", "index": 0, "sprite": "Elf_Weapon_03", "ko": "엘프 검 1", "en": "Elf Sword 1", "style": "elf" },
-    { "id": "elf_weapon_05", "index": 1, "sprite": "Elf_Weapon_05", "ko": "엘프 검 2", "en": "Elf Sword 2", "style": "elf" },
-    { "id": "elf_weapon_07", "index": 2, "sprite": "Elf_Weapon_07", "ko": "엘프 검 3", "en": "Elf Sword 3", "style": "elf" },
-    { "id": "elf_weapon_08", "index": 3, "sprite": "Elf_Weapon_08", "ko": "엘프 검 4", "en": "Elf Sword 4", "style": "elf" },
-    { "id": "elf_weapon_11", "index": 4, "sprite": "Elf_Weapon_11", "ko": "엘프 검 5", "en": "Elf Sword 5", "style": "elf" },
-    { "id": "elf_weapon_13", "index": 5, "sprite": "Elf_Weapon_13", "ko": "엘프 검 6", "en": "Elf Sword 6", "style": "elf" },
-    { "id": "elf_weapon_17", "index": 6, "sprite": "Elf_Weapon_17", "ko": "엘프 검 7", "en": "Elf Sword 7", "style": "elf" },
-    { "id": "elf_weapon_19", "index": 7, "sprite": "Elf_Weapon_19", "ko": "엘프 검 8", "en": "Elf Sword 8", "style": "elf" },
-    { "id": "orc_weapon_05", "index": 8, "sprite": "Orc_Weapon_05", "ko": "오크 대검", "en": "Orc Greatsword", "style": "orc" },
-    { "id": "undead_weapon_03", "index": 9, "sprite": "Undead_Weapon_03", "ko": "언데드 검 1", "en": "Undead Sword 1", "style": "undead" },
-    { "id": "undead_weapon_08", "index": 10, "sprite": "Undead_Weapon_08", "ko": "언데드 검 2", "en": "Undead Sword 2", "style": "undead" },
-    { "id": "undead_weapon_10", "index": 11, "sprite": "Undead_Weapon_10", "ko": "언데드 검 3", "en": "Undead Sword 3", "style": "undead" },
-    { "id": "weapon_knight_1", "index": 12, "sprite": "Weapon_Knight_1", "ko": "기사의 검 1", "en": "Knight Sword 1", "style": "knight" },
-    { "id": "weapon_knight_2", "index": 13, "sprite": "Weapon_Knight_2", "ko": "기사의 검 2", "en": "Knight Sword 2", "style": "knight" },
-    { "id": "sword_1", "index": 14, "sprite": "Sword_1", "ko": "일반 검 1", "en": "Sword 1", "style": "common" },
-    { "id": "sword_2", "index": 15, "sprite": "Sword_2", "ko": "일반 검 2", "en": "Sword 2", "style": "common" },
-    { "id": "sword_3", "index": 16, "sprite": "Sword_3", "ko": "일반 검 3", "en": "Sword 3", "style": "common" },
-    { "id": "sword_4", "index": 17, "sprite": "Sword_4", "ko": "일반 검 4", "en": "Sword 4", "style": "common" },
-    { "id": "sword_5", "index": 18, "sprite": "Sword_5", "ko": "일반 검 5", "en": "Sword 5", "style": "common" },
-    { "id": "sword_6", "index": 19, "sprite": "Sword_6", "ko": "일반 검 6", "en": "Sword 6", "style": "common" },
-    { "id": "new_weapon_01", "index": 20, "sprite": "New_Weapon_01", "ko": "신규 검 1", "en": "New Sword 1", "style": "common" },
-    { "id": "new_weapon_06", "index": 21, "sprite": "New_Weapon_06", "ko": "신규 검 2", "en": "New Sword 2", "style": "common" },
-    { "id": "new_weapon_17", "index": 22, "sprite": "New_Weapon_17", "ko": "신규 검 3", "en": "New Sword 3", "style": "common" },
-    { "id": "new_weapon_18", "index": 23, "sprite": "New_Weapon_18", "ko": "신규 검 4", "en": "New Sword 4", "style": "common" },
-    { "id": "new_weapon_19", "index": 24, "sprite": "New_Weapon_19", "ko": "신규 검 5", "en": "New Sword 5", "style": "common" },
-    { "id": "new_weapon_20", "index": 25, "sprite": "New_Weapon_20", "ko": "신규 검 6", "en": "New Sword 6", "style": "common" }
+    {
+      "id": "elf_weapon_03",
+      "index": 0,
+      "sprite": "Elf_Weapon_03",
+      "ko": "엘프 Weapon 03",
+      "en": "Elf Weapon 03",
+      "style": "elf"
+    },
+    {
+      "id": "elf_weapon_05",
+      "index": 1,
+      "sprite": "Elf_Weapon_05",
+      "ko": "엘프 Weapon 05",
+      "en": "Elf Weapon 05",
+      "style": "elf"
+    },
+    {
+      "id": "elf_weapon_07",
+      "index": 2,
+      "sprite": "Elf_Weapon_07",
+      "ko": "엘프 Weapon 07",
+      "en": "Elf Weapon 07",
+      "style": "elf"
+    },
+    {
+      "id": "elf_weapon_08",
+      "index": 3,
+      "sprite": "Elf_Weapon_08",
+      "ko": "엘프 Weapon 08",
+      "en": "Elf Weapon 08",
+      "style": "elf"
+    },
+    {
+      "id": "elf_weapon_11",
+      "index": 4,
+      "sprite": "Elf_Weapon_11",
+      "ko": "엘프 Weapon 11",
+      "en": "Elf Weapon 11",
+      "style": "elf"
+    },
+    {
+      "id": "elf_weapon_13",
+      "index": 5,
+      "sprite": "Elf_Weapon_13",
+      "ko": "엘프 Weapon 13",
+      "en": "Elf Weapon 13",
+      "style": "elf"
+    },
+    {
+      "id": "elf_weapon_17",
+      "index": 6,
+      "sprite": "Elf_Weapon_17",
+      "ko": "엘프 Weapon 17",
+      "en": "Elf Weapon 17",
+      "style": "elf"
+    },
+    {
+      "id": "elf_weapon_19",
+      "index": 7,
+      "sprite": "Elf_Weapon_19",
+      "ko": "엘프 Weapon 19",
+      "en": "Elf Weapon 19",
+      "style": "elf"
+    },
+    {
+      "id": "orc_weapon_05",
+      "index": 8,
+      "sprite": "Orc_Weapon_05",
+      "ko": "오크 Weapon 05",
+      "en": "Orc Weapon 05",
+      "style": "orc"
+    },
+    {
+      "id": "undead_weapon_03",
+      "index": 9,
+      "sprite": "Undead_Weapon_03",
+      "ko": "언데드 Weapon 03",
+      "en": "Undead Weapon 03",
+      "style": "undead"
+    },
+    {
+      "id": "undead_weapon_08",
+      "index": 10,
+      "sprite": "Undead_Weapon_08",
+      "ko": "언데드 Weapon 08",
+      "en": "Undead Weapon 08",
+      "style": "undead"
+    },
+    {
+      "id": "undead_weapon_10",
+      "index": 11,
+      "sprite": "Undead_Weapon_10",
+      "ko": "언데드 Weapon 10",
+      "en": "Undead Weapon 10",
+      "style": "undead"
+    },
+    {
+      "id": "weapon_knight_1",
+      "index": 12,
+      "sprite": "Weapon_Knight_1",
+      "ko": "Weapon 기사 1",
+      "en": "Weapon Knight 1",
+      "style": "knight"
+    },
+    {
+      "id": "weapon_knight_2",
+      "index": 13,
+      "sprite": "Weapon_Knight_2",
+      "ko": "Weapon 기사 2",
+      "en": "Weapon Knight 2",
+      "style": "knight"
+    },
+    {
+      "id": "sword_1",
+      "index": 14,
+      "sprite": "Sword_1",
+      "ko": "검 1",
+      "en": "Sword 1",
+      "style": "common"
+    },
+    {
+      "id": "sword_2",
+      "index": 15,
+      "sprite": "Sword_2",
+      "ko": "검 2",
+      "en": "Sword 2",
+      "style": "common"
+    },
+    {
+      "id": "sword_3",
+      "index": 16,
+      "sprite": "Sword_3",
+      "ko": "검 3",
+      "en": "Sword 3",
+      "style": "common"
+    },
+    {
+      "id": "sword_4",
+      "index": 17,
+      "sprite": "Sword_4",
+      "ko": "검 4",
+      "en": "Sword 4",
+      "style": "common"
+    },
+    {
+      "id": "sword_5",
+      "index": 18,
+      "sprite": "Sword_5",
+      "ko": "검 5",
+      "en": "Sword 5",
+      "style": "common"
+    },
+    {
+      "id": "sword_6",
+      "index": 19,
+      "sprite": "Sword_6",
+      "ko": "검 6",
+      "en": "Sword 6",
+      "style": "common"
+    },
+    {
+      "id": "new_weapon_01",
+      "index": 20,
+      "sprite": "New_Weapon_01",
+      "ko": "신규 Weapon 01",
+      "en": "New Weapon 01",
+      "style": "common"
+    },
+    {
+      "id": "new_weapon_06",
+      "index": 21,
+      "sprite": "New_Weapon_06",
+      "ko": "신규 Weapon 06",
+      "en": "New Weapon 06",
+      "style": "common"
+    },
+    {
+      "id": "new_weapon_17",
+      "index": 22,
+      "sprite": "New_Weapon_17",
+      "ko": "신규 Weapon 17",
+      "en": "New Weapon 17",
+      "style": "common"
+    },
+    {
+      "id": "new_weapon_18",
+      "index": 23,
+      "sprite": "New_Weapon_18",
+      "ko": "신규 Weapon 18",
+      "en": "New Weapon 18",
+      "style": "common"
+    },
+    {
+      "id": "new_weapon_19",
+      "index": 24,
+      "sprite": "New_Weapon_19",
+      "ko": "신규 Weapon 19",
+      "en": "New Weapon 19",
+      "style": "common"
+    },
+    {
+      "id": "new_weapon_20",
+      "index": 25,
+      "sprite": "New_Weapon_20",
+      "ko": "신규 Weapon 20",
+      "en": "New Weapon 20",
+      "style": "common"
+    }
   ],
   "idToIndex": {
-    "elf_weapon_03": 0, "elf_weapon_05": 1, "elf_weapon_07": 2, "elf_weapon_08": 3,
-    "elf_weapon_11": 4, "elf_weapon_13": 5, "elf_weapon_17": 6, "elf_weapon_19": 7,
-    "orc_weapon_05": 8, "undead_weapon_03": 9, "undead_weapon_08": 10, "undead_weapon_10": 11,
-    "weapon_knight_1": 12, "weapon_knight_2": 13, "sword_1": 14, "sword_2": 15,
-    "sword_3": 16, "sword_4": 17, "sword_5": 18, "sword_6": 19,
-    "new_weapon_01": 20, "new_weapon_06": 21, "new_weapon_17": 22, "new_weapon_18": 23,
-    "new_weapon_19": 24, "new_weapon_20": 25
+    "elf_weapon_03": 0,
+    "elf_weapon_05": 1,
+    "elf_weapon_07": 2,
+    "elf_weapon_08": 3,
+    "elf_weapon_11": 4,
+    "elf_weapon_13": 5,
+    "elf_weapon_17": 6,
+    "elf_weapon_19": 7,
+    "orc_weapon_05": 8,
+    "undead_weapon_03": 9,
+    "undead_weapon_08": 10,
+    "undead_weapon_10": 11,
+    "weapon_knight_1": 12,
+    "weapon_knight_2": 13,
+    "sword_1": 14,
+    "sword_2": 15,
+    "sword_3": 16,
+    "sword_4": 17,
+    "sword_5": 18,
+    "sword_6": 19,
+    "new_weapon_01": 20,
+    "new_weapon_06": 21,
+    "new_weapon_17": 22,
+    "new_weapon_18": 23,
+    "new_weapon_19": 24,
+    "new_weapon_20": 25
   }
 }

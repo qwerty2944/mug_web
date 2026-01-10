@@ -1,11 +1,33 @@
 {
-  "category": "spear",
+  "sprites": [
+    "Soon_Spear",
+    "Spear_1"
+  ],
   "count": 2,
+  "nameToIndex": {
+    "Soon_Spear": 0,
+    "Spear_1": 1
+  },
   "spears": [
-    { "id": "soon_spear", "index": 0, "sprite": "Soon_Spear", "ko": "순 창", "en": "Soon Spear", "style": "common" },
-    { "id": "spear_1", "index": 1, "sprite": "Spear_1", "ko": "일반 창", "en": "Spear", "style": "common" }
+    {
+      "id": "soon_spear",
+      "index": 0,
+      "sprite": "Soon_Spear",
+      "ko": "순 Spear",
+      "en": "Soon Spear",
+      "style": "common"
+    },
+    {
+      "id": "spear_1",
+      "index": 1,
+      "sprite": "Spear_1",
+      "ko": "창 1",
+      "en": "Spear 1",
+      "style": "common"
+    }
   ],
   "idToIndex": {
-    "soon_spear": 0, "spear_1": 1
+    "soon_spear": 0,
+    "spear_1": 1
   }
 }
