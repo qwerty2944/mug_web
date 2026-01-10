@@ -1,0 +1,36 @@
+{
+  "type": "merchant",
+  "description": "아이템을 사고 파는 상인 NPC",
+  "npcs": [
+    {
+      "id": "basic_merchant",
+      "nameKo": "잡화 상인 톰",
+      "nameEn": "General Merchant Tom",
+      "icon": "🛒",
+      "mapId": "starting_village",
+      "description": "기본적인 소모품과 장비를 판매하는 상인입니다.",
+      "dialogues": {
+        "greeting": "어서 오세요! 무엇을 찾으시나요?",
+        "browse": "천천히 둘러보세요.",
+        "purchase": "좋은 선택이십니다!",
+        "notEnoughGold": "금화가 부족하시네요...",
+        "farewell": "또 오세요!"
+      }
+    },
+    {
+      "id": "market_merchant",
+      "nameKo": "시장 상인 루시",
+      "nameEn": "Market Merchant Lucy",
+      "icon": "🏪",
+      "mapId": "market_square",
+      "description": "시장에서 다양한 물품을 거래하는 상인입니다.",
+      "dialogues": {
+        "greeting": "시장에 오신 것을 환영합니다!",
+        "browse": "오늘 좋은 물건들이 많이 들어왔어요.",
+        "purchase": "현명한 선택이에요!",
+        "notEnoughGold": "조금 더 모아서 오세요.",
+        "farewell": "좋은 하루 되세요!"
+      }
+    }
+  ]
+}
