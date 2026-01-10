@@ -26,6 +26,7 @@ import { useThemeStore } from "@/shared/config";
 import { SLOT_CONFIG, type EquipmentSlot } from "@/entities/item";
 import { calculateDerivedStats } from "@/entities/character";
 import type { ProfileAppearance } from "@/entities/character";
+import { UnityProvider } from "@/application/providers";
 
 // 스프라이트 데이터 타입
 interface SpriteItem {
@@ -106,7 +107,7 @@ interface StatusModalProps {
   onClose: () => void;
 }
 
-export function StatusModal({ open, onClose }: StatusModalProps) {
+function StatusModalContent({ open, onClose }: StatusModalProps) {
   const { theme } = useThemeStore();
   const { session } = useAuthStore();
   const { isUnityLoaded, spriteCounts, loadAppearance } = useAppearanceStore();
@@ -182,8 +183,6 @@ export function StatusModal({ open, onClose }: StatusModalProps) {
     { id: "equipment", label: "장비" },
     { id: "inventory", label: "인벤토리" },
   ];
-
-  if (!open) return null;
 
   return (
     <div
@@ -953,5 +952,15 @@ export function StatusModal({ open, onClose }: StatusModalProps) {
         </div>
       </div>
     </div>
+  );
+}
+
+export function StatusModal({ open, onClose }: StatusModalProps) {
+  if (!open) return null;
+
+  return (
+    <UnityProvider>
+      <StatusModalContent open={open} onClose={onClose} />
+    </UnityProvider>
   );
 }
