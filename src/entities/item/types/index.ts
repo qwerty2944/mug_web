@@ -282,15 +282,8 @@ export type SpriteCategory =
 // 스프라이트 참조 (외형 + 색상)
 export interface SpriteReference {
   category: SpriteCategory;
-  spriteName: string;        // 스프라이트 이름 (예: "Sword_1") - 인덱스 대신 이름 사용
+  spriteId: string;          // 스프라이트 아이템 ID (예: "elf_weapon_03") - JSON에서 id로 sprite 조회
   color?: string;            // hex 색상 (예: "#808080"), undefined면 기본색
-}
-
-// 레거시 스프라이트 참조 (마이그레이션용, deprecated)
-export interface LegacySpriteReference {
-  category: SpriteCategory;
-  index: number;             // 0-based 스프라이트 인덱스 (deprecated)
-  color?: string;
 }
 
 // 미리 정의된 색상 프리셋

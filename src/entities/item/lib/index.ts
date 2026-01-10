@@ -191,6 +191,7 @@ import type { SpriteCategory, SpriteReference } from "../types";
 interface SpriteData {
   sprites: string[];
   nameToIndex: Record<string, number>;
+  idToSprite: Record<string, string>;  // id → sprite name
   count: number;
 }
 
@@ -226,9 +227,24 @@ export async function loadSpriteData(category: SpriteCategory): Promise<SpriteDa
     if (!response.ok) return null;
 
     const data = await response.json();
+
+    // items 배열에서 id → sprite 매핑 생성
+    const itemsKey = Object.keys(data).find(key =>
+      Array.isArray(data[key]) && data[key].length > 0 && data[key][0]?.id && data[key][0]?.sprite
+    );
+    const idToSprite: Record<string, string> = {};
+    if (itemsKey) {
+      for (const item of data[itemsKey]) {
+        if (item.id && item.sprite) {
+          idToSprite[item.id] = item.sprite;
+        }
+      }
+    }
+
     const spriteData: SpriteData = {
       sprites: data.sprites || [],
       nameToIndex: data.nameToIndex || {},
+      idToSprite,
       count: data.count || 0,
     };
 
@@ -265,17 +281,50 @@ export async function getSpriteIndexAsync(category: SpriteCategory, spriteName: 
 }
 
 /**
+ * 스프라이트 ID로 인덱스 조회 (동기 - 캐시 필요)
+ * spriteId → spriteName → index
+ */
+export function getSpriteIndexById(category: SpriteCategory, spriteId: string): number {
+  const cached = spriteDataCache[category];
+  if (!cached) {
+    console.warn(`Sprite data not loaded for category: ${category}. Call loadSpriteData first.`);
+    return -1;
+  }
+
+  const spriteName = cached.idToSprite[spriteId];
+  if (!spriteName) {
+    console.warn(`Sprite ID not found: ${spriteId} in category ${category}`);
+    return -1;
+  }
+
+  return cached.nameToIndex[spriteName] ?? -1;
+}
+
+/**
+ * 스프라이트 ID로 인덱스 조회 (비동기 - 캐시 자동 로드)
+ */
+export async function getSpriteIndexByIdAsync(category: SpriteCategory, spriteId: string): Promise<number> {
+  const data = await loadSpriteData(category);
+  if (!data) return -1;
+
+  const spriteName = data.idToSprite[spriteId];
+  if (!spriteName) return -1;
+
+  return data.nameToIndex[spriteName] ?? -1;
+}
+
+/**
  * SpriteReference에서 Unity 인덱스 조회 (비동기)
  */
 export async function resolveSpriteIndex(sprite: SpriteReference): Promise<number> {
-  return getSpriteIndexAsync(sprite.category, sprite.spriteName);
+  return getSpriteIndexByIdAsync(sprite.category, sprite.spriteId);
 }
 
 /**
  * SpriteReference에서 Unity 인덱스 조회 (동기 - 캐시 필요)
  */
 export function resolveSpriteIndexSync(sprite: SpriteReference): number {
-  return getSpriteIndex(sprite.category, sprite.spriteName);
+  return getSpriteIndexById(sprite.category, sprite.spriteId);
 }
 
 /**

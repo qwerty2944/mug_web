@@ -333,7 +333,7 @@
         "sprite": {
           "category": "sword",
           "color": "#8B4513",
-          "spriteName": "Elf_Weapon_03"
+          "spriteId": "elf_weapon_03"
         },
         "stats": {
           "attack": 4
@@ -368,7 +368,7 @@
         "sprite": {
           "category": "sword",
           "color": "#8B4513",
-          "spriteName": "Elf_Weapon_05"
+          "spriteId": "elf_weapon_05"
         },
         "stats": {
           "attack": 5
@@ -404,7 +404,7 @@
         "sprite": {
           "category": "sword",
           "color": "#8B4513",
-          "spriteName": "Elf_Weapon_07"
+          "spriteId": "elf_weapon_07"
         },
         "stats": {
           "attack": 7
@@ -439,7 +439,7 @@
         "sprite": {
           "category": "sword",
           "color": "#808080",
-          "spriteName": "Elf_Weapon_03"
+          "spriteId": "elf_weapon_03"
         },
         "stats": {
           "attack": 10
@@ -474,7 +474,7 @@
         "sprite": {
           "category": "sword",
           "color": "#808080",
-          "spriteName": "Elf_Weapon_05"
+          "spriteId": "elf_weapon_05"
         },
         "stats": {
           "attack": 12
@@ -510,7 +510,7 @@
         "sprite": {
           "category": "sword",
           "color": "#808080",
-          "spriteName": "Elf_Weapon_07"
+          "spriteId": "elf_weapon_07"
         },
         "stats": {
           "attack": 15
@@ -546,7 +546,7 @@
         "sprite": {
           "category": "sword",
           "color": "#8B4513",
-          "spriteName": "Elf_Weapon_08"
+          "spriteId": "elf_weapon_08"
         },
         "stats": {
           "attack": 3,
@@ -584,7 +584,7 @@
         "sprite": {
           "category": "sword",
           "color": "#808080",
-          "spriteName": "Elf_Weapon_08"
+          "spriteId": "elf_weapon_08"
         },
         "stats": {
           "attack": 8,
@@ -648,7 +648,7 @@
         "sprite": {
           "category": "wand",
           "color": "#8B4513",
-          "spriteName": "Elf_Weapon_01"
+          "spriteId": "elf_weapon_01"
         },
         "stats": {
           "magic": 8
@@ -953,7 +953,7 @@
         "sprite": {
           "category": "shield",
           "color": "#8B4513",
-          "spriteName": "Elf_Shield_01"
+          "spriteId": "elf_shield_01"
         },
         "stats": {
           "defense": 3,
@@ -988,7 +988,7 @@
         "sprite": {
           "category": "shield",
           "color": "#808080",
-          "spriteName": "Elf_Shield_01"
+          "spriteId": "elf_shield_01"
         },
         "stats": {
           "defense": 6,
@@ -1171,7 +1171,7 @@
         "sprite": {
           "category": "sword",
           "color": "#FFD700",
-          "spriteName": "Elf_Weapon_05"
+          "spriteId": "elf_weapon_05"
         },
         "stats": {
           "attack": 14,
@@ -1209,7 +1209,7 @@
         "sprite": {
           "category": "sword",
           "color": "#FF4500",
-          "spriteName": "Elf_Weapon_07"
+          "spriteId": "elf_weapon_07"
         },
         "stats": {
           "attack": 18,
@@ -1247,7 +1247,7 @@
         "sprite": {
           "category": "sword",
           "color": "#00BFFF",
-          "spriteName": "Elf_Weapon_03"
+          "spriteId": "elf_weapon_03"
         },
         "stats": {
           "attack": 12,
@@ -1284,7 +1284,7 @@
         "sprite": {
           "category": "sword",
           "color": "#E0FFFF",
-          "spriteName": "Elf_Weapon_05"
+          "spriteId": "elf_weapon_05"
         },
         "stats": {
           "attack": 20,
@@ -1323,7 +1323,7 @@
         "sprite": {
           "category": "sword",
           "color": "#2F1F3F",
-          "spriteName": "Elf_Weapon_08"
+          "spriteId": "elf_weapon_08"
         },
         "stats": {
           "attack": 10,
@@ -1360,7 +1360,7 @@
         "sprite": {
           "category": "shield",
           "color": "#FFFACD",
-          "spriteName": "Elf_Shield_01"
+          "spriteId": "elf_shield_01"
         },
         "stats": {
           "defense": 8,
@@ -1398,7 +1398,7 @@
         "sprite": {
           "category": "wand",
           "color": "#FF4500",
-          "spriteName": "Elf_Weapon_04"
+          "spriteId": "elf_weapon_04"
         },
         "stats": {
           "magic": 12
@@ -1434,7 +1434,7 @@
         "sprite": {
           "category": "wand",
           "color": "#00BFFF",
-          "spriteName": "Elf_Weapon_09"
+          "spriteId": "elf_weapon_09"
         },
         "stats": {
           "magic": 12
@@ -1470,7 +1470,7 @@
         "sprite": {
           "category": "wand",
           "color": "#FFFF00",
-          "spriteName": "Elf_Weapon_10"
+          "spriteId": "elf_weapon_10"
         },
         "stats": {
           "magic": 12

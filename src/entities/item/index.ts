@@ -21,7 +21,6 @@ export type {
   // Sprite System
   SpriteCategory,
   SpriteReference,
-  LegacySpriteReference,
   SpriteColorPreset,
 } from "./types";
 
@@ -85,6 +84,8 @@ export {
   loadSpriteData,
   getSpriteIndex,
   getSpriteIndexAsync,
+  getSpriteIndexById,
+  getSpriteIndexByIdAsync,
   resolveSpriteIndex,
   resolveSpriteIndexSync,
   preloadAllSpriteData,
