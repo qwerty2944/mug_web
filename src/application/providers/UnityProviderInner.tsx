@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useEffect, useRef, ReactNode, useState, useCallback } from "react";
+import { createContext, useEffect, useRef, ReactNode, useState, useCallback, useMemo } from "react";
 import { Unity, useUnityContext } from "react-unity-webgl";
 import { useAppearanceStore, type SpriteNames } from "@/application/stores";
 
@@ -9,6 +9,23 @@ const UNITY_OBJECT_NAME = "SPUM_20260103203421028";
 // 기본값 상수
 const DEFAULT_BODY_INDEX = 11; // 12번째 종족 (human_1), 0-indexed
 const DEFAULT_BROWN_COLOR = "6B4226"; // 갈색 (눈, 머리, 수염)
+
+// Unity 설정을 컴포넌트 외부에서 상수로 정의 (React 19 호환성)
+// 매 렌더링마다 새 객체가 생성되는 것을 방지하여 hooks 일관성 유지
+const UNITY_CONFIG = {
+  loaderUrl: "/unity/characterbuilder.loader.js",
+  dataUrl: "/unity/characterbuilder.data",
+  frameworkUrl: "/unity/characterbuilder.framework.js",
+  codeUrl: "/unity/characterbuilder.wasm",
+} as const;
+
+const WEBGL_CONTEXT_ATTRIBUTES = {
+  alpha: true,
+  premultipliedAlpha: false,
+} as const;
+
+// Unity 컴포넌트 스타일 (참조 안정성)
+const UNITY_STYLE = { width: "100%", height: "100%", background: "transparent" } as const;
 
 export interface UnityContextValue {
   unityProvider: ReturnType<typeof useUnityContext>["unityProvider"] | null;
@@ -65,16 +82,13 @@ export function UnityProviderInner({ children }: { children: ReactNode }) {
     });
   }, [viewports]);
 
-  const { unityProvider, sendMessage, isLoaded, loadingProgression } = useUnityContext({
-    loaderUrl: "/unity/characterbuilder.loader.js",
-    dataUrl: "/unity/characterbuilder.data",
-    frameworkUrl: "/unity/characterbuilder.framework.js",
-    codeUrl: "/unity/characterbuilder.wasm",
-    webglContextAttributes: {
-      alpha: true,
-      premultipliedAlpha: false,
-    },
-  });
+  // useUnityContext 설정을 useMemo로 감싸서 참조 안정성 보장 (React 19 호환성)
+  const unityConfig = useMemo(() => ({
+    ...UNITY_CONFIG,
+    webglContextAttributes: WEBGL_CONTEXT_ATTRIBUTES,
+  }), []);
+
+  const { unityProvider, sendMessage, isLoaded, loadingProgression } = useUnityContext(unityConfig);
 
   // Unity 로드 상태 동기화
   useEffect(() => {
@@ -168,6 +182,12 @@ export function UnityProviderInner({ children }: { children: ReactNode }) {
   const unityContainerRef = useRef<HTMLDivElement>(null);
   const hiddenContainerRef = useRef<HTMLDivElement>(null);
 
+  // devicePixelRatio를 useState로 관리 (참조 안정성 + SSR 안전)
+  const [devicePixelRatio, setDevicePixelRatio] = useState(1);
+  useEffect(() => {
+    setDevicePixelRatio(window.devicePixelRatio || 1);
+  }, []);
+
   // viewport 변경 시 Unity 컨테이너를 DOM 조작으로 이동
   useEffect(() => {
     const unityContainer = unityContainerRef.current;
@@ -222,8 +242,8 @@ export function UnityProviderInner({ children }: { children: ReactNode }) {
           <div ref={unityContainerRef} style={{ width: "100%", height: "100%" }}>
             <Unity
               unityProvider={unityProvider}
-              devicePixelRatio={typeof window !== "undefined" ? window.devicePixelRatio : 1}
-              style={{ width: "100%", height: "100%", background: "transparent" }}
+              devicePixelRatio={devicePixelRatio}
+              style={UNITY_STYLE}
             />
           </div>
         )}
