@@ -60,6 +60,8 @@ export type Database = {
           email: string | null
           equipment: Json | null
           experience: number | null
+          fatigue: number | null
+          fatigue_updated_at: string | null
           gems: number | null
           gold: number | null
           id: string
@@ -69,11 +71,9 @@ export type Database = {
           karma: number | null
           last_login_at: string | null
           level: number | null
-          max_stamina: number | null
+          max_fatigue: number | null
           premium_until: string | null
           religion: Json | null
-          stamina: number | null
-          stamina_updated_at: string | null
           traits: Json | null
           updated_at: string | null
           user_id: string
@@ -81,7 +81,7 @@ export type Database = {
         }
         Insert: {
           appearance?: Json | null
-          avatar_url?: string | null
+          avatar_url?: Json | null
           buffs?: Json | null
           character?: Json | null
           created_at?: string | null
@@ -92,6 +92,8 @@ export type Database = {
           email?: string | null
           equipment?: Json | null
           experience?: number | null
+          fatigue?: number | null
+          fatigue_updated_at?: string | null
           gems?: number | null
           gold?: number | null
           id: string
@@ -101,11 +103,9 @@ export type Database = {
           karma?: number | null
           last_login_at?: string | null
           level?: number | null
-          max_stamina?: number | null
+          max_fatigue?: number | null
           premium_until?: string | null
           religion?: Json | null
-          stamina?: number | null
-          stamina_updated_at?: string | null
           traits?: Json | null
           updated_at?: string | null
           user_id: string
@@ -113,7 +113,7 @@ export type Database = {
         }
         Update: {
           appearance?: Json | null
-          avatar_url?: string | null
+          avatar_url?: Json | null
           buffs?: Json | null
           character?: Json | null
           created_at?: string | null
@@ -124,6 +124,8 @@ export type Database = {
           email?: string | null
           equipment?: Json | null
           experience?: number | null
+          fatigue?: number | null
+          fatigue_updated_at?: string | null
           gems?: number | null
           gold?: number | null
           id?: string
@@ -133,11 +135,9 @@ export type Database = {
           karma?: number | null
           last_login_at?: string | null
           level?: number | null
-          max_stamina?: number | null
+          max_fatigue?: number | null
           premium_until?: string | null
           religion?: Json | null
-          stamina?: number | null
-          stamina_updated_at?: string | null
           traits?: Json | null
           updated_at?: string | null
           user_id?: string
@@ -272,51 +272,6 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
-      }
-      maps: {
-        Row: {
-          connected_maps: string[] | null
-          created_at: string
-          description_en: string | null
-          description_ko: string | null
-          icon: string | null
-          id: string
-          is_pvp: boolean | null
-          is_safe_zone: boolean | null
-          max_players: number | null
-          min_level: number | null
-          name_en: string
-          name_ko: string
-        }
-        Insert: {
-          connected_maps?: string[] | null
-          created_at?: string
-          description_en?: string | null
-          description_ko?: string | null
-          icon?: string | null
-          id: string
-          is_pvp?: boolean | null
-          is_safe_zone?: boolean | null
-          max_players?: number | null
-          min_level?: number | null
-          name_en: string
-          name_ko: string
-        }
-        Update: {
-          connected_maps?: string[] | null
-          created_at?: string
-          description_en?: string | null
-          description_ko?: string | null
-          icon?: string | null
-          id?: string
-          is_pvp?: boolean | null
-          is_safe_zone?: boolean | null
-          max_players?: number | null
-          min_level?: number | null
-          name_en?: string
-          name_ko?: string
-        }
-        Relationships: []
       }
       offerings_log: {
         Row: {
@@ -464,22 +419,22 @@ export type Database = {
         Args: { p_injury: Json; p_user_id: string }
         Returns: undefined
       }
-      calculate_max_stamina_from_con: {
-        Args: { p_con: number }
+      calculate_max_fatigue_from_con: {
+        Args: { con_value: number }
         Returns: number
       }
-      calculate_stamina: {
+      calculate_fatigue: {
         Args: {
-          p_current_stamina: number
+          p_current_fatigue: number
           p_last_updated: string
-          p_max_stamina: number
+          p_max_fatigue: number
           p_recovery_rate?: number
         }
         Returns: number
       }
       cleanup_inactive_users: { Args: never; Returns: number }
       cleanup_old_chat_messages: { Args: never; Returns: number }
-      consume_stamina: {
+      consume_fatigue: {
         Args: { p_amount: number; p_user_id: string }
         Returns: Json
       }
@@ -491,7 +446,7 @@ export type Database = {
           success: boolean
         }[]
       }
-      get_current_stamina: { Args: { p_user_id: string }; Returns: Json }
+      get_current_fatigue: { Args: { p_user_id: string }; Returns: number }
       get_main_character_con: { Args: { p_character: Json }; Returns: number }
       get_online_users_in_map: {
         Args: { p_map_id: string; p_timeout_minutes?: number }
@@ -524,7 +479,7 @@ export type Database = {
           spell_id: string
         }[]
       }
-      get_user_max_stamina: { Args: { p_user_id: string }; Returns: number }
+      get_user_max_fatigue: { Args: { p_user_id: string }; Returns: number }
       heal_injury_with_gold: {
         Args: { p_gold_cost: number; p_injury_index: number; p_user_id: string }
         Returns: Json
@@ -596,9 +551,9 @@ export type Database = {
         }[]
       }
       remove_user_location: { Args: { p_user_id: string }; Returns: undefined }
-      restore_stamina: {
+      restore_fatigue: {
         Args: { p_amount: number; p_user_id: string }
-        Returns: number
+        Returns: Json
       }
       save_character: {
         Args: { p_character: Json; p_user_id: string }

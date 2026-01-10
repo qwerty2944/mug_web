@@ -36,10 +36,10 @@
       "maxLevel": 30,
       "expPerLevel": 50,
       "levelBonuses": [
-        { "level": 1, "effects": { "baseDamage": 25, "spCost": 5, "armorPenetration": 10 } },
-        { "level": 10, "effects": { "baseDamage": 33, "spCost": 5, "armorPenetration": 15 } },
-        { "level": 20, "effects": { "baseDamage": 43, "spCost": 4, "armorPenetration": 20 } },
-        { "level": 30, "effects": { "baseDamage": 55, "spCost": 4, "armorPenetration": 25, "reach": 10 } }
+        { "level": 1, "effects": { "baseDamage": 25, "apCost": 5, "armorPenetration": 10 } },
+        { "level": 10, "effects": { "baseDamage": 33, "apCost": 5, "armorPenetration": 15 } },
+        { "level": 20, "effects": { "baseDamage": 43, "apCost": 4, "armorPenetration": 20 } },
+        { "level": 30, "effects": { "baseDamage": 55, "apCost": 4, "armorPenetration": 25, "reach": 10 } }
       ],
       "requirements": { "skills": { "spear_mastery": 1 } },
       "grantsExpTo": ["spear_mastery"],
@@ -56,10 +56,10 @@
       "maxLevel": 25,
       "expPerLevel": 70,
       "levelBonuses": [
-        { "level": 1, "effects": { "baseDamage": 35, "armorPenetration": 30, "spCost": 12 } },
-        { "level": 10, "effects": { "baseDamage": 48, "armorPenetration": 40, "spCost": 11 } },
-        { "level": 20, "effects": { "baseDamage": 65, "armorPenetration": 50, "spCost": 10 } },
-        { "level": 25, "effects": { "baseDamage": 75, "armorPenetration": 60, "spCost": 10, "bleedDamage": 8 } }
+        { "level": 1, "effects": { "baseDamage": 35, "armorPenetration": 30, "apCost": 12 } },
+        { "level": 10, "effects": { "baseDamage": 48, "armorPenetration": 40, "apCost": 11 } },
+        { "level": 20, "effects": { "baseDamage": 65, "armorPenetration": 50, "apCost": 10 } },
+        { "level": 25, "effects": { "baseDamage": 75, "armorPenetration": 60, "apCost": 10, "bleedDamage": 8 } }
       ],
       "requirements": { "skills": { "spear_mastery": 10 } },
       "grantsExpTo": ["spear_mastery"],
@@ -76,9 +76,9 @@
       "maxLevel": 20,
       "expPerLevel": 90,
       "levelBonuses": [
-        { "level": 1, "effects": { "baseDamage": 28, "aoe": true, "spCost": 15 } },
-        { "level": 10, "effects": { "baseDamage": 38, "aoe": true, "spCost": 14 } },
-        { "level": 20, "effects": { "baseDamage": 52, "aoe": true, "spCost": 12, "knockbackChance": 25 } }
+        { "level": 1, "effects": { "baseDamage": 28, "aoe": true, "apCost": 15 } },
+        { "level": 10, "effects": { "baseDamage": 38, "aoe": true, "apCost": 14 } },
+        { "level": 20, "effects": { "baseDamage": 52, "aoe": true, "apCost": 12, "knockbackChance": 25 } }
       ],
       "requirements": { "skills": { "spear_mastery": 15 } },
       "grantsExpTo": ["spear_mastery"],
@@ -95,9 +95,9 @@
       "maxLevel": 20,
       "expPerLevel": 100,
       "levelBonuses": [
-        { "level": 1, "effects": { "defenseBonus": 20, "counterChance": 20, "duration": 4, "spCost": 18 } },
-        { "level": 10, "effects": { "defenseBonus": 30, "counterChance": 30, "duration": 4, "spCost": 16 } },
-        { "level": 20, "effects": { "defenseBonus": 40, "counterChance": 40, "duration": 5, "spCost": 14, "firstStrikeChance": 30 } }
+        { "level": 1, "effects": { "defenseBonus": 20, "counterChance": 20, "duration": 4, "apCost": 18 } },
+        { "level": 10, "effects": { "defenseBonus": 30, "counterChance": 30, "duration": 4, "apCost": 16 } },
+        { "level": 20, "effects": { "defenseBonus": 40, "counterChance": 40, "duration": 5, "apCost": 14, "firstStrikeChance": 30 } }
       ],
       "requirements": { "skills": { "spear_mastery": 22 } },
       "grantsExpTo": ["spear_mastery"],
@@ -114,9 +114,9 @@
       "maxLevel": 15,
       "expPerLevel": 150,
       "levelBonuses": [
-        { "level": 1, "effects": { "baseDamage": 45, "pierceTargets": 2, "armorPenetration": 50, "spCost": 25 } },
-        { "level": 8, "effects": { "baseDamage": 60, "pierceTargets": 3, "armorPenetration": 60, "spCost": 23 } },
-        { "level": 15, "effects": { "baseDamage": 80, "pierceTargets": 4, "armorPenetration": 75, "spCost": 20 } }
+        { "level": 1, "effects": { "baseDamage": 45, "pierceTargets": 2, "armorPenetration": 50, "apCost": 25 } },
+        { "level": 8, "effects": { "baseDamage": 60, "pierceTargets": 3, "armorPenetration": 60, "apCost": 23 } },
+        { "level": 15, "effects": { "baseDamage": 80, "pierceTargets": 4, "armorPenetration": 75, "apCost": 20 } }
       ],
       "requirements": { "skills": { "spear_mastery": 35, "impale": 15 } },
       "grantsExpTo": ["spear_mastery"],
@@ -133,9 +133,9 @@
       "maxLevel": 10,
       "expPerLevel": 200,
       "levelBonuses": [
-        { "level": 1, "effects": { "baseDamage": 100, "armorPenetration": 80, "chargeBonus": 30, "spCost": 35 } },
-        { "level": 5, "effects": { "baseDamage": 130, "armorPenetration": 90, "chargeBonus": 40, "spCost": 32 } },
-        { "level": 10, "effects": { "baseDamage": 170, "armorPenetration": 100, "chargeBonus": 50, "knockdownChance": 60, "spCost": 28 } }
+        { "level": 1, "effects": { "baseDamage": 100, "armorPenetration": 80, "chargeBonus": 30, "apCost": 35 } },
+        { "level": 5, "effects": { "baseDamage": 130, "armorPenetration": 90, "chargeBonus": 40, "apCost": 32 } },
+        { "level": 10, "effects": { "baseDamage": 170, "armorPenetration": 100, "chargeBonus": 50, "knockdownChance": 60, "apCost": 28 } }
       ],
       "requirements": { "skills": { "spear_mastery": 45, "skewer": 10 } },
       "grantsExpTo": ["spear_mastery"],

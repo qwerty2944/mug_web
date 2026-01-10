@@ -37,9 +37,9 @@
       "maxLevel": 20,
       "expPerLevel": 40,
       "levelBonuses": [
-        { "level": 1, "effects": { "baseDamage": 15, "spCost": 3 } },
-        { "level": 10, "effects": { "baseDamage": 22, "spCost": 3 } },
-        { "level": 20, "effects": { "baseDamage": 30, "spCost": 2, "bleedChance": 10 } }
+        { "level": 1, "effects": { "baseDamage": 15, "apCost": 3 } },
+        { "level": 10, "effects": { "baseDamage": 22, "apCost": 3 } },
+        { "level": 20, "effects": { "baseDamage": 30, "apCost": 2, "bleedChance": 10 } }
       ],
       "requirements": {},
       "grantsExpTo": ["sword_mastery"],
@@ -56,9 +56,9 @@
       "maxLevel": 20,
       "expPerLevel": 50,
       "levelBonuses": [
-        { "level": 1, "effects": { "blockChance": 40, "spCost": 4 } },
-        { "level": 10, "effects": { "blockChance": 55, "spCost": 4 } },
-        { "level": 20, "effects": { "blockChance": 70, "spCost": 3, "damageReduction": 20 } }
+        { "level": 1, "effects": { "blockChance": 40, "apCost": 4 } },
+        { "level": 10, "effects": { "blockChance": 55, "apCost": 4 } },
+        { "level": 20, "effects": { "blockChance": 70, "apCost": 3, "damageReduction": 20 } }
       ],
       "requirements": { "skills": { "sword_mastery": 5 } },
       "grantsExpTo": ["sword_mastery"],
@@ -75,9 +75,9 @@
       "maxLevel": 15,
       "expPerLevel": 60,
       "levelBonuses": [
-        { "level": 1, "effects": { "attackBonus": 15, "defenseReduction": 10, "duration": 3, "spCost": 8 } },
-        { "level": 8, "effects": { "attackBonus": 25, "defenseReduction": 8, "duration": 4, "spCost": 7 } },
-        { "level": 15, "effects": { "attackBonus": 35, "defenseReduction": 5, "duration": 5, "spCost": 6, "critChance": 10 } }
+        { "level": 1, "effects": { "attackBonus": 15, "defenseReduction": 10, "duration": 3, "apCost": 8 } },
+        { "level": 8, "effects": { "attackBonus": 25, "defenseReduction": 8, "duration": 4, "apCost": 7 } },
+        { "level": 15, "effects": { "attackBonus": 35, "defenseReduction": 5, "duration": 5, "apCost": 6, "critChance": 10 } }
       ],
       "requirements": { "skills": { "sword_mastery": 10 } },
       "grantsExpTo": ["sword_mastery"],
@@ -94,9 +94,9 @@
       "maxLevel": 15,
       "expPerLevel": 60,
       "levelBonuses": [
-        { "level": 1, "effects": { "attackBonus": 8, "defenseBonus": 8, "duration": 4, "spCost": 6 } },
-        { "level": 8, "effects": { "attackBonus": 12, "defenseBonus": 12, "duration": 5, "spCost": 5 } },
-        { "level": 15, "effects": { "attackBonus": 18, "defenseBonus": 18, "duration": 6, "spCost": 5, "counterChance": 15 } }
+        { "level": 1, "effects": { "attackBonus": 8, "defenseBonus": 8, "duration": 4, "apCost": 6 } },
+        { "level": 8, "effects": { "attackBonus": 12, "defenseBonus": 12, "duration": 5, "apCost": 5 } },
+        { "level": 15, "effects": { "attackBonus": 18, "defenseBonus": 18, "duration": 6, "apCost": 5, "counterChance": 15 } }
       ],
       "requirements": { "skills": { "sword_mastery": 10 } },
       "grantsExpTo": ["sword_mastery"],
@@ -113,9 +113,9 @@
       "maxLevel": 15,
       "expPerLevel": 60,
       "levelBonuses": [
-        { "level": 1, "effects": { "defenseBonus": 20, "attackReduction": 10, "duration": 3, "spCost": 8 } },
-        { "level": 8, "effects": { "defenseBonus": 30, "attackReduction": 8, "duration": 4, "spCost": 7 } },
-        { "level": 15, "effects": { "defenseBonus": 40, "attackReduction": 5, "duration": 5, "spCost": 6, "evasion": 10 } }
+        { "level": 1, "effects": { "defenseBonus": 20, "attackReduction": 10, "duration": 3, "apCost": 8 } },
+        { "level": 8, "effects": { "defenseBonus": 30, "attackReduction": 8, "duration": 4, "apCost": 7 } },
+        { "level": 15, "effects": { "defenseBonus": 40, "attackReduction": 5, "duration": 5, "apCost": 6, "evasion": 10 } }
       ],
       "requirements": { "skills": { "sword_mastery": 10 } },
       "grantsExpTo": ["sword_mastery"],
@@ -150,10 +150,10 @@
       "maxLevel": 25,
       "expPerLevel": 80,
       "levelBonuses": [
-        { "level": 1, "effects": { "baseDamage": 35, "firstTurnBonus": 20, "spCost": 10 } },
-        { "level": 10, "effects": { "baseDamage": 48, "firstTurnBonus": 35, "spCost": 9 } },
-        { "level": 20, "effects": { "baseDamage": 62, "firstTurnBonus": 50, "spCost": 8 } },
-        { "level": 25, "effects": { "baseDamage": 75, "firstTurnBonus": 60, "spCost": 7, "initiativeBonus": 15 } }
+        { "level": 1, "effects": { "baseDamage": 35, "firstTurnBonus": 20, "apCost": 10 } },
+        { "level": 10, "effects": { "baseDamage": 48, "firstTurnBonus": 35, "apCost": 9 } },
+        { "level": 20, "effects": { "baseDamage": 62, "firstTurnBonus": 50, "apCost": 8 } },
+        { "level": 25, "effects": { "baseDamage": 75, "firstTurnBonus": 60, "apCost": 7, "initiativeBonus": 15 } }
       ],
       "requirements": { "skills": { "sword_mastery": 20 } },
       "grantsExpTo": ["sword_mastery"],
@@ -171,9 +171,9 @@
       "maxLevel": 20,
       "expPerLevel": 100,
       "levelBonuses": [
-        { "level": 1, "effects": { "baseDamage": 30, "aoe": true, "spCost": 18 } },
-        { "level": 10, "effects": { "baseDamage": 42, "aoe": true, "spCost": 16 } },
-        { "level": 20, "effects": { "baseDamage": 58, "aoe": true, "spCost": 14, "knockback": 30 } }
+        { "level": 1, "effects": { "baseDamage": 30, "aoe": true, "apCost": 18 } },
+        { "level": 10, "effects": { "baseDamage": 42, "aoe": true, "apCost": 16 } },
+        { "level": 20, "effects": { "baseDamage": 58, "aoe": true, "apCost": 14, "knockback": 30 } }
       ],
       "requirements": { "skills": { "sword_mastery": 30, "basic_slash": 15 } },
       "grantsExpTo": ["sword_mastery"],
@@ -190,9 +190,9 @@
       "maxLevel": 15,
       "expPerLevel": 120,
       "levelBonuses": [
-        { "level": 1, "effects": { "baseDamage": 25, "attackReduction": 15, "duration": 3, "spCost": 15 } },
-        { "level": 8, "effects": { "baseDamage": 35, "attackReduction": 22, "duration": 4, "spCost": 14 } },
-        { "level": 15, "effects": { "baseDamage": 50, "attackReduction": 30, "duration": 5, "spCost": 12, "disarmChance": 10 } }
+        { "level": 1, "effects": { "baseDamage": 25, "attackReduction": 15, "duration": 3, "apCost": 15 } },
+        { "level": 8, "effects": { "baseDamage": 35, "attackReduction": 22, "duration": 4, "apCost": 14 } },
+        { "level": 15, "effects": { "baseDamage": 50, "attackReduction": 30, "duration": 5, "apCost": 12, "disarmChance": 10 } }
       ],
       "requirements": { "skills": { "sword_mastery": 35, "guard": 12 } },
       "grantsExpTo": ["sword_mastery"],
@@ -209,9 +209,9 @@
       "maxLevel": 15,
       "expPerLevel": 150,
       "levelBonuses": [
-        { "level": 1, "effects": { "baseDamage": 55, "evasionAfter": 30, "spCost": 22 } },
-        { "level": 8, "effects": { "baseDamage": 72, "evasionAfter": 45, "spCost": 20 } },
-        { "level": 15, "effects": { "baseDamage": 95, "evasionAfter": 60, "spCost": 18, "ignoreBlock": true } }
+        { "level": 1, "effects": { "baseDamage": 55, "evasionAfter": 30, "apCost": 22 } },
+        { "level": 8, "effects": { "baseDamage": 72, "evasionAfter": 45, "apCost": 20 } },
+        { "level": 15, "effects": { "baseDamage": 95, "evasionAfter": 60, "apCost": 18, "ignoreBlock": true } }
       ],
       "requirements": { "skills": { "sword_mastery": 40, "draw_slash": 18 } },
       "grantsExpTo": ["sword_mastery"],
@@ -228,9 +228,9 @@
       "maxLevel": 10,
       "expPerLevel": 200,
       "levelBonuses": [
-        { "level": 1, "effects": { "baseDamage": 100, "armorPenetration": 30, "spCost": 40 } },
-        { "level": 5, "effects": { "baseDamage": 130, "armorPenetration": 40, "spCost": 38, "critChance": 25 } },
-        { "level": 10, "effects": { "baseDamage": 170, "armorPenetration": 50, "spCost": 35, "critChance": 35, "executeThreshold": 15 } }
+        { "level": 1, "effects": { "baseDamage": 100, "armorPenetration": 30, "apCost": 40 } },
+        { "level": 5, "effects": { "baseDamage": 130, "armorPenetration": 40, "apCost": 38, "critChance": 25 } },
+        { "level": 10, "effects": { "baseDamage": 170, "armorPenetration": 50, "apCost": 35, "critChance": 35, "executeThreshold": 15 } }
       ],
       "requirements": { "skills": { "sword_mastery": 48, "flash_step": 10 } },
       "grantsExpTo": ["sword_mastery"],

@@ -1,7 +1,7 @@
 "use client";
 
 import { useQuery } from "@tanstack/react-query";
-import { fetchProfile, calculateCurrentStamina } from "../api";
+import { fetchProfile, calculateCurrentFatigue } from "../api";
 import type { UserProfile } from "../types";
 import type { SavedCharacter } from "@/entities/character";
 import { getExpForLevel } from "../types/constants";
@@ -39,18 +39,18 @@ export function getMainCharacter(profile: UserProfile | undefined): SavedCharact
  * 공식: 50 + (CON * 5)
  * CON 10 = 100, CON 15 = 125, CON 20 = 150
  */
-export function calculateMaxStamina(con: number = 10): number {
+export function calculateMaxFatigue(con: number = 10): number {
   return 50 + con * 5;
 }
 
 /**
  * 프로필에서 CON 기반 최대 피로도 가져오기
  */
-export function getMaxStaminaFromProfile(profile: UserProfile | undefined): number {
+export function getMaxFatigueFromProfile(profile: UserProfile | undefined): number {
   if (!profile) return 100;
   const mainChar = getMainCharacter(profile);
   const con = mainChar?.stats?.con ?? 10;
-  return calculateMaxStamina(con);
+  return calculateMaxFatigue(con);
 }
 
 /**
@@ -71,17 +71,17 @@ export function getExpToNextLevel(profile: UserProfile | undefined): number {
 }
 
 /**
- * 현재 스태미나 계산 (Lazy Calculation)
+ * 현재 피로도 계산 (Lazy Calculation)
  * DB에 저장된 값 + 경과 시간 기반 회복량
  * CON 기반 최대 피로도를 사용하여 정확한 상한 적용
  */
-export function getCurrentStamina(profile: UserProfile | undefined): number {
+export function getCurrentFatigue(profile: UserProfile | undefined): number {
   if (!profile) return 100;
-  const maxStamina = getMaxStaminaFromProfile(profile);
-  return calculateCurrentStamina(
-    profile.stamina,
-    profile.staminaUpdatedAt,
-    maxStamina
+  const maxFatigue = getMaxFatigueFromProfile(profile);
+  return calculateCurrentFatigue(
+    profile.fatigue,
+    profile.fatigueUpdatedAt,
+    maxFatigue
   );
 }
 
@@ -89,25 +89,25 @@ export function getCurrentStamina(profile: UserProfile | undefined): number {
  * 피로도 퍼센트 계산 (Lazy Calculation 적용)
  * CON 기반 최대 피로도를 사용하여 정확한 비율 계산
  */
-export function getStaminaPercent(profile: UserProfile | undefined): number {
+export function getFatiguePercent(profile: UserProfile | undefined): number {
   if (!profile) return 100;
-  const current = getCurrentStamina(profile);
-  const maxStamina = getMaxStaminaFromProfile(profile);
-  return Math.round((current / maxStamina) * 100);
+  const current = getCurrentFatigue(profile);
+  const maxFatigue = getMaxFatigueFromProfile(profile);
+  return Math.round((current / maxFatigue) * 100);
 }
 
 /**
- * 스태미나 회복 계산 (클라이언트 시간 기반)
- * @deprecated getCurrentStamina 사용 권장
+ * 피로도 회복 계산 (클라이언트 시간 기반)
+ * @deprecated getCurrentFatigue 사용 권장
  */
-export function calculateRecoveredStamina(profile: UserProfile): {
-  stamina: number;
-  staminaUpdatedAt: string;
+export function calculateRecoveredFatigue(profile: UserProfile): {
+  fatigue: number;
+  fatigueUpdatedAt: string;
 } {
-  const current = getCurrentStamina(profile);
+  const current = getCurrentFatigue(profile);
   return {
-    stamina: current,
-    staminaUpdatedAt: profile.staminaUpdatedAt,
+    fatigue: current,
+    fatigueUpdatedAt: profile.fatigueUpdatedAt,
   };
 }
 

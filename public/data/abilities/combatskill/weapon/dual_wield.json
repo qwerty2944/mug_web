@@ -36,10 +36,10 @@
       "maxLevel": 30,
       "expPerLevel": 50,
       "levelBonuses": [
-        { "level": 1, "effects": { "baseDamage": 18, "hitCount": 2, "spCost": 6 } },
-        { "level": 10, "effects": { "baseDamage": 24, "hitCount": 2, "spCost": 6 } },
-        { "level": 20, "effects": { "baseDamage": 32, "hitCount": 2, "spCost": 5 } },
-        { "level": 30, "effects": { "baseDamage": 42, "hitCount": 2, "spCost": 5, "critChance": 10 } }
+        { "level": 1, "effects": { "baseDamage": 18, "hitCount": 2, "apCost": 6 } },
+        { "level": 10, "effects": { "baseDamage": 24, "hitCount": 2, "apCost": 6 } },
+        { "level": 20, "effects": { "baseDamage": 32, "hitCount": 2, "apCost": 5 } },
+        { "level": 30, "effects": { "baseDamage": 42, "hitCount": 2, "apCost": 5, "critChance": 10 } }
       ],
       "requirements": { "skills": { "dual_wield_mastery": 1 } },
       "grantsExpTo": ["dual_wield_mastery"],
@@ -56,10 +56,10 @@
       "maxLevel": 25,
       "expPerLevel": 70,
       "levelBonuses": [
-        { "level": 1, "effects": { "baseDamage": 22, "hitCount": 3, "aoe": true, "spCost": 14 } },
-        { "level": 10, "effects": { "baseDamage": 30, "hitCount": 4, "aoe": true, "spCost": 13 } },
-        { "level": 20, "effects": { "baseDamage": 40, "hitCount": 5, "aoe": true, "spCost": 11 } },
-        { "level": 25, "effects": { "baseDamage": 48, "hitCount": 6, "aoe": true, "spCost": 10, "bleedChance": 20 } }
+        { "level": 1, "effects": { "baseDamage": 22, "hitCount": 3, "aoe": true, "apCost": 14 } },
+        { "level": 10, "effects": { "baseDamage": 30, "hitCount": 4, "aoe": true, "apCost": 13 } },
+        { "level": 20, "effects": { "baseDamage": 40, "hitCount": 5, "aoe": true, "apCost": 11 } },
+        { "level": 25, "effects": { "baseDamage": 48, "hitCount": 6, "aoe": true, "apCost": 10, "bleedChance": 20 } }
       ],
       "requirements": { "skills": { "dual_wield_mastery": 10 } },
       "grantsExpTo": ["dual_wield_mastery"],
@@ -76,9 +76,9 @@
       "maxLevel": 20,
       "expPerLevel": 90,
       "levelBonuses": [
-        { "level": 1, "effects": { "baseDamage": 35, "parryChance": 40, "counterDamage": 25, "spCost": 12 } },
-        { "level": 10, "effects": { "baseDamage": 48, "parryChance": 50, "counterDamage": 35, "spCost": 11 } },
-        { "level": 20, "effects": { "baseDamage": 65, "parryChance": 60, "counterDamage": 50, "spCost": 9 } }
+        { "level": 1, "effects": { "baseDamage": 35, "parryChance": 40, "counterDamage": 25, "apCost": 12 } },
+        { "level": 10, "effects": { "baseDamage": 48, "parryChance": 50, "counterDamage": 35, "apCost": 11 } },
+        { "level": 20, "effects": { "baseDamage": 65, "parryChance": 60, "counterDamage": 50, "apCost": 9 } }
       ],
       "requirements": { "skills": { "dual_wield_mastery": 15 } },
       "grantsExpTo": ["dual_wield_mastery"],
@@ -95,9 +95,9 @@
       "maxLevel": 20,
       "expPerLevel": 100,
       "levelBonuses": [
-        { "level": 1, "effects": { "baseDamage": 15, "hitCount": 6, "spCost": 20 } },
-        { "level": 10, "effects": { "baseDamage": 20, "hitCount": 8, "spCost": 18 } },
-        { "level": 20, "effects": { "baseDamage": 28, "hitCount": 10, "spCost": 15, "critChancePerHit": 3 } }
+        { "level": 1, "effects": { "baseDamage": 15, "hitCount": 6, "apCost": 20 } },
+        { "level": 10, "effects": { "baseDamage": 20, "hitCount": 8, "apCost": 18 } },
+        { "level": 20, "effects": { "baseDamage": 28, "hitCount": 10, "apCost": 15, "critChancePerHit": 3 } }
       ],
       "requirements": { "skills": { "dual_wield_mastery": 22, "whirling_blades": 12 } },
       "grantsExpTo": ["dual_wield_mastery"],
@@ -114,9 +114,9 @@
       "maxLevel": 15,
       "expPerLevel": 150,
       "levelBonuses": [
-        { "level": 1, "effects": { "baseDamage": 60, "hitCount": 2, "armorPenetration": 20, "spCost": 22 } },
-        { "level": 8, "effects": { "baseDamage": 80, "hitCount": 2, "armorPenetration": 30, "spCost": 20 } },
-        { "level": 15, "effects": { "baseDamage": 105, "hitCount": 2, "armorPenetration": 40, "spCost": 17, "bleedDamage": 15, "bleedDuration": 3 } }
+        { "level": 1, "effects": { "baseDamage": 60, "hitCount": 2, "armorPenetration": 20, "apCost": 22 } },
+        { "level": 8, "effects": { "baseDamage": 80, "hitCount": 2, "armorPenetration": 30, "apCost": 20 } },
+        { "level": 15, "effects": { "baseDamage": 105, "hitCount": 2, "armorPenetration": 40, "apCost": 17, "bleedDamage": 15, "bleedDuration": 3 } }
       ],
       "requirements": { "skills": { "dual_wield_mastery": 35, "parry_riposte": 12 } },
       "grantsExpTo": ["dual_wield_mastery"],
@@ -133,9 +133,9 @@
       "maxLevel": 10,
       "expPerLevel": 200,
       "levelBonuses": [
-        { "level": 1, "effects": { "baseDamage": 20, "hitCount": 10, "spCost": 40 } },
-        { "level": 5, "effects": { "baseDamage": 28, "hitCount": 12, "spCost": 38, "critChance": 20 } },
-        { "level": 10, "effects": { "baseDamage": 38, "hitCount": 15, "spCost": 35, "critChance": 30, "evasionDuringAttack": 40 } }
+        { "level": 1, "effects": { "baseDamage": 20, "hitCount": 10, "apCost": 40 } },
+        { "level": 5, "effects": { "baseDamage": 28, "hitCount": 12, "apCost": 38, "critChance": 20 } },
+        { "level": 10, "effects": { "baseDamage": 38, "hitCount": 15, "apCost": 35, "critChance": 30, "evasionDuringAttack": 40 } }
       ],
       "requirements": { "skills": { "dual_wield_mastery": 45, "flurry_of_blades": 15 } },
       "grantsExpTo": ["dual_wield_mastery"],

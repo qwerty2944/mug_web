@@ -13,7 +13,7 @@
       "description": "적의 체력과 약점을 파악합니다.",
       "type": "utility",
       "icon": "🔍",
-      "spCost": 0,
+      "apCost": 0,
       "revealInfo": true,
       "target": "enemy",
       "requirements": { "proficiency": 0 }
@@ -25,7 +25,7 @@
       "description": "간단한 응급 치료로 HP를 10% 회복합니다.",
       "type": "heal",
       "icon": "🩹",
-      "spCost": 5,
+      "apCost": 5,
       "healPercent": 10,
       "target": "self",
       "requirements": { "proficiency": 10 }
@@ -37,7 +37,7 @@
       "description": "후퇴하여 다음 턴 행동을 먼저 합니다.",
       "type": "utility",
       "icon": "🏃",
-      "spCost": 8,
+      "apCost": 8,
       "statusEffect": "initiative_up",
       "statusDuration": 1,
       "statusValue": 100,
@@ -55,11 +55,11 @@
       "maxLevel": 50,
       "expPerLevel": 85,
       "levelBonuses": [
-        { "level": 1, "effects": { "accuracy": 5, "spCostReduction": 2 } },
-        { "level": 10, "effects": { "accuracy": 10, "spCostReduction": 5, "skillDamage": 3 } },
-        { "level": 25, "effects": { "accuracy": 16, "spCostReduction": 8, "skillDamage": 7, "cooldownReduction": 5 } },
-        { "level": 40, "effects": { "accuracy": 24, "spCostReduction": 12, "skillDamage": 12, "cooldownReduction": 10 } },
-        { "level": 50, "effects": { "accuracy": 35, "spCostReduction": 18, "skillDamage": 18, "cooldownReduction": 15, "focusStackLimit": 5 } }
+        { "level": 1, "effects": { "accuracy": 5, "apCostReduction": 2 } },
+        { "level": 10, "effects": { "accuracy": 10, "apCostReduction": 5, "skillDamage": 3 } },
+        { "level": 25, "effects": { "accuracy": 16, "apCostReduction": 8, "skillDamage": 7, "cooldownReduction": 5 } },
+        { "level": 40, "effects": { "accuracy": 24, "apCostReduction": 12, "skillDamage": 12, "cooldownReduction": 10 } },
+        { "level": 50, "effects": { "accuracy": 35, "apCostReduction": 18, "skillDamage": 18, "cooldownReduction": 15, "focusStackLimit": 5 } }
       ],
       "requirements": {}
     },

@@ -36,10 +36,10 @@
       "maxLevel": 30,
       "expPerLevel": 60,
       "levelBonuses": [
-        { "level": 1, "effects": { "attackBonus": 10, "duration": 3, "spCost": 10 } },
-        { "level": 10, "effects": { "attackBonus": 18, "duration": 3, "spCost": 10 } },
-        { "level": 20, "effects": { "attackBonus": 25, "duration": 4, "spCost": 9 } },
-        { "level": 30, "effects": { "attackBonus": 35, "duration": 4, "spCost": 8, "critChance": 5 } }
+        { "level": 1, "effects": { "attackBonus": 10, "duration": 3, "apCost": 10 } },
+        { "level": 10, "effects": { "attackBonus": 18, "duration": 3, "apCost": 10 } },
+        { "level": 20, "effects": { "attackBonus": 25, "duration": 4, "apCost": 9 } },
+        { "level": 30, "effects": { "attackBonus": 35, "duration": 4, "apCost": 8, "critChance": 5 } }
       ],
       "target": "all_allies",
       "requirements": { "skills": { "warcry_mastery": 1 } },
@@ -57,10 +57,10 @@
       "maxLevel": 25,
       "expPerLevel": 50,
       "levelBonuses": [
-        { "level": 1, "effects": { "tauntDuration": 2, "spCost": 5 } },
-        { "level": 10, "effects": { "tauntDuration": 2, "spCost": 5, "defenseBonus": 10 } },
-        { "level": 20, "effects": { "tauntDuration": 3, "spCost": 4, "defenseBonus": 18 } },
-        { "level": 25, "effects": { "tauntDuration": 3, "spCost": 4, "defenseBonus": 25, "counterChance": 20 } }
+        { "level": 1, "effects": { "tauntDuration": 2, "apCost": 5 } },
+        { "level": 10, "effects": { "tauntDuration": 2, "apCost": 5, "defenseBonus": 10 } },
+        { "level": 20, "effects": { "tauntDuration": 3, "apCost": 4, "defenseBonus": 18 } },
+        { "level": 25, "effects": { "tauntDuration": 3, "apCost": 4, "defenseBonus": 25, "counterChance": 20 } }
       ],
       "target": "enemy",
       "requirements": { "skills": { "warcry_mastery": 5 } },
@@ -78,10 +78,10 @@
       "maxLevel": 25,
       "expPerLevel": 60,
       "levelBonuses": [
-        { "level": 1, "effects": { "attackReduction": 15, "duration": 3, "spCost": 8 } },
-        { "level": 10, "effects": { "attackReduction": 22, "duration": 3, "spCost": 8 } },
-        { "level": 20, "effects": { "attackReduction": 30, "duration": 4, "spCost": 7 } },
-        { "level": 25, "effects": { "attackReduction": 38, "duration": 4, "spCost": 6, "fleeChance": 10 } }
+        { "level": 1, "effects": { "attackReduction": 15, "duration": 3, "apCost": 8 } },
+        { "level": 10, "effects": { "attackReduction": 22, "duration": 3, "apCost": 8 } },
+        { "level": 20, "effects": { "attackReduction": 30, "duration": 4, "apCost": 7 } },
+        { "level": 25, "effects": { "attackReduction": 38, "duration": 4, "apCost": 6, "fleeChance": 10 } }
       ],
       "target": "enemy",
       "requirements": { "skills": { "warcry_mastery": 8 } },
@@ -99,9 +99,9 @@
       "maxLevel": 20,
       "expPerLevel": 80,
       "levelBonuses": [
-        { "level": 1, "effects": { "cleanse": 1, "spCost": 12 } },
-        { "level": 10, "effects": { "cleanse": 2, "spCost": 11, "immuneDuration": 1 } },
-        { "level": 20, "effects": { "cleanse": 3, "spCost": 10, "immuneDuration": 2, "healPercent": 5 } }
+        { "level": 1, "effects": { "cleanse": 1, "apCost": 12 } },
+        { "level": 10, "effects": { "cleanse": 2, "apCost": 11, "immuneDuration": 1 } },
+        { "level": 20, "effects": { "cleanse": 3, "apCost": 10, "immuneDuration": 2, "healPercent": 5 } }
       ],
       "target": "all_allies",
       "requirements": { "skills": { "warcry_mastery": 15 } },
@@ -119,9 +119,9 @@
       "maxLevel": 20,
       "expPerLevel": 90,
       "levelBonuses": [
-        { "level": 1, "effects": { "fearChance": 40, "fearDuration": 2, "spCost": 15 } },
-        { "level": 10, "effects": { "fearChance": 55, "fearDuration": 2, "spCost": 14 } },
-        { "level": 20, "effects": { "fearChance": 70, "fearDuration": 3, "spCost": 12, "attackReduction": 15 } }
+        { "level": 1, "effects": { "fearChance": 40, "fearDuration": 2, "apCost": 15 } },
+        { "level": 10, "effects": { "fearChance": 55, "fearDuration": 2, "apCost": 14 } },
+        { "level": 20, "effects": { "fearChance": 70, "fearDuration": 3, "apCost": 12, "attackReduction": 15 } }
       ],
       "target": "all_enemies",
       "requirements": { "skills": { "warcry_mastery": 20, "intimidate": 15 } },
@@ -139,9 +139,9 @@
       "maxLevel": 15,
       "expPerLevel": 100,
       "levelBonuses": [
-        { "level": 1, "effects": { "defenseBonus": 50, "duration": 3, "hpThreshold": 30, "spCost": 18 } },
-        { "level": 8, "effects": { "defenseBonus": 70, "duration": 3, "hpThreshold": 40, "spCost": 16 } },
-        { "level": 15, "effects": { "defenseBonus": 100, "duration": 4, "hpThreshold": 50, "spCost": 14, "reflectDamage": 15 } }
+        { "level": 1, "effects": { "defenseBonus": 50, "duration": 3, "hpThreshold": 30, "apCost": 18 } },
+        { "level": 8, "effects": { "defenseBonus": 70, "duration": 3, "hpThreshold": 40, "apCost": 16 } },
+        { "level": 15, "effects": { "defenseBonus": 100, "duration": 4, "hpThreshold": 50, "apCost": 14, "reflectDamage": 15 } }
       ],
       "target": "self",
       "requirements": { "skills": { "warcry_mastery": 25 } },
@@ -159,9 +159,9 @@
       "maxLevel": 15,
       "expPerLevel": 120,
       "levelBonuses": [
-        { "level": 1, "effects": { "attackBonus": 40, "defenseReduction": 25, "duration": 4, "spCost": 20 } },
-        { "level": 8, "effects": { "attackBonus": 60, "defenseReduction": 20, "duration": 4, "spCost": 18, "critChance": 15 } },
-        { "level": 15, "effects": { "attackBonus": 80, "defenseReduction": 15, "duration": 5, "spCost": 16, "critChance": 25, "lifeSteal": 10 } }
+        { "level": 1, "effects": { "attackBonus": 40, "defenseReduction": 25, "duration": 4, "apCost": 20 } },
+        { "level": 8, "effects": { "attackBonus": 60, "defenseReduction": 20, "duration": 4, "apCost": 18, "critChance": 15 } },
+        { "level": 15, "effects": { "attackBonus": 80, "defenseReduction": 15, "duration": 5, "apCost": 16, "critChance": 25, "lifeSteal": 10 } }
       ],
       "target": "self",
       "requirements": { "skills": { "warcry_mastery": 30, "battle_cry": 20 } },
@@ -179,9 +179,9 @@
       "maxLevel": 20,
       "expPerLevel": 80,
       "levelBonuses": [
-        { "level": 1, "effects": { "critChance": 15, "duration": 3, "spCost": 15 } },
-        { "level": 10, "effects": { "critChance": 25, "duration": 3, "spCost": 14 } },
-        { "level": 20, "effects": { "critChance": 35, "duration": 4, "spCost": 12, "critDamage": 20 } }
+        { "level": 1, "effects": { "critChance": 15, "duration": 3, "apCost": 15 } },
+        { "level": 10, "effects": { "critChance": 25, "duration": 3, "apCost": 14 } },
+        { "level": 20, "effects": { "critChance": 35, "duration": 4, "apCost": 12, "critDamage": 20 } }
       ],
       "target": "all_allies",
       "requirements": { "skills": { "warcry_mastery": 22, "battle_cry": 15 } },
@@ -199,9 +199,9 @@
       "maxLevel": 15,
       "expPerLevel": 100,
       "levelBonuses": [
-        { "level": 1, "effects": { "attackReduction": 12, "defenseReduction": 12, "duration": 3, "spCost": 18 } },
-        { "level": 8, "effects": { "attackReduction": 18, "defenseReduction": 18, "duration": 3, "spCost": 16 } },
-        { "level": 15, "effects": { "attackReduction": 25, "defenseReduction": 25, "duration": 4, "spCost": 14, "speedReduction": 15 } }
+        { "level": 1, "effects": { "attackReduction": 12, "defenseReduction": 12, "duration": 3, "apCost": 18 } },
+        { "level": 8, "effects": { "attackReduction": 18, "defenseReduction": 18, "duration": 3, "apCost": 16 } },
+        { "level": 15, "effects": { "attackReduction": 25, "defenseReduction": 25, "duration": 4, "apCost": 14, "speedReduction": 15 } }
       ],
       "target": "all_enemies",
       "requirements": { "skills": { "warcry_mastery": 28, "intimidate": 18 } },
@@ -219,9 +219,9 @@
       "maxLevel": 15,
       "expPerLevel": 120,
       "levelBonuses": [
-        { "level": 1, "effects": { "healOnKill": 8, "duration": 5, "spCost": 20 } },
-        { "level": 8, "effects": { "healOnKill": 12, "duration": 5, "spCost": 18, "spRecoverOnKill": 3 } },
-        { "level": 15, "effects": { "healOnKill": 18, "duration": 6, "spCost": 15, "spRecoverOnKill": 5, "attackBonusOnKill": 10 } }
+        { "level": 1, "effects": { "healOnKill": 8, "duration": 5, "apCost": 20 } },
+        { "level": 8, "effects": { "healOnKill": 12, "duration": 5, "apCost": 18, "spRecoverOnKill": 3 } },
+        { "level": 15, "effects": { "healOnKill": 18, "duration": 6, "apCost": 15, "spRecoverOnKill": 5, "attackBonusOnKill": 10 } }
       ],
       "target": "all_allies",
       "requirements": { "skills": { "warcry_mastery": 35, "rally": 12 } },
@@ -239,9 +239,9 @@
       "maxLevel": 10,
       "expPerLevel": 150,
       "levelBonuses": [
-        { "level": 1, "effects": { "allStatsBonus": 8, "duration": 4, "spCost": 25 } },
-        { "level": 5, "effects": { "allStatsBonus": 12, "duration": 5, "spCost": 23 } },
-        { "level": 10, "effects": { "allStatsBonus": 18, "duration": 6, "spCost": 20, "resistanceBonus": 15 } }
+        { "level": 1, "effects": { "allStatsBonus": 8, "duration": 4, "apCost": 25 } },
+        { "level": 5, "effects": { "allStatsBonus": 12, "duration": 5, "apCost": 23 } },
+        { "level": 10, "effects": { "allStatsBonus": 18, "duration": 6, "apCost": 20, "resistanceBonus": 15 } }
       ],
       "target": "all_allies",
       "requirements": { "skills": { "warcry_mastery": 45, "coordinated_assault": 15 } },

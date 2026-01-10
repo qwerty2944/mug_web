@@ -36,10 +36,10 @@
       "maxLevel": 30,
       "expPerLevel": 50,
       "levelBonuses": [
-        { "level": 1, "effects": { "baseDamage": 18, "spCost": 4, "attackSpeed": 10 } },
-        { "level": 10, "effects": { "baseDamage": 25, "spCost": 4, "attackSpeed": 15 } },
-        { "level": 20, "effects": { "baseDamage": 33, "spCost": 3, "attackSpeed": 20 } },
-        { "level": 30, "effects": { "baseDamage": 42, "spCost": 3, "attackSpeed": 25, "bleedChance": 15 } }
+        { "level": 1, "effects": { "baseDamage": 18, "apCost": 4, "attackSpeed": 10 } },
+        { "level": 10, "effects": { "baseDamage": 25, "apCost": 4, "attackSpeed": 15 } },
+        { "level": 20, "effects": { "baseDamage": 33, "apCost": 3, "attackSpeed": 20 } },
+        { "level": 30, "effects": { "baseDamage": 42, "apCost": 3, "attackSpeed": 25, "bleedChance": 15 } }
       ],
       "requirements": { "skills": { "dagger_mastery": 1 } },
       "grantsExpTo": ["dagger_mastery"],
@@ -56,10 +56,10 @@
       "maxLevel": 25,
       "expPerLevel": 70,
       "levelBonuses": [
-        { "level": 1, "effects": { "baseDamage": 10, "hitCount": 3, "spCost": 10 } },
-        { "level": 10, "effects": { "baseDamage": 13, "hitCount": 4, "spCost": 9 } },
-        { "level": 20, "effects": { "baseDamage": 17, "hitCount": 5, "spCost": 8 } },
-        { "level": 25, "effects": { "baseDamage": 20, "hitCount": 6, "spCost": 8, "critChancePerHit": 5 } }
+        { "level": 1, "effects": { "baseDamage": 10, "hitCount": 3, "apCost": 10 } },
+        { "level": 10, "effects": { "baseDamage": 13, "hitCount": 4, "apCost": 9 } },
+        { "level": 20, "effects": { "baseDamage": 17, "hitCount": 5, "apCost": 8 } },
+        { "level": 25, "effects": { "baseDamage": 20, "hitCount": 6, "apCost": 8, "critChancePerHit": 5 } }
       ],
       "requirements": { "skills": { "dagger_mastery": 10 } },
       "grantsExpTo": ["dagger_mastery"],
@@ -76,9 +76,9 @@
       "maxLevel": 20,
       "expPerLevel": 90,
       "levelBonuses": [
-        { "level": 1, "effects": { "baseDamage": 20, "poisonDamage": 5, "poisonDuration": 3, "spCost": 12 } },
-        { "level": 10, "effects": { "baseDamage": 28, "poisonDamage": 8, "poisonDuration": 4, "spCost": 11 } },
-        { "level": 20, "effects": { "baseDamage": 38, "poisonDamage": 12, "poisonDuration": 5, "spCost": 10 } }
+        { "level": 1, "effects": { "baseDamage": 20, "poisonDamage": 5, "poisonDuration": 3, "apCost": 12 } },
+        { "level": 10, "effects": { "baseDamage": 28, "poisonDamage": 8, "poisonDuration": 4, "apCost": 11 } },
+        { "level": 20, "effects": { "baseDamage": 38, "poisonDamage": 12, "poisonDuration": 5, "apCost": 10 } }
       ],
       "requirements": { "skills": { "dagger_mastery": 15 } },
       "grantsExpTo": ["dagger_mastery"],
@@ -95,9 +95,9 @@
       "maxLevel": 20,
       "expPerLevel": 100,
       "levelBonuses": [
-        { "level": 1, "effects": { "baseDamage": 40, "critChance": 40, "spCost": 18 } },
-        { "level": 10, "effects": { "baseDamage": 55, "critChance": 50, "spCost": 16 } },
-        { "level": 20, "effects": { "baseDamage": 75, "critChance": 60, "critMultiplier": 0.3, "spCost": 14 } }
+        { "level": 1, "effects": { "baseDamage": 40, "critChance": 40, "apCost": 18 } },
+        { "level": 10, "effects": { "baseDamage": 55, "critChance": 50, "apCost": 16 } },
+        { "level": 20, "effects": { "baseDamage": 75, "critChance": 60, "critMultiplier": 0.3, "apCost": 14 } }
       ],
       "requirements": { "skills": { "dagger_mastery": 22, "flurry": 10 } },
       "grantsExpTo": ["dagger_mastery"],
@@ -114,9 +114,9 @@
       "maxLevel": 15,
       "expPerLevel": 150,
       "levelBonuses": [
-        { "level": 1, "effects": { "baseDamage": 50, "bleedDamage": 10, "bleedDuration": 4, "spCost": 22 } },
-        { "level": 8, "effects": { "baseDamage": 68, "bleedDamage": 15, "bleedDuration": 5, "spCost": 20 } },
-        { "level": 15, "effects": { "baseDamage": 90, "bleedDamage": 20, "bleedDuration": 6, "spCost": 18, "healBlock": true } }
+        { "level": 1, "effects": { "baseDamage": 50, "bleedDamage": 10, "bleedDuration": 4, "apCost": 22 } },
+        { "level": 8, "effects": { "baseDamage": 68, "bleedDamage": 15, "bleedDuration": 5, "apCost": 20 } },
+        { "level": 15, "effects": { "baseDamage": 90, "bleedDamage": 20, "bleedDuration": 6, "apCost": 18, "healBlock": true } }
       ],
       "requirements": { "skills": { "dagger_mastery": 35, "backstab": 12 } },
       "grantsExpTo": ["dagger_mastery"],
@@ -133,9 +133,9 @@
       "maxLevel": 10,
       "expPerLevel": 200,
       "levelBonuses": [
-        { "level": 1, "effects": { "baseDamage": 80, "ignoreEvasion": true, "spCost": 30 } },
-        { "level": 5, "effects": { "baseDamage": 105, "ignoreEvasion": true, "spCost": 28, "invisibleAfter": true } },
-        { "level": 10, "effects": { "baseDamage": 140, "ignoreEvasion": true, "spCost": 25, "invisibleAfter": true, "guaranteedCrit": true } }
+        { "level": 1, "effects": { "baseDamage": 80, "ignoreEvasion": true, "apCost": 30 } },
+        { "level": 5, "effects": { "baseDamage": 105, "ignoreEvasion": true, "apCost": 28, "invisibleAfter": true } },
+        { "level": 10, "effects": { "baseDamage": 140, "ignoreEvasion": true, "apCost": 25, "invisibleAfter": true, "guaranteedCrit": true } }
       ],
       "requirements": { "skills": { "dagger_mastery": 45, "eviscerate": 10 } },
       "grantsExpTo": ["dagger_mastery"],

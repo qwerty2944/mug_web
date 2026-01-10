@@ -3,13 +3,13 @@
 import { useCallback } from "react";
 import { useBattleStore } from "@/application/stores";
 import type { Monster } from "@/entities/monster";
-import { consumeStamina, STAMINA_COST } from "@/entities/user";
+import { consumeFatigue, FATIGUE_COST } from "@/entities/user";
 import toast from "react-hot-toast";
 
 interface UseStartBattleOptions {
   userId?: string;
   onBattleStart?: (monster: Monster) => void;
-  onInsufficientStamina?: () => void;
+  onInsufficientFatigue?: () => void;
 }
 
 /**
@@ -36,14 +36,14 @@ export function useStartBattle(options?: UseStartBattleOptions) {
       // 피로도 소모
       if (options?.userId) {
         try {
-          const result = await consumeStamina(options.userId, STAMINA_COST.BATTLE_START);
+          const result = await consumeFatigue(options.userId, FATIGUE_COST.BATTLE_START);
           if (!result.success) {
             toast.error(result.message || "피로도가 부족합니다");
-            options?.onInsufficientStamina?.();
+            options?.onInsufficientFatigue?.();
             return false;
           }
         } catch (error) {
-          console.error("Failed to consume stamina:", error);
+          console.error("Failed to consume fatigue:", error);
           toast.error("피로도 처리 중 오류가 발생했습니다");
           return false;
         }

@@ -21,9 +21,9 @@ import { useNpcsByMap, type Npc } from "@/entities/npc";
 import {
   useProfile,
   getMainCharacter,
-  getStaminaPercent,
-  getMaxStaminaFromProfile,
-  getCurrentStamina,
+  getFatiguePercent,
+  getMaxFatigueFromProfile,
+  getCurrentFatigue,
 } from "@/entities/user";
 import {
   useMaps,
@@ -90,7 +90,7 @@ export default function GamePage() {
   }, [declineNotice, setDeclineNotice]);
 
   const mainCharacter = getMainCharacter(profile);
-  const staminaPercent = getStaminaPercent(profile);
+  const fatiguePercent = getFatiguePercent(profile);
 
   // 캐릭터 정보 로드
   useEffect(() => {
@@ -293,11 +293,11 @@ export default function GamePage() {
         <div
           className="h-full transition-all duration-300"
           style={{
-            width: `${staminaPercent}%`,
+            width: `${fatiguePercent}%`,
             background:
-              staminaPercent > 50
+              fatiguePercent > 50
                 ? theme.colors.success
-                : staminaPercent > 20
+                : fatiguePercent > 20
                 ? theme.colors.warning
                 : theme.colors.error,
           }}
@@ -319,9 +319,9 @@ export default function GamePage() {
             <span style={{ color: theme.colors.textMuted }}>피로도</span>
             <span
               className="font-medium"
-              style={{ color: staminaPercent <= 20 ? theme.colors.error : theme.colors.textDim }}
+              style={{ color: fatiguePercent <= 20 ? theme.colors.error : theme.colors.textDim }}
             >
-              {getCurrentStamina(profile)}/{getMaxStaminaFromProfile(profile)}
+              {getCurrentFatigue(profile)}/{getMaxFatigueFromProfile(profile)}
             </span>
           </div>
 

@@ -1,33 +1,33 @@
 "use client";
 
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { consumeStamina as consumeStaminaApi } from "@/entities/user";
+import { consumeFatigue as consumeFatigueApi } from "@/entities/user";
 import { profileKeys } from "@/entities/user";
 import toast from "react-hot-toast";
 
-interface UseConsumeStaminaOptions {
+interface UseConsumeFatigueOptions {
   onSuccess?: (remaining: number, max: number) => void;
-  onInsufficientStamina?: () => void;
+  onInsufficientFatigue?: () => void;
   showToast?: boolean;
 }
 
 /**
  * 피로도 소모 훅
- * - DB RPC consume_stamina 호출 (Lazy Calculation)
+ * - DB RPC consume_fatigue 호출 (Lazy Calculation)
  * - 자동 시간 회복이 서버에서 계산됨
  * - 부족 시 에러 처리
  */
-export function useConsumeStamina(
+export function useConsumeFatigue(
   userId: string | undefined,
-  options: UseConsumeStaminaOptions = {}
+  options: UseConsumeFatigueOptions = {}
 ) {
-  const { onSuccess, onInsufficientStamina, showToast = true } = options;
+  const { onSuccess, onInsufficientFatigue, showToast = true } = options;
   const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: async (amount: number) => {
       if (!userId) throw new Error("User ID is required");
-      return consumeStaminaApi(userId, amount);
+      return consumeFatigueApi(userId, amount);
     },
     onSuccess: (result) => {
       if (result.success) {
@@ -41,11 +41,11 @@ export function useConsumeStamina(
         if (showToast) {
           toast.error(result.message || "피로도가 부족합니다");
         }
-        onInsufficientStamina?.();
+        onInsufficientFatigue?.();
       }
     },
     onError: (error) => {
-      console.error("Failed to consume stamina:", error);
+      console.error("Failed to consume fatigue:", error);
       if (showToast) {
         toast.error("피로도 처리 중 오류가 발생했습니다");
       }
@@ -56,19 +56,19 @@ export function useConsumeStamina(
 /**
  * 피로도 체크 후 행동 실행 유틸리티
  */
-export async function checkAndConsumeStamina(
+export async function checkAndConsumeFatigue(
   userId: string,
   amount: number
 ): Promise<{ success: boolean; remaining: number; message?: string }> {
   try {
-    const result = await consumeStaminaApi(userId, amount);
+    const result = await consumeFatigueApi(userId, amount);
     return {
       success: result.success,
       remaining: result.remaining,
       message: result.message,
     };
   } catch (error) {
-    console.error("Stamina check failed:", error);
+    console.error("Fatigue check failed:", error);
     return {
       success: false,
       remaining: 0,

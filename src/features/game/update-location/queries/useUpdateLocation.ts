@@ -2,7 +2,7 @@
 
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { updateLocation } from "../api";
-import { consumeStamina, profileKeys, STAMINA_COST } from "@/entities/user";
+import { consumeFatigue, profileKeys, FATIGUE_COST } from "@/entities/user";
 import toast from "react-hot-toast";
 
 interface UpdateLocationParams {
@@ -12,22 +12,22 @@ interface UpdateLocationParams {
 }
 
 interface UseUpdateLocationOptions {
-  onInsufficientStamina?: () => void;
-  skipStaminaCheck?: boolean;
+  onInsufficientFatigue?: () => void;
+  skipFatigueCheck?: boolean;
 }
 
 export function useUpdateLocation(options: UseUpdateLocationOptions = {}) {
-  const { onInsufficientStamina, skipStaminaCheck = false } = options;
+  const { onInsufficientFatigue, skipFatigueCheck = false } = options;
   const queryClient = useQueryClient();
 
   return useMutation<void, Error, UpdateLocationParams>({
     mutationFn: async (params) => {
       // 피로도 소모 (스킵 옵션이 없는 경우)
-      if (!skipStaminaCheck) {
-        const result = await consumeStamina(params.userId, STAMINA_COST.MAP_MOVE);
+      if (!skipFatigueCheck) {
+        const result = await consumeFatigue(params.userId, FATIGUE_COST.MAP_MOVE);
         if (!result.success) {
           toast.error(result.message || "피로도가 부족합니다");
-          onInsufficientStamina?.();
+          onInsufficientFatigue?.();
           throw new Error(result.message || "피로도 부족");
         }
       }

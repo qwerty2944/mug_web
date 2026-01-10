@@ -251,7 +251,7 @@ export type ConsumableEffectType =
   | "heal_percent"
   | "mana"
   | "mana_percent"
-  | "stamina"
+  | "fatigue"
   | "buff"
   | "cure";
 

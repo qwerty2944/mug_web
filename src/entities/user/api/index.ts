@@ -37,9 +37,9 @@ export async function fetchProfile(userId: string): Promise<UserProfile> {
     experience: data.experience || 0,
     gold: data.gold || 0,
     gems: data.gems || 0,
-    stamina: data.stamina || 100,
-    maxStamina: data.max_stamina || 100,
-    staminaUpdatedAt: data.stamina_updated_at || new Date().toISOString(),
+    fatigue: data.fatigue || 100,
+    maxFatigue: data.max_fatigue || 100,
+    fatigueUpdatedAt: data.fatigue_updated_at || new Date().toISOString(),
     isPremium: data.is_premium || false,
     premiumUntil: data.premium_until,
     character: data.character || null,
@@ -73,8 +73,8 @@ export interface UpdateProfileParams {
   level?: number;
   experience?: number;
   gold?: number;
-  stamina?: number;
-  staminaUpdatedAt?: string;
+  fatigue?: number;
+  fatigueUpdatedAt?: string;
   currentHp?: number | null;
   currentMp?: number | null;
 }
@@ -87,8 +87,8 @@ export async function updateProfile(params: UpdateProfileParams): Promise<void> 
   if (updates.level !== undefined) dbUpdates.level = updates.level;
   if (updates.experience !== undefined) dbUpdates.experience = updates.experience;
   if (updates.gold !== undefined) dbUpdates.gold = updates.gold;
-  if (updates.stamina !== undefined) dbUpdates.stamina = updates.stamina;
-  if (updates.staminaUpdatedAt !== undefined) dbUpdates.stamina_updated_at = updates.staminaUpdatedAt;
+  if (updates.fatigue !== undefined) dbUpdates.fatigue = updates.fatigue;
+  if (updates.fatigueUpdatedAt !== undefined) dbUpdates.fatigue_updated_at = updates.fatigueUpdatedAt;
   if (updates.currentHp !== undefined) dbUpdates.current_hp = updates.currentHp;
   if (updates.currentMp !== undefined) dbUpdates.current_mp = updates.currentMp;
 
@@ -108,37 +108,37 @@ export async function updateProfile(params: UpdateProfileParams): Promise<void> 
  * 현재 피로도를 계산합니다 (프론트엔드 표시용)
  * DB에 저장된 값 + 경과 시간 기반 회복량
  */
-export function calculateCurrentStamina(
-  storedStamina: number,
+export function calculateCurrentFatigue(
+  storedFatigue: number,
   updatedAt: string | Date,
-  maxStamina: number,
+  maxFatigue: number,
   recoveryPerMinute: number = 1
 ): number {
   const elapsedMs = Date.now() - new Date(updatedAt).getTime();
   const elapsedMinutes = elapsedMs / 60000;
   const recovered = Math.floor(elapsedMinutes * recoveryPerMinute);
 
-  return Math.min(maxStamina, storedStamina + recovered);
+  return Math.min(maxFatigue, storedFatigue + recovered);
 }
 
 /**
  * 프로필에서 현재 피로도 계산
  */
-export function getCalculatedStamina(profile: {
-  stamina: number;
-  staminaUpdatedAt: string;
-  maxStamina: number;
+export function getCalculatedFatigue(profile: {
+  fatigue: number;
+  fatigueUpdatedAt: string;
+  maxFatigue: number;
 }): number {
-  return calculateCurrentStamina(
-    profile.stamina,
-    profile.staminaUpdatedAt,
-    profile.maxStamina
+  return calculateCurrentFatigue(
+    profile.fatigue,
+    profile.fatigueUpdatedAt,
+    profile.maxFatigue
   );
 }
 
 // ============ 피로도 소모 API (DB RPC - Lazy Calculation) ============
 
-export interface ConsumeStaminaResult {
+export interface ConsumeFatigueResult {
   success: boolean;
   remaining: number;
   consumed: number;
@@ -146,11 +146,11 @@ export interface ConsumeStaminaResult {
   message?: string;
 }
 
-export async function consumeStamina(
+export async function consumeFatigue(
   userId: string,
   amount: number
-): Promise<ConsumeStaminaResult> {
-  const { data, error } = await supabase.rpc("consume_stamina", {
+): Promise<ConsumeFatigueResult> {
+  const { data, error } = await supabase.rpc("consume_fatigue", {
     p_user_id: userId,
     p_amount: amount,
   });
@@ -171,11 +171,11 @@ export async function consumeStamina(
 
 // ============ 피로도 회복 API (DB RPC) ============
 
-export async function restoreStamina(
+export async function restoreFatigue(
   userId: string,
   amount: number
 ): Promise<number> {
-  const { data, error } = await supabase.rpc("restore_stamina", {
+  const { data, error } = await supabase.rpc("restore_fatigue", {
     p_user_id: userId,
     p_amount: amount,
   });

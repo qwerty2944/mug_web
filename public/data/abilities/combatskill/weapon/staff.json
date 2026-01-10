@@ -36,10 +36,10 @@
       "maxLevel": 30,
       "expPerLevel": 50,
       "levelBonuses": [
-        { "level": 1, "effects": { "baseDamage": 20, "spCost": 4, "magicDamageBonus": 5 } },
-        { "level": 10, "effects": { "baseDamage": 28, "spCost": 4, "magicDamageBonus": 10 } },
-        { "level": 20, "effects": { "baseDamage": 38, "spCost": 3, "magicDamageBonus": 15 } },
-        { "level": 30, "effects": { "baseDamage": 50, "spCost": 3, "magicDamageBonus": 20, "mpOnHit": 3 } }
+        { "level": 1, "effects": { "baseDamage": 20, "apCost": 4, "magicDamageBonus": 5 } },
+        { "level": 10, "effects": { "baseDamage": 28, "apCost": 4, "magicDamageBonus": 10 } },
+        { "level": 20, "effects": { "baseDamage": 38, "apCost": 3, "magicDamageBonus": 15 } },
+        { "level": 30, "effects": { "baseDamage": 50, "apCost": 3, "magicDamageBonus": 20, "mpOnHit": 3 } }
       ],
       "requirements": { "skills": { "staff_mastery": 1 } },
       "grantsExpTo": ["staff_mastery"],
@@ -56,10 +56,10 @@
       "maxLevel": 25,
       "expPerLevel": 70,
       "levelBonuses": [
-        { "level": 1, "effects": { "baseDamage": 35, "magicDamageBonus": 15, "spCost": 10, "mpCost": 8 } },
-        { "level": 10, "effects": { "baseDamage": 48, "magicDamageBonus": 20, "spCost": 9, "mpCost": 7 } },
-        { "level": 20, "effects": { "baseDamage": 65, "magicDamageBonus": 25, "spCost": 8, "mpCost": 6 } },
-        { "level": 25, "effects": { "baseDamage": 75, "magicDamageBonus": 30, "spCost": 8, "mpCost": 5, "aoe": true } }
+        { "level": 1, "effects": { "baseDamage": 35, "magicDamageBonus": 15, "apCost": 10, "mpCost": 8 } },
+        { "level": 10, "effects": { "baseDamage": 48, "magicDamageBonus": 20, "apCost": 9, "mpCost": 7 } },
+        { "level": 20, "effects": { "baseDamage": 65, "magicDamageBonus": 25, "apCost": 8, "mpCost": 6 } },
+        { "level": 25, "effects": { "baseDamage": 75, "magicDamageBonus": 30, "apCost": 8, "mpCost": 5, "aoe": true } }
       ],
       "requirements": { "skills": { "staff_mastery": 10 } },
       "grantsExpTo": ["staff_mastery"],
@@ -76,9 +76,9 @@
       "maxLevel": 20,
       "expPerLevel": 90,
       "levelBonuses": [
-        { "level": 1, "effects": { "mpRestore": 15, "spCost": 8 } },
-        { "level": 10, "effects": { "mpRestore": 25, "spCost": 7 } },
-        { "level": 20, "effects": { "mpRestore": 40, "spCost": 5, "mpRegenBuff": 3, "duration": 3 } }
+        { "level": 1, "effects": { "mpRestore": 15, "apCost": 8 } },
+        { "level": 10, "effects": { "mpRestore": 25, "apCost": 7 } },
+        { "level": 20, "effects": { "mpRestore": 40, "apCost": 5, "mpRegenBuff": 3, "duration": 3 } }
       ],
       "requirements": { "skills": { "staff_mastery": 15 } },
       "grantsExpTo": ["staff_mastery"],
@@ -95,9 +95,9 @@
       "maxLevel": 20,
       "expPerLevel": 100,
       "levelBonuses": [
-        { "level": 1, "effects": { "shieldAmount": 30, "duration": 4, "spCost": 12, "mpCost": 15 } },
-        { "level": 10, "effects": { "shieldAmount": 50, "duration": 5, "spCost": 10, "mpCost": 13 } },
-        { "level": 20, "effects": { "shieldAmount": 80, "duration": 6, "spCost": 8, "mpCost": 10, "reflectMagic": 20 } }
+        { "level": 1, "effects": { "shieldAmount": 30, "duration": 4, "apCost": 12, "mpCost": 15 } },
+        { "level": 10, "effects": { "shieldAmount": 50, "duration": 5, "apCost": 10, "mpCost": 13 } },
+        { "level": 20, "effects": { "shieldAmount": 80, "duration": 6, "apCost": 8, "mpCost": 10, "reflectMagic": 20 } }
       ],
       "requirements": { "skills": { "staff_mastery": 20 } },
       "grantsExpTo": ["staff_mastery"],
@@ -114,9 +114,9 @@
       "maxLevel": 15,
       "expPerLevel": 150,
       "levelBonuses": [
-        { "level": 1, "effects": { "nextSpellBonus": 40, "spCost": 18, "mpCost": 10 } },
-        { "level": 8, "effects": { "nextSpellBonus": 60, "spCost": 16, "mpCost": 8 } },
-        { "level": 15, "effects": { "nextSpellBonus": 80, "spCost": 14, "mpCost": 6, "guaranteedCrit": true } }
+        { "level": 1, "effects": { "nextSpellBonus": 40, "apCost": 18, "mpCost": 10 } },
+        { "level": 8, "effects": { "nextSpellBonus": 60, "apCost": 16, "mpCost": 8 } },
+        { "level": 15, "effects": { "nextSpellBonus": 80, "apCost": 14, "mpCost": 6, "guaranteedCrit": true } }
       ],
       "requirements": { "skills": { "staff_mastery": 32, "arcane_burst": 15 } },
       "grantsExpTo": ["staff_mastery"],
@@ -133,9 +133,9 @@
       "maxLevel": 10,
       "expPerLevel": 200,
       "levelBonuses": [
-        { "level": 1, "effects": { "allMagicBonus": 20, "mpCostReduction": 10, "duration": 5, "spCost": 25, "mpCost": 20 } },
-        { "level": 5, "effects": { "allMagicBonus": 30, "mpCostReduction": 15, "duration": 6, "spCost": 22, "mpCost": 18 } },
-        { "level": 10, "effects": { "allMagicBonus": 40, "mpCostReduction": 20, "duration": 8, "spCost": 18, "mpCost": 15, "castSpeedBonus": 20 } }
+        { "level": 1, "effects": { "allMagicBonus": 20, "mpCostReduction": 10, "duration": 5, "apCost": 25, "mpCost": 20 } },
+        { "level": 5, "effects": { "allMagicBonus": 30, "mpCostReduction": 15, "duration": 6, "apCost": 22, "mpCost": 18 } },
+        { "level": 10, "effects": { "allMagicBonus": 40, "mpCostReduction": 20, "duration": 8, "apCost": 18, "mpCost": 15, "castSpeedBonus": 20 } }
       ],
       "requirements": { "skills": { "staff_mastery": 45, "spell_amplify": 10 } },
       "grantsExpTo": ["staff_mastery"],

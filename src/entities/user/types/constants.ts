@@ -1,13 +1,13 @@
 // ============ 피로도 시스템 ============
 
-export const STAMINA_COST = {
+export const FATIGUE_COST = {
   MAP_MOVE: 5,      // 맵 이동
   BATTLE_START: 3,  // 전투 시작
   BATTLE_TURN: 1,   // 전투 턴당
   PVP_DUEL: 10,     // PvP 결투
 } as const;
 
-export const STAMINA_RECOVERY = {
+export const FATIGUE_RECOVERY = {
   PER_MINUTE: 1,    // 분당 회복량
   MAX_DEFAULT: 100, // 기본 최대 피로도
 } as const;

@@ -21,9 +21,9 @@ export interface UserProfile {
   experience: number;
   gold: number;
   gems: number;
-  stamina: number;
-  maxStamina: number;
-  staminaUpdatedAt: string;
+  fatigue: number;
+  maxFatigue: number;
+  fatigueUpdatedAt: string;
   isPremium: boolean;
   premiumUntil: string | null;
   character: SavedCharacter | null;

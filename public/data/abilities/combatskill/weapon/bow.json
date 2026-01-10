@@ -36,10 +36,10 @@
       "maxLevel": 30,
       "expPerLevel": 50,
       "levelBonuses": [
-        { "level": 1, "effects": { "baseDamage": 22, "spCost": 4, "accuracy": 5 } },
-        { "level": 10, "effects": { "baseDamage": 30, "spCost": 4, "accuracy": 10 } },
-        { "level": 20, "effects": { "baseDamage": 40, "spCost": 3, "accuracy": 15 } },
-        { "level": 30, "effects": { "baseDamage": 52, "spCost": 3, "accuracy": 20, "attackSpeed": 15 } }
+        { "level": 1, "effects": { "baseDamage": 22, "apCost": 4, "accuracy": 5 } },
+        { "level": 10, "effects": { "baseDamage": 30, "apCost": 4, "accuracy": 10 } },
+        { "level": 20, "effects": { "baseDamage": 40, "apCost": 3, "accuracy": 15 } },
+        { "level": 30, "effects": { "baseDamage": 52, "apCost": 3, "accuracy": 20, "attackSpeed": 15 } }
       ],
       "requirements": { "skills": { "bow_mastery": 1 } },
       "grantsExpTo": ["bow_mastery"],
@@ -56,10 +56,10 @@
       "maxLevel": 25,
       "expPerLevel": 70,
       "levelBonuses": [
-        { "level": 1, "effects": { "baseDamage": 40, "armorPenetration": 15, "spCost": 12 } },
-        { "level": 10, "effects": { "baseDamage": 55, "armorPenetration": 22, "spCost": 11 } },
-        { "level": 20, "effects": { "baseDamage": 72, "armorPenetration": 30, "spCost": 10 } },
-        { "level": 25, "effects": { "baseDamage": 85, "armorPenetration": 35, "spCost": 10, "knockbackChance": 25 } }
+        { "level": 1, "effects": { "baseDamage": 40, "armorPenetration": 15, "apCost": 12 } },
+        { "level": 10, "effects": { "baseDamage": 55, "armorPenetration": 22, "apCost": 11 } },
+        { "level": 20, "effects": { "baseDamage": 72, "armorPenetration": 30, "apCost": 10 } },
+        { "level": 25, "effects": { "baseDamage": 85, "armorPenetration": 35, "apCost": 10, "knockbackChance": 25 } }
       ],
       "requirements": { "skills": { "bow_mastery": 10 } },
       "grantsExpTo": ["bow_mastery"],
@@ -76,9 +76,9 @@
       "maxLevel": 20,
       "expPerLevel": 90,
       "levelBonuses": [
-        { "level": 1, "effects": { "baseDamage": 18, "hitCount": 3, "spCost": 15 } },
-        { "level": 10, "effects": { "baseDamage": 25, "hitCount": 4, "spCost": 14 } },
-        { "level": 20, "effects": { "baseDamage": 32, "hitCount": 5, "spCost": 12 } }
+        { "level": 1, "effects": { "baseDamage": 18, "hitCount": 3, "apCost": 15 } },
+        { "level": 10, "effects": { "baseDamage": 25, "hitCount": 4, "apCost": 14 } },
+        { "level": 20, "effects": { "baseDamage": 32, "hitCount": 5, "apCost": 12 } }
       ],
       "requirements": { "skills": { "bow_mastery": 15 } },
       "grantsExpTo": ["bow_mastery"],
@@ -95,9 +95,9 @@
       "maxLevel": 20,
       "expPerLevel": 100,
       "levelBonuses": [
-        { "level": 1, "effects": { "baseDamage": 25, "poisonDamage": 8, "poisonDuration": 4, "spCost": 16 } },
-        { "level": 10, "effects": { "baseDamage": 35, "poisonDamage": 12, "poisonDuration": 5, "spCost": 15 } },
-        { "level": 20, "effects": { "baseDamage": 48, "poisonDamage": 18, "poisonDuration": 6, "spCost": 13, "slowPercent": 20 } }
+        { "level": 1, "effects": { "baseDamage": 25, "poisonDamage": 8, "poisonDuration": 4, "apCost": 16 } },
+        { "level": 10, "effects": { "baseDamage": 35, "poisonDamage": 12, "poisonDuration": 5, "apCost": 15 } },
+        { "level": 20, "effects": { "baseDamage": 48, "poisonDamage": 18, "poisonDuration": 6, "apCost": 13, "slowPercent": 20 } }
       ],
       "requirements": { "skills": { "bow_mastery": 20 } },
       "grantsExpTo": ["bow_mastery"],
@@ -114,9 +114,9 @@
       "maxLevel": 15,
       "expPerLevel": 150,
       "levelBonuses": [
-        { "level": 1, "effects": { "baseDamage": 60, "critChance": 50, "spCost": 22 } },
-        { "level": 8, "effects": { "baseDamage": 80, "critChance": 65, "spCost": 20 } },
-        { "level": 15, "effects": { "baseDamage": 105, "critChance": 80, "critMultiplier": 0.5, "spCost": 18 } }
+        { "level": 1, "effects": { "baseDamage": 60, "critChance": 50, "apCost": 22 } },
+        { "level": 8, "effects": { "baseDamage": 80, "critChance": 65, "apCost": 20 } },
+        { "level": 15, "effects": { "baseDamage": 105, "critChance": 80, "critMultiplier": 0.5, "apCost": 18 } }
       ],
       "requirements": { "skills": { "bow_mastery": 32, "power_shot": 15 } },
       "grantsExpTo": ["bow_mastery"],
@@ -133,9 +133,9 @@
       "maxLevel": 10,
       "expPerLevel": 200,
       "levelBonuses": [
-        { "level": 1, "effects": { "baseDamage": 25, "hitCount": 6, "aoe": true, "spCost": 35 } },
-        { "level": 5, "effects": { "baseDamage": 32, "hitCount": 8, "aoe": true, "spCost": 33 } },
-        { "level": 10, "effects": { "baseDamage": 40, "hitCount": 10, "aoe": true, "spCost": 30, "bleedChance": 25 } }
+        { "level": 1, "effects": { "baseDamage": 25, "hitCount": 6, "aoe": true, "apCost": 35 } },
+        { "level": 5, "effects": { "baseDamage": 32, "hitCount": 8, "aoe": true, "apCost": 33 } },
+        { "level": 10, "effects": { "baseDamage": 40, "hitCount": 10, "aoe": true, "apCost": 30, "bleedChance": 25 } }
       ],
       "requirements": { "skills": { "bow_mastery": 45, "multi_shot": 15 } },
       "grantsExpTo": ["bow_mastery"],

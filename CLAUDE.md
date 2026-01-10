@@ -572,7 +572,7 @@ abilities/
   "attackType": "melee_physical",
   "usageContext": "combat_only",
   "baseDamage": 30,
-  "spCost": 6
+  "apCost": 6
 }
 ```
 
@@ -859,7 +859,7 @@ if (isVictory) endBattle(); // 보상 지급 + 숙련도 상승
 ### 스킬 데이터
 - **위치**: `/public/data/skills.json`
 - **총 88개 전투 스킬**: 무기 48개 + 무술 24개 (주먹 8 + 발차기 8 + 자세 8) + 방어 8개 + 보조 8개
-- **비용**: SP (Stamina Point) 사용 (MP가 아닌 피로도 소모)
+- **비용**: AP (Action Point) 사용 (전투 중 스킬 사용 비용)
 
 ### 주요 스킬 속성
 ```typescript
@@ -875,7 +875,8 @@ interface Skill {
   icon: string;
 
   // 비용
-  spCost: number;            // 스태미나 포인트
+  apCost: number;            // 액션 포인트 (전투 스킬용)
+  mpCost?: number;           // 마나 포인트 (마법/힐 스킬용)
   cooldown?: number;         // 쿨다운 턴
 
   // 공격 스킬용
@@ -1241,7 +1242,7 @@ await updateProfile({
 });
 ```
 
-## 피로도 시스템 (Stamina)
+## 피로도 시스템 (Fatigue)
 
 행동에 피로도를 소모하고, 크론잡으로 자동 회복.
 
@@ -1272,7 +1273,7 @@ await updateProfile({
 회복량 = 10 피로도 (= 분당 1 피로도)
 ```
 
-**Edge Function**: `recover-stamina`
+**Edge Function**: `recover-fatigue`
 - pg_cron에서 10분마다 호출
 - 모든 유저의 피로도 일괄 회복
 - CON 기반 최대 피로도 초과 방지
@@ -1280,33 +1281,33 @@ await updateProfile({
 ### DB 함수
 | 함수 | 설명 |
 |------|------|
-| `consume_stamina(user_id, amount)` | 피로도 소모 |
-| `restore_stamina(user_id, amount)` | 피로도 회복 |
-| `batch_recover_stamina(amount)` | 전체 유저 일괄 회복 (크론잡용) |
-| `calculate_max_stamina_from_con(con)` | CON 기반 최대 피로도 계산 |
+| `consume_fatigue(user_id, amount)` | 피로도 소모 |
+| `restore_fatigue(user_id, amount)` | 피로도 회복 |
+| `batch_recover_fatigue(amount)` | 전체 유저 일괄 회복 (크론잡용) |
+| `calculate_max_fatigue_from_con(con)` | CON 기반 최대 피로도 계산 |
 | `get_main_character_con(characters)` | 메인 캐릭터 CON 추출 |
-| `get_user_max_stamina(user_id)` | 유저별 최대 피로도 조회 |
+| `get_user_max_fatigue(user_id)` | 유저별 최대 피로도 조회 |
 
 ### 사용법
 ```typescript
-import { consumeStamina, STAMINA_COST } from "@/entities/user";
-import { calculateMaxStamina, getMaxStaminaFromProfile } from "@/entities/user";
+import { consumeFatigue, FATIGUE_COST } from "@/entities/user";
+import { calculateMaxFatigue, getMaxFatigueFromProfile } from "@/entities/user";
 
 // 피로도 소모
-const result = await consumeStamina(userId, STAMINA_COST.MAP_MOVE);
+const result = await consumeFatigue(userId, FATIGUE_COST.MAP_MOVE);
 if (!result.success) {
   toast.error(result.message); // "피로도가 부족합니다"
 }
 
 // 최대 피로도 계산 (프론트엔드)
-const maxStamina = calculateMaxStamina(15); // CON 15 → 125
-const maxFromProfile = getMaxStaminaFromProfile(profile); // 프로필에서 추출
+const maxFatigue = calculateMaxFatigue(15); // CON 15 → 125
+const maxFromProfile = getMaxFatigueFromProfile(profile); // 프로필에서 추출
 ```
 
 ### 자동 적용 위치
 - `useStartBattle`: 전투 시작 시 피로도 소모
 - `useUpdateLocation`: 맵 이동 시 피로도 소모
-- `recover-stamina`: 10분마다 전체 유저 일괄 회복 (크론잡)
+- `recover-fatigue`: 10분마다 전체 유저 일괄 회복 (크론잡)
 
 ## 통신용 크리스탈 시스템 (Whisper Crystal)
 

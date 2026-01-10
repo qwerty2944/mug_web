@@ -148,8 +148,8 @@ export interface Skill {
   icon: string;
 
   // 비용
-  /** 스태미나 포인트 비용 (물리 스킬용) */
-  spCost: number;
+  /** 액션 포인트 비용 (전투 스킬용) */
+  apCost: number;
   /** 마나 포인트 비용 (마법/힐 스킬용) */
   mpCost?: number;
   /** 쿨다운 턴 수 */

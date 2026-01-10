@@ -193,7 +193,7 @@ export const DEFAULT_PASSIVE_SKILLS: Skill[] = [
     type: "passive",
     category: "defense",
     icon: "🛡️",
-    spCost: 0,
+    apCost: 0,
     passiveTrigger: "on_hit",
     passiveEffect: {
       type: "damage_reflect",
@@ -213,7 +213,7 @@ export const DEFAULT_PASSIVE_SKILLS: Skill[] = [
     type: "passive",
     category: "defense",
     icon: "🌵",
-    spCost: 0,
+    apCost: 0,
     passiveTrigger: "on_hit",
     passiveEffect: {
       type: "thorns",
@@ -233,7 +233,7 @@ export const DEFAULT_PASSIVE_SKILLS: Skill[] = [
     type: "passive",
     category: "defense",
     icon: "💨",
-    spCost: 0,
+    apCost: 0,
     passiveTrigger: "on_low_hp",
     passiveEffect: {
       type: "heal_on_hit",
@@ -253,7 +253,7 @@ export const DEFAULT_PASSIVE_SKILLS: Skill[] = [
     type: "passive",
     category: "martial",
     icon: "⚡",
-    spCost: 0,
+    apCost: 0,
     passiveTrigger: "on_hit",
     passiveEffect: {
       type: "counter_attack",

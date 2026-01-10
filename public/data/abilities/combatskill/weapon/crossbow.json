@@ -36,10 +36,10 @@
       "maxLevel": 30,
       "expPerLevel": 50,
       "levelBonuses": [
-        { "level": 1, "effects": { "baseDamage": 30, "spCost": 5, "armorPenetration": 15 } },
-        { "level": 10, "effects": { "baseDamage": 40, "spCost": 5, "armorPenetration": 20 } },
-        { "level": 20, "effects": { "baseDamage": 52, "spCost": 4, "armorPenetration": 25 } },
-        { "level": 30, "effects": { "baseDamage": 68, "spCost": 4, "armorPenetration": 30, "critChance": 10 } }
+        { "level": 1, "effects": { "baseDamage": 30, "apCost": 5, "armorPenetration": 15 } },
+        { "level": 10, "effects": { "baseDamage": 40, "apCost": 5, "armorPenetration": 20 } },
+        { "level": 20, "effects": { "baseDamage": 52, "apCost": 4, "armorPenetration": 25 } },
+        { "level": 30, "effects": { "baseDamage": 68, "apCost": 4, "armorPenetration": 30, "critChance": 10 } }
       ],
       "requirements": { "skills": { "crossbow_mastery": 1 } },
       "grantsExpTo": ["crossbow_mastery"],
@@ -56,10 +56,10 @@
       "maxLevel": 25,
       "expPerLevel": 70,
       "levelBonuses": [
-        { "level": 1, "effects": { "baseDamage": 45, "armorPenetration": 50, "spCost": 14 } },
-        { "level": 10, "effects": { "baseDamage": 60, "armorPenetration": 65, "spCost": 13 } },
-        { "level": 20, "effects": { "baseDamage": 78, "armorPenetration": 80, "spCost": 11 } },
-        { "level": 25, "effects": { "baseDamage": 90, "armorPenetration": 90, "spCost": 10 } }
+        { "level": 1, "effects": { "baseDamage": 45, "armorPenetration": 50, "apCost": 14 } },
+        { "level": 10, "effects": { "baseDamage": 60, "armorPenetration": 65, "apCost": 13 } },
+        { "level": 20, "effects": { "baseDamage": 78, "armorPenetration": 80, "apCost": 11 } },
+        { "level": 25, "effects": { "baseDamage": 90, "armorPenetration": 90, "apCost": 10 } }
       ],
       "requirements": { "skills": { "crossbow_mastery": 10 } },
       "grantsExpTo": ["crossbow_mastery"],
@@ -76,9 +76,9 @@
       "maxLevel": 20,
       "expPerLevel": 100,
       "levelBonuses": [
-        { "level": 1, "effects": { "baseDamage": 35, "splashDamage": 20, "aoe": true, "spCost": 18 } },
-        { "level": 10, "effects": { "baseDamage": 48, "splashDamage": 30, "aoe": true, "spCost": 17 } },
-        { "level": 20, "effects": { "baseDamage": 65, "splashDamage": 45, "aoe": true, "spCost": 15, "knockbackChance": 30 } }
+        { "level": 1, "effects": { "baseDamage": 35, "splashDamage": 20, "aoe": true, "apCost": 18 } },
+        { "level": 10, "effects": { "baseDamage": 48, "splashDamage": 30, "aoe": true, "apCost": 17 } },
+        { "level": 20, "effects": { "baseDamage": 65, "splashDamage": 45, "aoe": true, "apCost": 15, "knockbackChance": 30 } }
       ],
       "requirements": { "skills": { "crossbow_mastery": 18 } },
       "grantsExpTo": ["crossbow_mastery"],
@@ -95,9 +95,9 @@
       "maxLevel": 20,
       "expPerLevel": 90,
       "levelBonuses": [
-        { "level": 1, "effects": { "attackSpeedBonus": 30, "cooldownReduction": 1, "duration": 4, "spCost": 16 } },
-        { "level": 10, "effects": { "attackSpeedBonus": 45, "cooldownReduction": 1, "duration": 5, "spCost": 14 } },
-        { "level": 20, "effects": { "attackSpeedBonus": 60, "cooldownReduction": 2, "duration": 6, "spCost": 12 } }
+        { "level": 1, "effects": { "attackSpeedBonus": 30, "cooldownReduction": 1, "duration": 4, "apCost": 16 } },
+        { "level": 10, "effects": { "attackSpeedBonus": 45, "cooldownReduction": 1, "duration": 5, "apCost": 14 } },
+        { "level": 20, "effects": { "attackSpeedBonus": 60, "cooldownReduction": 2, "duration": 6, "apCost": 12 } }
       ],
       "requirements": { "skills": { "crossbow_mastery": 15 } },
       "grantsExpTo": ["crossbow_mastery"],
@@ -114,9 +114,9 @@
       "maxLevel": 15,
       "expPerLevel": 150,
       "levelBonuses": [
-        { "level": 1, "effects": { "baseDamage": 70, "critChance": 60, "spCost": 25 } },
-        { "level": 8, "effects": { "baseDamage": 95, "critChance": 75, "spCost": 23 } },
-        { "level": 15, "effects": { "baseDamage": 130, "critChance": 90, "critMultiplier": 0.5, "spCost": 20, "stunChance": 30 } }
+        { "level": 1, "effects": { "baseDamage": 70, "critChance": 60, "apCost": 25 } },
+        { "level": 8, "effects": { "baseDamage": 95, "critChance": 75, "apCost": 23 } },
+        { "level": 15, "effects": { "baseDamage": 130, "critChance": 90, "critMultiplier": 0.5, "apCost": 20, "stunChance": 30 } }
       ],
       "requirements": { "skills": { "crossbow_mastery": 35, "piercing_bolt": 15 } },
       "grantsExpTo": ["crossbow_mastery"],
@@ -133,9 +133,9 @@
       "maxLevel": 10,
       "expPerLevel": 200,
       "levelBonuses": [
-        { "level": 1, "effects": { "baseDamage": 120, "ignoreArmor": 100, "spCost": 38 } },
-        { "level": 5, "effects": { "baseDamage": 160, "ignoreArmor": 100, "spCost": 35, "shieldBreak": true } },
-        { "level": 10, "effects": { "baseDamage": 210, "ignoreArmor": 100, "spCost": 30, "shieldBreak": true, "armorBreak": 30 } }
+        { "level": 1, "effects": { "baseDamage": 120, "ignoreArmor": 100, "apCost": 38 } },
+        { "level": 5, "effects": { "baseDamage": 160, "ignoreArmor": 100, "apCost": 35, "shieldBreak": true } },
+        { "level": 10, "effects": { "baseDamage": 210, "ignoreArmor": 100, "apCost": 30, "shieldBreak": true, "armorBreak": 30 } }
       ],
       "requirements": { "skills": { "crossbow_mastery": 45, "headshot": 10 } },
       "grantsExpTo": ["crossbow_mastery"],

@@ -36,10 +36,10 @@
       "maxLevel": 30,
       "expPerLevel": 50,
       "levelBonuses": [
-        { "level": 1, "effects": { "baseDamage": 28, "spCost": 6, "ignoreArmor": 10 } },
-        { "level": 10, "effects": { "baseDamage": 38, "spCost": 6, "ignoreArmor": 15 } },
-        { "level": 20, "effects": { "baseDamage": 50, "spCost": 5, "ignoreArmor": 20 } },
-        { "level": 30, "effects": { "baseDamage": 65, "spCost": 5, "ignoreArmor": 25, "stunChance": 10 } }
+        { "level": 1, "effects": { "baseDamage": 28, "apCost": 6, "ignoreArmor": 10 } },
+        { "level": 10, "effects": { "baseDamage": 38, "apCost": 6, "ignoreArmor": 15 } },
+        { "level": 20, "effects": { "baseDamage": 50, "apCost": 5, "ignoreArmor": 20 } },
+        { "level": 30, "effects": { "baseDamage": 65, "apCost": 5, "ignoreArmor": 25, "stunChance": 10 } }
       ],
       "requirements": { "skills": { "mace_mastery": 1 } },
       "grantsExpTo": ["mace_mastery"],
@@ -56,10 +56,10 @@
       "maxLevel": 25,
       "expPerLevel": 70,
       "levelBonuses": [
-        { "level": 1, "effects": { "baseDamage": 25, "stunChance": 35, "stunDuration": 1, "spCost": 12 } },
-        { "level": 10, "effects": { "baseDamage": 35, "stunChance": 45, "stunDuration": 1, "spCost": 11 } },
-        { "level": 20, "effects": { "baseDamage": 48, "stunChance": 55, "stunDuration": 2, "spCost": 10 } },
-        { "level": 25, "effects": { "baseDamage": 55, "stunChance": 65, "stunDuration": 2, "spCost": 9 } }
+        { "level": 1, "effects": { "baseDamage": 25, "stunChance": 35, "stunDuration": 1, "apCost": 12 } },
+        { "level": 10, "effects": { "baseDamage": 35, "stunChance": 45, "stunDuration": 1, "apCost": 11 } },
+        { "level": 20, "effects": { "baseDamage": 48, "stunChance": 55, "stunDuration": 2, "apCost": 10 } },
+        { "level": 25, "effects": { "baseDamage": 55, "stunChance": 65, "stunDuration": 2, "apCost": 9 } }
       ],
       "requirements": { "skills": { "mace_mastery": 10 } },
       "grantsExpTo": ["mace_mastery"],
@@ -76,9 +76,9 @@
       "maxLevel": 20,
       "expPerLevel": 90,
       "levelBonuses": [
-        { "level": 1, "effects": { "baseDamage": 45, "ignoreArmor": 100, "spCost": 18 } },
-        { "level": 10, "effects": { "baseDamage": 60, "ignoreArmor": 100, "spCost": 16 } },
-        { "level": 20, "effects": { "baseDamage": 80, "ignoreArmor": 100, "spCost": 14, "armorBreak": 20 } }
+        { "level": 1, "effects": { "baseDamage": 45, "ignoreArmor": 100, "apCost": 18 } },
+        { "level": 10, "effects": { "baseDamage": 60, "ignoreArmor": 100, "apCost": 16 } },
+        { "level": 20, "effects": { "baseDamage": 80, "ignoreArmor": 100, "apCost": 14, "armorBreak": 20 } }
       ],
       "requirements": { "skills": { "mace_mastery": 18 } },
       "grantsExpTo": ["mace_mastery"],
@@ -95,9 +95,9 @@
       "maxLevel": 20,
       "expPerLevel": 100,
       "levelBonuses": [
-        { "level": 1, "effects": { "baseDamage": 40, "holyDamage": 15, "bonusVsUndead": 50, "spCost": 20 } },
-        { "level": 10, "effects": { "baseDamage": 55, "holyDamage": 22, "bonusVsUndead": 60, "spCost": 18 } },
-        { "level": 20, "effects": { "baseDamage": 75, "holyDamage": 30, "bonusVsUndead": 75, "spCost": 16, "stunChance": 20 } }
+        { "level": 1, "effects": { "baseDamage": 40, "holyDamage": 15, "bonusVsUndead": 50, "apCost": 20 } },
+        { "level": 10, "effects": { "baseDamage": 55, "holyDamage": 22, "bonusVsUndead": 60, "apCost": 18 } },
+        { "level": 20, "effects": { "baseDamage": 75, "holyDamage": 30, "bonusVsUndead": 75, "apCost": 16, "stunChance": 20 } }
       ],
       "requirements": { "skills": { "mace_mastery": 25, "concussion": 10 } },
       "grantsExpTo": ["mace_mastery"],
@@ -114,9 +114,9 @@
       "maxLevel": 15,
       "expPerLevel": 150,
       "levelBonuses": [
-        { "level": 1, "effects": { "baseDamage": 35, "aoe": true, "knockdownChance": 30, "spCost": 25 } },
-        { "level": 8, "effects": { "baseDamage": 50, "aoe": true, "knockdownChance": 40, "spCost": 23 } },
-        { "level": 15, "effects": { "baseDamage": 70, "aoe": true, "knockdownChance": 55, "stunDuration": 1, "spCost": 20 } }
+        { "level": 1, "effects": { "baseDamage": 35, "aoe": true, "knockdownChance": 30, "apCost": 25 } },
+        { "level": 8, "effects": { "baseDamage": 50, "aoe": true, "knockdownChance": 40, "apCost": 23 } },
+        { "level": 15, "effects": { "baseDamage": 70, "aoe": true, "knockdownChance": 55, "stunDuration": 1, "apCost": 20 } }
       ],
       "requirements": { "skills": { "mace_mastery": 35, "crushing_blow": 12 } },
       "grantsExpTo": ["mace_mastery"],
@@ -133,9 +133,9 @@
       "maxLevel": 10,
       "expPerLevel": 200,
       "levelBonuses": [
-        { "level": 1, "effects": { "baseDamage": 100, "ignoreArmor": 100, "stunDuration": 2, "spCost": 35 } },
-        { "level": 5, "effects": { "baseDamage": 130, "ignoreArmor": 100, "stunDuration": 2, "spCost": 32, "confuseChance": 30 } },
-        { "level": 10, "effects": { "baseDamage": 170, "ignoreArmor": 100, "stunDuration": 3, "spCost": 28, "confuseChance": 50, "critChance": 25 } }
+        { "level": 1, "effects": { "baseDamage": 100, "ignoreArmor": 100, "stunDuration": 2, "apCost": 35 } },
+        { "level": 5, "effects": { "baseDamage": 130, "ignoreArmor": 100, "stunDuration": 2, "apCost": 32, "confuseChance": 30 } },
+        { "level": 10, "effects": { "baseDamage": 170, "ignoreArmor": 100, "stunDuration": 3, "apCost": 28, "confuseChance": 50, "critChance": 25 } }
       ],
       "requirements": { "skills": { "mace_mastery": 45, "shockwave": 10 } },
       "grantsExpTo": ["mace_mastery"],
