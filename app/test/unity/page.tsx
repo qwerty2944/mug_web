@@ -5,9 +5,8 @@ import Link from "next/link";
 import { characterPanelHooks, useAppearanceStore } from "@/features/character";
 import { CharacterView } from "@/widgets/character-view";
 import { globalStyles } from "@/shared/ui";
-import { UnityProvider } from "@/application/providers";
 
-function UnityTestContent() {
+export default function UnityTestPage() {
   const { clearAll, callUnity } = useAppearanceStore();
 
   // 페이지 진입 시 Unity 상태 초기화 (장비 + 외형)
@@ -43,13 +42,5 @@ function UnityTestContent() {
 
       <style jsx global>{globalStyles}</style>
     </div>
-  );
-}
-
-export default function UnityTestPage() {
-  return (
-    <UnityProvider>
-      <UnityTestContent />
-    </UnityProvider>
   );
 }
