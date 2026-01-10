@@ -573,6 +573,10 @@ export type Database = {
           piety_level: number
         }[]
       }
+      upsert_character_location: {
+        Args: { p_character_id: string; p_character_name: string; p_map_id: string }
+        Returns: undefined
+      }
       upsert_user_location: {
         Args: { p_character_name: string; p_map_id: string; p_user_id: string }
         Returns: undefined

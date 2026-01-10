@@ -20,10 +20,14 @@ export async function updateLocation(params: {
   if (locationError) throw locationError;
 
   // 2. 캐릭터의 현재 맵 ID 업데이트 (영구 저장)
-  const { error: profileError } = await supabase
+  const { error: profileError, data: updatedData } = await supabase
     .from("characters")
     .update({ current_map_id: params.mapId })
-    .eq("user_id", params.userId);
+    .eq("user_id", params.userId)
+    .select("id, current_map_id");
 
   if (profileError) throw profileError;
+  if (!updatedData || updatedData.length === 0) {
+    throw new Error(`위치 업데이트 실패: 캐릭터를 찾을 수 없습니다`);
+  }
 }
