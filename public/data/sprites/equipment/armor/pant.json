@@ -127,7 +127,6 @@
   "pants": [
     {
       "id": "elf_pant_01",
-      "index": 0,
       "sprite": "Elf_Pant_01",
       "ko": "엘프 바지 01",
       "en": "Elf Pant 01",
@@ -135,7 +134,6 @@
     },
     {
       "id": "elf_pant_02",
-      "index": 1,
       "sprite": "Elf_Pant_02",
       "ko": "엘프 바지 02",
       "en": "Elf Pant 02",
@@ -143,7 +141,6 @@
     },
     {
       "id": "elf_pant_03",
-      "index": 2,
       "sprite": "Elf_Pant_03",
       "ko": "엘프 바지 03",
       "en": "Elf Pant 03",
@@ -151,7 +148,6 @@
     },
     {
       "id": "elf_pant_04",
-      "index": 3,
       "sprite": "Elf_Pant_04",
       "ko": "엘프 바지 04",
       "en": "Elf Pant 04",
@@ -159,7 +155,6 @@
     },
     {
       "id": "elf_pant_05",
-      "index": 4,
       "sprite": "Elf_Pant_05",
       "ko": "엘프 바지 05",
       "en": "Elf Pant 05",
@@ -167,7 +162,6 @@
     },
     {
       "id": "elf_pant_06",
-      "index": 5,
       "sprite": "Elf_Pant_06",
       "ko": "엘프 바지 06",
       "en": "Elf Pant 06",
@@ -175,7 +169,6 @@
     },
     {
       "id": "elf_pant_07",
-      "index": 6,
       "sprite": "Elf_Pant_07",
       "ko": "엘프 바지 07",
       "en": "Elf Pant 07",
@@ -183,7 +176,6 @@
     },
     {
       "id": "elf_pant_08",
-      "index": 7,
       "sprite": "Elf_Pant_08",
       "ko": "엘프 바지 08",
       "en": "Elf Pant 08",
@@ -191,7 +183,6 @@
     },
     {
       "id": "elf_pant_09",
-      "index": 8,
       "sprite": "Elf_Pant_09",
       "ko": "엘프 바지 09",
       "en": "Elf Pant 09",
@@ -199,7 +190,6 @@
     },
     {
       "id": "elf_pant_10",
-      "index": 9,
       "sprite": "Elf_Pant_10",
       "ko": "엘프 바지 10",
       "en": "Elf Pant 10",
@@ -207,7 +197,6 @@
     },
     {
       "id": "elf_pant_11",
-      "index": 10,
       "sprite": "Elf_Pant_11",
       "ko": "엘프 바지 11",
       "en": "Elf Pant 11",
@@ -215,7 +204,6 @@
     },
     {
       "id": "elf_pant_12",
-      "index": 11,
       "sprite": "Elf_Pant_12",
       "ko": "엘프 바지 12",
       "en": "Elf Pant 12",
@@ -223,7 +211,6 @@
     },
     {
       "id": "elf_pant_13",
-      "index": 12,
       "sprite": "Elf_Pant_13",
       "ko": "엘프 바지 13",
       "en": "Elf Pant 13",
@@ -231,7 +218,6 @@
     },
     {
       "id": "elf_pant_14",
-      "index": 13,
       "sprite": "Elf_Pant_14",
       "ko": "엘프 바지 14",
       "en": "Elf Pant 14",
@@ -239,7 +225,6 @@
     },
     {
       "id": "elf_pant_15",
-      "index": 14,
       "sprite": "Elf_Pant_15",
       "ko": "엘프 바지 15",
       "en": "Elf Pant 15",
@@ -247,7 +232,6 @@
     },
     {
       "id": "elf_pant_16",
-      "index": 15,
       "sprite": "Elf_Pant_16",
       "ko": "엘프 바지 16",
       "en": "Elf Pant 16",
@@ -255,7 +239,6 @@
     },
     {
       "id": "elf_pant_17",
-      "index": 16,
       "sprite": "Elf_Pant_17",
       "ko": "엘프 바지 17",
       "en": "Elf Pant 17",
@@ -263,7 +246,6 @@
     },
     {
       "id": "elf_pant_18",
-      "index": 17,
       "sprite": "Elf_Pant_18",
       "ko": "엘프 바지 18",
       "en": "Elf Pant 18",
@@ -271,7 +253,6 @@
     },
     {
       "id": "elf_pant_19",
-      "index": 18,
       "sprite": "Elf_Pant_19",
       "ko": "엘프 바지 19",
       "en": "Elf Pant 19",
@@ -279,7 +260,6 @@
     },
     {
       "id": "elf_pant_20",
-      "index": 19,
       "sprite": "Elf_Pant_20",
       "ko": "엘프 바지 20",
       "en": "Elf Pant 20",
@@ -287,7 +267,6 @@
     },
     {
       "id": "orc_pant_01",
-      "index": 20,
       "sprite": "Orc_Pant_01",
       "ko": "오크 바지 01",
       "en": "Orc Pant 01",
@@ -295,7 +274,6 @@
     },
     {
       "id": "orc_pant_02",
-      "index": 21,
       "sprite": "Orc_Pant_02",
       "ko": "오크 바지 02",
       "en": "Orc Pant 02",
@@ -303,7 +281,6 @@
     },
     {
       "id": "orc_pant_03",
-      "index": 22,
       "sprite": "Orc_Pant_03",
       "ko": "오크 바지 03",
       "en": "Orc Pant 03",
@@ -311,7 +288,6 @@
     },
     {
       "id": "orc_pant_04",
-      "index": 23,
       "sprite": "Orc_Pant_04",
       "ko": "오크 바지 04",
       "en": "Orc Pant 04",
@@ -319,7 +295,6 @@
     },
     {
       "id": "undead_pant_01",
-      "index": 24,
       "sprite": "Undead_Pant_01",
       "ko": "언데드 바지 01",
       "en": "Undead Pant 01",
@@ -327,7 +302,6 @@
     },
     {
       "id": "undead_pant_02",
-      "index": 25,
       "sprite": "Undead_Pant_02",
       "ko": "언데드 바지 02",
       "en": "Undead Pant 02",
@@ -335,7 +309,6 @@
     },
     {
       "id": "undead_pant_03",
-      "index": 26,
       "sprite": "Undead_Pant_03",
       "ko": "언데드 바지 03",
       "en": "Undead Pant 03",
@@ -343,7 +316,6 @@
     },
     {
       "id": "undead_pant_04",
-      "index": 27,
       "sprite": "Undead_Pant_04",
       "ko": "언데드 바지 04",
       "en": "Undead Pant 04",
@@ -351,7 +323,6 @@
     },
     {
       "id": "undead_pant_05",
-      "index": 28,
       "sprite": "Undead_Pant_05",
       "ko": "언데드 바지 05",
       "en": "Undead Pant 05",
@@ -359,7 +330,6 @@
     },
     {
       "id": "foot_m01",
-      "index": 29,
       "sprite": "Foot_m01",
       "ko": "신발 01",
       "en": "Foot m01",
@@ -367,7 +337,6 @@
     },
     {
       "id": "foot_m02",
-      "index": 30,
       "sprite": "Foot_m02",
       "ko": "신발 02",
       "en": "Foot m02",
@@ -375,7 +344,6 @@
     },
     {
       "id": "foot_m03",
-      "index": 31,
       "sprite": "Foot_m03",
       "ko": "신발 03",
       "en": "Foot m03",
@@ -383,7 +351,6 @@
     },
     {
       "id": "foot_m04",
-      "index": 32,
       "sprite": "Foot_m04",
       "ko": "신발 04",
       "en": "Foot m04",
@@ -391,7 +358,6 @@
     },
     {
       "id": "foot_m05",
-      "index": 33,
       "sprite": "Foot_m05",
       "ko": "신발 05",
       "en": "Foot m05",
@@ -399,7 +365,6 @@
     },
     {
       "id": "pant_archer_2",
-      "index": 34,
       "sprite": "Pant_Archer_2",
       "ko": "Pant 궁수 2",
       "en": "Pant Archer 2",
@@ -407,7 +372,6 @@
     },
     {
       "id": "pant_healer_1",
-      "index": 35,
       "sprite": "Pant_Healer_1",
       "ko": "Pant 힐러 1",
       "en": "Pant Healer 1",
@@ -415,7 +379,6 @@
     },
     {
       "id": "pant_healer_2",
-      "index": 36,
       "sprite": "Pant_Healer_2",
       "ko": "Pant 힐러 2",
       "en": "Pant Healer 2",
@@ -423,7 +386,6 @@
     },
     {
       "id": "pant_knight_1",
-      "index": 37,
       "sprite": "Pant_Knight_1",
       "ko": "Pant 기사 1",
       "en": "Pant Knight 1",
@@ -431,7 +393,6 @@
     },
     {
       "id": "pant_knight_2",
-      "index": 38,
       "sprite": "Pant_Knight_2",
       "ko": "Pant 기사 2",
       "en": "Pant Knight 2",
@@ -439,7 +400,6 @@
     },
     {
       "id": "pant_rogue_1",
-      "index": 39,
       "sprite": "Pant_Rogue_1",
       "ko": "Pant 도적 1",
       "en": "Pant Rogue 1",
@@ -447,7 +407,6 @@
     },
     {
       "id": "pant_rogue_2",
-      "index": 40,
       "sprite": "Pant_Rogue_2",
       "ko": "Pant 도적 2",
       "en": "Pant Rogue 2",
@@ -455,7 +414,6 @@
     },
     {
       "id": "pant_sorcerer",
-      "index": 41,
       "sprite": "Pant_Sorcerer",
       "ko": "마법사 바지",
       "en": "Pant Sorcerer",
@@ -463,7 +421,6 @@
     },
     {
       "id": "pant_sorceress",
-      "index": 42,
       "sprite": "Pant_Sorceress",
       "ko": "마녀 바지",
       "en": "Pant Sorceress",
@@ -471,7 +428,6 @@
     },
     {
       "id": "f_sr_pants",
-      "index": 43,
       "sprite": "F_SR_Pants",
       "ko": "특수 Pants",
       "en": "F SR Pants",
@@ -479,7 +435,6 @@
     },
     {
       "id": "foot_1",
-      "index": 44,
       "sprite": "Foot_1",
       "ko": "신발 1",
       "en": "Foot 1",
@@ -487,7 +442,6 @@
     },
     {
       "id": "foot_2",
-      "index": 45,
       "sprite": "Foot_2",
       "ko": "신발 2",
       "en": "Foot 2",
@@ -495,7 +449,6 @@
     },
     {
       "id": "foot_3",
-      "index": 46,
       "sprite": "Foot_3",
       "ko": "신발 3",
       "en": "Foot 3",
@@ -503,7 +456,6 @@
     },
     {
       "id": "foot_4",
-      "index": 47,
       "sprite": "Foot_4",
       "ko": "신발 4",
       "en": "Foot 4",
@@ -511,7 +463,6 @@
     },
     {
       "id": "new_pant_01",
-      "index": 48,
       "sprite": "New_Pant_01",
       "ko": "신규 바지 01",
       "en": "New Pant 01",
@@ -519,7 +470,6 @@
     },
     {
       "id": "new_pant_02",
-      "index": 49,
       "sprite": "New_Pant_02",
       "ko": "신규 바지 02",
       "en": "New Pant 02",
@@ -527,7 +477,6 @@
     },
     {
       "id": "new_pant_03",
-      "index": 50,
       "sprite": "New_Pant_03",
       "ko": "신규 바지 03",
       "en": "New Pant 03",
@@ -535,7 +484,6 @@
     },
     {
       "id": "new_pant_04",
-      "index": 51,
       "sprite": "New_Pant_04",
       "ko": "신규 바지 04",
       "en": "New Pant 04",
@@ -543,7 +491,6 @@
     },
     {
       "id": "new_pant_05",
-      "index": 52,
       "sprite": "New_Pant_05",
       "ko": "신규 바지 05",
       "en": "New Pant 05",
@@ -551,7 +498,6 @@
     },
     {
       "id": "new_pant_06",
-      "index": 53,
       "sprite": "New_Pant_06",
       "ko": "신규 바지 06",
       "en": "New Pant 06",
@@ -559,7 +505,6 @@
     },
     {
       "id": "new_pant_07",
-      "index": 54,
       "sprite": "New_Pant_07",
       "ko": "신규 바지 07",
       "en": "New Pant 07",
@@ -567,7 +512,6 @@
     },
     {
       "id": "new_pant_08",
-      "index": 55,
       "sprite": "New_Pant_08",
       "ko": "신규 바지 08",
       "en": "New Pant 08",
@@ -575,7 +519,6 @@
     },
     {
       "id": "new_pant_09",
-      "index": 56,
       "sprite": "New_Pant_09",
       "ko": "신규 바지 09",
       "en": "New Pant 09",
@@ -583,7 +526,6 @@
     },
     {
       "id": "new_pant_10",
-      "index": 57,
       "sprite": "New_Pant_10",
       "ko": "신규 바지 10",
       "en": "New Pant 10",
@@ -591,7 +533,6 @@
     },
     {
       "id": "new_pant_11",
-      "index": 58,
       "sprite": "New_Pant_11",
       "ko": "신규 바지 11",
       "en": "New Pant 11",
@@ -599,7 +540,6 @@
     },
     {
       "id": "new_pant_12",
-      "index": 59,
       "sprite": "New_Pant_12",
       "ko": "신규 바지 12",
       "en": "New Pant 12",

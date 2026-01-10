@@ -1,39 +1,31 @@
 "use client";
 
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { supabase } from "@/shared/api";
-import { inventoryKeys } from "@/entities/inventory";
-import { removeItem } from "../remove-item";
+import { removeItemFromInventory, inventoryKeys } from "@/entities/inventory";
+import type { InventoryType } from "@/entities/inventory";
 
 // ============ API ============
 
 interface UseItemParams {
-  inventoryId: string;
+  userId: string;
+  slot: number;
   amount?: number;
+  inventoryType?: InventoryType;
 }
 
-export async function useItem({ inventoryId, amount = 1 }: UseItemParams) {
-  const { data: item, error: fetchError } = await supabase
-    .from("inventory")
-    .select("quantity")
-    .eq("id", inventoryId)
-    .single();
-
-  if (fetchError) throw fetchError;
-  if (!item) throw new Error("Item not found");
-
-  const newQuantity = item.quantity - amount;
-
-  if (newQuantity <= 0) {
-    return removeItem(inventoryId);
-  }
-
-  const { error } = await supabase
-    .from("inventory")
-    .update({ quantity: newQuantity })
-    .eq("id", inventoryId);
-
-  if (error) throw error;
+export async function useItem({
+  userId,
+  slot,
+  amount = 1,
+  inventoryType = "personal",
+}: UseItemParams) {
+  // 아이템 사용 = 수량 감소 (0이 되면 자동 삭제)
+  return removeItemFromInventory({
+    userId,
+    slot,
+    quantity: amount,
+    inventoryType,
+  });
 }
 
 // ============ Hook ============
@@ -47,7 +39,17 @@ export function useUseItem(userId: string | undefined, options?: UseUseItemOptio
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: (params: UseItemParams) => useItem(params),
+    mutationFn: (params: {
+      slot: number;
+      amount?: number;
+      inventoryType?: InventoryType;
+    }) =>
+      useItem({
+        userId: userId!,
+        slot: params.slot,
+        amount: params.amount,
+        inventoryType: params.inventoryType,
+      }),
     onSuccess: () => {
       if (userId) {
         queryClient.invalidateQueries({ queryKey: inventoryKeys.detail(userId) });

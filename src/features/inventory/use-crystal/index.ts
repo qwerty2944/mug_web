@@ -2,8 +2,8 @@
 
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useCrystal, profileKeys } from "@/entities/user";
-import { updateQuantity } from "@/features/inventory";
-import { inventoryKeys } from "@/entities/inventory";
+import { removeItemFromInventory, inventoryKeys } from "@/entities/inventory";
+import type { InventoryType } from "@/entities/inventory";
 import toast from "react-hot-toast";
 
 type CrystalId = "crystal_basic" | "crystal_advanced" | "crystal_superior";
@@ -29,12 +29,12 @@ export function useUseCrystal(userId: string | undefined, options: UseUseCrystal
   return useMutation({
     mutationFn: async ({
       crystalId,
-      inventoryId,
-      currentQuantity,
+      slot,
+      inventoryType = "personal" as InventoryType,
     }: {
       crystalId: CrystalId;
-      inventoryId: string;
-      currentQuantity: number;
+      slot: number;
+      inventoryType?: InventoryType;
     }) => {
       if (!userId) throw new Error("User ID is required");
 
@@ -45,7 +45,12 @@ export function useUseCrystal(userId: string | undefined, options: UseUseCrystal
       const newCharges = await useCrystal(userId, config.tier, config.charges);
 
       // 2. 인벤토리에서 크리스탈 수량 감소 (0이 되면 삭제됨)
-      await updateQuantity({ inventoryId, quantity: currentQuantity - 1 });
+      await removeItemFromInventory({
+        userId,
+        slot,
+        quantity: 1,
+        inventoryType,
+      });
 
       return newCharges;
     },

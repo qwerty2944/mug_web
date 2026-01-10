@@ -1,29 +1,12 @@
 "use client";
 
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { supabase } from "@/shared/api";
-import { inventoryKeys } from "@/entities/inventory";
-import { removeItem } from "../remove-item";
+import { updateItemQuantity, inventoryKeys } from "@/entities/inventory";
+import type { InventoryType } from "@/entities/inventory";
 
-// ============ API ============
+// ============ API (re-export for convenience) ============
 
-interface UpdateQuantityParams {
-  inventoryId: string;
-  quantity: number;
-}
-
-export async function updateQuantity({ inventoryId, quantity }: UpdateQuantityParams) {
-  if (quantity <= 0) {
-    return removeItem(inventoryId);
-  }
-
-  const { error } = await supabase
-    .from("inventory")
-    .update({ quantity })
-    .eq("id", inventoryId);
-
-  if (error) throw error;
-}
+export { updateItemQuantity as updateQuantity } from "@/entities/inventory";
 
 // ============ Hook ============
 
@@ -36,7 +19,17 @@ export function useUpdateQuantity(userId: string | undefined, options?: UseUpdat
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: (params: UpdateQuantityParams) => updateQuantity(params),
+    mutationFn: (params: {
+      slot: number;
+      quantity: number;
+      inventoryType?: InventoryType;
+    }) =>
+      updateItemQuantity({
+        userId: userId!,
+        slot: params.slot,
+        quantity: params.quantity,
+        inventoryType: params.inventoryType,
+      }),
     onSuccess: () => {
       if (userId) {
         queryClient.invalidateQueries({ queryKey: inventoryKeys.detail(userId) });

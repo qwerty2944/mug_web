@@ -27,7 +27,6 @@
   "bows": [
     {
       "id": "elf_weapon_02",
-      "index": 0,
       "sprite": "Elf_Weapon_02",
       "ko": "엘프 Weapon 02",
       "en": "Elf Weapon 02",
@@ -35,7 +34,6 @@
     },
     {
       "id": "elf_weapon_06",
-      "index": 1,
       "sprite": "Elf_Weapon_06",
       "ko": "엘프 Weapon 06",
       "en": "Elf Weapon 06",
@@ -43,7 +41,6 @@
     },
     {
       "id": "elf_weapon_14",
-      "index": 2,
       "sprite": "Elf_Weapon_14",
       "ko": "엘프 Weapon 14",
       "en": "Elf Weapon 14",
@@ -51,7 +48,6 @@
     },
     {
       "id": "elf_weapon_18",
-      "index": 3,
       "sprite": "Elf_Weapon_18",
       "ko": "엘프 Weapon 18",
       "en": "Elf Weapon 18",
@@ -59,7 +55,6 @@
     },
     {
       "id": "orc_weapon_03",
-      "index": 4,
       "sprite": "Orc_Weapon_03",
       "ko": "오크 Weapon 03",
       "en": "Orc Weapon 03",
@@ -67,7 +62,6 @@
     },
     {
       "id": "undead_weapon_04",
-      "index": 5,
       "sprite": "Undead_Weapon_04",
       "ko": "언데드 Weapon 04",
       "en": "Undead Weapon 04",
@@ -75,7 +69,6 @@
     },
     {
       "id": "undead_weapon_05",
-      "index": 6,
       "sprite": "Undead_Weapon_05",
       "ko": "언데드 Weapon 05",
       "en": "Undead Weapon 05",
@@ -83,7 +76,6 @@
     },
     {
       "id": "weapon_archer_1",
-      "index": 7,
       "sprite": "Weapon_Archer_1",
       "ko": "Weapon 궁수 1",
       "en": "Weapon Archer 1",
@@ -91,7 +83,6 @@
     },
     {
       "id": "weapon_archer_2",
-      "index": 8,
       "sprite": "Weapon_Archer_2",
       "ko": "Weapon 궁수 2",
       "en": "Weapon Archer 2",
@@ -99,7 +90,6 @@
     },
     {
       "id": "bow_1",
-      "index": 9,
       "sprite": "Bow_1",
       "ko": "활 1",
       "en": "Bow 1",

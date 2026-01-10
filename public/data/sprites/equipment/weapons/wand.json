@@ -47,7 +47,6 @@
   "wands": [
     {
       "id": "elf_weapon_01",
-      "index": 0,
       "sprite": "Elf_Weapon_01",
       "ko": "엘프 Weapon 01",
       "en": "Elf Weapon 01",
@@ -55,7 +54,6 @@
     },
     {
       "id": "elf_weapon_04",
-      "index": 1,
       "sprite": "Elf_Weapon_04",
       "ko": "엘프 Weapon 04",
       "en": "Elf Weapon 04",
@@ -63,7 +61,6 @@
     },
     {
       "id": "elf_weapon_09",
-      "index": 2,
       "sprite": "Elf_Weapon_09",
       "ko": "엘프 Weapon 09",
       "en": "Elf Weapon 09",
@@ -71,7 +68,6 @@
     },
     {
       "id": "elf_weapon_10",
-      "index": 3,
       "sprite": "Elf_Weapon_10",
       "ko": "엘프 Weapon 10",
       "en": "Elf Weapon 10",
@@ -79,7 +75,6 @@
     },
     {
       "id": "elf_weapon_12",
-      "index": 4,
       "sprite": "Elf_Weapon_12",
       "ko": "엘프 Weapon 12",
       "en": "Elf Weapon 12",
@@ -87,7 +82,6 @@
     },
     {
       "id": "elf_weapon_15",
-      "index": 5,
       "sprite": "Elf_Weapon_15",
       "ko": "엘프 Weapon 15",
       "en": "Elf Weapon 15",
@@ -95,7 +89,6 @@
     },
     {
       "id": "elf_weapon_20",
-      "index": 6,
       "sprite": "Elf_Weapon_20",
       "ko": "엘프 Weapon 20",
       "en": "Elf Weapon 20",
@@ -103,7 +96,6 @@
     },
     {
       "id": "orc_weapon_04",
-      "index": 7,
       "sprite": "Orc_Weapon_04",
       "ko": "오크 Weapon 04",
       "en": "Orc Weapon 04",
@@ -111,7 +103,6 @@
     },
     {
       "id": "orc_weapon_08",
-      "index": 8,
       "sprite": "Orc_Weapon_08",
       "ko": "오크 Weapon 08",
       "en": "Orc Weapon 08",
@@ -119,7 +110,6 @@
     },
     {
       "id": "orc_weapon_09",
-      "index": 9,
       "sprite": "Orc_Weapon_09",
       "ko": "오크 Weapon 09",
       "en": "Orc Weapon 09",
@@ -127,7 +117,6 @@
     },
     {
       "id": "undead_weapon_01",
-      "index": 10,
       "sprite": "Undead_Weapon_01",
       "ko": "언데드 Weapon 01",
       "en": "Undead Weapon 01",
@@ -135,7 +124,6 @@
     },
     {
       "id": "undead_weapon_02",
-      "index": 11,
       "sprite": "Undead_Weapon_02",
       "ko": "언데드 Weapon 02",
       "en": "Undead Weapon 02",
@@ -143,7 +131,6 @@
     },
     {
       "id": "undead_weapon_07",
-      "index": 12,
       "sprite": "Undead_Weapon_07",
       "ko": "언데드 Weapon 07",
       "en": "Undead Weapon 07",
@@ -151,7 +138,6 @@
     },
     {
       "id": "undead_weapon_09",
-      "index": 13,
       "sprite": "Undead_Weapon_09",
       "ko": "언데드 Weapon 09",
       "en": "Undead Weapon 09",
@@ -159,7 +145,6 @@
     },
     {
       "id": "weapon_healer_1",
-      "index": 14,
       "sprite": "Weapon_Healer_1",
       "ko": "Weapon 힐러 1",
       "en": "Weapon Healer 1",
@@ -167,7 +152,6 @@
     },
     {
       "id": "weapon_healer_2",
-      "index": 15,
       "sprite": "Weapon_Healer_2",
       "ko": "Weapon 힐러 2",
       "en": "Weapon Healer 2",
@@ -175,7 +159,6 @@
     },
     {
       "id": "weapon_sorcerer",
-      "index": 16,
       "sprite": "Weapon_Sorcerer",
       "ko": "마법사 지팡이",
       "en": "Weapon Sorcerer",
@@ -183,7 +166,6 @@
     },
     {
       "id": "weapon_sorceress",
-      "index": 17,
       "sprite": "Weapon_Sorceress",
       "ko": "마녀 지팡이",
       "en": "Weapon Sorceress",
@@ -191,7 +173,6 @@
     },
     {
       "id": "ward_1",
-      "index": 18,
       "sprite": "Ward_1",
       "ko": "수호 지팡이 1",
       "en": "Ward 1",
@@ -199,7 +180,6 @@
     },
     {
       "id": "new_weapon_03",
-      "index": 19,
       "sprite": "New_Weapon_03",
       "ko": "신규 Weapon 03",
       "en": "New Weapon 03",

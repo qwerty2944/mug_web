@@ -18,7 +18,11 @@
       "sellPrice": 2,
       "stackable": true,
       "maxStack": 99,
-      "tags": ["nature", "squirrel", "food"]
+      "tags": [
+        "nature",
+        "squirrel",
+        "food"
+      ]
     },
     {
       "id": "squirrel_tail",
@@ -36,7 +40,11 @@
       "sellPrice": 25,
       "stackable": true,
       "maxStack": 99,
-      "tags": ["nature", "squirrel", "fur"]
+      "tags": [
+        "nature",
+        "squirrel",
+        "fur"
+      ]
     },
     {
       "id": "squirrel_fur",
@@ -54,7 +62,11 @@
       "sellPrice": 15,
       "stackable": true,
       "maxStack": 99,
-      "tags": ["nature", "squirrel", "fur"]
+      "tags": [
+        "nature",
+        "squirrel",
+        "fur"
+      ]
     },
     {
       "id": "wolf_fang",
@@ -72,7 +84,11 @@
       "sellPrice": 22,
       "stackable": true,
       "maxStack": 99,
-      "tags": ["wolf", "bone", "weapon_material"]
+      "tags": [
+        "wolf",
+        "bone",
+        "weapon_material"
+      ]
     },
     {
       "id": "wolf_pelt",
@@ -90,7 +106,11 @@
       "sellPrice": 75,
       "stackable": true,
       "maxStack": 20,
-      "tags": ["wolf", "leather", "armor_material"]
+      "tags": [
+        "wolf",
+        "leather",
+        "armor_material"
+      ]
     },
     {
       "id": "spider_silk",
@@ -108,7 +128,11 @@
       "sellPrice": 7,
       "stackable": true,
       "maxStack": 99,
-      "tags": ["spider", "thread", "craft"]
+      "tags": [
+        "spider",
+        "thread",
+        "craft"
+      ]
     },
     {
       "id": "spider_venom",
@@ -126,7 +150,11 @@
       "sellPrice": 100,
       "stackable": true,
       "maxStack": 10,
-      "tags": ["spider", "poison", "alchemy"]
+      "tags": [
+        "spider",
+        "poison",
+        "alchemy"
+      ]
     },
     {
       "id": "stolen_coin",
@@ -144,7 +172,11 @@
       "sellPrice": 1,
       "stackable": true,
       "maxStack": 999,
-      "tags": ["coin", "bandit", "currency"]
+      "tags": [
+        "coin",
+        "bandit",
+        "currency"
+      ]
     },
     {
       "id": "rusty_dagger",
@@ -162,7 +194,12 @@
       "sellPrice": 8,
       "stackable": true,
       "maxStack": 20,
-      "tags": ["weapon", "bandit", "metal", "scrap"]
+      "tags": [
+        "weapon",
+        "bandit",
+        "metal",
+        "scrap"
+      ]
     },
     {
       "id": "health_potion_small",
@@ -180,7 +217,10 @@
       "sellPrice": 10,
       "stackable": true,
       "maxStack": 20,
-      "tags": ["potion", "healing"],
+      "tags": [
+        "potion",
+        "healing"
+      ],
       "consumableEffect": {
         "type": "heal",
         "value": 30,
@@ -203,7 +243,10 @@
       "sellPrice": 30,
       "stackable": true,
       "maxStack": 20,
-      "tags": ["potion", "healing"],
+      "tags": [
+        "potion",
+        "healing"
+      ],
       "consumableEffect": {
         "type": "heal",
         "value": 60,
@@ -226,7 +269,10 @@
       "sellPrice": 15,
       "stackable": true,
       "maxStack": 20,
-      "tags": ["potion", "mana"],
+      "tags": [
+        "potion",
+        "mana"
+      ],
       "consumableEffect": {
         "type": "mana",
         "value": 20,
@@ -249,7 +295,10 @@
       "sellPrice": 10,
       "stackable": true,
       "maxStack": 10,
-      "tags": ["medicine", "cure"],
+      "tags": [
+        "medicine",
+        "cure"
+      ],
       "consumableEffect": {
         "type": "cure",
         "value": 0,
@@ -272,15 +321,19 @@
       "value": 45,
       "sellPrice": 18,
       "stackable": false,
-      "tags": ["weapon", "light_sword", "pierce"],
+      "tags": [
+        "weapon",
+        "light_sword",
+        "pierce"
+      ],
       "equipmentData": {
         "slot": "mainHand",
         "weaponType": "light_sword",
         "handType": "one_handed",
         "sprite": {
           "category": "sword",
-          "index": 0,
-          "color": "#8B4513"
+          "color": "#8B4513",
+          "spriteName": "Elf_Weapon_03"
         },
         "stats": {
           "attack": 4
@@ -299,19 +352,23 @@
       "type": "equipment",
       "rarity": "common",
       "icon": "⚔️",
-      "weight": 2.0,
+      "weight": 2,
       "value": 50,
       "sellPrice": 20,
       "stackable": false,
-      "tags": ["weapon", "medium_sword", "slash"],
+      "tags": [
+        "weapon",
+        "medium_sword",
+        "slash"
+      ],
       "equipmentData": {
         "slot": "mainHand",
         "weaponType": "medium_sword",
         "handType": "one_handed",
         "sprite": {
           "category": "sword",
-          "index": 1,
-          "color": "#8B4513"
+          "color": "#8B4513",
+          "spriteName": "Elf_Weapon_05"
         },
         "stats": {
           "attack": 5
@@ -330,19 +387,24 @@
       "type": "equipment",
       "rarity": "common",
       "icon": "🗡️",
-      "weight": 4.0,
+      "weight": 4,
       "value": 55,
       "sellPrice": 22,
       "stackable": false,
-      "tags": ["weapon", "great_sword", "slash", "parry"],
+      "tags": [
+        "weapon",
+        "great_sword",
+        "slash",
+        "parry"
+      ],
       "equipmentData": {
         "slot": "mainHand",
         "weaponType": "great_sword",
         "handType": "two_handed",
         "sprite": {
           "category": "sword",
-          "index": 2,
-          "color": "#8B4513"
+          "color": "#8B4513",
+          "spriteName": "Elf_Weapon_07"
         },
         "stats": {
           "attack": 7
@@ -365,15 +427,19 @@
       "value": 180,
       "sellPrice": 72,
       "stackable": false,
-      "tags": ["weapon", "light_sword", "pierce"],
+      "tags": [
+        "weapon",
+        "light_sword",
+        "pierce"
+      ],
       "equipmentData": {
         "slot": "mainHand",
         "weaponType": "light_sword",
         "handType": "one_handed",
         "sprite": {
           "category": "sword",
-          "index": 0,
-          "color": "#808080"
+          "color": "#808080",
+          "spriteName": "Elf_Weapon_03"
         },
         "stats": {
           "attack": 10
@@ -396,15 +462,19 @@
       "value": 200,
       "sellPrice": 80,
       "stackable": false,
-      "tags": ["weapon", "medium_sword", "slash"],
+      "tags": [
+        "weapon",
+        "medium_sword",
+        "slash"
+      ],
       "equipmentData": {
         "slot": "mainHand",
         "weaponType": "medium_sword",
         "handType": "one_handed",
         "sprite": {
           "category": "sword",
-          "index": 1,
-          "color": "#808080"
+          "color": "#808080",
+          "spriteName": "Elf_Weapon_05"
         },
         "stats": {
           "attack": 12
@@ -423,19 +493,24 @@
       "type": "equipment",
       "rarity": "grand",
       "icon": "🗡️",
-      "weight": 6.0,
+      "weight": 6,
       "value": 250,
       "sellPrice": 100,
       "stackable": false,
-      "tags": ["weapon", "great_sword", "slash", "parry"],
+      "tags": [
+        "weapon",
+        "great_sword",
+        "slash",
+        "parry"
+      ],
       "equipmentData": {
         "slot": "mainHand",
         "weaponType": "great_sword",
         "handType": "two_handed",
         "sprite": {
           "category": "sword",
-          "index": 2,
-          "color": "#808080"
+          "color": "#808080",
+          "spriteName": "Elf_Weapon_07"
         },
         "stats": {
           "attack": 15
@@ -458,15 +533,20 @@
       "value": 30,
       "sellPrice": 12,
       "stackable": false,
-      "tags": ["weapon", "dagger", "pierce", "ambush"],
+      "tags": [
+        "weapon",
+        "dagger",
+        "pierce",
+        "ambush"
+      ],
       "equipmentData": {
         "slot": "mainHand",
         "weaponType": "dagger",
         "handType": "one_handed",
         "sprite": {
           "category": "sword",
-          "index": 3,
-          "color": "#8B4513"
+          "color": "#8B4513",
+          "spriteName": "Elf_Weapon_08"
         },
         "stats": {
           "attack": 3,
@@ -487,19 +567,24 @@
       "type": "equipment",
       "rarity": "grand",
       "icon": "🔪",
-      "weight": 1.0,
+      "weight": 1,
       "value": 150,
       "sellPrice": 60,
       "stackable": false,
-      "tags": ["weapon", "dagger", "pierce", "ambush"],
+      "tags": [
+        "weapon",
+        "dagger",
+        "pierce",
+        "ambush"
+      ],
       "equipmentData": {
         "slot": "mainHand",
         "weaponType": "dagger",
         "handType": "one_handed",
         "sprite": {
           "category": "sword",
-          "index": 3,
-          "color": "#808080"
+          "color": "#808080",
+          "spriteName": "Elf_Weapon_08"
         },
         "stats": {
           "attack": 8,
@@ -520,11 +605,14 @@
       "type": "equipment",
       "rarity": "common",
       "icon": "🧥",
-      "weight": 5.0,
+      "weight": 5,
       "value": 100,
       "sellPrice": 40,
       "stackable": false,
-      "tags": ["armor", "leather"],
+      "tags": [
+        "armor",
+        "leather"
+      ],
       "equipmentData": {
         "slot": "armor",
         "stats": {
@@ -548,15 +636,19 @@
       "value": 60,
       "sellPrice": 25,
       "stackable": false,
-      "tags": ["weapon", "staff", "magic"],
+      "tags": [
+        "weapon",
+        "staff",
+        "magic"
+      ],
       "equipmentData": {
         "slot": "mainHand",
         "weaponType": "staff",
         "handType": "two_handed",
         "sprite": {
           "category": "wand",
-          "index": 0,
-          "color": "#8B4513"
+          "color": "#8B4513",
+          "spriteName": "Elf_Weapon_01"
         },
         "stats": {
           "magic": 8
@@ -579,7 +671,10 @@
       "value": 40,
       "sellPrice": 16,
       "stackable": false,
-      "tags": ["helmet", "leather"],
+      "tags": [
+        "helmet",
+        "leather"
+      ],
       "equipmentData": {
         "slot": "helmet",
         "stats": {
@@ -603,7 +698,10 @@
       "value": 30,
       "sellPrice": 12,
       "stackable": false,
-      "tags": ["accessory", "ring"],
+      "tags": [
+        "accessory",
+        "ring"
+      ],
       "equipmentData": {
         "slot": "ring1",
         "accessoryType": "ring",
@@ -629,7 +727,10 @@
       "sellPrice": 1,
       "stackable": true,
       "maxStack": 10,
-      "tags": ["key", "quest"]
+      "tags": [
+        "key",
+        "quest"
+      ]
     },
     {
       "id": "crystal_basic",
@@ -646,7 +747,10 @@
       "value": 50,
       "sellPrice": 20,
       "stackable": false,
-      "tags": ["crystal", "communication"],
+      "tags": [
+        "crystal",
+        "communication"
+      ],
       "consumableEffect": {
         "type": "buff",
         "value": 10,
@@ -669,7 +773,10 @@
       "value": 150,
       "sellPrice": 60,
       "stackable": false,
-      "tags": ["crystal", "communication"],
+      "tags": [
+        "crystal",
+        "communication"
+      ],
       "consumableEffect": {
         "type": "buff",
         "value": 30,
@@ -692,7 +799,10 @@
       "value": 500,
       "sellPrice": 200,
       "stackable": false,
-      "tags": ["crystal", "communication"],
+      "tags": [
+        "crystal",
+        "communication"
+      ],
       "consumableEffect": {
         "type": "buff",
         "value": 100,
@@ -715,7 +825,11 @@
       "value": 25,
       "sellPrice": 10,
       "stackable": false,
-      "tags": ["armor", "cloth", "light"],
+      "tags": [
+        "armor",
+        "cloth",
+        "light"
+      ],
       "equipmentData": {
         "slot": "cloth",
         "unityPartIndex": 1,
@@ -740,7 +854,11 @@
       "value": 75,
       "sellPrice": 30,
       "stackable": false,
-      "tags": ["armor", "cloth", "light"],
+      "tags": [
+        "armor",
+        "cloth",
+        "light"
+      ],
       "equipmentData": {
         "slot": "cloth",
         "unityPartIndex": 2,
@@ -766,7 +884,11 @@
       "value": 40,
       "sellPrice": 16,
       "stackable": false,
-      "tags": ["armor", "pants", "leather"],
+      "tags": [
+        "armor",
+        "pants",
+        "leather"
+      ],
       "equipmentData": {
         "slot": "pants",
         "unityPartIndex": 1,
@@ -787,11 +909,15 @@
       "type": "equipment",
       "rarity": "grand",
       "icon": "👖",
-      "weight": 3.0,
+      "weight": 3,
       "value": 120,
       "sellPrice": 48,
       "stackable": false,
-      "tags": ["armor", "pants", "chain"],
+      "tags": [
+        "armor",
+        "pants",
+        "chain"
+      ],
       "equipmentData": {
         "slot": "pants",
         "unityPartIndex": 2,
@@ -812,18 +938,22 @@
       "type": "equipment",
       "rarity": "common",
       "icon": "🛡️",
-      "weight": 3.0,
+      "weight": 3,
       "value": 50,
       "sellPrice": 20,
       "stackable": false,
-      "tags": ["offhand", "shield", "wood"],
+      "tags": [
+        "offhand",
+        "shield",
+        "wood"
+      ],
       "equipmentData": {
         "slot": "offHand",
         "offHandType": "shield",
         "sprite": {
           "category": "shield",
-          "index": 0,
-          "color": "#8B4513"
+          "color": "#8B4513",
+          "spriteName": "Elf_Shield_01"
         },
         "stats": {
           "defense": 3,
@@ -843,18 +973,22 @@
       "type": "equipment",
       "rarity": "grand",
       "icon": "🛡️",
-      "weight": 5.0,
+      "weight": 5,
       "value": 180,
       "sellPrice": 72,
       "stackable": false,
-      "tags": ["offhand", "shield", "iron"],
+      "tags": [
+        "offhand",
+        "shield",
+        "iron"
+      ],
       "equipmentData": {
         "slot": "offHand",
         "offHandType": "shield",
         "sprite": {
           "category": "shield",
-          "index": 0,
-          "color": "#808080"
+          "color": "#808080",
+          "spriteName": "Elf_Shield_01"
         },
         "stats": {
           "defense": 6,
@@ -878,7 +1012,11 @@
       "value": 10,
       "sellPrice": 4,
       "stackable": false,
-      "tags": ["offhand", "torch", "light"],
+      "tags": [
+        "offhand",
+        "torch",
+        "light"
+      ],
       "equipmentData": {
         "slot": "offHand",
         "offHandType": "torch",
@@ -903,7 +1041,11 @@
       "value": 100,
       "sellPrice": 40,
       "stackable": false,
-      "tags": ["accessory", "necklace", "silver"],
+      "tags": [
+        "accessory",
+        "necklace",
+        "silver"
+      ],
       "equipmentData": {
         "slot": "necklace",
         "accessoryType": "necklace",
@@ -928,7 +1070,11 @@
       "value": 80,
       "sellPrice": 32,
       "stackable": false,
-      "tags": ["accessory", "earring", "pearl"],
+      "tags": [
+        "accessory",
+        "earring",
+        "pearl"
+      ],
       "equipmentData": {
         "slot": "earring1",
         "accessoryType": "earring",
@@ -953,7 +1099,11 @@
       "value": 35,
       "sellPrice": 14,
       "stackable": false,
-      "tags": ["accessory", "bracelet", "leather"],
+      "tags": [
+        "accessory",
+        "bracelet",
+        "leather"
+      ],
       "equipmentData": {
         "slot": "bracelet",
         "accessoryType": "bracelet",
@@ -978,7 +1128,11 @@
       "value": 90,
       "sellPrice": 36,
       "stackable": false,
-      "tags": ["accessory", "ring", "silver"],
+      "tags": [
+        "accessory",
+        "ring",
+        "silver"
+      ],
       "equipmentData": {
         "slot": "ring1",
         "accessoryType": "ring",
@@ -1000,19 +1154,24 @@
       "type": "equipment",
       "rarity": "rare",
       "icon": "⚔️",
-      "weight": 4.0,
+      "weight": 4,
       "value": 500,
       "sellPrice": 200,
       "stackable": false,
-      "tags": ["weapon", "medium_sword", "slash", "gold"],
+      "tags": [
+        "weapon",
+        "medium_sword",
+        "slash",
+        "gold"
+      ],
       "equipmentData": {
         "slot": "mainHand",
         "weaponType": "medium_sword",
         "handType": "one_handed",
         "sprite": {
           "category": "sword",
-          "index": 1,
-          "color": "#FFD700"
+          "color": "#FFD700",
+          "spriteName": "Elf_Weapon_05"
         },
         "stats": {
           "attack": 14,
@@ -1036,15 +1195,21 @@
       "value": 600,
       "sellPrice": 240,
       "stackable": false,
-      "tags": ["weapon", "great_sword", "slash", "fire", "elemental"],
+      "tags": [
+        "weapon",
+        "great_sword",
+        "slash",
+        "fire",
+        "elemental"
+      ],
       "equipmentData": {
         "slot": "mainHand",
         "weaponType": "great_sword",
         "handType": "two_handed",
         "sprite": {
           "category": "sword",
-          "index": 2,
-          "color": "#FF4500"
+          "color": "#FF4500",
+          "spriteName": "Elf_Weapon_07"
         },
         "stats": {
           "attack": 18,
@@ -1068,15 +1233,21 @@
       "value": 550,
       "sellPrice": 220,
       "stackable": false,
-      "tags": ["weapon", "light_sword", "pierce", "ice", "elemental"],
+      "tags": [
+        "weapon",
+        "light_sword",
+        "pierce",
+        "ice",
+        "elemental"
+      ],
       "equipmentData": {
         "slot": "mainHand",
         "weaponType": "light_sword",
         "handType": "one_handed",
         "sprite": {
           "category": "sword",
-          "index": 0,
-          "color": "#00BFFF"
+          "color": "#00BFFF",
+          "spriteName": "Elf_Weapon_03"
         },
         "stats": {
           "attack": 12,
@@ -1096,19 +1267,24 @@
       "type": "equipment",
       "rarity": "arcane",
       "icon": "⚔️",
-      "weight": 2.0,
+      "weight": 2,
       "value": 1200,
       "sellPrice": 480,
       "stackable": false,
-      "tags": ["weapon", "medium_sword", "slash", "mithril"],
+      "tags": [
+        "weapon",
+        "medium_sword",
+        "slash",
+        "mithril"
+      ],
       "equipmentData": {
         "slot": "mainHand",
         "weaponType": "medium_sword",
         "handType": "one_handed",
         "sprite": {
           "category": "sword",
-          "index": 1,
-          "color": "#E0FFFF"
+          "color": "#E0FFFF",
+          "spriteName": "Elf_Weapon_05"
         },
         "stats": {
           "attack": 20,
@@ -1129,19 +1305,25 @@
       "type": "equipment",
       "rarity": "rare",
       "icon": "🌑",
-      "weight": 1.0,
+      "weight": 1,
       "value": 450,
       "sellPrice": 180,
       "stackable": false,
-      "tags": ["weapon", "dagger", "pierce", "dark", "elemental"],
+      "tags": [
+        "weapon",
+        "dagger",
+        "pierce",
+        "dark",
+        "elemental"
+      ],
       "equipmentData": {
         "slot": "mainHand",
         "weaponType": "dagger",
         "handType": "one_handed",
         "sprite": {
           "category": "sword",
-          "index": 3,
-          "color": "#2F1F3F"
+          "color": "#2F1F3F",
+          "spriteName": "Elf_Weapon_08"
         },
         "stats": {
           "attack": 10,
@@ -1167,14 +1349,18 @@
       "value": 500,
       "sellPrice": 200,
       "stackable": false,
-      "tags": ["offhand", "shield", "holy"],
+      "tags": [
+        "offhand",
+        "shield",
+        "holy"
+      ],
       "equipmentData": {
         "slot": "offHand",
         "offHandType": "shield",
         "sprite": {
           "category": "shield",
-          "index": 0,
-          "color": "#FFFACD"
+          "color": "#FFFACD",
+          "spriteName": "Elf_Shield_01"
         },
         "stats": {
           "defense": 8,
@@ -1199,15 +1385,20 @@
       "value": 200,
       "sellPrice": 80,
       "stackable": false,
-      "tags": ["weapon", "staff", "magic", "fire"],
+      "tags": [
+        "weapon",
+        "staff",
+        "magic",
+        "fire"
+      ],
       "equipmentData": {
         "slot": "mainHand",
         "weaponType": "staff",
         "handType": "two_handed",
         "sprite": {
           "category": "wand",
-          "index": 1,
-          "color": "#FF4500"
+          "color": "#FF4500",
+          "spriteName": "Elf_Weapon_04"
         },
         "stats": {
           "magic": 12
@@ -1230,15 +1421,20 @@
       "value": 200,
       "sellPrice": 80,
       "stackable": false,
-      "tags": ["weapon", "staff", "magic", "ice"],
+      "tags": [
+        "weapon",
+        "staff",
+        "magic",
+        "ice"
+      ],
       "equipmentData": {
         "slot": "mainHand",
         "weaponType": "staff",
         "handType": "two_handed",
         "sprite": {
           "category": "wand",
-          "index": 2,
-          "color": "#00BFFF"
+          "color": "#00BFFF",
+          "spriteName": "Elf_Weapon_09"
         },
         "stats": {
           "magic": 12
@@ -1261,15 +1457,20 @@
       "value": 200,
       "sellPrice": 80,
       "stackable": false,
-      "tags": ["weapon", "staff", "magic", "lightning"],
+      "tags": [
+        "weapon",
+        "staff",
+        "magic",
+        "lightning"
+      ],
       "equipmentData": {
         "slot": "mainHand",
         "weaponType": "staff",
         "handType": "two_handed",
         "sprite": {
           "category": "wand",
-          "index": 3,
-          "color": "#FFFF00"
+          "color": "#FFFF00",
+          "spriteName": "Elf_Weapon_10"
         },
         "stats": {
           "magic": 12

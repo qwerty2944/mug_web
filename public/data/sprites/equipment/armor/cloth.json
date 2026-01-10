@@ -269,7 +269,6 @@
   "cloths": [
     {
       "id": "elf_cloth_01",
-      "index": 0,
       "sprite": "Elf_Cloth_01",
       "ko": "엘프 옷 01",
       "en": "Elf Cloth 01",
@@ -277,7 +276,6 @@
     },
     {
       "id": "elf_cloth_02",
-      "index": 1,
       "sprite": "Elf_Cloth_02",
       "ko": "엘프 옷 02",
       "en": "Elf Cloth 02",
@@ -285,7 +283,6 @@
     },
     {
       "id": "elf_cloth_03",
-      "index": 2,
       "sprite": "Elf_Cloth_03",
       "ko": "엘프 옷 03",
       "en": "Elf Cloth 03",
@@ -293,7 +290,6 @@
     },
     {
       "id": "elf_cloth_04",
-      "index": 3,
       "sprite": "Elf_Cloth_04",
       "ko": "엘프 옷 04",
       "en": "Elf Cloth 04",
@@ -301,7 +297,6 @@
     },
     {
       "id": "elf_cloth_05",
-      "index": 4,
       "sprite": "Elf_Cloth_05",
       "ko": "엘프 옷 05",
       "en": "Elf Cloth 05",
@@ -309,7 +304,6 @@
     },
     {
       "id": "elf_cloth_06",
-      "index": 5,
       "sprite": "Elf_Cloth_06",
       "ko": "엘프 옷 06",
       "en": "Elf Cloth 06",
@@ -317,7 +311,6 @@
     },
     {
       "id": "elf_cloth_07",
-      "index": 6,
       "sprite": "Elf_Cloth_07",
       "ko": "엘프 옷 07",
       "en": "Elf Cloth 07",
@@ -325,7 +318,6 @@
     },
     {
       "id": "elf_cloth_08",
-      "index": 7,
       "sprite": "Elf_Cloth_08",
       "ko": "엘프 옷 08",
       "en": "Elf Cloth 08",
@@ -333,7 +325,6 @@
     },
     {
       "id": "elf_cloth_09",
-      "index": 8,
       "sprite": "Elf_Cloth_09",
       "ko": "엘프 옷 09",
       "en": "Elf Cloth 09",
@@ -341,7 +332,6 @@
     },
     {
       "id": "elf_cloth_10",
-      "index": 9,
       "sprite": "Elf_Cloth_10",
       "ko": "엘프 옷 10",
       "en": "Elf Cloth 10",
@@ -349,7 +339,6 @@
     },
     {
       "id": "elf_cloth_11",
-      "index": 10,
       "sprite": "Elf_Cloth_11",
       "ko": "엘프 옷 11",
       "en": "Elf Cloth 11",
@@ -357,7 +346,6 @@
     },
     {
       "id": "elf_cloth_12",
-      "index": 11,
       "sprite": "Elf_Cloth_12",
       "ko": "엘프 옷 12",
       "en": "Elf Cloth 12",
@@ -365,7 +353,6 @@
     },
     {
       "id": "elf_cloth_13",
-      "index": 12,
       "sprite": "Elf_Cloth_13",
       "ko": "엘프 옷 13",
       "en": "Elf Cloth 13",
@@ -373,7 +360,6 @@
     },
     {
       "id": "elf_cloth_14",
-      "index": 13,
       "sprite": "Elf_Cloth_14",
       "ko": "엘프 옷 14",
       "en": "Elf Cloth 14",
@@ -381,7 +367,6 @@
     },
     {
       "id": "elf_cloth_15",
-      "index": 14,
       "sprite": "Elf_Cloth_15",
       "ko": "엘프 옷 15",
       "en": "Elf Cloth 15",
@@ -389,7 +374,6 @@
     },
     {
       "id": "elf_cloth_16",
-      "index": 15,
       "sprite": "Elf_Cloth_16",
       "ko": "엘프 옷 16",
       "en": "Elf Cloth 16",
@@ -397,7 +381,6 @@
     },
     {
       "id": "elf_cloth_17",
-      "index": 16,
       "sprite": "Elf_Cloth_17",
       "ko": "엘프 옷 17",
       "en": "Elf Cloth 17",
@@ -405,7 +388,6 @@
     },
     {
       "id": "elf_cloth_18",
-      "index": 17,
       "sprite": "Elf_Cloth_18",
       "ko": "엘프 옷 18",
       "en": "Elf Cloth 18",
@@ -413,7 +395,6 @@
     },
     {
       "id": "elf_cloth_19",
-      "index": 18,
       "sprite": "Elf_Cloth_19",
       "ko": "엘프 옷 19",
       "en": "Elf Cloth 19",
@@ -421,7 +402,6 @@
     },
     {
       "id": "elf_cloth_20",
-      "index": 19,
       "sprite": "Elf_Cloth_20",
       "ko": "엘프 옷 20",
       "en": "Elf Cloth 20",
@@ -429,7 +409,6 @@
     },
     {
       "id": "orc_cloth_01",
-      "index": 20,
       "sprite": "Orc_Cloth_01",
       "ko": "오크 옷 01",
       "en": "Orc Cloth 01",
@@ -437,7 +416,6 @@
     },
     {
       "id": "orc_cloth_02",
-      "index": 21,
       "sprite": "Orc_Cloth_02",
       "ko": "오크 옷 02",
       "en": "Orc Cloth 02",
@@ -445,7 +423,6 @@
     },
     {
       "id": "orc_cloth_03",
-      "index": 22,
       "sprite": "Orc_Cloth_03",
       "ko": "오크 옷 03",
       "en": "Orc Cloth 03",
@@ -453,7 +430,6 @@
     },
     {
       "id": "orc_cloth_04",
-      "index": 23,
       "sprite": "Orc_Cloth_04",
       "ko": "오크 옷 04",
       "en": "Orc Cloth 04",
@@ -461,7 +437,6 @@
     },
     {
       "id": "orc_cloth_05",
-      "index": 24,
       "sprite": "Orc_Cloth_05",
       "ko": "오크 옷 05",
       "en": "Orc Cloth 05",
@@ -469,7 +444,6 @@
     },
     {
       "id": "undead_cloth_01",
-      "index": 25,
       "sprite": "Undead_Cloth_01",
       "ko": "언데드 옷 01",
       "en": "Undead Cloth 01",
@@ -477,7 +451,6 @@
     },
     {
       "id": "undead_cloth_02",
-      "index": 26,
       "sprite": "Undead_Cloth_02",
       "ko": "언데드 옷 02",
       "en": "Undead Cloth 02",
@@ -485,7 +458,6 @@
     },
     {
       "id": "undead_cloth_03",
-      "index": 27,
       "sprite": "Undead_Cloth_03",
       "ko": "언데드 옷 03",
       "en": "Undead Cloth 03",
@@ -493,7 +465,6 @@
     },
     {
       "id": "undead_cloth_04",
-      "index": 28,
       "sprite": "Undead_Cloth_04",
       "ko": "언데드 옷 04",
       "en": "Undead Cloth 04",
@@ -501,7 +472,6 @@
     },
     {
       "id": "undead_cloth_05",
-      "index": 29,
       "sprite": "Undead_Cloth_05",
       "ko": "언데드 옷 05",
       "en": "Undead Cloth 05",
@@ -509,7 +479,6 @@
     },
     {
       "id": "undead_cloth_06",
-      "index": 30,
       "sprite": "Undead_Cloth_06",
       "ko": "언데드 옷 06",
       "en": "Undead Cloth 06",
@@ -517,7 +486,6 @@
     },
     {
       "id": "undead_cloth_07",
-      "index": 31,
       "sprite": "Undead_Cloth_07",
       "ko": "언데드 옷 07",
       "en": "Undead Cloth 07",
@@ -525,7 +493,6 @@
     },
     {
       "id": "dress_1",
-      "index": 32,
       "sprite": "dress_1",
       "ko": "드레스 1",
       "en": "dress 1",
@@ -533,7 +500,6 @@
     },
     {
       "id": "dress_1_c1",
-      "index": 33,
       "sprite": "dress_1_c1",
       "ko": "드레스 1 색1",
       "en": "dress 1 c1",
@@ -541,7 +507,6 @@
     },
     {
       "id": "dress_1_c2",
-      "index": 34,
       "sprite": "dress_1_c2",
       "ko": "드레스 1 색2",
       "en": "dress 1 c2",
@@ -549,7 +514,6 @@
     },
     {
       "id": "dress_1_g",
-      "index": 35,
       "sprite": "dress_1_g",
       "ko": "드레스 1 금장",
       "en": "dress 1 g",
@@ -557,7 +521,6 @@
     },
     {
       "id": "dress_2",
-      "index": 36,
       "sprite": "dress_2",
       "ko": "드레스 2",
       "en": "dress 2",
@@ -565,7 +528,6 @@
     },
     {
       "id": "dress_2_c1",
-      "index": 37,
       "sprite": "dress_2_c1",
       "ko": "드레스 2 색1",
       "en": "dress 2 c1",
@@ -573,7 +535,6 @@
     },
     {
       "id": "dress_2_c2",
-      "index": 38,
       "sprite": "dress_2_c2",
       "ko": "드레스 2 색2",
       "en": "dress 2 c2",
@@ -581,7 +542,6 @@
     },
     {
       "id": "dress_2_g",
-      "index": 39,
       "sprite": "dress_2_g",
       "ko": "드레스 2 금장",
       "en": "dress 2 g",
@@ -589,7 +549,6 @@
     },
     {
       "id": "dress_3",
-      "index": 40,
       "sprite": "dress_3",
       "ko": "드레스 3",
       "en": "dress 3",
@@ -597,7 +556,6 @@
     },
     {
       "id": "dress_3_c1",
-      "index": 41,
       "sprite": "dress_3_c1",
       "ko": "드레스 3 색1",
       "en": "dress 3 c1",
@@ -605,7 +563,6 @@
     },
     {
       "id": "dress_3_c2",
-      "index": 42,
       "sprite": "dress_3_c2",
       "ko": "드레스 3 색2",
       "en": "dress 3 c2",
@@ -613,7 +570,6 @@
     },
     {
       "id": "dress_3_g",
-      "index": 43,
       "sprite": "dress_3_g",
       "ko": "드레스 3 금장",
       "en": "dress 3 g",
@@ -621,7 +577,6 @@
     },
     {
       "id": "dress_4",
-      "index": 44,
       "sprite": "dress_4",
       "ko": "드레스 4",
       "en": "dress 4",
@@ -629,7 +584,6 @@
     },
     {
       "id": "dress_4_c1",
-      "index": 45,
       "sprite": "dress_4_c1",
       "ko": "드레스 4 색1",
       "en": "dress 4 c1",
@@ -637,7 +591,6 @@
     },
     {
       "id": "dress_4_c2",
-      "index": 46,
       "sprite": "dress_4_c2",
       "ko": "드레스 4 색2",
       "en": "dress 4 c2",
@@ -645,7 +598,6 @@
     },
     {
       "id": "dress_4_g",
-      "index": 47,
       "sprite": "dress_4_g",
       "ko": "드레스 4 금장",
       "en": "dress 4 g",
@@ -653,7 +605,6 @@
     },
     {
       "id": "dress_5",
-      "index": 48,
       "sprite": "dress_5",
       "ko": "드레스 5",
       "en": "dress 5",
@@ -661,7 +612,6 @@
     },
     {
       "id": "dress_5_c1",
-      "index": 49,
       "sprite": "dress_5_c1",
       "ko": "드레스 5 색1",
       "en": "dress 5 c1",
@@ -669,7 +619,6 @@
     },
     {
       "id": "dress_5_c2",
-      "index": 50,
       "sprite": "dress_5_c2",
       "ko": "드레스 5 색2",
       "en": "dress 5 c2",
@@ -677,7 +626,6 @@
     },
     {
       "id": "dress_5_g",
-      "index": 51,
       "sprite": "dress_5_g",
       "ko": "드레스 5 금장",
       "en": "dress 5 g",
@@ -685,7 +633,6 @@
     },
     {
       "id": "farmer",
-      "index": 52,
       "sprite": "farmer",
       "ko": "농부옷",
       "en": "farmer",
@@ -693,7 +640,6 @@
     },
     {
       "id": "farmer_c1",
-      "index": 53,
       "sprite": "farmer_c1",
       "ko": "농부옷 색1",
       "en": "farmer c1",
@@ -701,7 +647,6 @@
     },
     {
       "id": "farmer_c2",
-      "index": 54,
       "sprite": "farmer_c2",
       "ko": "농부옷 색2",
       "en": "farmer c2",
@@ -709,7 +654,6 @@
     },
     {
       "id": "farmer_g",
-      "index": 55,
       "sprite": "farmer_g",
       "ko": "농부옷 금장",
       "en": "farmer g",
@@ -717,7 +661,6 @@
     },
     {
       "id": "hoodie",
-      "index": 56,
       "sprite": "hoodie",
       "ko": "후드티",
       "en": "hoodie",
@@ -725,7 +668,6 @@
     },
     {
       "id": "hoodie_c1",
-      "index": 57,
       "sprite": "hoodie_c1",
       "ko": "후드티 색1",
       "en": "hoodie c1",
@@ -733,7 +675,6 @@
     },
     {
       "id": "hoodie_c2",
-      "index": 58,
       "sprite": "hoodie_c2",
       "ko": "후드티 색2",
       "en": "hoodie c2",
@@ -741,7 +682,6 @@
     },
     {
       "id": "suit_1",
-      "index": 59,
       "sprite": "suit_1",
       "ko": "정장 1",
       "en": "suit 1",
@@ -749,7 +689,6 @@
     },
     {
       "id": "suit_1_c1",
-      "index": 60,
       "sprite": "suit_1_c1",
       "ko": "정장 1 색1",
       "en": "suit 1 c1",
@@ -757,7 +696,6 @@
     },
     {
       "id": "suit_1_c2",
-      "index": 61,
       "sprite": "suit_1_c2",
       "ko": "정장 1 색2",
       "en": "suit 1 c2",
@@ -765,7 +703,6 @@
     },
     {
       "id": "suit_1_g",
-      "index": 62,
       "sprite": "suit_1_g",
       "ko": "정장 1 금장",
       "en": "suit 1 g",
@@ -773,7 +710,6 @@
     },
     {
       "id": "suit_2",
-      "index": 63,
       "sprite": "suit_2",
       "ko": "정장 2",
       "en": "suit 2",
@@ -781,7 +717,6 @@
     },
     {
       "id": "suit_2_c1",
-      "index": 64,
       "sprite": "suit_2_c1",
       "ko": "정장 2 색1",
       "en": "suit 2 c1",
@@ -789,7 +724,6 @@
     },
     {
       "id": "suit_2_c2",
-      "index": 65,
       "sprite": "suit_2_c2",
       "ko": "정장 2 색2",
       "en": "suit 2 c2",
@@ -797,7 +731,6 @@
     },
     {
       "id": "suit_2_g",
-      "index": 66,
       "sprite": "suit_2_g",
       "ko": "정장 2 금장",
       "en": "suit 2 g",
@@ -805,7 +738,6 @@
     },
     {
       "id": "suit_3",
-      "index": 67,
       "sprite": "suit_3",
       "ko": "정장 3",
       "en": "suit 3",
@@ -813,7 +745,6 @@
     },
     {
       "id": "suit_3_c1",
-      "index": 68,
       "sprite": "suit_3_c1",
       "ko": "정장 3 색1",
       "en": "suit 3 c1",
@@ -821,7 +752,6 @@
     },
     {
       "id": "suit_3_c2",
-      "index": 69,
       "sprite": "suit_3_c2",
       "ko": "정장 3 색2",
       "en": "suit 3 c2",
@@ -829,7 +759,6 @@
     },
     {
       "id": "suit_3_g",
-      "index": 70,
       "sprite": "suit_3_g",
       "ko": "정장 3 금장",
       "en": "suit 3 g",
@@ -837,7 +766,6 @@
     },
     {
       "id": "tee_1",
-      "index": 71,
       "sprite": "tee_1",
       "ko": "티셔츠 1",
       "en": "tee 1",
@@ -845,7 +773,6 @@
     },
     {
       "id": "tee_1_c1",
-      "index": 72,
       "sprite": "tee_1_c1",
       "ko": "티셔츠 1 색1",
       "en": "tee 1 c1",
@@ -853,7 +780,6 @@
     },
     {
       "id": "tee_1_g1",
-      "index": 73,
       "sprite": "tee_1_g1",
       "ko": "티셔츠 1 금장1",
       "en": "tee 1 g1",
@@ -861,7 +787,6 @@
     },
     {
       "id": "tee_1_g2",
-      "index": 74,
       "sprite": "tee_1_g2",
       "ko": "티셔츠 1 금장2",
       "en": "tee 1 g2",
@@ -869,7 +794,6 @@
     },
     {
       "id": "tee_2",
-      "index": 75,
       "sprite": "tee_2",
       "ko": "티셔츠 2",
       "en": "tee 2",
@@ -877,7 +801,6 @@
     },
     {
       "id": "tee_2_c1",
-      "index": 76,
       "sprite": "tee_2_c1",
       "ko": "티셔츠 2 색1",
       "en": "tee 2 c1",
@@ -885,7 +808,6 @@
     },
     {
       "id": "tee_2_c2",
-      "index": 77,
       "sprite": "tee_2_c2",
       "ko": "티셔츠 2 색2",
       "en": "tee 2 c2",
@@ -893,7 +815,6 @@
     },
     {
       "id": "tee_2_g",
-      "index": 78,
       "sprite": "tee_2_g",
       "ko": "티셔츠 2 금장",
       "en": "tee 2 g",
@@ -901,7 +822,6 @@
     },
     {
       "id": "tee_3",
-      "index": 79,
       "sprite": "tee_3",
       "ko": "티셔츠 3",
       "en": "tee 3",
@@ -909,7 +829,6 @@
     },
     {
       "id": "tee_3_c1",
-      "index": 80,
       "sprite": "tee_3_c1",
       "ko": "티셔츠 3 색1",
       "en": "tee 3 c1",
@@ -917,7 +836,6 @@
     },
     {
       "id": "tee_3_c2",
-      "index": 81,
       "sprite": "tee_3_c2",
       "ko": "티셔츠 3 색2",
       "en": "tee 3 c2",
@@ -925,7 +843,6 @@
     },
     {
       "id": "tee_3_g",
-      "index": 82,
       "sprite": "tee_3_g",
       "ko": "티셔츠 3 금장",
       "en": "tee 3 g",
@@ -933,7 +850,6 @@
     },
     {
       "id": "winter1",
-      "index": 83,
       "sprite": "winter1",
       "ko": "겨울옷1",
       "en": "winter1",
@@ -941,7 +857,6 @@
     },
     {
       "id": "winter1_c1",
-      "index": 84,
       "sprite": "winter1_c1",
       "ko": "겨울옷1 색1",
       "en": "winter1 c1",
@@ -949,7 +864,6 @@
     },
     {
       "id": "winter1_c2",
-      "index": 85,
       "sprite": "winter1_c2",
       "ko": "겨울옷1 색2",
       "en": "winter1 c2",
@@ -957,7 +871,6 @@
     },
     {
       "id": "winter1_g",
-      "index": 86,
       "sprite": "winter1_g",
       "ko": "겨울옷1 금장",
       "en": "winter1 g",
@@ -965,7 +878,6 @@
     },
     {
       "id": "winter2",
-      "index": 87,
       "sprite": "winter2",
       "ko": "겨울옷2",
       "en": "winter2",
@@ -973,7 +885,6 @@
     },
     {
       "id": "winter2_c1",
-      "index": 88,
       "sprite": "winter2_c1",
       "ko": "겨울옷2 색1",
       "en": "winter2 c1",
@@ -981,7 +892,6 @@
     },
     {
       "id": "winter2_c2",
-      "index": 89,
       "sprite": "winter2_c2",
       "ko": "겨울옷2 색2",
       "en": "winter2 c2",
@@ -989,7 +899,6 @@
     },
     {
       "id": "winter2_g",
-      "index": 90,
       "sprite": "winter2_g",
       "ko": "겨울옷2 금장",
       "en": "winter2 g",
@@ -997,7 +906,6 @@
     },
     {
       "id": "winter3",
-      "index": 91,
       "sprite": "winter3",
       "ko": "겨울옷3",
       "en": "winter3",
@@ -1005,7 +913,6 @@
     },
     {
       "id": "winter3_c1",
-      "index": 92,
       "sprite": "winter3_c1",
       "ko": "겨울옷3 색1",
       "en": "winter3 c1",
@@ -1013,7 +920,6 @@
     },
     {
       "id": "winter3_c2",
-      "index": 93,
       "sprite": "winter3_c2",
       "ko": "겨울옷3 색2",
       "en": "winter3 c2",
@@ -1021,7 +927,6 @@
     },
     {
       "id": "winter3_g",
-      "index": 94,
       "sprite": "winter3_g",
       "ko": "겨울옷3 금장",
       "en": "winter3 g",
@@ -1029,7 +934,6 @@
     },
     {
       "id": "cloth_archer_1",
-      "index": 95,
       "sprite": "Cloth_Archer_1",
       "ko": "Cloth 궁수 1",
       "en": "Cloth Archer 1",
@@ -1037,7 +941,6 @@
     },
     {
       "id": "cloth_archer_2",
-      "index": 96,
       "sprite": "Cloth_Archer_2",
       "ko": "Cloth 궁수 2",
       "en": "Cloth Archer 2",
@@ -1045,7 +948,6 @@
     },
     {
       "id": "cloth_healer_1",
-      "index": 97,
       "sprite": "Cloth_Healer_1",
       "ko": "Cloth 힐러 1",
       "en": "Cloth Healer 1",
@@ -1053,7 +955,6 @@
     },
     {
       "id": "cloth_healer_2",
-      "index": 98,
       "sprite": "Cloth_Healer_2",
       "ko": "Cloth 힐러 2",
       "en": "Cloth Healer 2",
@@ -1061,7 +962,6 @@
     },
     {
       "id": "cloth_knight_1",
-      "index": 99,
       "sprite": "Cloth_Knight_1",
       "ko": "Cloth 기사 1",
       "en": "Cloth Knight 1",
@@ -1069,7 +969,6 @@
     },
     {
       "id": "cloth_knight_2",
-      "index": 100,
       "sprite": "Cloth_Knight_2",
       "ko": "Cloth 기사 2",
       "en": "Cloth Knight 2",
@@ -1077,7 +976,6 @@
     },
     {
       "id": "cloth_rogue_1",
-      "index": 101,
       "sprite": "Cloth_Rogue_1",
       "ko": "Cloth 도적 1",
       "en": "Cloth Rogue 1",
@@ -1085,7 +983,6 @@
     },
     {
       "id": "cloth_rogue_2",
-      "index": 102,
       "sprite": "Cloth_Rogue_2",
       "ko": "Cloth 도적 2",
       "en": "Cloth Rogue 2",
@@ -1093,7 +990,6 @@
     },
     {
       "id": "cloth_sorcerer",
-      "index": 103,
       "sprite": "Cloth_Sorcerer",
       "ko": "마법사 옷",
       "en": "Cloth Sorcerer",
@@ -1101,7 +997,6 @@
     },
     {
       "id": "cloth_sorceress",
-      "index": 104,
       "sprite": "Cloth_Sorceress",
       "ko": "마녀 옷",
       "en": "Cloth Sorceress",
@@ -1109,7 +1004,6 @@
     },
     {
       "id": "cloth_1",
-      "index": 105,
       "sprite": "Cloth_1",
       "ko": "옷 1",
       "en": "Cloth 1",
@@ -1117,7 +1011,6 @@
     },
     {
       "id": "cloth_10",
-      "index": 106,
       "sprite": "Cloth_10",
       "ko": "옷 10",
       "en": "Cloth 10",
@@ -1125,7 +1018,6 @@
     },
     {
       "id": "cloth_11",
-      "index": 107,
       "sprite": "Cloth_11",
       "ko": "옷 11",
       "en": "Cloth 11",
@@ -1133,7 +1025,6 @@
     },
     {
       "id": "cloth_12",
-      "index": 108,
       "sprite": "Cloth_12",
       "ko": "옷 12",
       "en": "Cloth 12",
@@ -1141,7 +1032,6 @@
     },
     {
       "id": "cloth_2",
-      "index": 109,
       "sprite": "Cloth_2",
       "ko": "옷 2",
       "en": "Cloth 2",
@@ -1149,7 +1039,6 @@
     },
     {
       "id": "cloth_3",
-      "index": 110,
       "sprite": "Cloth_3",
       "ko": "옷 3",
       "en": "Cloth 3",
@@ -1157,7 +1046,6 @@
     },
     {
       "id": "cloth_4",
-      "index": 111,
       "sprite": "Cloth_4",
       "ko": "옷 4",
       "en": "Cloth 4",
@@ -1165,7 +1053,6 @@
     },
     {
       "id": "cloth_5",
-      "index": 112,
       "sprite": "Cloth_5",
       "ko": "옷 5",
       "en": "Cloth 5",
@@ -1173,7 +1060,6 @@
     },
     {
       "id": "cloth_6",
-      "index": 113,
       "sprite": "Cloth_6",
       "ko": "옷 6",
       "en": "Cloth 6",
@@ -1181,7 +1067,6 @@
     },
     {
       "id": "cloth_7",
-      "index": 114,
       "sprite": "Cloth_7",
       "ko": "옷 7",
       "en": "Cloth 7",
@@ -1189,7 +1074,6 @@
     },
     {
       "id": "cloth_8",
-      "index": 115,
       "sprite": "Cloth_8",
       "ko": "옷 8",
       "en": "Cloth 8",
@@ -1197,7 +1081,6 @@
     },
     {
       "id": "cloth_9",
-      "index": 116,
       "sprite": "Cloth_9",
       "ko": "옷 9",
       "en": "Cloth 9",
@@ -1205,7 +1088,6 @@
     },
     {
       "id": "f_sr_cloth",
-      "index": 117,
       "sprite": "F_SR_Cloth",
       "ko": "특수 Cloth",
       "en": "F SR Cloth",
@@ -1213,7 +1095,6 @@
     },
     {
       "id": "normal_cloth1",
-      "index": 118,
       "sprite": "Normal_Cloth1",
       "ko": "일반 Cloth1",
       "en": "Normal Cloth1",
@@ -1221,7 +1102,6 @@
     },
     {
       "id": "new_cloth_01",
-      "index": 119,
       "sprite": "New_Cloth_01",
       "ko": "신규 옷 01",
       "en": "New Cloth 01",
@@ -1229,7 +1109,6 @@
     },
     {
       "id": "new_cloth_02",
-      "index": 120,
       "sprite": "New_Cloth_02",
       "ko": "신규 옷 02",
       "en": "New Cloth 02",
@@ -1237,7 +1116,6 @@
     },
     {
       "id": "new_cloth_03",
-      "index": 121,
       "sprite": "New_Cloth_03",
       "ko": "신규 옷 03",
       "en": "New Cloth 03",
@@ -1245,7 +1123,6 @@
     },
     {
       "id": "new_cloth_04",
-      "index": 122,
       "sprite": "New_Cloth_04",
       "ko": "신규 옷 04",
       "en": "New Cloth 04",
@@ -1253,7 +1130,6 @@
     },
     {
       "id": "new_cloth_05",
-      "index": 123,
       "sprite": "New_Cloth_05",
       "ko": "신규 옷 05",
       "en": "New Cloth 05",
@@ -1261,7 +1137,6 @@
     },
     {
       "id": "new_cloth_06",
-      "index": 124,
       "sprite": "New_Cloth_06",
       "ko": "신규 옷 06",
       "en": "New Cloth 06",
@@ -1269,7 +1144,6 @@
     },
     {
       "id": "new_cloth_07",
-      "index": 125,
       "sprite": "New_Cloth_07",
       "ko": "신규 옷 07",
       "en": "New Cloth 07",
@@ -1277,7 +1151,6 @@
     },
     {
       "id": "new_cloth_08",
-      "index": 126,
       "sprite": "New_Cloth_08",
       "ko": "신규 옷 08",
       "en": "New Cloth 08",
@@ -1285,7 +1158,6 @@
     },
     {
       "id": "new_cloth_09",
-      "index": 127,
       "sprite": "New_Cloth_09",
       "ko": "신규 옷 09",
       "en": "New Cloth 09",
@@ -1293,7 +1165,6 @@
     },
     {
       "id": "new_cloth_10",
-      "index": 128,
       "sprite": "New_Cloth_10",
       "ko": "신규 옷 10",
       "en": "New Cloth 10",
@@ -1301,7 +1172,6 @@
     },
     {
       "id": "new_cloth_11",
-      "index": 129,
       "sprite": "New_Cloth_11",
       "ko": "신규 옷 11",
       "en": "New Cloth 11",
@@ -1309,7 +1179,6 @@
     },
     {
       "id": "new_cloth_12",
-      "index": 130,
       "sprite": "New_Cloth_12",
       "ko": "신규 옷 12",
       "en": "New Cloth 12",

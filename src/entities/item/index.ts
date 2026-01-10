@@ -21,6 +21,7 @@ export type {
   // Sprite System
   SpriteCategory,
   SpriteReference,
+  LegacySpriteReference,
   SpriteColorPreset,
 } from "./types";
 
@@ -80,4 +81,14 @@ export {
   formatWeight,
   formatItemSummary,
   formatEquipmentStats,
+  // Sprite System
+  loadSpriteData,
+  getSpriteIndex,
+  getSpriteIndexAsync,
+  resolveSpriteIndex,
+  resolveSpriteIndexSync,
+  preloadAllSpriteData,
+  clearSpriteCache,
+  getSpriteCount,
+  getSpriteNameByIndex,
 } from "./lib";

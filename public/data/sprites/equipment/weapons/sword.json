@@ -59,7 +59,6 @@
   "swords": [
     {
       "id": "elf_weapon_03",
-      "index": 0,
       "sprite": "Elf_Weapon_03",
       "ko": "엘프 Weapon 03",
       "en": "Elf Weapon 03",
@@ -67,7 +66,6 @@
     },
     {
       "id": "elf_weapon_05",
-      "index": 1,
       "sprite": "Elf_Weapon_05",
       "ko": "엘프 Weapon 05",
       "en": "Elf Weapon 05",
@@ -75,7 +73,6 @@
     },
     {
       "id": "elf_weapon_07",
-      "index": 2,
       "sprite": "Elf_Weapon_07",
       "ko": "엘프 Weapon 07",
       "en": "Elf Weapon 07",
@@ -83,7 +80,6 @@
     },
     {
       "id": "elf_weapon_08",
-      "index": 3,
       "sprite": "Elf_Weapon_08",
       "ko": "엘프 Weapon 08",
       "en": "Elf Weapon 08",
@@ -91,7 +87,6 @@
     },
     {
       "id": "elf_weapon_11",
-      "index": 4,
       "sprite": "Elf_Weapon_11",
       "ko": "엘프 Weapon 11",
       "en": "Elf Weapon 11",
@@ -99,7 +94,6 @@
     },
     {
       "id": "elf_weapon_13",
-      "index": 5,
       "sprite": "Elf_Weapon_13",
       "ko": "엘프 Weapon 13",
       "en": "Elf Weapon 13",
@@ -107,7 +101,6 @@
     },
     {
       "id": "elf_weapon_17",
-      "index": 6,
       "sprite": "Elf_Weapon_17",
       "ko": "엘프 Weapon 17",
       "en": "Elf Weapon 17",
@@ -115,7 +108,6 @@
     },
     {
       "id": "elf_weapon_19",
-      "index": 7,
       "sprite": "Elf_Weapon_19",
       "ko": "엘프 Weapon 19",
       "en": "Elf Weapon 19",
@@ -123,7 +115,6 @@
     },
     {
       "id": "orc_weapon_05",
-      "index": 8,
       "sprite": "Orc_Weapon_05",
       "ko": "오크 Weapon 05",
       "en": "Orc Weapon 05",
@@ -131,7 +122,6 @@
     },
     {
       "id": "undead_weapon_03",
-      "index": 9,
       "sprite": "Undead_Weapon_03",
       "ko": "언데드 Weapon 03",
       "en": "Undead Weapon 03",
@@ -139,7 +129,6 @@
     },
     {
       "id": "undead_weapon_08",
-      "index": 10,
       "sprite": "Undead_Weapon_08",
       "ko": "언데드 Weapon 08",
       "en": "Undead Weapon 08",
@@ -147,7 +136,6 @@
     },
     {
       "id": "undead_weapon_10",
-      "index": 11,
       "sprite": "Undead_Weapon_10",
       "ko": "언데드 Weapon 10",
       "en": "Undead Weapon 10",
@@ -155,7 +143,6 @@
     },
     {
       "id": "weapon_knight_1",
-      "index": 12,
       "sprite": "Weapon_Knight_1",
       "ko": "Weapon 기사 1",
       "en": "Weapon Knight 1",
@@ -163,7 +150,6 @@
     },
     {
       "id": "weapon_knight_2",
-      "index": 13,
       "sprite": "Weapon_Knight_2",
       "ko": "Weapon 기사 2",
       "en": "Weapon Knight 2",
@@ -171,7 +157,6 @@
     },
     {
       "id": "sword_1",
-      "index": 14,
       "sprite": "Sword_1",
       "ko": "검 1",
       "en": "Sword 1",
@@ -179,7 +164,6 @@
     },
     {
       "id": "sword_2",
-      "index": 15,
       "sprite": "Sword_2",
       "ko": "검 2",
       "en": "Sword 2",
@@ -187,7 +171,6 @@
     },
     {
       "id": "sword_3",
-      "index": 16,
       "sprite": "Sword_3",
       "ko": "검 3",
       "en": "Sword 3",
@@ -195,7 +178,6 @@
     },
     {
       "id": "sword_4",
-      "index": 17,
       "sprite": "Sword_4",
       "ko": "검 4",
       "en": "Sword 4",
@@ -203,7 +185,6 @@
     },
     {
       "id": "sword_5",
-      "index": 18,
       "sprite": "Sword_5",
       "ko": "검 5",
       "en": "Sword 5",
@@ -211,7 +192,6 @@
     },
     {
       "id": "sword_6",
-      "index": 19,
       "sprite": "Sword_6",
       "ko": "검 6",
       "en": "Sword 6",
@@ -219,7 +199,6 @@
     },
     {
       "id": "new_weapon_01",
-      "index": 20,
       "sprite": "New_Weapon_01",
       "ko": "신규 Weapon 01",
       "en": "New Weapon 01",
@@ -227,7 +206,6 @@
     },
     {
       "id": "new_weapon_06",
-      "index": 21,
       "sprite": "New_Weapon_06",
       "ko": "신규 Weapon 06",
       "en": "New Weapon 06",
@@ -235,7 +213,6 @@
     },
     {
       "id": "new_weapon_17",
-      "index": 22,
       "sprite": "New_Weapon_17",
       "ko": "신규 Weapon 17",
       "en": "New Weapon 17",
@@ -243,7 +220,6 @@
     },
     {
       "id": "new_weapon_18",
-      "index": 23,
       "sprite": "New_Weapon_18",
       "ko": "신규 Weapon 18",
       "en": "New Weapon 18",
@@ -251,7 +227,6 @@
     },
     {
       "id": "new_weapon_19",
-      "index": 24,
       "sprite": "New_Weapon_19",
       "ko": "신규 Weapon 19",
       "en": "New Weapon 19",
@@ -259,7 +234,6 @@
     },
     {
       "id": "new_weapon_20",
-      "index": 25,
       "sprite": "New_Weapon_20",
       "ko": "신규 Weapon 20",
       "en": "New Weapon 20",

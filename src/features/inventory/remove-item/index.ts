@@ -1,19 +1,12 @@
 "use client";
 
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { supabase } from "@/shared/api";
-import { inventoryKeys } from "@/entities/inventory";
+import { removeItemFromInventory, inventoryKeys } from "@/entities/inventory";
+import type { InventoryType } from "@/entities/inventory";
 
-// ============ API ============
+// ============ API (re-export for convenience) ============
 
-export async function removeItem(inventoryId: string) {
-  const { error } = await supabase
-    .from("inventory")
-    .delete()
-    .eq("id", inventoryId);
-
-  if (error) throw error;
-}
+export { removeItemFromInventory as removeItem } from "@/entities/inventory";
 
 // ============ Hook ============
 
@@ -26,7 +19,17 @@ export function useRemoveItem(userId: string | undefined, options?: UseRemoveIte
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: (inventoryId: string) => removeItem(inventoryId),
+    mutationFn: (params: {
+      slot: number;
+      quantity?: number;
+      inventoryType?: InventoryType;
+    }) =>
+      removeItemFromInventory({
+        userId: userId!,
+        slot: params.slot,
+        quantity: params.quantity,
+        inventoryType: params.inventoryType,
+      }),
     onSuccess: () => {
       if (userId) {
         queryClient.invalidateQueries({ queryKey: inventoryKeys.detail(userId) });

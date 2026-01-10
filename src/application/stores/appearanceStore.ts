@@ -1,6 +1,7 @@
 import { create } from "zustand";
 import type { CharacterAppearance, CharacterColors } from "@/entities/character";
 import type { EquipmentSlot, SpriteReference, SpriteCategory } from "@/entities/item";
+import { getSpriteIndex } from "@/entities/item";
 
 // ============ 타입 정의 ============
 
@@ -718,7 +719,14 @@ export const useAppearanceStore = create<AppearanceStore>((set, get) => ({
     }
 
     // 스프라이트 카테고리에 따라 처리
-    const { category, index, color } = sprite;
+    const { category, spriteName, color } = sprite;
+
+    // 스프라이트 이름을 인덱스로 변환
+    const index = getSpriteIndex(category, spriteName);
+    if (index < 0) {
+      console.warn(`Sprite not found: ${spriteName} in category ${category}`);
+      return;
+    }
 
     // 무기 카테고리인 경우
     if (["sword", "shield", "axe", "bow", "spear", "wand", "dagger"].includes(category)) {

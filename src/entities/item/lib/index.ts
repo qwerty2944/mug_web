@@ -182,3 +182,134 @@ export function formatEquipmentStats(item: Item): string {
 
   return parts.join(", ");
 }
+
+// ============ 스프라이트 조회 시스템 ============
+
+import type { SpriteCategory, SpriteReference } from "../types";
+
+// 스프라이트 데이터 캐시
+interface SpriteData {
+  sprites: string[];
+  nameToIndex: Record<string, number>;
+  count: number;
+}
+
+const spriteDataCache: Partial<Record<SpriteCategory, SpriteData>> = {};
+
+// 카테고리별 JSON 파일 경로
+const SPRITE_JSON_PATHS: Record<SpriteCategory, string> = {
+  sword: "/data/sprites/equipment/weapons/sword.json",
+  shield: "/data/sprites/equipment/weapons/shield.json",
+  axe: "/data/sprites/equipment/weapons/axe.json",
+  bow: "/data/sprites/equipment/weapons/bow.json",
+  wand: "/data/sprites/equipment/weapons/wand.json",
+  armor: "/data/sprites/equipment/armor/armor.json",
+  cloth: "/data/sprites/equipment/armor/cloth.json",
+  helmet: "/data/sprites/equipment/armor/helmet.json",
+  pant: "/data/sprites/equipment/armor/pant.json",
+};
+
+/**
+ * 스프라이트 데이터 로드 (캐시 사용)
+ */
+export async function loadSpriteData(category: SpriteCategory): Promise<SpriteData | null> {
+  // 캐시 확인
+  if (spriteDataCache[category]) {
+    return spriteDataCache[category]!;
+  }
+
+  const path = SPRITE_JSON_PATHS[category];
+  if (!path) return null;
+
+  try {
+    const response = await fetch(path);
+    if (!response.ok) return null;
+
+    const data = await response.json();
+    const spriteData: SpriteData = {
+      sprites: data.sprites || [],
+      nameToIndex: data.nameToIndex || {},
+      count: data.count || 0,
+    };
+
+    spriteDataCache[category] = spriteData;
+    return spriteData;
+  } catch {
+    console.warn(`Failed to load sprite data for category: ${category}`);
+    return null;
+  }
+}
+
+/**
+ * 스프라이트 이름으로 인덱스 조회 (동기 - 캐시 필요)
+ */
+export function getSpriteIndex(category: SpriteCategory, spriteName: string): number {
+  const cached = spriteDataCache[category];
+  if (!cached) {
+    console.warn(`Sprite data not loaded for category: ${category}. Call loadSpriteData first.`);
+    return -1;
+  }
+
+  const index = cached.nameToIndex[spriteName];
+  return index ?? -1;
+}
+
+/**
+ * 스프라이트 이름으로 인덱스 조회 (비동기 - 캐시 자동 로드)
+ */
+export async function getSpriteIndexAsync(category: SpriteCategory, spriteName: string): Promise<number> {
+  const data = await loadSpriteData(category);
+  if (!data) return -1;
+
+  return data.nameToIndex[spriteName] ?? -1;
+}
+
+/**
+ * SpriteReference에서 Unity 인덱스 조회 (비동기)
+ */
+export async function resolveSpriteIndex(sprite: SpriteReference): Promise<number> {
+  return getSpriteIndexAsync(sprite.category, sprite.spriteName);
+}
+
+/**
+ * SpriteReference에서 Unity 인덱스 조회 (동기 - 캐시 필요)
+ */
+export function resolveSpriteIndexSync(sprite: SpriteReference): number {
+  return getSpriteIndex(sprite.category, sprite.spriteName);
+}
+
+/**
+ * 모든 스프라이트 카테고리 데이터 프리로드
+ */
+export async function preloadAllSpriteData(): Promise<void> {
+  const categories = Object.keys(SPRITE_JSON_PATHS) as SpriteCategory[];
+  await Promise.all(categories.map(loadSpriteData));
+}
+
+/**
+ * 스프라이트 데이터 캐시 초기화
+ */
+export function clearSpriteCache(): void {
+  Object.keys(spriteDataCache).forEach((key) => {
+    delete spriteDataCache[key as SpriteCategory];
+  });
+}
+
+/**
+ * 카테고리의 총 스프라이트 수 반환
+ */
+export function getSpriteCount(category: SpriteCategory): number {
+  const cached = spriteDataCache[category];
+  return cached?.count ?? 0;
+}
+
+/**
+ * 인덱스로 스프라이트 이름 조회 (역방향)
+ */
+export function getSpriteNameByIndex(category: SpriteCategory, index: number): string | null {
+  const cached = spriteDataCache[category];
+  if (!cached || index < 0 || index >= cached.sprites.length) {
+    return null;
+  }
+  return cached.sprites[index];
+}

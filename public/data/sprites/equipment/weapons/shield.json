@@ -35,7 +35,6 @@
   "shields": [
     {
       "id": "elf_shield_01",
-      "index": 0,
       "sprite": "Elf_Shield_01",
       "ko": "엘프 방패 01",
       "en": "Elf Shield 01",
@@ -43,7 +42,6 @@
     },
     {
       "id": "elf_shield_02",
-      "index": 1,
       "sprite": "Elf_Shield_02",
       "ko": "엘프 방패 02",
       "en": "Elf Shield 02",
@@ -51,7 +49,6 @@
     },
     {
       "id": "elf_shield_03",
-      "index": 2,
       "sprite": "Elf_Shield_03",
       "ko": "엘프 방패 03",
       "en": "Elf Shield 03",
@@ -59,7 +56,6 @@
     },
     {
       "id": "elf_shield_04",
-      "index": 3,
       "sprite": "Elf_Shield_04",
       "ko": "엘프 방패 04",
       "en": "Elf Shield 04",
@@ -67,7 +63,6 @@
     },
     {
       "id": "elf_weapon_16",
-      "index": 4,
       "sprite": "Elf_Weapon_16",
       "ko": "엘프 Weapon 16",
       "en": "Elf Weapon 16",
@@ -75,7 +70,6 @@
     },
     {
       "id": "orc_shield_01",
-      "index": 5,
       "sprite": "Orc_Shield_01",
       "ko": "오크 방패 01",
       "en": "Orc Shield 01",
@@ -83,7 +77,6 @@
     },
     {
       "id": "undead_shield_01",
-      "index": 6,
       "sprite": "Undead_Shield_01",
       "ko": "언데드 방패 01",
       "en": "Undead Shield 01",
@@ -91,7 +84,6 @@
     },
     {
       "id": "undead_shield_02",
-      "index": 7,
       "sprite": "Undead_Shield_02",
       "ko": "언데드 방패 02",
       "en": "Undead Shield 02",
@@ -99,7 +91,6 @@
     },
     {
       "id": "undead_shield_03",
-      "index": 8,
       "sprite": "Undead_Shield_03",
       "ko": "언데드 방패 03",
       "en": "Undead Shield 03",
@@ -107,7 +98,6 @@
     },
     {
       "id": "shield_knight_1",
-      "index": 9,
       "sprite": "Shield_Knight_1",
       "ko": "Shield 기사 1",
       "en": "Shield Knight 1",
@@ -115,7 +105,6 @@
     },
     {
       "id": "shield_knight_2",
-      "index": 10,
       "sprite": "Shield_Knight_2",
       "ko": "Shield 기사 2",
       "en": "Shield Knight 2",
@@ -123,7 +112,6 @@
     },
     {
       "id": "shield_sorcerer",
-      "index": 11,
       "sprite": "Shield_Sorcerer",
       "ko": "마법사 방패",
       "en": "Shield Sorcerer",
@@ -131,7 +119,6 @@
     },
     {
       "id": "shield_sorceress",
-      "index": 12,
       "sprite": "Shield_Sorceress",
       "ko": "마녀 방패",
       "en": "Shield Sorceress",
@@ -139,7 +126,6 @@
     },
     {
       "id": "shield_1",
-      "index": 13,
       "sprite": "Shield_1",
       "ko": "방패 1",
       "en": "Shield 1",

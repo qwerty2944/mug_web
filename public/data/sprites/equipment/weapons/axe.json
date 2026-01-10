@@ -17,7 +17,6 @@
   "axes": [
     {
       "id": "orc_weapon_02",
-      "index": 0,
       "sprite": "Orc_Weapon_02",
       "ko": "오크 Weapon 02",
       "en": "Orc Weapon 02",
@@ -25,7 +24,6 @@
     },
     {
       "id": "orc_weapon_06",
-      "index": 1,
       "sprite": "Orc_Weapon_06",
       "ko": "오크 Weapon 06",
       "en": "Orc Weapon 06",
@@ -33,7 +31,6 @@
     },
     {
       "id": "orc_weapon_07",
-      "index": 2,
       "sprite": "Orc_Weapon_07",
       "ko": "오크 Weapon 07",
       "en": "Orc Weapon 07",
@@ -41,7 +38,6 @@
     },
     {
       "id": "undead_weapon_06",
-      "index": 3,
       "sprite": "Undead_Weapon_06",
       "ko": "언데드 Weapon 06",
       "en": "Undead Weapon 06",
@@ -49,7 +45,6 @@
     },
     {
       "id": "axe_1",
-      "index": 4,
       "sprite": "Axe_1",
       "ko": "도끼 1",
       "en": "Axe 1",

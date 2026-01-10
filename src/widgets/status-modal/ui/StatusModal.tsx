@@ -9,7 +9,7 @@ import {
   getExpPercentage,
   getExpToNextLevel,
 } from "@/entities/user";
-import { useInventory } from "@/entities/inventory";
+import { usePersonalInventory, type InventorySlotItem } from "@/entities/inventory";
 import {
   useProficiencies,
   WEAPON_PROFICIENCIES,
@@ -40,7 +40,8 @@ export function StatusModal({ open, onClose }: StatusModalProps) {
 
   // React Query로 서버 상태 관리
   const { data: profile, isLoading: profileLoading } = useProfile(session?.user?.id);
-  const { data: inventory = [] } = useInventory(session?.user?.id);
+  const { data: inventoryData } = usePersonalInventory(session?.user?.id);
+  const inventoryItems = inventoryData?.items?.filter((item): item is InventorySlotItem => item !== null) ?? [];
   const { data: proficiencies } = useProficiencies(session?.user?.id);
 
   // 장비 스토어
@@ -807,7 +808,7 @@ export function StatusModal({ open, onClose }: StatusModalProps) {
 
               {/* 인벤토리 탭 */}
               <div className={`col-start-1 row-start-1 ${activeTab === "inventory" ? "" : "invisible"}`}>
-                {inventory.length === 0 ? (
+                {inventoryItems.length === 0 ? (
                   <div
                     className="flex flex-col items-center justify-center h-64 font-mono"
                     style={{ color: theme.colors.textMuted }}
@@ -817,9 +818,9 @@ export function StatusModal({ open, onClose }: StatusModalProps) {
                   </div>
                 ) : (
                   <div className="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 gap-2">
-                    {inventory.map((item) => (
+                    {inventoryItems.map((item) => (
                       <div
-                        key={item.id}
+                        key={`slot-${item.slot}`}
                         className="aspect-square flex flex-col items-center justify-center p-2 cursor-pointer transition-colors"
                         style={{
                           background: theme.colors.bgDark,
