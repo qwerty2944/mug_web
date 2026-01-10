@@ -51,15 +51,16 @@ export function StatusModal({ open, onClose }: StatusModalProps) {
 
   const mainCharacter = getMainCharacter(profile);
 
-  // 파생 스탯 계산
+  // 파생 스탯 계산 (부상 포함)
   const derivedStats = useMemo(() => {
     if (!mainCharacter?.stats) return null;
     return calculateDerivedStats(
       mainCharacter.stats,
       equipmentStore.getTotalStats(),
-      profile?.level ?? 1
+      profile?.level ?? 1,
+      profile?.injuries ?? []
     );
-  }, [mainCharacter?.stats, equipmentStore, profile?.level]);
+  }, [mainCharacter?.stats, equipmentStore, profile?.level, profile?.injuries]);
 
   // Unity 스프라이트 로드 완료 후 캐릭터 외형 적용
   useEffect(() => {
@@ -192,42 +193,79 @@ export function StatusModal({ open, onClose }: StatusModalProps) {
                     </div>
 
                     {/* HP/MP */}
-                    {mainCharacter?.stats && (
+                    {mainCharacter?.stats && derivedStats && (
                       <div className="p-4 space-y-3" style={{ background: theme.colors.bgDark }}>
-                        {/* HP */}
+                        {/* HP (마비노기 스타일 - 회복 제한 표시) */}
                         {(() => {
-                          const baseCon = mainCharacter.stats.con ?? 10;
-                          const maxHp = 50 + baseCon * 5 + (profile?.level || 1) * 10;
+                          const maxHp = derivedStats.maxHp;
+                          const recoverableHp = derivedStats.recoverableHp;
                           const currentHp = profile?.currentHp ?? maxHp;
-                          const hpPercent = (currentHp / maxHp) * 100;
+                          const hasInjury = derivedStats.injuryRecoveryReduction > 0;
+
+                          // 퍼센트 계산
+                          const currentPercent = (currentHp / maxHp) * 100;
+                          const recoverablePercent = (recoverableHp / maxHp) * 100;
+                          const injuryPercent = 100 - recoverablePercent;
+
                           return (
                             <div>
                               <div className="flex items-center justify-between mb-1">
                                 <span className="font-mono flex items-center gap-2" style={{ color: theme.colors.textMuted }}>
                                   <span>❤️</span> HP
                                 </span>
-                                <span className="text-lg font-mono font-medium" style={{ color: theme.colors.error }}>
-                                  {currentHp} / {maxHp}
-                                </span>
+                                <div className="text-right">
+                                  <span className="text-lg font-mono font-medium" style={{ color: theme.colors.error }}>
+                                    {currentHp} / {maxHp}
+                                  </span>
+                                  {hasInjury && (
+                                    <span className="text-xs font-mono ml-2" style={{ color: theme.colors.warning }}>
+                                      (회복: {recoverableHp})
+                                    </span>
+                                  )}
+                                </div>
                               </div>
-                              <div className="h-3 overflow-hidden" style={{ background: theme.colors.bgLight }}>
+                              {/* HP 바 - 3단계 표시 */}
+                              <div className="h-3 overflow-hidden flex" style={{ background: theme.colors.bgLight }}>
+                                {/* 현재 HP (녹색~빨강) */}
                                 <div
                                   className="h-full transition-all"
                                   style={{
-                                    width: `${hpPercent}%`,
-                                    background: hpPercent > 50 ? theme.colors.error : hpPercent > 20 ? theme.colors.warning : "#ff3333",
+                                    width: `${currentPercent}%`,
+                                    background: currentPercent > 50 ? theme.colors.error : currentPercent > 20 ? theme.colors.warning : "#ff3333",
                                   }}
                                 />
+                                {/* 회복 가능 빈 구간 (기본 배경) */}
+                                <div
+                                  className="h-full"
+                                  style={{
+                                    width: `${recoverablePercent - currentPercent}%`,
+                                    background: theme.colors.bgLight,
+                                  }}
+                                />
+                                {/* 부상으로 인한 회복 불가 구간 (어두운 빨강) */}
+                                {hasInjury && (
+                                  <div
+                                    className="h-full"
+                                    style={{
+                                      width: `${injuryPercent}%`,
+                                      background: "#4a1515",
+                                    }}
+                                  />
+                                )}
                               </div>
+                              {/* 부상 정보 */}
+                              {hasInjury && (
+                                <div className="text-xs font-mono mt-1" style={{ color: theme.colors.warning }}>
+                                  🩹 부상으로 HP 회복 상한 -{Math.floor(derivedStats.injuryRecoveryReduction * 100)}%
+                                </div>
+                              )}
                             </div>
                           );
                         })()}
 
                         {/* MP */}
                         {(() => {
-                          const baseInt = mainCharacter.stats.int ?? 10;
-                          const baseWis = mainCharacter.stats.wis ?? 10;
-                          const maxMp = 20 + baseWis * 3 + baseInt;
+                          const maxMp = derivedStats.maxMp;
                           const currentMp = profile?.currentMp ?? maxMp;
                           const mpPercent = (currentMp / maxMp) * 100;
                           return (

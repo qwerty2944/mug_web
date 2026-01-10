@@ -12,7 +12,7 @@ import {
 import type { EquipmentStats } from "@/entities/item";
 import type { MagicElement, AttackType } from "@/entities/proficiency";
 import type { CharacterInjury } from "@/entities/injury";
-import { calculateTotalHpReduction } from "@/entities/injury";
+import { calculateTotalRecoveryReduction } from "@/entities/injury";
 
 // ============ 파생 스탯 인터페이스 ============
 
@@ -55,9 +55,9 @@ export interface DerivedCombatStats {
   totalPhysicalPenetration: number; // 총 물리관통 (최대 75%)
   totalMagicPenetration: number;    // 총 마법관통 (최대 75%)
 
-  // 부상 관련
-  injuryHpReduction: number;       // 부상으로 인한 최대 HP 감소율 (0-0.8)
-  effectiveMaxHp: number;          // 부상 적용 후 실제 최대 HP
+  // 부상 관련 (마비노기 스타일)
+  injuryRecoveryReduction: number; // 부상으로 인한 HP 회복 제한율 (0-0.8)
+  recoverableHp: number;           // 회복 가능한 최대 HP (최대 HP는 불변, 이 값까지만 회복 가능)
 }
 
 // ============ 파생 스탯 계산 함수 ============
@@ -220,9 +220,10 @@ export function calculateDerivedStats(
     (baseStats.magicPenetration ?? 0) + (equipmentStats.magicPenetration ?? 0)
   );
 
-  // 부상으로 인한 HP 감소 계산
-  const injuryHpReduction = calculateTotalHpReduction(injuries);
-  const effectiveMaxHp = Math.floor(maxHp * (1 - injuryHpReduction));
+  // 부상으로 인한 HP 회복 제한 계산 (마비노기 스타일)
+  // maxHp는 불변, recoverableHp만 감소 (이 값까지만 포션 등으로 회복 가능)
+  const injuryRecoveryReduction = calculateTotalRecoveryReduction(injuries);
+  const recoverableHp = Math.floor(maxHp * (1 - injuryRecoveryReduction));
 
   return {
     basePhysicalAttack,
@@ -247,8 +248,8 @@ export function calculateDerivedStats(
     totalWeaponBlockChance,
     totalPhysicalPenetration,
     totalMagicPenetration,
-    injuryHpReduction,
-    effectiveMaxHp,
+    injuryRecoveryReduction,
+    recoverableHp,
   };
 }
 

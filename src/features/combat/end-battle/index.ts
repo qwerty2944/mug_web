@@ -293,7 +293,7 @@ export function useEndBattle(options: UseEndBattleOptions) {
       if (injuryResult?.occurred && injuryResult.type) {
         const injuryConfig = INJURY_CONFIG[injuryResult.type];
         toast.error(
-          `${injuryConfig.icon} ${injuryConfig.nameKo}을 입었습니다! (최대 HP -${injuryConfig.maxHpReduction * 100}%)`,
+          `${injuryConfig.icon} ${injuryConfig.nameKo}을 입었습니다! (HP 회복 상한 -${injuryConfig.hpRecoveryReduction * 100}%)`,
           { duration: 4000 }
         );
       }

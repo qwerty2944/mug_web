@@ -4,7 +4,7 @@ import {
   INJURY_OCCURRENCE_CONFIG,
   getInjuryLevelMultiplier,
   calculateNaturalHealTime,
-  calculateTotalHpReduction,
+  calculateTotalRecoveryReduction,
 } from "../types/constants";
 
 // ============ 부상 발생 판정 ============
@@ -220,7 +220,7 @@ export function filterNaturallyHealedInjuries(
 export function getInjuryOccurredMessage(type: InjuryType, source?: string): string {
   const config = INJURY_CONFIG[type];
   const sourceText = source ? `${source}에게 ` : "";
-  return `${sourceText}${config.icon} ${config.nameKo}을(를) 입었습니다! (최대 HP -${config.maxHpReduction * 100}%)`;
+  return `${sourceText}${config.icon} ${config.nameKo}을(를) 입었습니다! (HP 회복 상한 -${config.hpRecoveryReduction * 100}%)`;
 }
 
 /**
@@ -234,9 +234,9 @@ export function getInjurySummaryMessage(injuries: CharacterInjury[]): string {
     return `${config.icon} ${config.nameKo}`;
   });
 
-  const totalReduction = calculateTotalHpReduction(injuries);
-  return `${summary.join(", ")} (최대 HP -${Math.floor(totalReduction * 100)}%)`;
+  const totalReduction = calculateTotalRecoveryReduction(injuries);
+  return `${summary.join(", ")} (HP 회복 상한 -${Math.floor(totalReduction * 100)}%)`;
 }
 
 // Re-export utilities
-export { calculateTotalHpReduction, getInjuryConfig } from "../types/constants";
+export { calculateTotalRecoveryReduction, calculateTotalHpReduction, getInjuryConfig } from "../types/constants";

@@ -7,7 +7,7 @@ export const INJURY_CONFIG: Record<InjuryType, InjuryConfig> = {
     type: "light",
     nameKo: "경상",
     nameEn: "Light Wound",
-    maxHpReduction: 0.10,       // 최대 HP 10% 감소
+    hpRecoveryReduction: 0.10,  // HP 회복 상한 10% 감소
     healMethod: "first_aid",
     naturalHealTime: 30,        // 30분 자연치유
     requiredProficiency: 0,     // 누구나 치료 가능
@@ -19,7 +19,7 @@ export const INJURY_CONFIG: Record<InjuryType, InjuryConfig> = {
     type: "medium",
     nameKo: "중상",
     nameEn: "Medium Wound",
-    maxHpReduction: 0.25,       // 최대 HP 25% 감소
+    hpRecoveryReduction: 0.25,  // HP 회복 상한 25% 감소
     healMethod: "herbalism",
     naturalHealTime: 120,       // 2시간 자연치유
     requiredProficiency: 20,    // 랭크 F 이상
@@ -31,7 +31,7 @@ export const INJURY_CONFIG: Record<InjuryType, InjuryConfig> = {
     type: "critical",
     nameKo: "치명상",
     nameEn: "Critical Wound",
-    maxHpReduction: 0.50,       // 최대 HP 50% 감소
+    hpRecoveryReduction: 0.50,  // HP 회복 상한 50% 감소
     healMethod: "surgery",
     naturalHealTime: null,      // 자연치유 불가
     requiredProficiency: 50,    // 랭크 C 이상
@@ -96,18 +96,22 @@ export function getInjuryConfig(type: InjuryType): InjuryConfig {
 }
 
 /**
- * 총 최대 HP 감소율 계산 (여러 부상 누적)
+ * 총 HP 회복 제한율 계산 (여러 부상 누적)
+ * 마비노기 스타일: 최대 HP는 불변, 회복 가능한 HP 상한만 감소
  */
-export function calculateTotalHpReduction(injuries: { type: InjuryType }[]): number {
+export function calculateTotalRecoveryReduction(injuries: { type: InjuryType }[]): number {
   let totalReduction = 0;
 
   for (const injury of injuries) {
-    totalReduction += INJURY_CONFIG[injury.type].maxHpReduction;
+    totalReduction += INJURY_CONFIG[injury.type].hpRecoveryReduction;
   }
 
-  // 최대 80%까지만 감소 (최소 HP 20% 보장)
+  // 최대 80%까지만 감소 (최소 20% HP까지는 회복 가능)
   return Math.min(0.8, totalReduction);
 }
+
+// 하위 호환성을 위한 alias
+export const calculateTotalHpReduction = calculateTotalRecoveryReduction;
 
 /**
  * 자연 치유 예상 시간 계산

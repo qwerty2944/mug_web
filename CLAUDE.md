@@ -1531,3 +1531,84 @@ const damage = calculateMagicDamage({
 | 막기 | "🛡️ 몬스터가 공격을 막았다!" |
 | 치명타 | "💥 치명타! 15 데미지!" |
 | 명중 | "검으로 10 데미지를 입혔다!" |
+
+## 부상 시스템 (Injury)
+
+마비노기 스타일의 부상 시스템. **최대 HP는 불변**이고, **회복 가능한 HP 상한**만 감소합니다.
+
+### 핵심 개념
+| 용어 | 설명 |
+|------|------|
+| `maxHp` | 최대 HP (부상과 무관하게 불변) |
+| `recoverableHp` | 회복 가능 HP 상한 (부상으로 감소) |
+| `currentHp` | 현재 HP |
+
+**예시**: maxHp=100, 중상(25% 감소)
+- `recoverableHp` = 75
+- 포션을 먹어도 75까지만 회복 가능
+- 부상 치료 시 다시 100까지 회복 가능
+
+### 부상 등급
+| 등급 | 아이콘 | HP 회복 상한 감소 | 자연치유 | 치료 방법 |
+|------|--------|-----------------|---------|----------|
+| 경상 (Light) | 🩹 | -10% | 30분 | 응급처치 |
+| 중상 (Medium) | 🩸 | -25% | 2시간 | 약초학 |
+| 치명상 (Critical) | 💀 | -50% | 불가 | 수술 |
+
+### 부상 발생 조건
+- HP가 30% 이하일 때 패배 시 발생 가능
+- 몬스터 레벨이 높을수록 확률 증가
+- 치명타 피격 시 확률 2배
+- 최대 80%까지만 감소 (최소 20% HP까지는 회복 가능)
+
+### 상태창 HP 바 UI
+```
+[███████░░░░░░░░████]
+ 현재HP  회복가능  부상
+ (녹색)  (회색)   (어두운빨강)
+```
+
+### 타입 정의
+```typescript
+interface InjuryConfig {
+  type: InjuryType;
+  nameKo: string;
+  hpRecoveryReduction: number;  // HP 회복 상한 감소율 (0.1 = 10%)
+  healMethod: MedicalType;
+  naturalHealTime: number | null;
+  // ...
+}
+```
+
+### 사용법
+```typescript
+import {
+  calculateTotalRecoveryReduction,
+  INJURY_CONFIG,
+} from "@/entities/injury";
+import { calculateDerivedStats } from "@/entities/character";
+
+// 파생 스탯 계산 (부상 포함)
+const stats = calculateDerivedStats(
+  baseStats,
+  equipmentStats,
+  level,
+  injuries  // 부상 목록 전달
+);
+
+// 회복 가능 HP 확인
+console.log(stats.maxHp);              // 100 (불변)
+console.log(stats.recoverableHp);      // 75 (부상으로 감소)
+console.log(stats.injuryRecoveryReduction); // 0.25 (25% 감소)
+```
+
+### 폴더 구조
+```
+src/entities/injury/
+├── types/
+│   ├── index.ts        # CharacterInjury, InjuryConfig 타입
+│   └── constants.ts    # INJURY_CONFIG, calculateTotalRecoveryReduction
+├── lib/
+│   └── index.ts        # checkInjuryOccurrence, filterNaturallyHealedInjuries
+└── index.ts            # Public API
+```

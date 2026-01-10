@@ -19,7 +19,12 @@ export interface InjuryConfig {
   type: InjuryType;
   nameKo: string;
   nameEn: string;
-  maxHpReduction: number;       // 최대 HP 감소율 (0.1 = 10%)
+  /**
+   * HP 회복 제한율 (0.1 = 10%)
+   * 마비노기 스타일: 최대 HP는 그대로, 회복 가능한 HP 상한만 감소
+   * 예: maxHp=100, hpRecoveryReduction=0.2 → 회복 가능 HP = 80
+   */
+  hpRecoveryReduction: number;
   healMethod: MedicalType;      // 치료 가능한 의료 스킬
   naturalHealTime: number | null;  // 자연 치유 시간 (분), null = 불가
   requiredProficiency: number;  // 치료에 필요한 최소 숙련도
