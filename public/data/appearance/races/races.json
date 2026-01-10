@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "generatedAt": "2026-01-10T14:46:43.649Z",
+  "generatedAt": "2026-01-10T16:24:00.558Z",
   "races": [
     {
       "id": "eastern_human",
@@ -26,22 +26,8 @@
       },
       "appearance": {
         "body": {
-          "availableSpriteIds": [
-            "Human_1",
-            "Human_2",
-            "Human_3",
-            "Human_4",
-            "Human_5"
-          ]
-        },
-        "skinTones": {
-          "available": [
-            "fair",
-            "light",
-            "medium",
-            "tan"
-          ],
-          "default": "light"
+          "spriteId": "Human_1",
+          "defaultColor": "#C4A484"
         }
       },
       "resistances": {
@@ -84,21 +70,8 @@
       },
       "appearance": {
         "body": {
-          "availableSpriteIds": [
-            "Human_1",
-            "Human_2",
-            "Human_3",
-            "Human_4",
-            "Human_5"
-          ]
-        },
-        "skinTones": {
-          "available": [
-            "pale",
-            "fair",
-            "light"
-          ],
-          "default": "pale"
+          "spriteId": "Human_2",
+          "defaultColor": "#F5DEB3"
         }
       },
       "resistances": {
@@ -142,23 +115,8 @@
       },
       "appearance": {
         "body": {
-          "availableSpriteIds": [
-            "Human_1",
-            "Human_2",
-            "Human_3",
-            "Human_4",
-            "Human_5"
-          ]
-        },
-        "skinTones": {
-          "available": [
-            "tan",
-            "olive",
-            "brown",
-            "dark",
-            "ebony"
-          ],
-          "default": "brown"
+          "spriteId": "Human_3",
+          "defaultColor": "#8B6914"
         }
       },
       "resistances": {
@@ -203,24 +161,8 @@
       },
       "appearance": {
         "body": {
-          "availableSpriteIds": [
-            "Human_1",
-            "Human_2",
-            "Human_3",
-            "Human_4",
-            "Human_5"
-          ]
-        },
-        "skinTones": {
-          "available": [
-            "pale",
-            "fair",
-            "light",
-            "medium",
-            "tan",
-            "olive"
-          ],
-          "default": "fair"
+          "spriteId": "Human_4",
+          "defaultColor": "#DEB887"
         }
       },
       "resistances": {},
@@ -262,21 +204,8 @@
       },
       "appearance": {
         "body": {
-          "availableSpriteIds": [
-            "Elf_1",
-            "Elf_2",
-            "New_Elf_1",
-            "New_Elf_2"
-          ]
-        },
-        "skinTones": {
-          "available": [
-            "obsidian",
-            "charcoal",
-            "purple",
-            "blue_gray"
-          ],
-          "default": "obsidian"
+          "spriteId": "New_Elf_1",
+          "defaultColor": "#2F2F4F"
         }
       },
       "resistances": {
@@ -329,21 +258,8 @@
       },
       "appearance": {
         "body": {
-          "availableSpriteIds": [
-            "Elf_1",
-            "Elf_2",
-            "New_Elf_1",
-            "New_Elf_2"
-          ]
-        },
-        "skinTones": {
-          "available": [
-            "pale",
-            "fair",
-            "ivory",
-            "silver"
-          ],
-          "default": "pale"
+          "spriteId": "Elf_2",
+          "defaultColor": "#FFFAF0"
         }
       },
       "resistances": {
@@ -392,21 +308,8 @@
       },
       "appearance": {
         "body": {
-          "availableSpriteIds": [
-            "Elf_1",
-            "Elf_2",
-            "New_Elf_1",
-            "New_Elf_2"
-          ]
-        },
-        "skinTones": {
-          "available": [
-            "silver",
-            "pale_blue",
-            "pearl",
-            "moonlight"
-          ],
-          "default": "silver"
+          "spriteId": "New_Elf_2",
+          "defaultColor": "#C0C0C0"
         }
       },
       "resistances": {
@@ -459,21 +362,8 @@
       },
       "appearance": {
         "body": {
-          "availableSpriteIds": [
-            "Elf_1",
-            "Elf_2",
-            "New_Elf_1",
-            "New_Elf_2"
-          ]
-        },
-        "skinTones": {
-          "available": [
-            "tan",
-            "olive",
-            "copper",
-            "brown"
-          ],
-          "default": "copper"
+          "spriteId": "Elf_1",
+          "defaultColor": "#B87333"
         }
       },
       "resistances": {
@@ -521,22 +411,8 @@
       },
       "appearance": {
         "body": {
-          "availableSpriteIds": [
-            "Human_1",
-            "Human_2",
-            "Human_3",
-            "Human_4",
-            "Human_5"
-          ]
-        },
-        "skinTones": {
-          "available": [
-            "fair",
-            "tan",
-            "ruddy",
-            "olive"
-          ],
-          "default": "tan"
+          "spriteId": "Human_2",
+          "defaultColor": "#D2B48C"
         }
       },
       "resistances": {
@@ -584,22 +460,8 @@
       },
       "appearance": {
         "body": {
-          "availableSpriteIds": [
-            "Human_1",
-            "Human_2",
-            "Human_3",
-            "Human_4",
-            "Human_5"
-          ]
-        },
-        "skinTones": {
-          "available": [
-            "fair",
-            "tan",
-            "ruddy",
-            "pale"
-          ],
-          "default": "ruddy"
+          "spriteId": "Human_1",
+          "defaultColor": "#CD853F"
         }
       },
       "resistances": {
@@ -648,21 +510,8 @@
       },
       "appearance": {
         "body": {
-          "availableSpriteIds": [
-            "Orc_1",
-            "Orc_2",
-            "Orc_3",
-            "Orc_4"
-          ]
-        },
-        "skinTones": {
-          "available": [
-            "light_gray",
-            "gray",
-            "dark_gray",
-            "slate"
-          ],
-          "default": "gray"
+          "spriteId": "Orc_2",
+          "defaultColor": "#708090"
         }
       },
       "resistances": {
@@ -710,21 +559,8 @@
       },
       "appearance": {
         "body": {
-          "availableSpriteIds": [
-            "Orc_1",
-            "Orc_2",
-            "Orc_3",
-            "Orc_4"
-          ]
-        },
-        "skinTones": {
-          "available": [
-            "light_green",
-            "green",
-            "dark_green",
-            "olive_green"
-          ],
-          "default": "green"
+          "spriteId": "Orc_1",
+          "defaultColor": "#228B22"
         }
       },
       "resistances": {
@@ -772,17 +608,8 @@
       "playable": false,
       "appearance": {
         "body": {
-          "availableSpriteIds": [
-            "Skelton_1"
-          ]
-        },
-        "skinTones": {
-          "available": [
-            "bone",
-            "aged_bone",
-            "dark_bone"
-          ],
-          "default": "bone"
+          "spriteId": "Skelton_1",
+          "defaultColor": "#F5F5DC"
         }
       },
       "resistances": {
@@ -840,24 +667,8 @@
       "unlockCondition": "특수 이벤트로 뱀파이어화 가능",
       "appearance": {
         "body": {
-          "availableSpriteIds": [
-            "Human_1",
-            "Human_2",
-            "Human_3",
-            "Human_4",
-            "Human_5",
-            "Elf_1",
-            "Elf_2"
-          ]
-        },
-        "skinTones": {
-          "available": [
-            "pale",
-            "deathly_pale",
-            "ashen",
-            "marble"
-          ],
-          "default": "pale"
+          "spriteId": "Human_1",
+          "defaultColor": "#FAF0E6"
         }
       },
       "resistances": {
@@ -939,23 +750,8 @@
       "playable": false,
       "appearance": {
         "body": {
-          "availableSpriteIds": [
-            "Zombie_1",
-            "Zombie_2",
-            "Zombie_3",
-            "Zombie_4",
-            "Zombie_5",
-            "Zombie_6"
-          ]
-        },
-        "skinTones": {
-          "available": [
-            "pale_gray",
-            "greenish",
-            "purple",
-            "rotting"
-          ],
-          "default": "greenish"
+          "spriteId": "Zombie_1",
+          "defaultColor": "#556B2F"
         }
       },
       "resistances": {
@@ -1011,22 +807,8 @@
       },
       "appearance": {
         "body": {
-          "availableSpriteIds": [
-            "Human_1",
-            "Human_2",
-            "Human_3",
-            "Human_4",
-            "Human_5"
-          ]
-        },
-        "skinTones": {
-          "available": [
-            "fair",
-            "tan",
-            "ruddy",
-            "olive"
-          ],
-          "default": "tan"
+          "spriteId": "Human_5",
+          "defaultColor": "#D2B48C"
         }
       },
       "resistances": {
@@ -1074,19 +856,8 @@
       },
       "appearance": {
         "body": {
-          "availableSpriteIds": [
-            "Devil_1"
-          ]
-        },
-        "skinTones": {
-          "available": [
-            "red",
-            "dark_red",
-            "purple",
-            "maroon",
-            "copper"
-          ],
-          "default": "red"
+          "spriteId": "Devil_1",
+          "defaultColor": "#8B0000"
         }
       },
       "resistances": {
