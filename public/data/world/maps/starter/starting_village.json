@@ -1,0 +1,62 @@
+{
+  "id": "starting_village",
+  "region": "starter",
+  "nameKo": "시작 마을",
+  "nameEn": "Starting Village",
+  "descriptionKo": "모험의 시작점. 안전한 마을입니다.",
+  "descriptionEn": "The starting point of your adventure. A safe village.",
+  "icon": "🏠",
+  "terrain": "village",
+  "minLevel": 1,
+  "maxPlayers": 100,
+  "isPvp": false,
+  "isSafeZone": true,
+  "connectedMaps": ["forest_entrance", "market_square", "training_ground"],
+
+  "zones": [
+    {
+      "id": "village_center",
+      "nameKo": "마을 중앙",
+      "type": "spawn_point",
+      "position": { "x": 50, "y": 50, "width": 20, "height": 20 },
+      "isDefault": true,
+      "description": "신규 플레이어의 시작 지점"
+    },
+    {
+      "id": "village_inn",
+      "nameKo": "여관",
+      "type": "safe_zone",
+      "position": { "x": 30, "y": 40, "width": 15, "height": 15 },
+      "eventTriggers": ["rest", "save"],
+      "description": "휴식과 저장이 가능한 여관"
+    },
+    {
+      "id": "village_gate_east",
+      "nameKo": "동쪽 문",
+      "type": "portal",
+      "position": { "x": 90, "y": 50, "width": 10, "height": 20 },
+      "portalTo": "forest_entrance",
+      "description": "숲 입구로 향하는 문"
+    },
+    {
+      "id": "village_gate_west",
+      "nameKo": "서쪽 문",
+      "type": "portal",
+      "position": { "x": 0, "y": 50, "width": 10, "height": 20 },
+      "portalTo": "market_square",
+      "description": "시장 광장으로 향하는 문"
+    },
+    {
+      "id": "village_gate_north",
+      "nameKo": "북쪽 문",
+      "type": "portal",
+      "position": { "x": 50, "y": 0, "width": 20, "height": 10 },
+      "portalTo": "training_ground",
+      "description": "수련장으로 향하는 문"
+    }
+  ],
+
+  "spawns": [],
+
+  "npcs": ["village_elder", "innkeeper", "basic_merchant"]
+}

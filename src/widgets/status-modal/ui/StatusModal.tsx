@@ -8,6 +8,8 @@ import {
   getMainCharacter,
   getExpPercentage,
   getExpToNextLevel,
+  getMaxStaminaFromProfile,
+  getCurrentStamina,
 } from "@/entities/user";
 import { usePersonalInventory, type InventorySlotItem } from "@/entities/inventory";
 import {
@@ -392,21 +394,21 @@ export function StatusModal({ open, onClose }: StatusModalProps) {
                       </div>
                     )}
 
-                    {/* 스태미나 */}
+                    {/* 피로도 */}
                     <div className="p-4" style={{ background: theme.colors.bgDark }}>
                       <div className="flex items-center justify-between mb-2">
                         <span className="font-mono flex items-center gap-2" style={{ color: theme.colors.textMuted }}>
-                          <span>⚡</span> 스태미나
+                          <span>⚡</span> 피로도
                         </span>
                         <span className="text-lg font-mono font-medium" style={{ color: theme.colors.text }}>
-                          {profile?.stamina || 0} / {profile?.maxStamina || 100}
+                          {getCurrentStamina(profile)} / {getMaxStaminaFromProfile(profile)}
                         </span>
                       </div>
                       <div className="h-3 overflow-hidden" style={{ background: theme.colors.bgLight }}>
                         <div
                           className="h-full"
                           style={{
-                            width: `${((profile?.stamina || 0) / (profile?.maxStamina || 100)) * 100}%`,
+                            width: `${(getCurrentStamina(profile) / getMaxStaminaFromProfile(profile)) * 100}%`,
                             background: theme.colors.success,
                           }}
                         />

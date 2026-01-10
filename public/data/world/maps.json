@@ -1,102 +1,1020 @@
 {
-  "version": "1.0.0",
-  "generatedAt": "2026-01-06T00:00:00.000Z",
+  "version": "2.0.0",
+  "generatedAt": "2026-01-10T17:48:21.537Z",
   "maps": [
     {
-      "id": "starting_village",
-      "nameKo": "시작 마을",
-      "nameEn": "Starting Village",
-      "descriptionKo": "모험의 시작점. 안전한 마을입니다.",
-      "descriptionEn": "The starting point of your adventure. A safe village.",
-      "icon": "🏠",
-      "minLevel": 1,
-      "maxPlayers": 100,
-      "isPvp": false,
-      "isSafeZone": true,
-      "connectedMaps": ["forest_entrance", "market_square", "training_ground"]
-    },
-    {
-      "id": "training_ground",
-      "nameKo": "수련장",
-      "nameEn": "Training Ground",
-      "descriptionKo": "초보 모험가를 위한 훈련장. 허수아비가 설치되어 있다.",
-      "descriptionEn": "Training area for beginners. Scarecrows are set up for practice.",
-      "icon": "🎯",
-      "minLevel": 1,
-      "maxPlayers": 50,
-      "isPvp": false,
-      "isSafeZone": true,
-      "connectedMaps": ["starting_village", "forest_entrance"]
-    },
-    {
       "id": "market_square",
+      "region": "starter",
       "nameKo": "시장 광장",
       "nameEn": "Market Square",
       "descriptionKo": "상인들이 모여있는 활기찬 광장입니다.",
       "descriptionEn": "A lively square where merchants gather.",
       "icon": "🏪",
+      "terrain": "market",
       "minLevel": 1,
       "maxPlayers": 100,
       "isPvp": false,
       "isSafeZone": true,
-      "connectedMaps": ["starting_village", "arena"]
+      "connectedMaps": [
+        "starting_village",
+        "arena"
+      ],
+      "zones": [
+        {
+          "id": "market_center",
+          "nameKo": "광장 중앙",
+          "type": "spawn_point",
+          "position": {
+            "x": 50,
+            "y": 50,
+            "width": 30,
+            "height": 30
+          },
+          "isDefault": true,
+          "description": "시장의 중심부"
+        },
+        {
+          "id": "weapon_shop",
+          "nameKo": "무기 상점",
+          "type": "safe_zone",
+          "position": {
+            "x": 10,
+            "y": 30,
+            "width": 20,
+            "height": 20
+          },
+          "eventTriggers": [
+            "shop_weapon"
+          ],
+          "description": "무기를 구매할 수 있는 상점"
+        },
+        {
+          "id": "armor_shop",
+          "nameKo": "방어구 상점",
+          "type": "safe_zone",
+          "position": {
+            "x": 70,
+            "y": 30,
+            "width": 20,
+            "height": 20
+          },
+          "eventTriggers": [
+            "shop_armor"
+          ],
+          "description": "방어구를 구매할 수 있는 상점"
+        },
+        {
+          "id": "potion_shop",
+          "nameKo": "물약 상점",
+          "type": "safe_zone",
+          "position": {
+            "x": 10,
+            "y": 60,
+            "width": 20,
+            "height": 20
+          },
+          "eventTriggers": [
+            "shop_potion"
+          ],
+          "description": "물약을 구매할 수 있는 상점"
+        },
+        {
+          "id": "arena_entrance",
+          "nameKo": "투기장 입구",
+          "type": "portal",
+          "position": {
+            "x": 90,
+            "y": 50,
+            "width": 10,
+            "height": 20
+          },
+          "portalTo": "arena",
+          "description": "투기장으로 향하는 입구"
+        },
+        {
+          "id": "auction_house",
+          "nameKo": "경매장",
+          "type": "event_area",
+          "position": {
+            "x": 70,
+            "y": 60,
+            "width": 20,
+            "height": 20
+          },
+          "eventTriggers": [
+            "auction"
+          ],
+          "description": "아이템을 경매할 수 있는 곳 (향후 추가)"
+        }
+      ],
+      "spawns": [],
+      "npcs": [
+        "weapon_merchant",
+        "armor_merchant",
+        "potion_merchant",
+        "banker"
+      ]
     },
     {
-      "id": "forest_entrance",
-      "nameKo": "숲 입구",
-      "nameEn": "Forest Entrance",
-      "descriptionKo": "어두운 숲으로 향하는 입구입니다.",
-      "descriptionEn": "The entrance to the dark forest.",
-      "icon": "🌲",
+      "id": "starting_village",
+      "region": "starter",
+      "nameKo": "시작 마을",
+      "nameEn": "Starting Village",
+      "descriptionKo": "모험의 시작점. 안전한 마을입니다.",
+      "descriptionEn": "The starting point of your adventure. A safe village.",
+      "icon": "🏠",
+      "terrain": "village",
       "minLevel": 1,
       "maxPlayers": 100,
       "isPvp": false,
-      "isSafeZone": false,
-      "connectedMaps": ["starting_village", "deep_forest", "training_ground"]
+      "isSafeZone": true,
+      "connectedMaps": [
+        "forest_entrance",
+        "market_square",
+        "training_ground"
+      ],
+      "zones": [
+        {
+          "id": "village_center",
+          "nameKo": "마을 중앙",
+          "type": "spawn_point",
+          "position": {
+            "x": 50,
+            "y": 50,
+            "width": 20,
+            "height": 20
+          },
+          "isDefault": true,
+          "description": "신규 플레이어의 시작 지점"
+        },
+        {
+          "id": "village_inn",
+          "nameKo": "여관",
+          "type": "safe_zone",
+          "position": {
+            "x": 30,
+            "y": 40,
+            "width": 15,
+            "height": 15
+          },
+          "eventTriggers": [
+            "rest",
+            "save"
+          ],
+          "description": "휴식과 저장이 가능한 여관"
+        },
+        {
+          "id": "village_gate_east",
+          "nameKo": "동쪽 문",
+          "type": "portal",
+          "position": {
+            "x": 90,
+            "y": 50,
+            "width": 10,
+            "height": 20
+          },
+          "portalTo": "forest_entrance",
+          "description": "숲 입구로 향하는 문"
+        },
+        {
+          "id": "village_gate_west",
+          "nameKo": "서쪽 문",
+          "type": "portal",
+          "position": {
+            "x": 0,
+            "y": 50,
+            "width": 10,
+            "height": 20
+          },
+          "portalTo": "market_square",
+          "description": "시장 광장으로 향하는 문"
+        },
+        {
+          "id": "village_gate_north",
+          "nameKo": "북쪽 문",
+          "type": "portal",
+          "position": {
+            "x": 50,
+            "y": 0,
+            "width": 20,
+            "height": 10
+          },
+          "portalTo": "training_ground",
+          "description": "수련장으로 향하는 문"
+        }
+      ],
+      "spawns": [],
+      "npcs": [
+        "village_elder",
+        "innkeeper",
+        "basic_merchant"
+      ]
+    },
+    {
+      "id": "training_ground",
+      "region": "starter",
+      "nameKo": "수련장",
+      "nameEn": "Training Ground",
+      "descriptionKo": "초보 모험가를 위한 훈련장. 허수아비가 설치되어 있다.",
+      "descriptionEn": "Training area for beginners. Scarecrows are set up for practice.",
+      "icon": "🎯",
+      "terrain": "training",
+      "minLevel": 1,
+      "maxPlayers": 50,
+      "isPvp": false,
+      "isSafeZone": true,
+      "connectedMaps": [
+        "starting_village",
+        "forest_entrance"
+      ],
+      "zones": [
+        {
+          "id": "training_entrance",
+          "nameKo": "훈련장 입구",
+          "type": "spawn_point",
+          "position": {
+            "x": 50,
+            "y": 90,
+            "width": 20,
+            "height": 10
+          },
+          "isDefault": true,
+          "description": "훈련장 입구"
+        },
+        {
+          "id": "scarecrow_area",
+          "nameKo": "허수아비 구역",
+          "type": "event_area",
+          "position": {
+            "x": 30,
+            "y": 30,
+            "width": 40,
+            "height": 40
+          },
+          "eventTriggers": [
+            "combat_tutorial"
+          ],
+          "description": "허수아비와 연습할 수 있는 구역"
+        },
+        {
+          "id": "weapon_rack",
+          "nameKo": "무기 거치대",
+          "type": "safe_zone",
+          "position": {
+            "x": 80,
+            "y": 50,
+            "width": 15,
+            "height": 15
+          },
+          "eventTriggers": [
+            "equipment_tutorial"
+          ],
+          "description": "연습용 무기를 대여할 수 있는 곳"
+        }
+      ],
+      "spawns": [
+        {
+          "monsterId": "scarecrow",
+          "spawnType": "always",
+          "spawnRate": 1,
+          "maxCount": 5,
+          "zoneId": "scarecrow_area",
+          "respawnTime": 30
+        }
+      ],
+      "npcs": [
+        "training_master",
+        "weapon_merchant"
+      ]
     },
     {
       "id": "deep_forest",
+      "region": "greenwood",
       "nameKo": "깊은 숲",
       "nameEn": "Deep Forest",
       "descriptionKo": "몬스터가 출몰하는 위험한 지역입니다.",
       "descriptionEn": "A dangerous area where monsters roam.",
       "icon": "🌳",
+      "terrain": "deep_forest",
       "minLevel": 5,
       "maxPlayers": 100,
       "isPvp": false,
       "isSafeZone": false,
-      "connectedMaps": ["forest_entrance", "ancient_ruins"]
+      "connectedMaps": [
+        "forest_entrance",
+        "ancient_ruins"
+      ],
+      "zones": [
+        {
+          "id": "forest_clearing",
+          "nameKo": "숲 공터",
+          "type": "spawn_point",
+          "position": {
+            "x": 20,
+            "y": 80,
+            "width": 20,
+            "height": 15
+          },
+          "isDefault": true,
+          "description": "숲 입구에서 이어지는 공터"
+        },
+        {
+          "id": "wolf_den",
+          "nameKo": "늑대 소굴",
+          "type": "event_area",
+          "position": {
+            "x": 30,
+            "y": 30,
+            "width": 35,
+            "height": 35
+          },
+          "eventTriggers": [
+            "wolf_pack_event"
+          ],
+          "description": "늑대들의 서식지"
+        },
+        {
+          "id": "spider_nest",
+          "nameKo": "거미 둥지",
+          "type": "event_area",
+          "position": {
+            "x": 70,
+            "y": 50,
+            "width": 25,
+            "height": 30
+          },
+          "eventTriggers": [
+            "spider_queen_event"
+          ],
+          "description": "거미들이 둥지를 틀고 있는 어두운 곳"
+        },
+        {
+          "id": "ancient_tree",
+          "nameKo": "고대 나무",
+          "type": "boss_area",
+          "position": {
+            "x": 50,
+            "y": 10,
+            "width": 20,
+            "height": 20
+          },
+          "eventTriggers": [
+            "treant_awakening"
+          ],
+          "description": "고대의 기운이 느껴지는 거대한 나무"
+        },
+        {
+          "id": "ruins_path",
+          "nameKo": "유적 길",
+          "type": "portal",
+          "position": {
+            "x": 85,
+            "y": 5,
+            "width": 15,
+            "height": 15
+          },
+          "portalTo": "ancient_ruins",
+          "description": "고대 유적으로 향하는 길"
+        },
+        {
+          "id": "hidden_spring",
+          "nameKo": "숨겨진 샘",
+          "type": "treasure",
+          "position": {
+            "x": 5,
+            "y": 40,
+            "width": 15,
+            "height": 15
+          },
+          "eventTriggers": [
+            "healing_spring"
+          ],
+          "description": "HP를 회복할 수 있는 숨겨진 샘"
+        }
+      ],
+      "spawns": [
+        {
+          "monsterId": "wolf",
+          "spawnType": "conditional",
+          "spawnRate": 0.4,
+          "maxCount": 6,
+          "zoneId": "wolf_den",
+          "respawnTime": 90,
+          "conditions": {
+            "period": [
+              "night",
+              "dusk"
+            ]
+          }
+        },
+        {
+          "monsterId": "forest_spider",
+          "spawnType": "conditional",
+          "spawnRate": 0.3,
+          "maxCount": 5,
+          "zoneId": "spider_nest",
+          "respawnTime": 120,
+          "conditions": {
+            "period": [
+              "night",
+              "dusk"
+            ]
+          }
+        },
+        {
+          "monsterId": "alpha_wolf",
+          "spawnType": "boss",
+          "maxCount": 1,
+          "zoneId": "wolf_den",
+          "schedule": {
+            "preset": "weekend_evening",
+            "dayOfWeek": [
+              5,
+              6
+            ],
+            "hourRange": [
+              20,
+              23
+            ],
+            "timezone": "Asia/Seoul"
+          },
+          "respawnTime": 7200,
+          "announcement": {
+            "spawn": "으르렁... 알파 늑대가 숲에 나타났습니다!",
+            "defeat": "알파 늑대가 처치되었습니다! 숲이 조용해졌습니다."
+          }
+        },
+        {
+          "monsterId": "spider_queen",
+          "spawnType": "boss",
+          "maxCount": 1,
+          "zoneId": "spider_nest",
+          "schedule": {
+            "preset": "wednesday_special",
+            "dayOfWeek": [
+              3
+            ],
+            "hourRange": [
+              21,
+              23
+            ],
+            "timezone": "Asia/Seoul"
+          },
+          "respawnTime": 7200,
+          "announcement": {
+            "spawn": "거미 여왕이 둥지에서 깨어났습니다!",
+            "defeat": "거미 여왕이 처치되었습니다!"
+          }
+        },
+        {
+          "monsterId": "ancient_treant",
+          "spawnType": "boss",
+          "maxCount": 1,
+          "zoneId": "ancient_tree",
+          "schedule": {
+            "dayOfWeek": [
+              0
+            ],
+            "hourRange": [
+              14,
+              18
+            ],
+            "timezone": "Asia/Seoul"
+          },
+          "respawnTime": 14400,
+          "conditions": {
+            "weather": [
+              "rainy",
+              "stormy"
+            ]
+          },
+          "announcement": {
+            "spawn": "비를 맞은 고대 트렌트가 깨어났습니다!",
+            "defeat": "고대 트렌트가 잠들었습니다. 귀중한 재료를 남겼습니다."
+          }
+        }
+      ],
+      "npcs": [
+        "forest_hermit"
+      ]
+    },
+    {
+      "id": "forest_entrance",
+      "region": "greenwood",
+      "nameKo": "숲 입구",
+      "nameEn": "Forest Entrance",
+      "descriptionKo": "어두운 숲으로 향하는 입구입니다.",
+      "descriptionEn": "The entrance to the dark forest.",
+      "icon": "🌲",
+      "terrain": "forest",
+      "minLevel": 1,
+      "maxPlayers": 100,
+      "isPvp": false,
+      "isSafeZone": false,
+      "connectedMaps": [
+        "starting_village",
+        "deep_forest",
+        "training_ground"
+      ],
+      "zones": [
+        {
+          "id": "forest_path",
+          "nameKo": "숲길",
+          "type": "spawn_point",
+          "position": {
+            "x": 20,
+            "y": 50,
+            "width": 20,
+            "height": 30
+          },
+          "isDefault": true,
+          "description": "마을에서 이어지는 숲길"
+        },
+        {
+          "id": "squirrel_grove",
+          "nameKo": "다람쥐 숲",
+          "type": "event_area",
+          "position": {
+            "x": 40,
+            "y": 20,
+            "width": 30,
+            "height": 30
+          },
+          "eventTriggers": [
+            "gather_acorn"
+          ],
+          "description": "다람쥐들이 서식하는 곳"
+        },
+        {
+          "id": "bandit_hideout",
+          "nameKo": "도적 은신처",
+          "type": "event_area",
+          "position": {
+            "x": 70,
+            "y": 60,
+            "width": 25,
+            "height": 25
+          },
+          "eventTriggers": [
+            "bandit_ambush"
+          ],
+          "description": "도적들이 숨어있는 위험 구역"
+        },
+        {
+          "id": "deep_forest_path",
+          "nameKo": "깊은 숲 길",
+          "type": "portal",
+          "position": {
+            "x": 80,
+            "y": 10,
+            "width": 15,
+            "height": 15
+          },
+          "portalTo": "deep_forest",
+          "description": "깊은 숲으로 향하는 길"
+        },
+        {
+          "id": "herb_patch",
+          "nameKo": "약초 군락지",
+          "type": "treasure",
+          "position": {
+            "x": 10,
+            "y": 80,
+            "width": 20,
+            "height": 15
+          },
+          "eventTriggers": [
+            "gather_herb"
+          ],
+          "description": "약초를 채집할 수 있는 곳"
+        }
+      ],
+      "spawns": [
+        {
+          "monsterId": "squirrel",
+          "spawnType": "always",
+          "spawnRate": 0.5,
+          "maxCount": 8,
+          "zoneId": "squirrel_grove",
+          "respawnTime": 60
+        },
+        {
+          "monsterId": "squirrel_elder",
+          "spawnType": "rare",
+          "spawnChance": 0.1,
+          "maxCount": 1,
+          "zoneId": "squirrel_grove",
+          "respawnTime": 300
+        },
+        {
+          "monsterId": "forest_bandit",
+          "spawnType": "always",
+          "spawnRate": 0.3,
+          "maxCount": 4,
+          "zoneId": "bandit_hideout",
+          "respawnTime": 120
+        },
+        {
+          "monsterId": "bandit_leader",
+          "spawnType": "boss",
+          "maxCount": 1,
+          "zoneId": "bandit_hideout",
+          "schedule": {
+            "preset": "daily_night",
+            "dayOfWeek": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6
+            ],
+            "hourRange": [
+              21,
+              24
+            ],
+            "timezone": "Asia/Seoul"
+          },
+          "respawnTime": 3600,
+          "announcement": {
+            "spawn": "도적 두목이 은신처에 나타났습니다!",
+            "defeat": "도적 두목이 처치되었습니다!"
+          }
+        }
+      ],
+      "npcs": [
+        "forest_ranger"
+      ]
     },
     {
       "id": "ancient_ruins",
+      "region": "ancient",
       "nameKo": "고대 유적",
       "nameEn": "Ancient Ruins",
       "descriptionKo": "신비로운 힘이 깃든 유적지입니다.",
       "descriptionEn": "Mysterious ruins with ancient power.",
       "icon": "🏛️",
+      "terrain": "ruins",
       "minLevel": 10,
       "maxPlayers": 100,
       "isPvp": false,
       "isSafeZone": false,
-      "connectedMaps": ["deep_forest"]
+      "connectedMaps": [
+        "deep_forest"
+      ],
+      "zones": [
+        {
+          "id": "ruins_entrance",
+          "nameKo": "유적 입구",
+          "type": "spawn_point",
+          "position": {
+            "x": 10,
+            "y": 80,
+            "width": 20,
+            "height": 15
+          },
+          "isDefault": true,
+          "description": "유적으로 들어가는 입구"
+        },
+        {
+          "id": "collapsed_hall",
+          "nameKo": "무너진 대청",
+          "type": "event_area",
+          "position": {
+            "x": 30,
+            "y": 50,
+            "width": 30,
+            "height": 25
+          },
+          "eventTriggers": [
+            "trap_puzzle"
+          ],
+          "description": "함정이 있을 수 있는 무너진 건물"
+        },
+        {
+          "id": "guardian_chamber",
+          "nameKo": "수호자의 방",
+          "type": "boss_area",
+          "position": {
+            "x": 60,
+            "y": 30,
+            "width": 25,
+            "height": 25
+          },
+          "eventTriggers": [
+            "guardian_awakening"
+          ],
+          "description": "유적의 수호자가 잠들어 있는 방"
+        },
+        {
+          "id": "altar_room",
+          "nameKo": "제단의 방",
+          "type": "event_area",
+          "position": {
+            "x": 70,
+            "y": 70,
+            "width": 20,
+            "height": 20
+          },
+          "eventTriggers": [
+            "offering_ritual"
+          ],
+          "description": "고대의 제단이 있는 방"
+        },
+        {
+          "id": "treasure_vault",
+          "nameKo": "보물 창고",
+          "type": "treasure",
+          "position": {
+            "x": 85,
+            "y": 10,
+            "width": 15,
+            "height": 15
+          },
+          "eventTriggers": [
+            "vault_unlock"
+          ],
+          "description": "봉인된 보물 창고"
+        },
+        {
+          "id": "ancient_library",
+          "nameKo": "고대 서고",
+          "type": "event_area",
+          "position": {
+            "x": 10,
+            "y": 20,
+            "width": 20,
+            "height": 25
+          },
+          "eventTriggers": [
+            "lore_discovery"
+          ],
+          "description": "고대의 지식이 담긴 서고"
+        }
+      ],
+      "spawns": [
+        {
+          "monsterId": "stone_golem",
+          "spawnType": "always",
+          "spawnRate": 0.2,
+          "maxCount": 4,
+          "zoneId": "collapsed_hall",
+          "respawnTime": 180
+        },
+        {
+          "monsterId": "ancient_spirit",
+          "spawnType": "conditional",
+          "spawnRate": 0.15,
+          "maxCount": 3,
+          "zoneId": "altar_room",
+          "respawnTime": 240,
+          "conditions": {
+            "period": [
+              "night",
+              "dawn"
+            ]
+          }
+        },
+        {
+          "monsterId": "cursed_scholar",
+          "spawnType": "rare",
+          "spawnChance": 0.08,
+          "maxCount": 1,
+          "zoneId": "ancient_library",
+          "respawnTime": 600
+        },
+        {
+          "monsterId": "ruins_guardian",
+          "spawnType": "boss",
+          "maxCount": 1,
+          "zoneId": "guardian_chamber",
+          "schedule": {
+            "preset": "weekend_all_day",
+            "dayOfWeek": [
+              0,
+              6
+            ],
+            "hourRange": [
+              12,
+              22
+            ],
+            "timezone": "Asia/Seoul"
+          },
+          "respawnTime": 10800,
+          "announcement": {
+            "spawn": "유적의 수호자가 눈을 떴습니다! 침입자를 막기 위해 일어섰습니다.",
+            "defeat": "유적의 수호자가 쓰러졌습니다. 보물 창고의 봉인이 약해졌습니다."
+          }
+        },
+        {
+          "monsterId": "ancient_lich",
+          "spawnType": "boss",
+          "maxCount": 1,
+          "zoneId": "altar_room",
+          "schedule": {
+            "dayOfWeek": [
+              6
+            ],
+            "hourRange": [
+              23,
+              24
+            ],
+            "timezone": "Asia/Seoul"
+          },
+          "respawnTime": 86400,
+          "conditions": {
+            "period": [
+              "night"
+            ]
+          },
+          "announcement": {
+            "spawn": "토요일 자정... 고대의 리치가 제단에서 부활했습니다!",
+            "defeat": "고대의 리치가 다시 잠들었습니다. 전설적인 보상을 남겼습니다!"
+          }
+        }
+      ],
+      "npcs": [
+        "ruins_researcher",
+        "treasure_hunter"
+      ]
     },
     {
       "id": "arena",
+      "region": "combat",
       "nameKo": "투기장",
       "nameEn": "Arena",
       "descriptionKo": "PvP가 가능한 전투 지역입니다.",
       "descriptionEn": "A PvP enabled combat zone.",
       "icon": "⚔️",
+      "terrain": "arena",
       "minLevel": 10,
       "maxPlayers": 100,
       "isPvp": true,
       "isSafeZone": false,
-      "connectedMaps": ["market_square"]
+      "connectedMaps": [
+        "market_square"
+      ],
+      "zones": [
+        {
+          "id": "arena_lobby",
+          "nameKo": "투기장 로비",
+          "type": "safe_zone",
+          "position": {
+            "x": 10,
+            "y": 50,
+            "width": 20,
+            "height": 30
+          },
+          "isDefault": true,
+          "description": "전투 전 대기 구역 (안전 지대)"
+        },
+        {
+          "id": "main_arena",
+          "nameKo": "메인 경기장",
+          "type": "event_area",
+          "position": {
+            "x": 40,
+            "y": 30,
+            "width": 40,
+            "height": 40
+          },
+          "eventTriggers": [
+            "duel_match",
+            "tournament"
+          ],
+          "description": "1:1 결투가 펼쳐지는 메인 경기장"
+        },
+        {
+          "id": "team_arena",
+          "nameKo": "팀 경기장",
+          "type": "event_area",
+          "position": {
+            "x": 40,
+            "y": 75,
+            "width": 40,
+            "height": 20
+          },
+          "eventTriggers": [
+            "team_battle"
+          ],
+          "description": "팀 전투가 펼쳐지는 경기장"
+        },
+        {
+          "id": "champion_platform",
+          "nameKo": "챔피언 단상",
+          "type": "boss_area",
+          "position": {
+            "x": 85,
+            "y": 40,
+            "width": 15,
+            "height": 20
+          },
+          "eventTriggers": [
+            "champion_challenge"
+          ],
+          "description": "이번 주 챔피언에게 도전하는 곳"
+        },
+        {
+          "id": "spectator_stands",
+          "nameKo": "관중석",
+          "type": "safe_zone",
+          "position": {
+            "x": 40,
+            "y": 5,
+            "width": 40,
+            "height": 15
+          },
+          "eventTriggers": [
+            "watch_match"
+          ],
+          "description": "경기를 관람하는 관중석 (안전 지대)"
+        },
+        {
+          "id": "betting_counter",
+          "nameKo": "배팅 카운터",
+          "type": "safe_zone",
+          "position": {
+            "x": 85,
+            "y": 70,
+            "width": 15,
+            "height": 15
+          },
+          "eventTriggers": [
+            "place_bet"
+          ],
+          "description": "경기 결과에 배팅하는 곳"
+        }
+      ],
+      "spawns": [
+        {
+          "monsterId": "arena_champion_npc",
+          "spawnType": "boss",
+          "maxCount": 1,
+          "zoneId": "champion_platform",
+          "schedule": {
+            "dayOfWeek": [
+              0
+            ],
+            "hourRange": [
+              15,
+              18
+            ],
+            "timezone": "Asia/Seoul"
+          },
+          "respawnTime": 604800,
+          "announcement": {
+            "spawn": "이번 주 투기장 챔피언이 도전자를 기다리고 있습니다!",
+            "defeat": "새로운 챔피언이 탄생했습니다!"
+          }
+        }
+      ],
+      "npcs": [
+        "arena_master",
+        "arena_healer",
+        "betting_merchant"
+      ],
+      "pvpRules": {
+        "minLevel": 10,
+        "levelMatchRange": 5,
+        "rewards": {
+          "winner": {
+            "honorPoints": 10,
+            "gold": 100
+          },
+          "loser": {
+            "honorPoints": 2,
+            "gold": 0
+          }
+        },
+        "penalties": {
+          "death": null
+        }
+      }
     }
   ],
   "summary": {
     "total": 7,
+    "byRegion": {
+      "starter": 3,
+      "greenwood": 2,
+      "ancient": 1,
+      "combat": 1
+    },
+    "byTerrain": {
+      "market": 1,
+      "village": 1,
+      "training": 1,
+      "deep_forest": 1,
+      "forest": 1,
+      "ruins": 1,
+      "arena": 1
+    },
     "safeZones": 3,
-    "combatZones": 4
+    "combatZones": 4,
+    "pvpZones": 1,
+    "totalZones": 37,
+    "totalSpawns": 16,
+    "bossSpawns": 7
   }
 }

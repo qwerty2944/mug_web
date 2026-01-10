@@ -315,7 +315,7 @@ export default function GamePage() {
         <div className="flex items-center justify-between gap-2 mb-2">
           {/* 왼쪽: 피로도 */}
           <div className="flex items-center gap-1.5 text-[10px] sm:text-xs font-mono min-w-0">
-            <span style={{ color: theme.colors.textMuted }}>SP</span>
+            <span style={{ color: theme.colors.textMuted }}>피로도</span>
             <span
               className="font-medium"
               style={{ color: staminaPercent <= 20 ? theme.colors.error : theme.colors.textDim }}

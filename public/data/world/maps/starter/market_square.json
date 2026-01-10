@@ -1,0 +1,70 @@
+{
+  "id": "market_square",
+  "region": "starter",
+  "nameKo": "시장 광장",
+  "nameEn": "Market Square",
+  "descriptionKo": "상인들이 모여있는 활기찬 광장입니다.",
+  "descriptionEn": "A lively square where merchants gather.",
+  "icon": "🏪",
+  "terrain": "market",
+  "minLevel": 1,
+  "maxPlayers": 100,
+  "isPvp": false,
+  "isSafeZone": true,
+  "connectedMaps": ["starting_village", "arena"],
+
+  "zones": [
+    {
+      "id": "market_center",
+      "nameKo": "광장 중앙",
+      "type": "spawn_point",
+      "position": { "x": 50, "y": 50, "width": 30, "height": 30 },
+      "isDefault": true,
+      "description": "시장의 중심부"
+    },
+    {
+      "id": "weapon_shop",
+      "nameKo": "무기 상점",
+      "type": "safe_zone",
+      "position": { "x": 10, "y": 30, "width": 20, "height": 20 },
+      "eventTriggers": ["shop_weapon"],
+      "description": "무기를 구매할 수 있는 상점"
+    },
+    {
+      "id": "armor_shop",
+      "nameKo": "방어구 상점",
+      "type": "safe_zone",
+      "position": { "x": 70, "y": 30, "width": 20, "height": 20 },
+      "eventTriggers": ["shop_armor"],
+      "description": "방어구를 구매할 수 있는 상점"
+    },
+    {
+      "id": "potion_shop",
+      "nameKo": "물약 상점",
+      "type": "safe_zone",
+      "position": { "x": 10, "y": 60, "width": 20, "height": 20 },
+      "eventTriggers": ["shop_potion"],
+      "description": "물약을 구매할 수 있는 상점"
+    },
+    {
+      "id": "arena_entrance",
+      "nameKo": "투기장 입구",
+      "type": "portal",
+      "position": { "x": 90, "y": 50, "width": 10, "height": 20 },
+      "portalTo": "arena",
+      "description": "투기장으로 향하는 입구"
+    },
+    {
+      "id": "auction_house",
+      "nameKo": "경매장",
+      "type": "event_area",
+      "position": { "x": 70, "y": 60, "width": 20, "height": 20 },
+      "eventTriggers": ["auction"],
+      "description": "아이템을 경매할 수 있는 곳 (향후 추가)"
+    }
+  ],
+
+  "spawns": [],
+
+  "npcs": ["weapon_merchant", "armor_merchant", "potion_merchant", "banker"]
+}

@@ -1,0 +1,316 @@
+{
+  "version": "1.0.0",
+  "description": "맵 시스템 메타데이터 - 지형, 속성 보너스, 보스 스케줄 설정",
+
+  "terrainTypes": {
+    "village": {
+      "id": "village",
+      "nameKo": "마을",
+      "nameEn": "Village",
+      "icon": "🏠",
+      "elementBonus": null,
+      "debuff": null,
+      "description": "안전한 마을 지역. 전투 발생 없음."
+    },
+    "forest": {
+      "id": "forest",
+      "nameKo": "숲",
+      "nameEn": "Forest",
+      "icon": "🌲",
+      "elementBonus": {
+        "element": "earth",
+        "multiplier": 1.15
+      },
+      "debuff": null,
+      "description": "대지 속성 +15% 보너스"
+    },
+    "deep_forest": {
+      "id": "deep_forest",
+      "nameKo": "깊은 숲",
+      "nameEn": "Deep Forest",
+      "icon": "🌳",
+      "elementBonus": {
+        "element": "dark",
+        "multiplier": 1.1
+      },
+      "debuff": {
+        "type": "visibility",
+        "effect": "회피율 -5%"
+      },
+      "description": "암흑 속성 +10% 보너스, 시야 제한으로 회피율 감소"
+    },
+    "ruins": {
+      "id": "ruins",
+      "nameKo": "유적",
+      "nameEn": "Ruins",
+      "icon": "🏛️",
+      "elementBonus": {
+        "element": "holy",
+        "multiplier": 1.1
+      },
+      "debuff": null,
+      "description": "신성 속성 +10% 보너스"
+    },
+    "arena": {
+      "id": "arena",
+      "nameKo": "투기장",
+      "nameEn": "Arena",
+      "icon": "⚔️",
+      "elementBonus": null,
+      "debuff": null,
+      "description": "PvP 전용 지역. 속성 보너스 없음."
+    },
+    "cave": {
+      "id": "cave",
+      "nameKo": "동굴",
+      "nameEn": "Cave",
+      "icon": "🕳️",
+      "elementBonus": {
+        "element": "earth",
+        "multiplier": 1.2
+      },
+      "debuff": {
+        "type": "darkness",
+        "effect": "명중률 -10% (횃불 없을 시)"
+      },
+      "description": "대지 속성 +20% 보너스, 어둠으로 명중률 감소"
+    },
+    "swamp": {
+      "id": "swamp",
+      "nameKo": "늪",
+      "nameEn": "Swamp",
+      "icon": "🌿",
+      "elementBonus": {
+        "element": "dark",
+        "multiplier": 1.15
+      },
+      "debuff": {
+        "type": "poison",
+        "effect": "매 턴 HP 1% 감소"
+      },
+      "description": "암흑 속성 +15% 보너스, 독 지형"
+    },
+    "volcano": {
+      "id": "volcano",
+      "nameKo": "화산",
+      "nameEn": "Volcano",
+      "icon": "🌋",
+      "elementBonus": {
+        "element": "fire",
+        "multiplier": 1.25
+      },
+      "debuff": {
+        "type": "heat",
+        "effect": "피로도 소모 +50%"
+      },
+      "description": "화염 속성 +25% 보너스, 열기로 피로도 증가"
+    },
+    "glacier": {
+      "id": "glacier",
+      "nameKo": "빙하",
+      "nameEn": "Glacier",
+      "icon": "🏔️",
+      "elementBonus": {
+        "element": "ice",
+        "multiplier": 1.25
+      },
+      "debuff": {
+        "type": "cold",
+        "effect": "이동 시 피로도 +2"
+      },
+      "description": "냉기 속성 +25% 보너스, 한기로 이동 피로도 증가"
+    },
+    "storm_plains": {
+      "id": "storm_plains",
+      "nameKo": "폭풍 평원",
+      "nameEn": "Storm Plains",
+      "icon": "⛈️",
+      "elementBonus": {
+        "element": "lightning",
+        "multiplier": 1.2
+      },
+      "debuff": {
+        "type": "storm",
+        "effect": "원거리 공격 명중률 -15%"
+      },
+      "description": "번개 속성 +20% 보너스, 폭풍으로 원거리 불리"
+    },
+    "temple": {
+      "id": "temple",
+      "nameKo": "신전",
+      "nameEn": "Temple",
+      "icon": "⛪",
+      "elementBonus": {
+        "element": "holy",
+        "multiplier": 1.2
+      },
+      "debuff": null,
+      "description": "신성 속성 +20% 보너스"
+    },
+    "crypt": {
+      "id": "crypt",
+      "nameKo": "지하묘지",
+      "nameEn": "Crypt",
+      "icon": "💀",
+      "elementBonus": {
+        "element": "dark",
+        "multiplier": 1.2
+      },
+      "debuff": {
+        "type": "curse",
+        "effect": "치유 효과 -20%"
+      },
+      "description": "암흑 속성 +20% 보너스, 저주로 치유 효과 감소"
+    },
+    "market": {
+      "id": "market",
+      "nameKo": "시장",
+      "nameEn": "Market",
+      "icon": "🏪",
+      "elementBonus": null,
+      "debuff": null,
+      "description": "상업 지구. 상점 이용 가능."
+    },
+    "training": {
+      "id": "training",
+      "nameKo": "훈련장",
+      "nameEn": "Training Ground",
+      "icon": "🎯",
+      "elementBonus": null,
+      "debuff": null,
+      "description": "훈련용 지역. 경험치 50% 감소, 사망 페널티 없음."
+    }
+  },
+
+  "regions": {
+    "starter": {
+      "id": "starter",
+      "nameKo": "시작 지역",
+      "nameEn": "Starter Region",
+      "levelRange": [1, 10],
+      "description": "초보 모험가를 위한 안전한 지역"
+    },
+    "greenwood": {
+      "id": "greenwood",
+      "nameKo": "녹림 지역",
+      "nameEn": "Greenwood Region",
+      "levelRange": [1, 15],
+      "description": "울창한 숲이 펼쳐진 지역"
+    },
+    "ancient": {
+      "id": "ancient",
+      "nameKo": "고대 지역",
+      "nameEn": "Ancient Region",
+      "levelRange": [10, 25],
+      "description": "고대 유적이 있는 신비로운 지역"
+    },
+    "combat": {
+      "id": "combat",
+      "nameKo": "전투 지역",
+      "nameEn": "Combat Region",
+      "levelRange": [10, 50],
+      "description": "PvP가 가능한 전투 지역"
+    }
+  },
+
+  "spawnTypes": {
+    "always": {
+      "id": "always",
+      "nameKo": "상시",
+      "nameEn": "Always",
+      "description": "항상 스폰됨"
+    },
+    "boss": {
+      "id": "boss",
+      "nameKo": "보스",
+      "nameEn": "Boss",
+      "description": "스케줄에 따라 스폰되는 보스 몬스터"
+    },
+    "rare": {
+      "id": "rare",
+      "nameKo": "희귀",
+      "nameEn": "Rare",
+      "description": "낮은 확률로 스폰됨 (5-10%)"
+    },
+    "event": {
+      "id": "event",
+      "nameKo": "이벤트",
+      "nameEn": "Event",
+      "description": "특정 이벤트 기간에만 스폰됨"
+    },
+    "conditional": {
+      "id": "conditional",
+      "nameKo": "조건부",
+      "nameEn": "Conditional",
+      "description": "시간대/날씨 등 조건 충족 시 스폰됨"
+    }
+  },
+
+  "bossSchedulePresets": {
+    "weekend_evening": {
+      "id": "weekend_evening",
+      "nameKo": "주말 저녁",
+      "dayOfWeek": [5, 6],
+      "hourRange": [19, 22],
+      "timezone": "Asia/Seoul",
+      "description": "금요일, 토요일 19:00~22:00"
+    },
+    "daily_night": {
+      "id": "daily_night",
+      "nameKo": "매일 밤",
+      "dayOfWeek": [0, 1, 2, 3, 4, 5, 6],
+      "hourRange": [21, 24],
+      "timezone": "Asia/Seoul",
+      "description": "매일 21:00~24:00"
+    },
+    "weekend_all_day": {
+      "id": "weekend_all_day",
+      "nameKo": "주말 종일",
+      "dayOfWeek": [0, 6],
+      "hourRange": [0, 24],
+      "timezone": "Asia/Seoul",
+      "description": "토요일, 일요일 종일"
+    },
+    "wednesday_special": {
+      "id": "wednesday_special",
+      "nameKo": "수요일 특별",
+      "dayOfWeek": [3],
+      "hourRange": [20, 23],
+      "timezone": "Asia/Seoul",
+      "description": "수요일 20:00~23:00"
+    }
+  },
+
+  "zoneTypes": {
+    "spawn_point": {
+      "id": "spawn_point",
+      "nameKo": "스폰 지점",
+      "description": "플레이어 리스폰 위치"
+    },
+    "boss_area": {
+      "id": "boss_area",
+      "nameKo": "보스 구역",
+      "description": "보스 몬스터가 출현하는 구역"
+    },
+    "safe_zone": {
+      "id": "safe_zone",
+      "nameKo": "안전 구역",
+      "description": "전투 불가 구역"
+    },
+    "event_area": {
+      "id": "event_area",
+      "nameKo": "이벤트 구역",
+      "description": "특별 이벤트가 발생하는 구역"
+    },
+    "treasure": {
+      "id": "treasure",
+      "nameKo": "보물 구역",
+      "description": "숨겨진 보물이 있는 구역"
+    },
+    "portal": {
+      "id": "portal",
+      "nameKo": "포탈 구역",
+      "description": "다른 맵으로 이동하는 포탈"
+    }
+  }
+}

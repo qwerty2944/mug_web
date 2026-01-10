@@ -1,0 +1,105 @@
+{
+  "id": "arena",
+  "region": "combat",
+  "nameKo": "투기장",
+  "nameEn": "Arena",
+  "descriptionKo": "PvP가 가능한 전투 지역입니다.",
+  "descriptionEn": "A PvP enabled combat zone.",
+  "icon": "⚔️",
+  "terrain": "arena",
+  "minLevel": 10,
+  "maxPlayers": 100,
+  "isPvp": true,
+  "isSafeZone": false,
+  "connectedMaps": ["market_square"],
+
+  "zones": [
+    {
+      "id": "arena_lobby",
+      "nameKo": "투기장 로비",
+      "type": "safe_zone",
+      "position": { "x": 10, "y": 50, "width": 20, "height": 30 },
+      "isDefault": true,
+      "description": "전투 전 대기 구역 (안전 지대)"
+    },
+    {
+      "id": "main_arena",
+      "nameKo": "메인 경기장",
+      "type": "event_area",
+      "position": { "x": 40, "y": 30, "width": 40, "height": 40 },
+      "eventTriggers": ["duel_match", "tournament"],
+      "description": "1:1 결투가 펼쳐지는 메인 경기장"
+    },
+    {
+      "id": "team_arena",
+      "nameKo": "팀 경기장",
+      "type": "event_area",
+      "position": { "x": 40, "y": 75, "width": 40, "height": 20 },
+      "eventTriggers": ["team_battle"],
+      "description": "팀 전투가 펼쳐지는 경기장"
+    },
+    {
+      "id": "champion_platform",
+      "nameKo": "챔피언 단상",
+      "type": "boss_area",
+      "position": { "x": 85, "y": 40, "width": 15, "height": 20 },
+      "eventTriggers": ["champion_challenge"],
+      "description": "이번 주 챔피언에게 도전하는 곳"
+    },
+    {
+      "id": "spectator_stands",
+      "nameKo": "관중석",
+      "type": "safe_zone",
+      "position": { "x": 40, "y": 5, "width": 40, "height": 15 },
+      "eventTriggers": ["watch_match"],
+      "description": "경기를 관람하는 관중석 (안전 지대)"
+    },
+    {
+      "id": "betting_counter",
+      "nameKo": "배팅 카운터",
+      "type": "safe_zone",
+      "position": { "x": 85, "y": 70, "width": 15, "height": 15 },
+      "eventTriggers": ["place_bet"],
+      "description": "경기 결과에 배팅하는 곳"
+    }
+  ],
+
+  "spawns": [
+    {
+      "monsterId": "arena_champion_npc",
+      "spawnType": "boss",
+      "maxCount": 1,
+      "zoneId": "champion_platform",
+      "schedule": {
+        "dayOfWeek": [0],
+        "hourRange": [15, 18],
+        "timezone": "Asia/Seoul"
+      },
+      "respawnTime": 604800,
+      "announcement": {
+        "spawn": "이번 주 투기장 챔피언이 도전자를 기다리고 있습니다!",
+        "defeat": "새로운 챔피언이 탄생했습니다!"
+      }
+    }
+  ],
+
+  "npcs": ["arena_master", "arena_healer", "betting_merchant"],
+
+  "pvpRules": {
+    "minLevel": 10,
+    "levelMatchRange": 5,
+    "rewards": {
+      "winner": {
+        "honorPoints": 10,
+        "gold": 100
+      },
+      "loser": {
+        "honorPoints": 2,
+        "gold": 0
+      }
+    },
+    "penalties": {
+      "death": null
+    }
+  }
+}

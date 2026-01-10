@@ -84,12 +84,14 @@ export function getCurrentStamina(profile: UserProfile | undefined): number {
 }
 
 /**
- * 스태미나 퍼센트 계산 (Lazy Calculation 적용)
+ * 피로도 퍼센트 계산 (Lazy Calculation 적용)
+ * CON 기반 최대 피로도를 사용하여 정확한 비율 계산
  */
 export function getStaminaPercent(profile: UserProfile | undefined): number {
   if (!profile) return 100;
   const current = getCurrentStamina(profile);
-  return Math.round((current / profile.maxStamina) * 100);
+  const maxStamina = getMaxStaminaFromProfile(profile);
+  return Math.round((current / maxStamina) * 100);
 }
 
 /**

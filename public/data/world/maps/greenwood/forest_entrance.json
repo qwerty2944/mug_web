@@ -1,0 +1,104 @@
+{
+  "id": "forest_entrance",
+  "region": "greenwood",
+  "nameKo": "숲 입구",
+  "nameEn": "Forest Entrance",
+  "descriptionKo": "어두운 숲으로 향하는 입구입니다.",
+  "descriptionEn": "The entrance to the dark forest.",
+  "icon": "🌲",
+  "terrain": "forest",
+  "minLevel": 1,
+  "maxPlayers": 100,
+  "isPvp": false,
+  "isSafeZone": false,
+  "connectedMaps": ["starting_village", "deep_forest", "training_ground"],
+
+  "zones": [
+    {
+      "id": "forest_path",
+      "nameKo": "숲길",
+      "type": "spawn_point",
+      "position": { "x": 20, "y": 50, "width": 20, "height": 30 },
+      "isDefault": true,
+      "description": "마을에서 이어지는 숲길"
+    },
+    {
+      "id": "squirrel_grove",
+      "nameKo": "다람쥐 숲",
+      "type": "event_area",
+      "position": { "x": 40, "y": 20, "width": 30, "height": 30 },
+      "eventTriggers": ["gather_acorn"],
+      "description": "다람쥐들이 서식하는 곳"
+    },
+    {
+      "id": "bandit_hideout",
+      "nameKo": "도적 은신처",
+      "type": "event_area",
+      "position": { "x": 70, "y": 60, "width": 25, "height": 25 },
+      "eventTriggers": ["bandit_ambush"],
+      "description": "도적들이 숨어있는 위험 구역"
+    },
+    {
+      "id": "deep_forest_path",
+      "nameKo": "깊은 숲 길",
+      "type": "portal",
+      "position": { "x": 80, "y": 10, "width": 15, "height": 15 },
+      "portalTo": "deep_forest",
+      "description": "깊은 숲으로 향하는 길"
+    },
+    {
+      "id": "herb_patch",
+      "nameKo": "약초 군락지",
+      "type": "treasure",
+      "position": { "x": 10, "y": 80, "width": 20, "height": 15 },
+      "eventTriggers": ["gather_herb"],
+      "description": "약초를 채집할 수 있는 곳"
+    }
+  ],
+
+  "spawns": [
+    {
+      "monsterId": "squirrel",
+      "spawnType": "always",
+      "spawnRate": 0.5,
+      "maxCount": 8,
+      "zoneId": "squirrel_grove",
+      "respawnTime": 60
+    },
+    {
+      "monsterId": "squirrel_elder",
+      "spawnType": "rare",
+      "spawnChance": 0.1,
+      "maxCount": 1,
+      "zoneId": "squirrel_grove",
+      "respawnTime": 300
+    },
+    {
+      "monsterId": "forest_bandit",
+      "spawnType": "always",
+      "spawnRate": 0.3,
+      "maxCount": 4,
+      "zoneId": "bandit_hideout",
+      "respawnTime": 120
+    },
+    {
+      "monsterId": "bandit_leader",
+      "spawnType": "boss",
+      "maxCount": 1,
+      "zoneId": "bandit_hideout",
+      "schedule": {
+        "preset": "daily_night",
+        "dayOfWeek": [0, 1, 2, 3, 4, 5, 6],
+        "hourRange": [21, 24],
+        "timezone": "Asia/Seoul"
+      },
+      "respawnTime": 3600,
+      "announcement": {
+        "spawn": "도적 두목이 은신처에 나타났습니다!",
+        "defeat": "도적 두목이 처치되었습니다!"
+      }
+    }
+  ],
+
+  "npcs": ["forest_ranger"]
+}

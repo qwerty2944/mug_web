@@ -1,0 +1,55 @@
+{
+  "id": "training_ground",
+  "region": "starter",
+  "nameKo": "수련장",
+  "nameEn": "Training Ground",
+  "descriptionKo": "초보 모험가를 위한 훈련장. 허수아비가 설치되어 있다.",
+  "descriptionEn": "Training area for beginners. Scarecrows are set up for practice.",
+  "icon": "🎯",
+  "terrain": "training",
+  "minLevel": 1,
+  "maxPlayers": 50,
+  "isPvp": false,
+  "isSafeZone": true,
+  "connectedMaps": ["starting_village", "forest_entrance"],
+
+  "zones": [
+    {
+      "id": "training_entrance",
+      "nameKo": "훈련장 입구",
+      "type": "spawn_point",
+      "position": { "x": 50, "y": 90, "width": 20, "height": 10 },
+      "isDefault": true,
+      "description": "훈련장 입구"
+    },
+    {
+      "id": "scarecrow_area",
+      "nameKo": "허수아비 구역",
+      "type": "event_area",
+      "position": { "x": 30, "y": 30, "width": 40, "height": 40 },
+      "eventTriggers": ["combat_tutorial"],
+      "description": "허수아비와 연습할 수 있는 구역"
+    },
+    {
+      "id": "weapon_rack",
+      "nameKo": "무기 거치대",
+      "type": "safe_zone",
+      "position": { "x": 80, "y": 50, "width": 15, "height": 15 },
+      "eventTriggers": ["equipment_tutorial"],
+      "description": "연습용 무기를 대여할 수 있는 곳"
+    }
+  ],
+
+  "spawns": [
+    {
+      "monsterId": "scarecrow",
+      "spawnType": "always",
+      "spawnRate": 1,
+      "maxCount": 5,
+      "zoneId": "scarecrow_area",
+      "respawnTime": 30
+    }
+  ],
+
+  "npcs": ["training_master", "weapon_merchant"]
+}

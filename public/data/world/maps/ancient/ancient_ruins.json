@@ -1,0 +1,134 @@
+{
+  "id": "ancient_ruins",
+  "region": "ancient",
+  "nameKo": "고대 유적",
+  "nameEn": "Ancient Ruins",
+  "descriptionKo": "신비로운 힘이 깃든 유적지입니다.",
+  "descriptionEn": "Mysterious ruins with ancient power.",
+  "icon": "🏛️",
+  "terrain": "ruins",
+  "minLevel": 10,
+  "maxPlayers": 100,
+  "isPvp": false,
+  "isSafeZone": false,
+  "connectedMaps": ["deep_forest"],
+
+  "zones": [
+    {
+      "id": "ruins_entrance",
+      "nameKo": "유적 입구",
+      "type": "spawn_point",
+      "position": { "x": 10, "y": 80, "width": 20, "height": 15 },
+      "isDefault": true,
+      "description": "유적으로 들어가는 입구"
+    },
+    {
+      "id": "collapsed_hall",
+      "nameKo": "무너진 대청",
+      "type": "event_area",
+      "position": { "x": 30, "y": 50, "width": 30, "height": 25 },
+      "eventTriggers": ["trap_puzzle"],
+      "description": "함정이 있을 수 있는 무너진 건물"
+    },
+    {
+      "id": "guardian_chamber",
+      "nameKo": "수호자의 방",
+      "type": "boss_area",
+      "position": { "x": 60, "y": 30, "width": 25, "height": 25 },
+      "eventTriggers": ["guardian_awakening"],
+      "description": "유적의 수호자가 잠들어 있는 방"
+    },
+    {
+      "id": "altar_room",
+      "nameKo": "제단의 방",
+      "type": "event_area",
+      "position": { "x": 70, "y": 70, "width": 20, "height": 20 },
+      "eventTriggers": ["offering_ritual"],
+      "description": "고대의 제단이 있는 방"
+    },
+    {
+      "id": "treasure_vault",
+      "nameKo": "보물 창고",
+      "type": "treasure",
+      "position": { "x": 85, "y": 10, "width": 15, "height": 15 },
+      "eventTriggers": ["vault_unlock"],
+      "description": "봉인된 보물 창고"
+    },
+    {
+      "id": "ancient_library",
+      "nameKo": "고대 서고",
+      "type": "event_area",
+      "position": { "x": 10, "y": 20, "width": 20, "height": 25 },
+      "eventTriggers": ["lore_discovery"],
+      "description": "고대의 지식이 담긴 서고"
+    }
+  ],
+
+  "spawns": [
+    {
+      "monsterId": "stone_golem",
+      "spawnType": "always",
+      "spawnRate": 0.2,
+      "maxCount": 4,
+      "zoneId": "collapsed_hall",
+      "respawnTime": 180
+    },
+    {
+      "monsterId": "ancient_spirit",
+      "spawnType": "conditional",
+      "spawnRate": 0.15,
+      "maxCount": 3,
+      "zoneId": "altar_room",
+      "respawnTime": 240,
+      "conditions": {
+        "period": ["night", "dawn"]
+      }
+    },
+    {
+      "monsterId": "cursed_scholar",
+      "spawnType": "rare",
+      "spawnChance": 0.08,
+      "maxCount": 1,
+      "zoneId": "ancient_library",
+      "respawnTime": 600
+    },
+    {
+      "monsterId": "ruins_guardian",
+      "spawnType": "boss",
+      "maxCount": 1,
+      "zoneId": "guardian_chamber",
+      "schedule": {
+        "preset": "weekend_all_day",
+        "dayOfWeek": [0, 6],
+        "hourRange": [12, 22],
+        "timezone": "Asia/Seoul"
+      },
+      "respawnTime": 10800,
+      "announcement": {
+        "spawn": "유적의 수호자가 눈을 떴습니다! 침입자를 막기 위해 일어섰습니다.",
+        "defeat": "유적의 수호자가 쓰러졌습니다. 보물 창고의 봉인이 약해졌습니다."
+      }
+    },
+    {
+      "monsterId": "ancient_lich",
+      "spawnType": "boss",
+      "maxCount": 1,
+      "zoneId": "altar_room",
+      "schedule": {
+        "dayOfWeek": [6],
+        "hourRange": [23, 24],
+        "timezone": "Asia/Seoul"
+      },
+      "respawnTime": 86400,
+      "conditions": {
+        "period": ["night"]
+      },
+      "announcement": {
+        "spawn": "토요일 자정... 고대의 리치가 제단에서 부활했습니다!",
+        "defeat": "고대의 리치가 다시 잠들었습니다. 전설적인 보상을 남겼습니다!"
+      }
+    }
+  ],
+
+  "npcs": ["ruins_researcher", "treasure_hunter"]
+}
