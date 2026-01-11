@@ -97,9 +97,14 @@ export interface BattleState {
   monsterBuffs: StatusEffect[];
   monsterDebuffs: StatusEffect[];
 
-  // 방어 행동
-  defensiveStance: "none" | "guard" | "dodge" | "counter";
-  defensiveValue: number;
+  // 방어 행동 큐 (여러 번 방어 시 스택)
+  defensiveActions: DefensiveAction[];
+}
+
+// 방어 행동 타입
+export interface DefensiveAction {
+  type: "guard" | "dodge" | "counter";
+  value: number; // guard: 감소율%, dodge: 회피확률%, counter: 반격데미지
 }
 
 // 기본 AP
@@ -135,8 +140,7 @@ const initialBattleState: BattleState = {
   playerDebuffs: [],
   monsterBuffs: [],
   monsterDebuffs: [],
-  defensiveStance: "none",
-  defensiveValue: 0,
+  defensiveActions: [],
 };
 
 // ============ 스토어 인터페이스 ============
@@ -196,6 +200,12 @@ interface BattleStore {
   tickAllStatuses: () => void;
 
   // 방어 자세
+  // 방어 행동 큐
+  addDefensiveAction: (type: "guard" | "dodge" | "counter", value: number) => void;
+  clearDefensiveActions: () => void;
+  getDefensiveActionCount: () => number;
+
+  // 레거시 (하위호환)
   setDefensiveStance: (stance: "none" | "guard" | "dodge" | "counter", value?: number) => void;
   clearDefensiveStance: () => void;
   getDefensiveStance: () => { stance: string; value: number };
@@ -280,8 +290,7 @@ export const useBattleStore = create<BattleStore>((set, get) => ({
         playerDebuffs: [],
         monsterBuffs: [],
         monsterDebuffs: [],
-        defensiveStance: "none",
-        defensiveValue: 0,
+        defensiveActions: [],
       },
     });
   },
@@ -485,19 +494,30 @@ export const useBattleStore = create<BattleStore>((set, get) => ({
     let finalDamage = damage;
     let newPlayerBuffs = [...battle.playerBuffs];
     let defensiveMessage = "";
+    let newDefensiveActions = [...battle.defensiveActions];
 
-    // 1. 방어 자세 확인 (guard = 데미지 감소, dodge = 회피 시도)
-    if (battle.defensiveStance === "guard" && battle.defensiveValue > 0) {
-      const reduction = battle.defensiveValue / 100; // % -> 소수
-      const reduced = Math.floor(finalDamage * reduction);
-      finalDamage = finalDamage - reduced;
-      defensiveMessage = `🛡️ 막기로 ${reduced} 피해 감소! `;
-    } else if (battle.defensiveStance === "dodge") {
-      // 회피 확률 (defensiveValue가 회피 확률)
-      const dodgeRoll = Math.random() * 100;
-      if (dodgeRoll < battle.defensiveValue) {
-        finalDamage = 0;
-        defensiveMessage = `💨 회피 성공! `;
+    // 1. 방어 행동 큐 확인 (첫 번째 액션 소비)
+    if (newDefensiveActions.length > 0) {
+      const action = newDefensiveActions.shift()!; // 첫 번째 액션 꺼내기
+
+      if (action.type === "guard" && action.value > 0) {
+        // 막기: 데미지 감소
+        const reduction = action.value / 100; // % -> 소수
+        const reduced = Math.floor(finalDamage * reduction);
+        finalDamage = finalDamage - reduced;
+        defensiveMessage = `🛡️ 막기로 ${reduced} 피해 감소! `;
+      } else if (action.type === "dodge") {
+        // 회피: 확률 굴림
+        const dodgeRoll = Math.random() * 100;
+        if (dodgeRoll < action.value) {
+          finalDamage = 0;
+          defensiveMessage = `💨 회피 성공! `;
+        } else {
+          defensiveMessage = `💨 회피 실패! `;
+        }
+      } else if (action.type === "counter") {
+        // 반격: 나중에 구현
+        defensiveMessage = `⚔️ 반격 준비! `;
       }
     }
 
@@ -519,10 +539,6 @@ export const useBattleStore = create<BattleStore>((set, get) => ({
       finalDamage = remainingDamage;
     }
 
-    // 3. 방어 자세 초기화 (1회용)
-    const newDefensiveStance = "none" as const;
-    const newDefensiveValue = 0;
-
     const newPlayerHp = Math.max(0, battle.playerCurrentHp - finalDamage);
     const finalMessage = defensiveMessage + message;
     const newLog: BattleLogEntry = {
@@ -540,8 +556,7 @@ export const useBattleStore = create<BattleStore>((set, get) => ({
           ...battle,
           playerCurrentHp: 0,
           playerBuffs: newPlayerBuffs,
-          defensiveStance: newDefensiveStance,
-          defensiveValue: newDefensiveValue,
+          defensiveActions: newDefensiveActions,
           battleLog: [
             ...battle.battleLog,
             newLog,
@@ -563,8 +578,7 @@ export const useBattleStore = create<BattleStore>((set, get) => ({
           ...battle,
           playerCurrentHp: newPlayerHp,
           playerBuffs: newPlayerBuffs,
-          defensiveStance: newDefensiveStance,
-          defensiveValue: newDefensiveValue,
+          defensiveActions: newDefensiveActions,
           battleLog: [...battle.battleLog, newLog],
         },
       });
@@ -692,34 +706,56 @@ export const useBattleStore = create<BattleStore>((set, get) => ({
     });
   },
 
-  // 방어 자세 설정
+  // 방어 행동 추가 (큐에 푸시)
+  addDefensiveAction: (type, value) => {
+    const { battle } = get();
+    set({
+      battle: {
+        ...battle,
+        defensiveActions: [...battle.defensiveActions, { type, value }],
+      },
+    });
+  },
+
+  // 방어 행동 큐 초기화
+  clearDefensiveActions: () => {
+    const { battle } = get();
+    set({
+      battle: {
+        ...battle,
+        defensiveActions: [],
+      },
+    });
+  },
+
+  // 방어 행동 남은 횟수
+  getDefensiveActionCount: () => {
+    const { battle } = get();
+    return battle.defensiveActions.length;
+  },
+
+  // 레거시: 방어 자세 설정 (addDefensiveAction으로 매핑)
   setDefensiveStance: (stance, value = 0) => {
-    const { battle } = get();
-    set({
-      battle: {
-        ...battle,
-        defensiveStance: stance,
-        defensiveValue: value,
-      },
-    });
+    if (stance === "none") {
+      get().clearDefensiveActions();
+    } else {
+      get().addDefensiveAction(stance, value);
+    }
   },
 
-  // 방어 자세 초기화
+  // 레거시: 방어 자세 초기화
   clearDefensiveStance: () => {
-    const { battle } = get();
-    set({
-      battle: {
-        ...battle,
-        defensiveStance: "none",
-        defensiveValue: 0,
-      },
-    });
+    get().clearDefensiveActions();
   },
 
-  // 방어 자세 가져오기
+  // 레거시: 방어 자세 가져오기 (첫 번째 액션 반환)
   getDefensiveStance: () => {
     const { battle } = get();
-    return { stance: battle.defensiveStance, value: battle.defensiveValue };
+    if (battle.defensiveActions.length === 0) {
+      return { stance: "none", value: 0 };
+    }
+    const first = battle.defensiveActions[0];
+    return { stance: first.type, value: first.value };
   },
 
   // 플레이어 상태이상 적용
