@@ -8,7 +8,7 @@
       "nameEn": "Giant Beetle",
       "rank": "normal",
       "alignment": "neutral",
-      "mapId": "forest_entrance",
+      "mapIds": ["forest_entrance"],
       "level": 3,
       "element": "earth",
       "icon": "🪲",

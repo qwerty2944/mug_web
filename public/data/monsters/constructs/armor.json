@@ -8,7 +8,7 @@
       "nameEn": "Animated Armor",
       "rank": "normal",
       "alignment": "neutral",
-      "mapId": "ancient_ruins",
+      "mapIds": ["ancient_ruins"],
       "level": 13,
       "element": null,
       "icon": "🛡️",

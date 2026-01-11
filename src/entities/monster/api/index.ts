@@ -37,7 +37,7 @@ export async function fetchMonsters(): Promise<Monster[]> {
  */
 export async function fetchMonstersByMap(mapId: string): Promise<Monster[]> {
   const monsters = await fetchMonsters();
-  return monsters.filter((m) => m.mapId === mapId);
+  return monsters.filter((m) => m.mapIds.includes(mapId));
 }
 
 /**

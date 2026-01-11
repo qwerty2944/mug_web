@@ -90,8 +90,11 @@ function processMonsters(): {
           byType[source.type] = (byType[source.type] || 0) + 1;
           byCategory[source.category] = (byCategory[source.category] || 0) + 1;
 
-          const mapId = (monster as { mapId?: string }).mapId || "unknown";
-          byMapId[mapId] = (byMapId[mapId] || 0) + 1;
+          // mapIds 배열 처리
+          const mapIds = (monster as { mapIds?: string[] }).mapIds || ["unknown"];
+          for (const mapId of mapIds) {
+            byMapId[mapId] = (byMapId[mapId] || 0) + 1;
+          }
         }
       } catch (err) {
         console.error(`    ❌ ${file} 로드 실패:`, err);

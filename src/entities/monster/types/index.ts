@@ -192,7 +192,7 @@ export interface Monster {
   nameEn: string;
   type: MonsterType;
   alignment: MonsterAlignment;
-  mapId: string;
+  mapIds: string[];  // 출현 맵 ID 배열 (복수 맵 가능)
   level: number;
   element: MagicElement | null;
   stats: MonsterStats;

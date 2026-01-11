@@ -8,7 +8,7 @@
       "nameEn": "Forest Wasp",
       "rank": "normal",
       "alignment": "neutral",
-      "mapId": "forest_clearing",
+      "mapIds": ["forest_clearing"],
       "level": 4,
       "element": null,
       "icon": "🐝",

@@ -1,6 +1,6 @@
 {
   "version": "2.0.0",
-  "generatedAt": "2026-01-11T09:19:59.254Z",
+  "generatedAt": "2026-01-11T09:22:27.872Z",
   "metadata": {
     "version": "1.0.0",
     "description": "몬스터 시스템 메타데이터",
@@ -438,7 +438,9 @@
       "nameEn": "Green Slime",
       "rank": "normal",
       "alignment": "neutral",
-      "mapId": "swamp_entrance",
+      "mapIds": [
+        "swamp_entrance"
+      ],
       "level": 3,
       "element": "earth",
       "icon": "🟢",
@@ -497,7 +499,9 @@
       "nameEn": "Blue Slime",
       "rank": "normal",
       "alignment": "neutral",
-      "mapId": "shallow_marsh",
+      "mapIds": [
+        "shallow_marsh"
+      ],
       "level": 5,
       "element": "ice",
       "icon": "🔵",
@@ -564,7 +568,9 @@
       "nameEn": "Red Slime",
       "rank": "normal",
       "alignment": "neutral",
-      "mapId": "shallow_marsh",
+      "mapIds": [
+        "shallow_marsh"
+      ],
       "level": 6,
       "element": "fire",
       "icon": "🔴",
@@ -637,7 +643,9 @@
       "nameEn": "Poison Slime",
       "rank": "elite",
       "alignment": "neutral",
-      "mapId": "shallow_marsh",
+      "mapIds": [
+        "shallow_marsh"
+      ],
       "level": 8,
       "element": "dark",
       "icon": "🟣",
@@ -718,7 +726,9 @@
       "nameEn": "Golden Slime",
       "rank": "elite",
       "alignment": "neutral",
-      "mapId": "shallow_marsh",
+      "mapIds": [
+        "shallow_marsh"
+      ],
       "level": 10,
       "element": "holy",
       "icon": "🟡",
@@ -796,7 +806,9 @@
       "nameEn": "Giant Slime",
       "rank": "boss",
       "alignment": "neutral",
-      "mapId": "slime_nest",
+      "mapIds": [
+        "slime_nest"
+      ],
       "level": 12,
       "element": "earth",
       "icon": "🫧",
@@ -888,7 +900,9 @@
       "nameEn": "Shadow Slime",
       "rank": "elite",
       "alignment": "evil",
-      "mapId": "slime_nest",
+      "mapIds": [
+        "slime_nest"
+      ],
       "level": 9,
       "element": "dark",
       "icon": "⚫",
@@ -965,7 +979,9 @@
       "nameEn": "Squirrel",
       "rank": "normal",
       "alignment": "neutral",
-      "mapId": "forest_entrance",
+      "mapIds": [
+        "forest_entrance"
+      ],
       "level": 2,
       "element": "earth",
       "icon": "🐿️",
@@ -1024,7 +1040,9 @@
       "nameEn": "Elder Squirrel",
       "rank": "elite",
       "alignment": "neutral",
-      "mapId": "forest_entrance",
+      "mapIds": [
+        "forest_entrance"
+      ],
       "level": 3,
       "element": "earth",
       "icon": "🐿️",
@@ -1091,7 +1109,9 @@
       "nameEn": "Wolf",
       "rank": "normal",
       "alignment": "neutral",
-      "mapId": "deep_forest",
+      "mapIds": [
+        "deep_forest"
+      ],
       "level": 5,
       "element": null,
       "icon": "🐺",
@@ -1156,7 +1176,9 @@
       "nameEn": "Dire Wolf",
       "rank": "elite",
       "alignment": "neutral",
-      "mapId": "deep_forest",
+      "mapIds": [
+        "deep_forest"
+      ],
       "level": 7,
       "element": null,
       "icon": "🐺",
@@ -1228,7 +1250,9 @@
       "nameEn": "Wild Boar",
       "rank": "normal",
       "alignment": "neutral",
-      "mapId": "forest_clearing",
+      "mapIds": [
+        "forest_clearing"
+      ],
       "level": 4,
       "element": "earth",
       "icon": "🐗",
@@ -1295,7 +1319,9 @@
       "nameEn": "Forest Bear",
       "rank": "elite",
       "alignment": "neutral",
-      "mapId": "deep_forest",
+      "mapIds": [
+        "deep_forest"
+      ],
       "level": 8,
       "element": "earth",
       "icon": "🐻",
@@ -1370,7 +1396,9 @@
       "nameEn": "Rabbit",
       "rank": "normal",
       "alignment": "good",
-      "mapId": "forest_entrance",
+      "mapIds": [
+        "forest_entrance"
+      ],
       "level": 1,
       "element": null,
       "icon": "🐰",
@@ -1429,7 +1457,9 @@
       "nameEn": "Fox",
       "rank": "normal",
       "alignment": "neutral",
-      "mapId": "forest_entrance",
+      "mapIds": [
+        "forest_entrance"
+      ],
       "level": 3,
       "element": null,
       "icon": "🦊",
@@ -1488,7 +1518,9 @@
       "nameEn": "Animated Armor",
       "rank": "normal",
       "alignment": "neutral",
-      "mapId": "ancient_ruins",
+      "mapIds": [
+        "ancient_ruins"
+      ],
       "level": 13,
       "element": null,
       "icon": "🛡️",
@@ -1555,7 +1587,9 @@
       "nameEn": "Stone Golem",
       "rank": "normal",
       "alignment": "neutral",
-      "mapId": "ancient_ruins",
+      "mapIds": [
+        "ancient_ruins"
+      ],
       "level": 12,
       "element": "earth",
       "icon": "🗿",
@@ -1622,7 +1656,9 @@
       "nameEn": "Iron Golem",
       "rank": "elite",
       "alignment": "neutral",
-      "mapId": "ancient_ruins",
+      "mapIds": [
+        "ancient_ruins"
+      ],
       "level": 15,
       "element": "earth",
       "icon": "🤖",
@@ -1697,7 +1733,9 @@
       "nameEn": "Scarecrow",
       "rank": "normal",
       "alignment": "neutral",
-      "mapId": "training_ground",
+      "mapIds": [
+        "training_ground"
+      ],
       "level": 1,
       "element": null,
       "icon": "🎃",
@@ -1739,7 +1777,9 @@
       "nameEn": "Advanced Training Dummy",
       "rank": "normal",
       "alignment": "neutral",
-      "mapId": "training_ground",
+      "mapIds": [
+        "training_ground"
+      ],
       "level": 5,
       "element": null,
       "icon": "🎯",
@@ -1781,7 +1821,9 @@
       "nameEn": "Forest Bandit",
       "rank": "normal",
       "alignment": "evil",
-      "mapId": "bandit_camp",
+      "mapIds": [
+        "bandit_camp"
+      ],
       "level": 4,
       "element": null,
       "icon": "🗡️",
@@ -1848,7 +1890,9 @@
       "nameEn": "Bandit Archer",
       "rank": "normal",
       "alignment": "evil",
-      "mapId": "bandit_camp",
+      "mapIds": [
+        "bandit_camp"
+      ],
       "level": 5,
       "element": null,
       "icon": "🏹",
@@ -1915,7 +1959,9 @@
       "nameEn": "Bandit Brute",
       "rank": "elite",
       "alignment": "evil",
-      "mapId": "bandit_camp",
+      "mapIds": [
+        "bandit_camp"
+      ],
       "level": 6,
       "element": null,
       "icon": "💪",
@@ -1982,7 +2028,9 @@
       "nameEn": "Bandit Mage",
       "rank": "elite",
       "alignment": "evil",
-      "mapId": "deep_forest",
+      "mapIds": [
+        "deep_forest"
+      ],
       "level": 8,
       "element": "fire",
       "icon": "🔥",
@@ -2057,7 +2105,9 @@
       "nameEn": "Highway Robber",
       "rank": "normal",
       "alignment": "evil",
-      "mapId": "deep_forest",
+      "mapIds": [
+        "deep_forest"
+      ],
       "level": 7,
       "element": null,
       "icon": "🥷",
@@ -2124,7 +2174,9 @@
       "nameEn": "Giant Ant",
       "rank": "normal",
       "alignment": "neutral",
-      "mapId": "deep_forest",
+      "mapIds": [
+        "deep_forest"
+      ],
       "level": 5,
       "element": "earth",
       "icon": "🐜",
@@ -2183,7 +2235,9 @@
       "nameEn": "Soldier Ant",
       "rank": "elite",
       "alignment": "neutral",
-      "mapId": "deep_forest",
+      "mapIds": [
+        "deep_forest"
+      ],
       "level": 7,
       "element": "earth",
       "icon": "🐜",
@@ -2250,7 +2304,9 @@
       "nameEn": "Giant Beetle",
       "rank": "normal",
       "alignment": "neutral",
-      "mapId": "forest_entrance",
+      "mapIds": [
+        "forest_entrance"
+      ],
       "level": 3,
       "element": "earth",
       "icon": "🪲",
@@ -2309,7 +2365,9 @@
       "nameEn": "Cave Centipede",
       "rank": "normal",
       "alignment": "neutral",
-      "mapId": "ancient_ruins",
+      "mapIds": [
+        "ancient_ruins"
+      ],
       "level": 10,
       "element": "dark",
       "icon": "🐛",
@@ -2374,7 +2432,9 @@
       "nameEn": "Forest Spider",
       "rank": "normal",
       "alignment": "neutral",
-      "mapId": "deep_forest",
+      "mapIds": [
+        "deep_forest"
+      ],
       "level": 6,
       "element": "dark",
       "icon": "🕷️",
@@ -2439,7 +2499,9 @@
       "nameEn": "Venomous Spider",
       "rank": "elite",
       "alignment": "neutral",
-      "mapId": "deep_forest",
+      "mapIds": [
+        "deep_forest"
+      ],
       "level": 8,
       "element": "dark",
       "icon": "🕷️",
@@ -2517,7 +2579,9 @@
       "nameEn": "Forest Wasp",
       "rank": "normal",
       "alignment": "neutral",
-      "mapId": "forest_clearing",
+      "mapIds": [
+        "forest_clearing"
+      ],
       "level": 4,
       "element": null,
       "icon": "🐝",
@@ -2582,7 +2646,9 @@
       "nameEn": "Walking Shrub",
       "rank": "normal",
       "alignment": "neutral",
-      "mapId": "forest_clearing",
+      "mapIds": [
+        "forest_clearing"
+      ],
       "level": 3,
       "element": "earth",
       "icon": "🌿",
@@ -2641,7 +2707,9 @@
       "nameEn": "Vine Creeper",
       "rank": "normal",
       "alignment": "neutral",
-      "mapId": "deep_forest",
+      "mapIds": [
+        "deep_forest"
+      ],
       "level": 6,
       "element": "earth",
       "icon": "🌱",
@@ -2713,7 +2781,9 @@
       "nameEn": "Mushroom Man",
       "rank": "normal",
       "alignment": "neutral",
-      "mapId": "deep_forest",
+      "mapIds": [
+        "deep_forest"
+      ],
       "level": 7,
       "element": "dark",
       "icon": "🍄",
@@ -2791,7 +2861,9 @@
       "nameEn": "Poison Flower",
       "rank": "elite",
       "alignment": "neutral",
-      "mapId": "deep_forest",
+      "mapIds": [
+        "deep_forest"
+      ],
       "level": 8,
       "element": "dark",
       "icon": "🌺",
@@ -2864,7 +2936,9 @@
       "nameEn": "Young Treant",
       "rank": "elite",
       "alignment": "good",
-      "mapId": "deep_forest",
+      "mapIds": [
+        "deep_forest"
+      ],
       "level": 10,
       "element": "earth",
       "icon": "🌲",
@@ -2939,7 +3013,9 @@
       "nameEn": "Forest Wisp",
       "rank": "normal",
       "alignment": "neutral",
-      "mapId": "deep_forest",
+      "mapIds": [
+        "deep_forest"
+      ],
       "level": 6,
       "element": "holy",
       "icon": "✨",
@@ -3004,7 +3080,9 @@
       "nameEn": "Water Spirit",
       "rank": "normal",
       "alignment": "good",
-      "mapId": "deep_forest",
+      "mapIds": [
+        "deep_forest"
+      ],
       "level": 7,
       "element": "ice",
       "icon": "💧",
@@ -3068,7 +3146,9 @@
       "nameEn": "Earth Spirit",
       "rank": "elite",
       "alignment": "neutral",
-      "mapId": "deep_forest",
+      "mapIds": [
+        "deep_forest"
+      ],
       "level": 9,
       "element": "earth",
       "icon": "🪨",
@@ -3135,7 +3215,9 @@
       "nameEn": "Ancient Spirit",
       "rank": "elite",
       "alignment": "neutral",
-      "mapId": "ancient_ruins",
+      "mapIds": [
+        "ancient_ruins"
+      ],
       "level": 12,
       "element": "holy",
       "icon": "👻",
@@ -3208,7 +3290,9 @@
       "nameEn": "Wind Sprite",
       "rank": "normal",
       "alignment": "good",
-      "mapId": "forest_clearing",
+      "mapIds": [
+        "forest_clearing"
+      ],
       "level": 5,
       "element": "lightning",
       "icon": "🌬️",
@@ -3272,7 +3356,9 @@
       "nameEn": "Forest Guardian",
       "rank": "boss",
       "alignment": "good",
-      "mapId": "deep_forest",
+      "mapIds": [
+        "deep_forest"
+      ],
       "level": 15,
       "element": "earth",
       "icon": "🌳",
@@ -3379,7 +3465,9 @@
       "nameEn": "Skeleton Warrior",
       "rank": "normal",
       "alignment": "evil",
-      "mapId": "ancient_ruins",
+      "mapIds": [
+        "ancient_ruins"
+      ],
       "level": 10,
       "element": "dark",
       "icon": "💀",
@@ -3446,7 +3534,9 @@
       "nameEn": "Skeleton Archer",
       "rank": "normal",
       "alignment": "evil",
-      "mapId": "ancient_ruins",
+      "mapIds": [
+        "ancient_ruins"
+      ],
       "level": 11,
       "element": "dark",
       "icon": "🏹",
@@ -3513,7 +3603,9 @@
       "nameEn": "Skeleton Mage",
       "rank": "elite",
       "alignment": "evil",
-      "mapId": "ancient_ruins",
+      "mapIds": [
+        "ancient_ruins"
+      ],
       "level": 13,
       "element": "dark",
       "icon": "🧙",
@@ -3588,7 +3680,9 @@
       "nameEn": "Ghoul",
       "rank": "normal",
       "alignment": "evil",
-      "mapId": "ancient_ruins",
+      "mapIds": [
+        "ancient_ruins"
+      ],
       "level": 11,
       "element": "dark",
       "icon": "🧟",
@@ -3660,7 +3754,9 @@
       "nameEn": "Wraith",
       "rank": "elite",
       "alignment": "evil",
-      "mapId": "ancient_ruins",
+      "mapIds": [
+        "ancient_ruins"
+      ],
       "level": 14,
       "element": "dark",
       "icon": "👤",
@@ -3738,7 +3834,9 @@
       "nameEn": "Cursed Scholar",
       "rank": "elite",
       "alignment": "evil",
-      "mapId": "ancient_ruins",
+      "mapIds": [
+        "ancient_ruins"
+      ],
       "level": 15,
       "element": "dark",
       "icon": "📚",
@@ -3813,7 +3911,9 @@
       "nameEn": "Ancient Lich",
       "rank": "boss",
       "alignment": "evil",
-      "mapId": "ancient_ruins",
+      "mapIds": [
+        "ancient_ruins"
+      ],
       "level": 20,
       "element": "dark",
       "icon": "☠️",
