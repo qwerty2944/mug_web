@@ -21,6 +21,10 @@ import {
   getDefeatMessage,
   getFleeSuccessMessage,
   getFleeFailMessage,
+  getGuardSuccessMessage,
+  getDodgeSkillSuccessMessage,
+  getDodgeSkillFailMessage,
+  getCounterReadyMessage,
 } from "@/features/combat/lib/messages";
 
 // ============ 타입 정의 ============
@@ -505,48 +509,19 @@ export const useBattleStore = create<BattleStore>((set, get) => ({
         const reduction = action.value / 100; // % -> 소수
         const reduced = Math.floor(finalDamage * reduction);
         finalDamage = finalDamage - reduced;
-
-        // 막기 성공 메시지 (다양하게)
-        const guardMessages = [
-          `🛡️ 단단히 막아냈다! (-${reduced})`,
-          `🛡️ 방어 자세로 충격을 흡수했다! (-${reduced})`,
-          `🛡️ 공격을 버텨냈다! (-${reduced})`,
-          `🛡️ 굳건히 버텼다! (-${reduced})`,
-          `🛡️ 몸을 웅크려 피해를 줄였다! (-${reduced})`,
-        ];
-        defensiveMessage = guardMessages[Math.floor(Math.random() * guardMessages.length)] + " ";
+        defensiveMessage = getGuardSuccessMessage(reduced) + " ";
       } else if (action.type === "dodge") {
         // 회피: 확률 굴림
         const dodgeRoll = Math.random() * 100;
         if (dodgeRoll < action.value) {
           finalDamage = 0;
-          // 회피 성공 메시지 (다양하게)
-          const dodgeSuccessMessages = [
-            `💨 날렵하게 피했다!`,
-            `💨 몸을 비틀어 회피!`,
-            `💨 재빠르게 벗어났다!`,
-            `💨 공격이 빗나갔다!`,
-            `💨 가볍게 피해버렸다!`,
-            `💨 순간이동하듯 피했다!`,
-          ];
-          defensiveMessage = dodgeSuccessMessages[Math.floor(Math.random() * dodgeSuccessMessages.length)] + " ";
+          defensiveMessage = getDodgeSkillSuccessMessage() + " ";
         } else {
-          // 회피 실패 메시지 (다양하게)
-          const dodgeFailMessages = [
-            `💨 피하려 했지만 실패!`,
-            `💨 회피가 늦었다!`,
-            `💨 몸이 굳어버렸다!`,
-            `💨 읽혔다!`,
-          ];
-          defensiveMessage = dodgeFailMessages[Math.floor(Math.random() * dodgeFailMessages.length)] + " ";
+          defensiveMessage = getDodgeSkillFailMessage() + " ";
         }
       } else if (action.type === "counter") {
         // 반격: 나중에 구현
-        const counterMessages = [
-          `⚔️ 반격 자세!`,
-          `⚔️ 틈을 노린다!`,
-        ];
-        defensiveMessage = counterMessages[Math.floor(Math.random() * counterMessages.length)] + " ";
+        defensiveMessage = getCounterReadyMessage() + " ";
       }
     }
 

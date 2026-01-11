@@ -65,3 +65,29 @@ export {
   type AmbushResult,
   type ParryResult,
 } from "./lib/damage";
+
+// Messages
+export {
+  getAttackMessage,
+  getMonsterAttackMessage,
+  getBattleStartMessage,
+  getVictoryMessage,
+  getDefeatMessage,
+  getFleeSuccessMessage,
+  getFleeFailMessage,
+  getDodgeMessage,
+  getBlockMessage,
+  getMissMessage,
+  getPlayerDodgeMessage,
+  getPlayerBlockMessage,
+  getMonsterMissMessage,
+  // 방어 스킬 메시지
+  getGuardSuccessMessage,
+  getDodgeSkillSuccessMessage,
+  getDodgeSkillFailMessage,
+  getCounterReadyMessage,
+  // 무기막기 메시지
+  getWeaponBlockMessage,
+  getPlayerWeaponBlockMessage,
+  getCounterDamageMessage,
+} from "./lib/messages";

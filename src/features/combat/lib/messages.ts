@@ -461,6 +461,77 @@ export function getMonsterMissMessage(): string {
   return randomPick(MONSTER_MISS_MESSAGES);
 }
 
+// ============ 플레이어 방어 스킬 메시지 ============
+
+// 막기 성공 메시지 (reduced 변수 필요)
+const GUARD_SUCCESS_MESSAGES = [
+  (reduced: number) => `🛡️ 단단히 막아냈다! (-${reduced})`,
+  (reduced: number) => `🛡️ 방어 자세로 충격을 흡수했다! (-${reduced})`,
+  (reduced: number) => `🛡️ 공격을 버텨냈다! (-${reduced})`,
+  (reduced: number) => `🛡️ 굳건히 버텼다! (-${reduced})`,
+  (reduced: number) => `🛡️ 몸을 웅크려 피해를 줄였다! (-${reduced})`,
+  (reduced: number) => `🛡️ 방패를 높이 들어 막았다! (-${reduced})`,
+  (reduced: number) => `🛡️ 타이밍을 읽고 방어했다! (-${reduced})`,
+];
+
+// 회피 성공 메시지
+const DODGE_SKILL_SUCCESS_MESSAGES = [
+  "💨 날렵하게 피했다!",
+  "💨 몸을 비틀어 회피!",
+  "💨 재빠르게 벗어났다!",
+  "💨 공격이 빗나갔다!",
+  "💨 가볍게 피해버렸다!",
+  "💨 순간이동하듯 피했다!",
+  "💨 바람처럼 흘렸다!",
+  "💨 종이 한 장 차이로 피했다!",
+];
+
+// 회피 실패 메시지
+const DODGE_SKILL_FAIL_MESSAGES = [
+  "💨 피하려 했지만 실패!",
+  "💨 회피가 늦었다!",
+  "💨 몸이 굳어버렸다!",
+  "💨 읽혔다!",
+  "💨 피할 틈이 없었다!",
+  "💨 발이 꼬였다!",
+];
+
+// 반격 준비 메시지
+const COUNTER_READY_MESSAGES = [
+  "⚔️ 반격 자세!",
+  "⚔️ 틈을 노린다!",
+  "⚔️ 역습을 준비한다!",
+  "⚔️ 상대의 빈틈을 노린다!",
+];
+
+/**
+ * 막기 성공 메시지 생성
+ */
+export function getGuardSuccessMessage(reducedDamage: number): string {
+  return randomPick(GUARD_SUCCESS_MESSAGES)(reducedDamage);
+}
+
+/**
+ * 회피 스킬 성공 메시지 생성
+ */
+export function getDodgeSkillSuccessMessage(): string {
+  return randomPick(DODGE_SKILL_SUCCESS_MESSAGES);
+}
+
+/**
+ * 회피 스킬 실패 메시지 생성
+ */
+export function getDodgeSkillFailMessage(): string {
+  return randomPick(DODGE_SKILL_FAIL_MESSAGES);
+}
+
+/**
+ * 반격 준비 메시지 생성
+ */
+export function getCounterReadyMessage(): string {
+  return randomPick(COUNTER_READY_MESSAGES);
+}
+
 // ============ 무기막기 메시지 ============
 
 // 무기막기 기본 메시지 (무기별)
