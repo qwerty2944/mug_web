@@ -19,12 +19,14 @@ import { BattleHeader } from "./BattleHeader";
 import { BattleLog } from "./BattleLog";
 import { ActionQueue } from "./ActionQueue";
 import { AbilitySelector } from "./AbilitySelector";
+import { CombatSubTabs, COMBAT_SUB_TABS, type CombatSubTab } from "./ActionTabs";
+import { MagicSubTabs, MAGIC_ELEMENTS, type MagicElement } from "./MagicSubTabs";
 
-// 전투 탭 타입
-type BattleTab = "attack" | "defense" | "magic" | "item";
+// 전투 탭 타입 (abilities 폴더 구조 기반)
+type BattleTab = "combat" | "magic" | "item";
 
 interface BattlePanelProps {
-  characterId: string;
+  userId: string;  // Auth User ID (characterId에서 변경)
   characterStats: CharacterStats;
   proficiencies: Proficiencies | undefined;
   onFlee: () => void;
@@ -33,7 +35,7 @@ interface BattlePanelProps {
 }
 
 export function BattlePanel({
-  characterId,
+  userId,
   characterStats,
   proficiencies,
   onFlee,
@@ -48,12 +50,14 @@ export function BattlePanel({
     dealDamageToPlayer,
   } = useBattleStore();
 
-  const [activeTab, setActiveTab] = useState<BattleTab>("attack");
+  const [activeTab, setActiveTab] = useState<BattleTab>("combat");
+  const [activeCombatSubTab, setActiveCombatSubTab] = useState<CombatSubTab>("all");
+  const [activeMagicElement, setActiveMagicElement] = useState<MagicElement>("all");
   const [monsterAbilitiesData, setMonsterAbilitiesData] = useState<Map<string, RawMonsterAbility>>(new Map());
 
   // 어빌리티 데이터 로드
   const { data: allAbilities = [] } = useAbilities();
-  const { data: userAbilities } = useUserAbilities(characterId);
+  const { data: userAbilities } = useUserAbilities(userId);
 
   // useAbility 훅
   const {
@@ -96,27 +100,64 @@ export function BattlePanel({
     return allAbilities.filter((a) => learnedIds.has(a.id));
   }, [allAbilities, learnedAbilities]);
 
+  // 전투 스킬
+  const combatAbilities = useMemo(() =>
+    myAbilities.filter((a) => a.source === "combatskill" && a.type !== "passive"),
+    [myAbilities]
+  );
+
+  // 배운 전투 스킬이 있는 카테고리 목록
+  const availableCombatCategories = useMemo(() => [
+    ...new Set(
+      combatAbilities
+        .map((skill) => skill.category)
+        .filter((c): c is string => !!c)
+    ),
+  ], [combatAbilities]);
+
+  // 마법 스킬
+  const magicAbilities = useMemo(() =>
+    myAbilities.filter((a) => a.source === "spell"),
+    [myAbilities]
+  );
+
+  // 배운 마법이 있는 속성 목록
+  const availableMagicElements = useMemo(() => {
+    const elements: string[] = [];
+    for (const skill of magicAbilities) {
+      const element = skill.element || (skill.type === "heal" ? "holy" : null);
+      if (element && !elements.includes(element)) {
+        elements.push(element);
+      }
+    }
+    return elements;
+  }, [magicAbilities]);
+
   // 탭별 어빌리티 필터
   const filteredAbilities = useMemo(() => {
     switch (activeTab) {
-      case "attack":
-        // 공격 스킬만 (combat 카테고리의 attack 타입)
-        return myAbilities.filter(
-          (a) => a.type === "attack" && a.usageContext === "combat_only"
-        );
-      case "defense":
-        // 방어 스킬 (block, dodge 등)
-        return myAbilities.filter((a) => a.type === "defense" || a.id === "block" || a.id === "dodge");
+      case "combat":
+        // 전투 스킬 (combatskill source, 패시브 제외) + 서브탭 필터
+        if (activeCombatSubTab === "all") {
+          return combatAbilities;
+        }
+        return combatAbilities.filter((a) => a.category === activeCombatSubTab);
       case "magic":
-        // 마법 스킬 (spell 소스)
-        return myAbilities.filter((a) => a.source === "spell");
+        // 마법 스킬 (spell 소스) + 속성 필터
+        if (activeMagicElement === "all") {
+          return magicAbilities;
+        }
+        return magicAbilities.filter((a) => {
+          const skillElement = a.element || (a.type === "heal" ? "holy" : null);
+          return skillElement === activeMagicElement;
+        });
       case "item":
         // 아이템 사용 (향후 구현)
         return [];
       default:
         return [];
     }
-  }, [activeTab, myAbilities]);
+  }, [activeTab, combatAbilities, magicAbilities, activeCombatSubTab, activeMagicElement]);
 
   // 어빌리티 선택 핸들러
   const handleSelectAbility = useCallback(
@@ -213,12 +254,11 @@ export function BattlePanel({
               className="flex border-t"
               style={{ borderColor: theme.colors.border }}
             >
-              {(["attack", "defense", "magic", "item"] as const).map((tab) => {
+              {(["combat", "magic", "item"] as const).map((tab) => {
                 const tabLabels: Record<BattleTab, string> = {
-                  attack: "⚔️ 공격",
-                  defense: "🛡️ 방어",
-                  magic: "🔮 마법",
-                  item: "📦 아이템",
+                  combat: "⚔️ 전투",
+                  magic: "✨ 마법",
+                  item: "🎒 소비",
                 };
                 return (
                   <button
@@ -248,13 +288,48 @@ export function BattlePanel({
               })}
             </div>
 
-            {/* 어빌리티 선택 */}
-            <AbilitySelector
-              abilities={filteredAbilities}
-              abilityLevels={abilityLevels}
-              onSelectAbility={handleSelectAbility}
-              disabled={isExecuting}
-            />
+            {/* 서브탭 + 어빌리티 선택 영역 (고정 높이로 레이아웃 시프트 방지) */}
+            <div className="flex flex-col" style={{ height: "240px" }}>
+              {/* 서브탭 영역 (고정 높이 예약) */}
+              <div className="flex-shrink-0" style={{ minHeight: "40px" }}>
+                {/* 서브탭: 전투 탭일 때 */}
+                {activeTab === "combat" && (
+                  <div className="px-3 pt-2">
+                    <CombatSubTabs
+                      activeSubTab={activeCombatSubTab}
+                      onSubTabChange={setActiveCombatSubTab}
+                      availableCategories={availableCombatCategories}
+                      disabled={isExecuting}
+                    />
+                  </div>
+                )}
+
+                {/* 서브탭: 마법 탭일 때 */}
+                {activeTab === "magic" && magicAbilities.length > 0 && (
+                  <div className="px-3 pt-2">
+                    <MagicSubTabs
+                      activeElement={activeMagicElement}
+                      onElementChange={setActiveMagicElement}
+                      availableElements={availableMagicElements}
+                      disabled={isExecuting}
+                    />
+                  </div>
+                )}
+
+                {/* 아이템 탭: 빈 공간 예약 */}
+                {activeTab === "item" && <div className="h-8" />}
+              </div>
+
+              {/* 어빌리티 선택 (스크롤 영역) */}
+              <div className="flex-1 overflow-y-auto">
+                <AbilitySelector
+                  abilities={filteredAbilities}
+                  abilityLevels={abilityLevels}
+                  onSelectAbility={handleSelectAbility}
+                  disabled={isExecuting}
+                />
+              </div>
+            </div>
 
             {/* 도주 버튼 */}
             <div

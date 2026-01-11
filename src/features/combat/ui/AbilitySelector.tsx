@@ -95,7 +95,7 @@ export function AbilitySelector({
   }
 
   return (
-    <div className="max-h-48 overflow-y-auto p-3">
+    <div className="p-3">
       <div className="grid grid-cols-2 gap-2">
       {filteredAbilities.map((ability) => {
         const status = getAbilityStatus(ability);

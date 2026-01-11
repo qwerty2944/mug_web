@@ -474,7 +474,7 @@ export default function GamePage() {
       {/* 전투 패널 */}
       {battle.isInBattle && mainCharacter?.stats && session?.user?.id && (
         <BattlePanel
-          characterId={session.user.id}
+          userId={session.user.id}
           characterStats={mainCharacter.stats}
           proficiencies={proficiencies}
           onFlee={handleFlee}

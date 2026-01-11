@@ -35,14 +35,21 @@ export interface ProfileAppearance {
   faceHairColor: string;
 }
 
-// ============ 저장된 캐릭터 타입 ============
+// ============ 캐릭터 타입 ============
 
-export interface SavedCharacter {
+/**
+ * 캐릭터 기본 정보 (DB characters.character JSONB 컬럼)
+ * - 캐릭터 이름, 성별, 스탯 등
+ */
+export interface Character {
   name: string;
   isMain: boolean;
   gender?: "male" | "female";
   stats?: CharacterStats;
 }
+
+/** @deprecated Character를 사용하세요 */
+export type SavedCharacter = Character;
 
 // ============ 속성 강화/저항 타입 ============
 
