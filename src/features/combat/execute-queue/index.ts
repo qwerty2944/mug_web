@@ -11,6 +11,7 @@ import {
   buildMonsterQueue,
   calculateMonsterAbilityDamage,
 } from "../lib/monsterAi";
+import { applyDamageVariance } from "../lib/damage";
 
 // ============ 타입 정의 ============
 
@@ -114,9 +115,10 @@ export function useExecuteQueue(options: UseExecuteQueueOptions) {
 
       // 어빌리티 타입별 처리
       if (action.ability.type === "attack") {
-        // 간단한 데미지 계산 (실제로는 더 복잡한 로직 필요)
+        // 데미지 계산 (±15% 편차 적용)
         const baseDamage = effects.baseDamage ?? action.ability.baseCost.ap ?? 10;
-        const damage = Math.floor(baseDamage * (1 + profLevel * 0.02) * (1 + (stats.str || 10) * 0.05));
+        const rawDamage = baseDamage * (1 + profLevel * 0.02) * (1 + (stats.str || 10) * 0.05);
+        const damage = applyDamageVariance(rawDamage);
 
         currentStore.dealDamageToMonster(
           damage,
@@ -195,7 +197,7 @@ export function useExecuteQueue(options: UseExecuteQueueOptions) {
 
       // 기본 공격인지 체크
       if (action.ability.id === "monster_basic_attack") {
-        const damage = Math.floor(currentBattle.monster.stats.attack * 0.8);
+        const damage = applyDamageVariance(currentBattle.monster.stats.attack * 0.8);
         currentStore.dealDamageToPlayer(
           damage,
           `${currentBattle.monster.icon} ${currentBattle.monster.nameKo}의 공격! ${damage} 데미지!`
@@ -206,7 +208,7 @@ export function useExecuteQueue(options: UseExecuteQueueOptions) {
       const abilityData = monsterAbilitiesDataRef.current.get(action.ability.id);
       if (!abilityData) {
         // 어빌리티 데이터가 없으면 기본 공격으로 처리
-        const damage = Math.floor(currentBattle.monster.stats.attack * 0.8);
+        const damage = applyDamageVariance(currentBattle.monster.stats.attack * 0.8);
         currentStore.dealDamageToPlayer(
           damage,
           `${currentBattle.monster.icon} ${currentBattle.monster.nameKo}의 공격! ${damage} 데미지!`

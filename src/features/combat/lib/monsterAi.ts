@@ -10,6 +10,7 @@
 import type { Monster, MonsterAbility, BorrowedAbility } from "@/entities/monster";
 import type { RawMonsterAbility } from "@/entities/ability";
 import type { QueuedAction } from "@/application/stores/battleStore";
+import { applyDamageVariance } from "./damage";
 
 // 캐릭터 어빌리티 타입 (combat skills)
 interface CharacterAbility {
@@ -373,8 +374,9 @@ export function calculateMonsterAbilityDamage(
   const baseDamage = abilityData.baseDamage || 0;
   const perLevel = abilityData.damagePerLevel || 0;
 
-  // 기본 데미지 + (레벨 × 레벨당 증가) + 몬스터 공격력 보정
-  return Math.floor(baseDamage + perLevel * level + monsterAttack * 0.5);
+  // 기본 데미지 + (레벨 × 레벨당 증가) + 몬스터 공격력 보정 + 편차(±15%)
+  const rawDamage = baseDamage + perLevel * level + monsterAttack * 0.5;
+  return applyDamageVariance(rawDamage);
 }
 
 /**
