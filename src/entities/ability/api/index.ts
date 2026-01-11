@@ -350,8 +350,8 @@ export const DEFAULT_PROFICIENCIES: Proficiencies = {
 
 export const WEAPON_ATTACK_TYPE: Record<WeaponType, PhysicalAttackType> = {
   light_sword: "pierce", medium_sword: "slash", great_sword: "slash",
-  axe: "slash", mace: "blunt", dagger: "pierce", spear: "pierce",
-  bow: "pierce", crossbow: "pierce", staff: "blunt", fist: "blunt", shield: "blunt",
+  axe: "slash", mace: "crush", dagger: "pierce", spear: "pierce",
+  bow: "pierce", crossbow: "pierce", staff: "blunt", fist: "crush", shield: "crush",
 };
 
 export const WEAPON_BLOCK_CONFIG: Record<WeaponType, WeaponBlockConfig> = {

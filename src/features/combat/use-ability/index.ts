@@ -239,6 +239,9 @@ export function useAbility(options: UseAbilityOptions = {}) {
       let message = "";
       const isCritical = hitResult.result === "critical";
 
+      // 저항 배율 (물리 공격용)
+      let resistanceMultiplier = 1.0;
+
       if (hitResult.result === "missed") {
         message = getMissMessage(battle.monster.nameKo);
       } else if (hitResult.result === "dodged") {
@@ -247,7 +250,6 @@ export function useAbility(options: UseAbilityOptions = {}) {
         // 데미지 계산
         if (isPhysical) {
           // 물리 저항 확인
-          let resistanceMultiplier = 1.0;
           if (ability.category && isWeaponProficiency(ability.category as CombatProficiencyType)) {
             const weaponType = ability.category as WeaponType;
             const physicalAttackType = WEAPON_ATTACK_TYPE[weaponType];
@@ -287,16 +289,29 @@ export function useAbility(options: UseAbilityOptions = {}) {
 
         // 배율 적용
         damage = Math.floor(damage * hitResult.damageMultiplier);
+        const isMinDamage = damage === 1;
         damage = Math.max(1, damage);
 
-        // 메시지 생성
+        // 메시지 생성 (저항 피드백 포함)
         if (hitResult.result === "blocked") {
           message = getBlockMessage(battle.monster.nameKo, damage);
         } else {
-          const icon = ability.icon ?? (isPhysical ? "⚔️" : "✨");
-          message = isCritical
-            ? `💥 ${ability.nameKo} 치명타! ${battle.monster.nameKo}에게 ${damage} 데미지!`
-            : `${icon} ${ability.nameKo}! ${battle.monster.nameKo}에게 ${damage} 데미지!`;
+          // 물리 공격: 저항 피드백 메시지 추가
+          if (isPhysical && ability.category) {
+            message = getAttackMessage(
+              ability.category as CombatProficiencyType,
+              battle.monster.nameKo,
+              damage,
+              isCritical,
+              resistanceMultiplier,
+              isMinDamage
+            );
+          } else {
+            const icon = ability.icon ?? (isPhysical ? "⚔️" : "✨");
+            message = isCritical
+              ? `💥 ${ability.nameKo} 치명타! ${battle.monster.nameKo}에게 ${damage} 데미지!`
+              : `${icon} ${ability.nameKo}! ${battle.monster.nameKo}에게 ${damage} 데미지!`;
+          }
         }
       }
 
