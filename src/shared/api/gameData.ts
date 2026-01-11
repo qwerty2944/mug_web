@@ -1,9 +1,7 @@
 /**
- * Supabase Storage에서 게임 데이터 JSON을 가져오는 유틸리티
+ * public 폴더에서 게임 데이터 JSON을 가져오는 유틸리티
  */
 
-import { supabase } from "./supabase";
-import { STORAGE_CONFIG, MAPPING_FILES } from "../config/storage";
 import type {
   EyeMapping,
   HairMapping,
@@ -18,23 +16,19 @@ import type {
 
 // 캐시 (메모리)
 const cache = new Map<string, { data: unknown; timestamp: number }>();
+const CACHE_TTL = 5 * 60 * 1000; // 5분
 
 // ============ 내부 유틸리티 ============
 
-async function fetchFromStorage<T>(fileName: string): Promise<T | null> {
+async function fetchFromPublic<T>(path: string): Promise<T | null> {
   // 캐시 확인
-  const cached = cache.get(fileName);
-  if (cached && Date.now() - cached.timestamp < STORAGE_CONFIG.CACHE_TTL) {
+  const cached = cache.get(path);
+  if (cached && Date.now() - cached.timestamp < CACHE_TTL) {
     return cached.data as T;
   }
 
   try {
-    // Supabase Storage에서 가져오기
-    const { data } = supabase.storage
-      .from(STORAGE_CONFIG.BUCKET_NAME)
-      .getPublicUrl(`${STORAGE_CONFIG.MAPPING_PATH}/${fileName}`);
-
-    const response = await fetch(data.publicUrl);
+    const response = await fetch(`/data/${path}`);
     if (!response.ok) {
       throw new Error(`HTTP ${response.status}`);
     }
@@ -42,24 +36,11 @@ async function fetchFromStorage<T>(fileName: string): Promise<T | null> {
     const json = await response.json();
 
     // 캐시에 저장
-    cache.set(fileName, { data: json, timestamp: Date.now() });
+    cache.set(path, { data: json, timestamp: Date.now() });
 
     return json as T;
   } catch (error) {
-    console.error(`Failed to fetch ${fileName} from storage:`, error);
-
-    // 폴백: 로컬 public/data에서 가져오기
-    try {
-      const localResponse = await fetch(`/data/${fileName}`);
-      if (localResponse.ok) {
-        const json = await localResponse.json();
-        cache.set(fileName, { data: json, timestamp: Date.now() });
-        return json as T;
-      }
-    } catch {
-      // 무시
-    }
-
+    console.error(`Failed to fetch ${path}:`, error);
     return null;
   }
 }
@@ -67,22 +48,22 @@ async function fetchFromStorage<T>(fileName: string): Promise<T | null> {
 // ============ 데이터 API ============
 
 export async function getEyeMappings(): Promise<EyeMapping[]> {
-  const data = await fetchFromStorage<EyeMappingFile>(MAPPING_FILES.EYE);
+  const data = await fetchFromPublic<EyeMappingFile>("sprites/appearance/eye.json");
   return data?.eyes ?? [];
 }
 
 export async function getHairMappings(): Promise<HairMapping[]> {
-  const data = await fetchFromStorage<HairMappingFile>(MAPPING_FILES.HAIR);
+  const data = await fetchFromPublic<HairMappingFile>("sprites/appearance/hair.json");
   return data?.hairs ?? [];
 }
 
 export async function getFacehairMappings(): Promise<FacehairMapping[]> {
-  const data = await fetchFromStorage<FacehairMappingFile>(MAPPING_FILES.FACEHAIR);
+  const data = await fetchFromPublic<FacehairMappingFile>("sprites/appearance/facehair.json");
   return data?.facehairs ?? [];
 }
 
 export async function getBodyMappings(): Promise<BodyMapping[]> {
-  const data = await fetchFromStorage<BodyMappingFile>(MAPPING_FILES.BODY);
+  const data = await fetchFromPublic<BodyMappingFile>("sprites/appearance/body.json");
   return data?.bodies ?? [];
 }
 

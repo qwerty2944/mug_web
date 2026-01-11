@@ -1,35 +1,17 @@
-import { supabase } from "@/shared/api/supabase";
-import { STORAGE_CONFIG } from "@/shared/config/storage";
 import type { Item, ItemsData, ItemType } from "../types";
 
 // 메모리 캐시
 let itemsCache: Item[] | null = null;
+const CACHE_TTL = 5 * 60 * 1000; // 5분
 let cacheTimestamp: number = 0;
 
 /**
- * Supabase Storage에서 아이템 데이터 가져오기
+ * public 폴더에서 아이템 데이터 가져오기
  */
-async function fetchFromStorage(): Promise<Item[]> {
-  const { data, error } = await supabase.storage
-    .from(STORAGE_CONFIG.BUCKET_NAME)
-    .download(`${STORAGE_CONFIG.MAPPING_PATH}/items.json`);
-
-  if (error || !data) {
-    throw new Error(`Failed to fetch items from storage: ${error?.message}`);
-  }
-
-  const text = await data.text();
-  const parsed: ItemsData = JSON.parse(text);
-  return parsed.items;
-}
-
-/**
- * 로컬 fallback에서 아이템 데이터 가져오기
- */
-async function fetchFromLocal(): Promise<Item[]> {
+async function fetchFromPublic(): Promise<Item[]> {
   const response = await fetch("/data/items/items.json");
   if (!response.ok) {
-    throw new Error("Failed to fetch items from local");
+    throw new Error("Failed to fetch items");
   }
   const parsed: ItemsData = await response.json();
   return parsed.items;
@@ -41,19 +23,11 @@ async function fetchFromLocal(): Promise<Item[]> {
 export async function fetchItems(): Promise<Item[]> {
   // 캐시 확인
   const now = Date.now();
-  if (itemsCache && now - cacheTimestamp < STORAGE_CONFIG.CACHE_TTL) {
+  if (itemsCache && now - cacheTimestamp < CACHE_TTL) {
     return itemsCache;
   }
 
-  try {
-    // Storage에서 먼저 시도
-    itemsCache = await fetchFromStorage();
-  } catch {
-    // 실패 시 로컬 fallback
-    console.warn("Falling back to local items.json");
-    itemsCache = await fetchFromLocal();
-  }
-
+  itemsCache = await fetchFromPublic();
   cacheTimestamp = now;
   return itemsCache;
 }
