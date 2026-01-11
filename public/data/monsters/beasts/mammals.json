@@ -17,7 +17,7 @@
         "attack": 5,
         "defense": 2,
         "speed": 8,
-        "resistance": {
+        "physicalResist": {
           "slashResist": 1.0,
           "pierceResist": 1.0,
           "crushResist": 1.0
@@ -60,7 +60,7 @@
         "attack": 8,
         "defense": 4,
         "speed": 6,
-        "resistance": {
+        "physicalResist": {
           "slashResist": 1.0,
           "pierceResist": 1.0,
           "crushResist": 1.0
@@ -104,7 +104,7 @@
         "attack": 15,
         "defense": 5,
         "speed": 10,
-        "resistance": {
+        "physicalResist": {
           "slashResist": 1.0,
           "pierceResist": 1.2,
           "crushResist": 1.0
@@ -150,7 +150,7 @@
         "attack": 22,
         "defense": 8,
         "speed": 12,
-        "resistance": {
+        "physicalResist": {
           "slashResist": 0.9,
           "pierceResist": 1.0,
           "crushResist": 0.9
@@ -197,7 +197,7 @@
         "attack": 12,
         "defense": 8,
         "speed": 5,
-        "resistance": {
+        "physicalResist": {
           "slashResist": 0.8,
           "pierceResist": 1.0,
           "crushResist": 0.7
@@ -241,7 +241,7 @@
         "attack": 25,
         "defense": 15,
         "speed": 4,
-        "resistance": {
+        "physicalResist": {
           "slashResist": 0.8,
           "pierceResist": 0.9,
           "crushResist": 0.7
@@ -286,7 +286,7 @@
         "attack": 2,
         "defense": 1,
         "speed": 12,
-        "resistance": {
+        "physicalResist": {
           "slashResist": 1.2,
           "pierceResist": 1.2,
           "crushResist": 1.2
@@ -329,7 +329,7 @@
         "attack": 8,
         "defense": 3,
         "speed": 11,
-        "resistance": {
+        "physicalResist": {
           "slashResist": 1.0,
           "pierceResist": 1.0,
           "crushResist": 1.0

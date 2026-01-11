@@ -280,7 +280,7 @@
     }
   },
 
-  "resistanceTypes": {
+  "physicalResistanceTypes": {
     "slashResist": {
       "id": "slashResist",
       "nameKo": "베기 저항",

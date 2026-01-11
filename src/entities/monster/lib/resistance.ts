@@ -3,16 +3,18 @@ import type { PhysicalResistance, ElementResistance, MonsterStats } from "../typ
 import { DEFAULT_PHYSICAL_RESISTANCE, DEFAULT_ELEMENT_RESISTANCE } from "../types";
 
 /**
- * 몬스터의 특정 공격 타입에 대한 저항 배율 가져오기
+ * 몬스터의 물리 공격 타입에 대한 저항 배율 가져오기
+ * 물리 공격(근접/원거리)에만 적용됨 - 마법 공격은 elementResist 사용
+ *
  * @param stats 몬스터 스탯
- * @param attackType 공격 타입 (slash/pierce/blunt/crush)
+ * @param attackType 물리 공격 타입 (slash/pierce/crush)
  * @returns 저항 배율 (1.0 = 보통, 1.5 = 약함, 0.5 = 강함)
  */
 export function getPhysicalResistance(
   stats: MonsterStats,
   attackType: PhysicalAttackType
 ): number {
-  const resistance = stats.resistance ?? DEFAULT_PHYSICAL_RESISTANCE;
+  const resistance = stats.physicalResist ?? DEFAULT_PHYSICAL_RESISTANCE;
 
   switch (attackType) {
     case "slash":
@@ -27,7 +29,9 @@ export function getPhysicalResistance(
 }
 
 /**
- * 몬스터의 특정 속성에 대한 저항 배율 가져오기
+ * 몬스터의 속성 저항 배율 가져오기
+ * 마법 공격에만 적용됨 - 물리 공격은 physicalResist 사용
+ *
  * @param stats 몬스터 스탯
  * @param element 마법 속성 (fire/ice/lightning/earth/holy/dark/poison)
  * @returns 저항 배율 (1.0 = 보통, 1.5 = 약함, 0.5 = 강함)

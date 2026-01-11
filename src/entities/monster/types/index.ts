@@ -139,8 +139,8 @@ export interface MonsterStats {
   defense: number;
   speed: number;          // DEX 역할 (선공 결정, 회피 등)
   magicAttack?: number;   // 마법 공격력 (없으면 attack 사용)
-  resistance?: PhysicalResistance;   // 물리 저항 (없으면 모두 1.0)
-  elementResist?: ElementResistance; // 속성 저항 (없으면 모두 1.0)
+  physicalResist?: PhysicalResistance;   // 물리 저항 (베기/찌르기/타격) - 물리 공격에만 적용
+  elementResist?: ElementResistance;     // 속성 저항 (화염/냉기/번개 등) - 마법 공격에만 적용
 }
 
 // 몬스터 드롭 아이템

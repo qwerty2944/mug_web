@@ -852,6 +852,74 @@ interface BattleState {
 }
 ```
 
+### 저항 시스템 (Resistance System)
+
+몬스터는 두 가지 종류의 저항을 가질 수 있습니다:
+
+**중요**: 물리 공격은 물리 저항에만 영향받고, 마법 공격은 속성 저항에만 영향받습니다.
+
+#### 물리 저항 (Physical Resistance)
+물리 공격(근접/원거리)에만 적용됩니다.
+
+| 타입 | 필드명 | 설명 | 관련 무기 |
+|------|--------|------|----------|
+| 베기 | `slashResist` | 검, 도끼 등의 베기 공격 | sword, axe |
+| 찌르기 | `pierceResist` | 창, 단검, 활 등의 찌르기 공격 | spear, dagger, bow |
+| 타격 | `crushResist` | 둔기, 주먹 등의 타격 공격 | mace, fist, staff |
+
+#### 속성 저항 (Element Resistance)
+마법 공격에만 적용됩니다.
+
+| 속성 | 필드명 | 아이콘 |
+|------|--------|--------|
+| 화염 | `fire` | 🔥 |
+| 냉기 | `ice` | ❄️ |
+| 번개 | `lightning` | ⚡ |
+| 대지 | `earth` | 🪨 |
+| 신성 | `holy` | ✨ |
+| 암흑 | `dark` | 🌑 |
+| 독 | `poison` | ☠️ |
+
+#### 저항 배율
+| 값 | 의미 | 효과 |
+|----|------|------|
+| 0.5 | 강함 | 데미지 50% 감소 |
+| 1.0 | 보통 | 기본 데미지 |
+| 1.5 | 약함 | 데미지 50% 증가 |
+
+#### 몬스터 데이터 예시
+```json
+{
+  "stats": {
+    "hp": 50,
+    "attack": 10,
+    "defense": 5,
+    "speed": 8,
+    "physicalResist": {
+      "slashResist": 1.0,
+      "pierceResist": 1.5,
+      "crushResist": 0.5
+    },
+    "elementResist": {
+      "fire": 1.5,
+      "ice": 0.5,
+      "lightning": 1.0
+    }
+  }
+}
+```
+
+#### 사용법
+```typescript
+import { getPhysicalResistance, getElementResistance } from "@/entities/monster";
+
+// 물리 공격 시 - 물리 저항 적용
+const physicalMultiplier = getPhysicalResistance(monster.stats, "slash");
+
+// 마법 공격 시 - 속성 저항 적용
+const elementMultiplier = getElementResistance(monster.stats, "fire");
+```
+
 ### 사용법
 ```typescript
 import { useStartBattle, useAttack, useEndBattle } from "@/features/combat";

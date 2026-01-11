@@ -17,7 +17,7 @@
         "attack": 22,
         "defense": 20,
         "speed": 5,
-        "resistance": {
+        "physicalResist": {
           "slashResist": 0.6,
           "pierceResist": 0.7,
           "crushResist": 0.5
