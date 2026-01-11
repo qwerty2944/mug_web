@@ -424,6 +424,38 @@ npm run upload-data      # Supabase Storage 업로드
 
 게임 데이터는 개별 JSON 파일로 관리하고, 스크립트로 통합 JSON을 생성합니다.
 
+### !! 중요: 데이터 수정 워크플로우 !!
+
+**데이터 수정 시 반드시 아래 3단계를 모두 수행해야 합니다:**
+
+```bash
+# 1. 개별 JSON 수정 (예: public/data/monsters/amorphous/slime.json)
+
+# 2. 통합 JSON 생성 (필수!)
+npx tsx scripts/generate-monsters.ts   # 몬스터
+npx tsx scripts/generate-maps.ts       # 맵
+npx tsx scripts/generate-items.ts      # 아이템
+npx tsx scripts/generate-abilities.ts  # 어빌리티
+npx tsx scripts/generate-races.ts      # 종족
+npx tsx scripts/generate-appearance.ts # 외형
+
+# 3. Supabase Storage 업로드 (필수!)
+npm run upload-data
+```
+
+| 데이터 | 개별 파일 위치 | 통합 파일 | 생성 스크립트 |
+|--------|---------------|----------|--------------|
+| 몬스터 | `monsters/[type]/*.json` | `monsters.json` | `generate-monsters.ts` |
+| 맵 | `world/maps/[region]/*.json` | `world/maps.json` | `generate-maps.ts` |
+| 아이템 | `items/[category]/*.json` | `*.json` (카테고리별) | `generate-items.ts` |
+| 어빌리티 | `abilities/[type]/*.json` | `*skills.json` | `generate-abilities.ts` |
+| 종족 | `appearance/races/[race]/*.json` | `races.json` | `generate-races.ts` |
+
+**빠뜨리면 안 되는 이유:**
+- 게임은 통합 JSON만 로드함 (개별 파일은 편집용)
+- Supabase Storage가 기본 데이터 소스 (로컬은 fallback)
+- 업로드 안 하면 브라우저에서 구버전 데이터 사용
+
 ### 아이템 데이터 (`/public/data/items/`)
 
 ```

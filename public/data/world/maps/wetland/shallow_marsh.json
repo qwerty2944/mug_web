@@ -1,0 +1,70 @@
+{
+  "id": "shallow_marsh",
+  "region": "wetland",
+  "nameKo": "얕은 습지",
+  "nameEn": "Shallow Marsh",
+  "descriptionKo": "무릎까지 차는 얕은 물이 고여있다. 다양한 슬라임이 서식한다.",
+  "descriptionEn": "Shallow water reaches up to the knees. Various slimes dwell here.",
+  "icon": "🌊",
+  "terrain": "swamp",
+  "minLevel": 5,
+  "maxPlayers": 50,
+  "isPvp": false,
+  "isSafeZone": false,
+  "connectedMaps": ["swamp_entrance", "slime_nest"],
+
+  "zones": [
+    {
+      "id": "marsh_center",
+      "nameKo": "습지 중심부",
+      "type": "spawn_point",
+      "position": { "x": 30, "y": 40, "width": 40, "height": 40 },
+      "isDefault": true,
+      "description": "습지의 중심부. 발이 빠지기 쉽다."
+    },
+    {
+      "id": "murky_pool",
+      "nameKo": "탁한 웅덩이",
+      "type": "treasure",
+      "position": { "x": 70, "y": 20, "width": 20, "height": 20 },
+      "description": "오래된 물이 고인 웅덩이. 가끔 귀한 것이 발견된다."
+    }
+  ],
+
+  "spawns": [
+    {
+      "monsterId": "blue_slime",
+      "spawnType": "always",
+      "spawnRate": 0.5,
+      "maxCount": 3,
+      "zoneId": "marsh_center",
+      "respawnTime": 240
+    },
+    {
+      "monsterId": "red_slime",
+      "spawnType": "always",
+      "spawnRate": 0.4,
+      "maxCount": 2,
+      "zoneId": "marsh_center",
+      "respawnTime": 300
+    },
+    {
+      "monsterId": "poison_slime",
+      "spawnType": "always",
+      "spawnRate": 0.3,
+      "maxCount": 2,
+      "zoneId": "marsh_center",
+      "respawnTime": 360
+    },
+    {
+      "monsterId": "golden_slime",
+      "spawnType": "rare",
+      "spawnChance": 0.05,
+      "maxCount": 1,
+      "zoneId": "murky_pool",
+      "respawnTime": 1800
+    }
+  ],
+
+  "npcs": []
+}

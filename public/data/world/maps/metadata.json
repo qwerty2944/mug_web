@@ -197,6 +197,13 @@
       "levelRange": [1, 15],
       "description": "울창한 숲이 펼쳐진 지역"
     },
+    "wetland": {
+      "id": "wetland",
+      "nameKo": "습지 지역",
+      "nameEn": "Wetland Region",
+      "levelRange": [3, 12],
+      "description": "슬라임이 서식하는 습지대"
+    },
     "ancient": {
       "id": "ancient",
       "nameKo": "고대 지역",

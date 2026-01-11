@@ -11,7 +11,7 @@
   "maxPlayers": 100,
   "isPvp": false,
   "isSafeZone": false,
-  "connectedMaps": ["forest_entrance", "ancient_ruins"],
+  "connectedMaps": ["forest_entrance", "ancient_ruins", "swamp_entrance"],
 
   "zones": [
     {

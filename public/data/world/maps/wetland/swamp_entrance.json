@@ -1,0 +1,46 @@
+{
+  "id": "swamp_entrance",
+  "region": "wetland",
+  "nameKo": "늪 입구",
+  "nameEn": "Swamp Entrance",
+  "descriptionKo": "숲에서 늪으로 이어지는 경계 지역. 슬라임이 처음 출현한다.",
+  "descriptionEn": "The boundary area connecting the forest to the swamp. Slimes first appear here.",
+  "icon": "🌿",
+  "terrain": "swamp",
+  "minLevel": 3,
+  "maxPlayers": 50,
+  "isPvp": false,
+  "isSafeZone": false,
+  "connectedMaps": ["deep_forest", "shallow_marsh"],
+
+  "zones": [
+    {
+      "id": "swamp_path",
+      "nameKo": "늪길",
+      "type": "spawn_point",
+      "position": { "x": 20, "y": 50, "width": 30, "height": 30 },
+      "isDefault": true,
+      "description": "숲에서 이어지는 질퍽한 길"
+    },
+    {
+      "id": "slime_pool",
+      "nameKo": "슬라임 웅덩이",
+      "type": "event_area",
+      "position": { "x": 50, "y": 30, "width": 25, "height": 25 },
+      "description": "슬라임들이 모여있는 웅덩이"
+    }
+  ],
+
+  "spawns": [
+    {
+      "monsterId": "green_slime",
+      "spawnType": "always",
+      "spawnRate": 0.6,
+      "maxCount": 5,
+      "zoneId": "slime_pool",
+      "respawnTime": 180
+    }
+  ],
+
+  "npcs": []
+}

@@ -1,6 +1,6 @@
 {
   "version": "2.0.0",
-  "generatedAt": "2026-01-10T20:38:53.215Z",
+  "generatedAt": "2026-01-11T06:44:04.188Z",
   "maps": [
     {
       "id": "market_square",
@@ -649,6 +649,230 @@
       ]
     },
     {
+      "id": "shallow_marsh",
+      "region": "wetland",
+      "nameKo": "얕은 습지",
+      "nameEn": "Shallow Marsh",
+      "descriptionKo": "무릎까지 차는 얕은 물이 고여있다. 다양한 슬라임이 서식한다.",
+      "descriptionEn": "Shallow water reaches up to the knees. Various slimes dwell here.",
+      "icon": "🌊",
+      "terrain": "swamp",
+      "minLevel": 5,
+      "maxPlayers": 50,
+      "isPvp": false,
+      "isSafeZone": false,
+      "connectedMaps": [
+        "swamp_entrance",
+        "slime_nest"
+      ],
+      "zones": [
+        {
+          "id": "marsh_center",
+          "nameKo": "습지 중심부",
+          "type": "spawn_point",
+          "position": {
+            "x": 30,
+            "y": 40,
+            "width": 40,
+            "height": 40
+          },
+          "isDefault": true,
+          "description": "습지의 중심부. 발이 빠지기 쉽다."
+        },
+        {
+          "id": "murky_pool",
+          "nameKo": "탁한 웅덩이",
+          "type": "treasure",
+          "position": {
+            "x": 70,
+            "y": 20,
+            "width": 20,
+            "height": 20
+          },
+          "description": "오래된 물이 고인 웅덩이. 가끔 귀한 것이 발견된다."
+        }
+      ],
+      "spawns": [
+        {
+          "monsterId": "blue_slime",
+          "spawnType": "always",
+          "spawnRate": 0.5,
+          "maxCount": 3,
+          "zoneId": "marsh_center",
+          "respawnTime": 240
+        },
+        {
+          "monsterId": "red_slime",
+          "spawnType": "always",
+          "spawnRate": 0.4,
+          "maxCount": 2,
+          "zoneId": "marsh_center",
+          "respawnTime": 300
+        },
+        {
+          "monsterId": "poison_slime",
+          "spawnType": "always",
+          "spawnRate": 0.3,
+          "maxCount": 2,
+          "zoneId": "marsh_center",
+          "respawnTime": 360
+        },
+        {
+          "monsterId": "golden_slime",
+          "spawnType": "rare",
+          "spawnChance": 0.05,
+          "maxCount": 1,
+          "zoneId": "murky_pool",
+          "respawnTime": 1800
+        }
+      ],
+      "npcs": []
+    },
+    {
+      "id": "slime_nest",
+      "region": "wetland",
+      "nameKo": "슬라임 서식지",
+      "nameEn": "Slime Nest",
+      "descriptionKo": "슬라임들이 모여사는 핵심 지역. 거대 슬라임이 출현한다.",
+      "descriptionEn": "The core area where slimes gather. The Giant Slime appears here.",
+      "icon": "🫧",
+      "terrain": "swamp",
+      "minLevel": 8,
+      "maxPlayers": 30,
+      "isPvp": false,
+      "isSafeZone": false,
+      "connectedMaps": [
+        "shallow_marsh"
+      ],
+      "zones": [
+        {
+          "id": "nest_entrance",
+          "nameKo": "서식지 입구",
+          "type": "spawn_point",
+          "position": {
+            "x": 20,
+            "y": 50,
+            "width": 25,
+            "height": 25
+          },
+          "isDefault": true,
+          "description": "슬라임 서식지로 들어가는 입구"
+        },
+        {
+          "id": "slime_core",
+          "nameKo": "슬라임 핵심부",
+          "type": "boss_area",
+          "position": {
+            "x": 50,
+            "y": 30,
+            "width": 40,
+            "height": 40
+          },
+          "description": "거대 슬라임이 출현하는 핵심 지역"
+        }
+      ],
+      "spawns": [
+        {
+          "monsterId": "shadow_slime",
+          "spawnType": "conditional",
+          "spawnRate": 0.4,
+          "maxCount": 2,
+          "zoneId": "nest_entrance",
+          "respawnTime": 300,
+          "conditions": {
+            "period": [
+              "night"
+            ]
+          }
+        },
+        {
+          "monsterId": "giant_slime",
+          "spawnType": "boss",
+          "maxCount": 1,
+          "zoneId": "slime_core",
+          "schedule": {
+            "preset": "daily_noon",
+            "dayOfWeek": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6
+            ],
+            "hourRange": [
+              12,
+              14
+            ],
+            "timezone": "Asia/Seoul"
+          },
+          "respawnTime": 7200,
+          "announcement": {
+            "spawn": "거대 슬라임이 서식지에 나타났습니다!",
+            "defeat": "거대 슬라임이 처치되었습니다!"
+          }
+        }
+      ],
+      "npcs": []
+    },
+    {
+      "id": "swamp_entrance",
+      "region": "wetland",
+      "nameKo": "늪 입구",
+      "nameEn": "Swamp Entrance",
+      "descriptionKo": "숲에서 늪으로 이어지는 경계 지역. 슬라임이 처음 출현한다.",
+      "descriptionEn": "The boundary area connecting the forest to the swamp. Slimes first appear here.",
+      "icon": "🌿",
+      "terrain": "swamp",
+      "minLevel": 3,
+      "maxPlayers": 50,
+      "isPvp": false,
+      "isSafeZone": false,
+      "connectedMaps": [
+        "deep_forest",
+        "shallow_marsh"
+      ],
+      "zones": [
+        {
+          "id": "swamp_path",
+          "nameKo": "늪길",
+          "type": "spawn_point",
+          "position": {
+            "x": 20,
+            "y": 50,
+            "width": 30,
+            "height": 30
+          },
+          "isDefault": true,
+          "description": "숲에서 이어지는 질퍽한 길"
+        },
+        {
+          "id": "slime_pool",
+          "nameKo": "슬라임 웅덩이",
+          "type": "event_area",
+          "position": {
+            "x": 50,
+            "y": 30,
+            "width": 25,
+            "height": 25
+          },
+          "description": "슬라임들이 모여있는 웅덩이"
+        }
+      ],
+      "spawns": [
+        {
+          "monsterId": "green_slime",
+          "spawnType": "always",
+          "spawnRate": 0.6,
+          "maxCount": 5,
+          "zoneId": "slime_pool",
+          "respawnTime": 180
+        }
+      ],
+      "npcs": []
+    },
+    {
       "id": "ancient_ruins",
       "region": "ancient",
       "nameKo": "고대 유적",
@@ -992,271 +1216,6 @@
           "death": null
         }
       }
-    },
-    {
-      "id": "swamp_entrance",
-      "region": "wetlands",
-      "nameKo": "늪 입구",
-      "nameEn": "Swamp Entrance",
-      "descriptionKo": "축축하고 습한 늪지대의 입구. 슬라임들이 서식한다.",
-      "descriptionEn": "The entrance to a damp and humid swamp. Slimes inhabit this area.",
-      "icon": "🌿",
-      "terrain": "swamp",
-      "minLevel": 3,
-      "maxPlayers": 100,
-      "isPvp": false,
-      "isSafeZone": false,
-      "connectedMaps": [
-        "deep_forest",
-        "shallow_marsh"
-      ],
-      "zones": [
-        {
-          "id": "swamp_path",
-          "nameKo": "늪길",
-          "type": "spawn_point",
-          "position": {
-            "x": 20,
-            "y": 80,
-            "width": 20,
-            "height": 15
-          },
-          "isDefault": true,
-          "description": "깊은 숲에서 이어지는 축축한 길"
-        },
-        {
-          "id": "slime_pool",
-          "nameKo": "슬라임 웅덩이",
-          "type": "event_area",
-          "position": {
-            "x": 40,
-            "y": 40,
-            "width": 30,
-            "height": 30
-          },
-          "eventTriggers": [
-            "slime_encounter"
-          ],
-          "description": "슬라임들이 모여있는 웅덩이"
-        },
-        {
-          "id": "marsh_path",
-          "nameKo": "습지 길",
-          "type": "portal",
-          "position": {
-            "x": 80,
-            "y": 20,
-            "width": 15,
-            "height": 15
-          },
-          "portalTo": "shallow_marsh",
-          "description": "더 깊은 늪지대로 향하는 길"
-        }
-      ],
-      "spawns": [
-        {
-          "monsterId": "green_slime",
-          "spawnType": "always",
-          "spawnRate": 0.5,
-          "maxCount": 6,
-          "zoneId": "slime_pool",
-          "respawnTime": 60
-        }
-      ],
-      "npcs": []
-    },
-    {
-      "id": "shallow_marsh",
-      "region": "wetlands",
-      "nameKo": "얕은 습지",
-      "nameEn": "Shallow Marsh",
-      "descriptionKo": "무릎까지 차오르는 늪. 다양한 슬라임이 서식한다.",
-      "descriptionEn": "A marsh that reaches up to your knees. Various slimes live here.",
-      "icon": "🐸",
-      "terrain": "marsh",
-      "minLevel": 5,
-      "maxPlayers": 100,
-      "isPvp": false,
-      "isSafeZone": false,
-      "connectedMaps": [
-        "swamp_entrance",
-        "slime_nest"
-      ],
-      "zones": [
-        {
-          "id": "marsh_entrance",
-          "nameKo": "습지 입구",
-          "type": "spawn_point",
-          "position": {
-            "x": 10,
-            "y": 70,
-            "width": 15,
-            "height": 15
-          },
-          "isDefault": true,
-          "description": "늪 입구에서 이어지는 습지"
-        },
-        {
-          "id": "blue_slime_area",
-          "nameKo": "냉기 웅덩이",
-          "type": "event_area",
-          "position": {
-            "x": 30,
-            "y": 40,
-            "width": 25,
-            "height": 25
-          },
-          "description": "차가운 기운이 도는 웅덩이"
-        },
-        {
-          "id": "red_slime_area",
-          "nameKo": "열기 웅덩이",
-          "type": "event_area",
-          "position": {
-            "x": 60,
-            "y": 50,
-            "width": 25,
-            "height": 25
-          },
-          "description": "뜨거운 기운이 도는 웅덩이"
-        },
-        {
-          "id": "nest_path",
-          "nameKo": "둥지 길",
-          "type": "portal",
-          "position": {
-            "x": 85,
-            "y": 10,
-            "width": 15,
-            "height": 15
-          },
-          "portalTo": "slime_nest",
-          "description": "슬라임 둥지로 향하는 길"
-        }
-      ],
-      "spawns": [
-        {
-          "monsterId": "blue_slime",
-          "spawnType": "always",
-          "spawnRate": 0.4,
-          "maxCount": 5,
-          "zoneId": "blue_slime_area",
-          "respawnTime": 90
-        },
-        {
-          "monsterId": "red_slime",
-          "spawnType": "always",
-          "spawnRate": 0.4,
-          "maxCount": 5,
-          "zoneId": "red_slime_area",
-          "respawnTime": 90
-        },
-        {
-          "monsterId": "poison_slime",
-          "spawnType": "rare",
-          "spawnChance": 0.15,
-          "maxCount": 2,
-          "respawnTime": 180
-        },
-        {
-          "monsterId": "golden_slime",
-          "spawnType": "rare",
-          "spawnChance": 0.02,
-          "maxCount": 1,
-          "respawnTime": 600
-        }
-      ],
-      "npcs": []
-    },
-    {
-      "id": "slime_nest",
-      "region": "wetlands",
-      "nameKo": "슬라임 둥지",
-      "nameEn": "Slime Nest",
-      "descriptionKo": "거대 슬라임이 지배하는 슬라임의 본거지.",
-      "descriptionEn": "The headquarters of slimes ruled by a giant slime.",
-      "icon": "👑",
-      "terrain": "nest",
-      "minLevel": 8,
-      "maxPlayers": 100,
-      "isPvp": false,
-      "isSafeZone": false,
-      "connectedMaps": [
-        "shallow_marsh"
-      ],
-      "zones": [
-        {
-          "id": "nest_entrance",
-          "nameKo": "둥지 입구",
-          "type": "spawn_point",
-          "position": {
-            "x": 10,
-            "y": 80,
-            "width": 15,
-            "height": 15
-          },
-          "isDefault": true,
-          "description": "슬라임 둥지의 입구"
-        },
-        {
-          "id": "shadow_area",
-          "nameKo": "어둠 구역",
-          "type": "event_area",
-          "position": {
-            "x": 30,
-            "y": 50,
-            "width": 25,
-            "height": 25
-          },
-          "description": "어둠에 잠긴 구역"
-        },
-        {
-          "id": "throne_room",
-          "nameKo": "왕좌의 방",
-          "type": "boss_area",
-          "position": {
-            "x": 60,
-            "y": 20,
-            "width": 30,
-            "height": 30
-          },
-          "eventTriggers": [
-            "slime_king_battle"
-          ],
-          "description": "거대 슬라임이 있는 방"
-        }
-      ],
-      "spawns": [
-        {
-          "monsterId": "shadow_slime",
-          "spawnType": "conditional",
-          "spawnRate": 0.3,
-          "maxCount": 4,
-          "zoneId": "shadow_area",
-          "respawnTime": 120,
-          "conditions": {
-            "period": ["night", "dusk"]
-          }
-        },
-        {
-          "monsterId": "giant_slime",
-          "spawnType": "boss",
-          "maxCount": 1,
-          "zoneId": "throne_room",
-          "schedule": {
-            "preset": "weekend_evening",
-            "dayOfWeek": [5, 6],
-            "hourRange": [19, 23],
-            "timezone": "Asia/Seoul"
-          },
-          "respawnTime": 7200,
-          "announcement": {
-            "spawn": "거대 슬라임이 둥지에서 깨어났습니다!",
-            "defeat": "거대 슬라임이 처치되었습니다! 귀중한 재료를 남겼습니다."
-          }
-        }
-      ],
-      "npcs": []
     }
   ],
   "summary": {
@@ -1264,9 +1223,9 @@
     "byRegion": {
       "starter": 3,
       "greenwood": 2,
+      "wetland": 3,
       "ancient": 1,
-      "combat": 1,
-      "wetlands": 3
+      "combat": 1
     },
     "byTerrain": {
       "market": 1,
@@ -1274,17 +1233,15 @@
       "training": 1,
       "deep_forest": 1,
       "forest": 1,
+      "swamp": 3,
       "ruins": 1,
-      "arena": 1,
-      "swamp": 1,
-      "marsh": 1,
-      "nest": 1
+      "arena": 1
     },
     "safeZones": 3,
     "combatZones": 7,
     "pvpZones": 1,
-    "totalZones": 46,
-    "totalSpawns": 22,
+    "totalZones": 43,
+    "totalSpawns": 23,
     "bossSpawns": 8
   }
 }

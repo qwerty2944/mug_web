@@ -28,7 +28,7 @@ const MAPS_DIR = "public/data/world/maps";
 const OUTPUT_FILE = "public/data/world/maps.json";
 
 // 리전 목록 (처리 순서)
-const REGIONS = ["starter", "greenwood", "ancient", "combat"];
+const REGIONS = ["starter", "greenwood", "wetland", "ancient", "combat"];
 
 // ============ 타입 정의 ============
 

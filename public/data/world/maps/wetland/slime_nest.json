@@ -1,0 +1,66 @@
+{
+  "id": "slime_nest",
+  "region": "wetland",
+  "nameKo": "슬라임 서식지",
+  "nameEn": "Slime Nest",
+  "descriptionKo": "슬라임들이 모여사는 핵심 지역. 거대 슬라임이 출현한다.",
+  "descriptionEn": "The core area where slimes gather. The Giant Slime appears here.",
+  "icon": "🫧",
+  "terrain": "swamp",
+  "minLevel": 8,
+  "maxPlayers": 30,
+  "isPvp": false,
+  "isSafeZone": false,
+  "connectedMaps": ["shallow_marsh"],
+
+  "zones": [
+    {
+      "id": "nest_entrance",
+      "nameKo": "서식지 입구",
+      "type": "spawn_point",
+      "position": { "x": 20, "y": 50, "width": 25, "height": 25 },
+      "isDefault": true,
+      "description": "슬라임 서식지로 들어가는 입구"
+    },
+    {
+      "id": "slime_core",
+      "nameKo": "슬라임 핵심부",
+      "type": "boss_area",
+      "position": { "x": 50, "y": 30, "width": 40, "height": 40 },
+      "description": "거대 슬라임이 출현하는 핵심 지역"
+    }
+  ],
+
+  "spawns": [
+    {
+      "monsterId": "shadow_slime",
+      "spawnType": "conditional",
+      "spawnRate": 0.4,
+      "maxCount": 2,
+      "zoneId": "nest_entrance",
+      "respawnTime": 300,
+      "conditions": {
+        "period": ["night"]
+      }
+    },
+    {
+      "monsterId": "giant_slime",
+      "spawnType": "boss",
+      "maxCount": 1,
+      "zoneId": "slime_core",
+      "schedule": {
+        "preset": "daily_noon",
+        "dayOfWeek": [0, 1, 2, 3, 4, 5, 6],
+        "hourRange": [12, 14],
+        "timezone": "Asia/Seoul"
+      },
+      "respawnTime": 7200,
+      "announcement": {
+        "spawn": "거대 슬라임이 서식지에 나타났습니다!",
+        "defeat": "거대 슬라임이 처치되었습니다!"
+      }
+    }
+  ],
+
+  "npcs": []
+}
