@@ -21,7 +21,7 @@ export type WeaponType =
   | "shield";
 
 // ============ 마법 속성 ============
-export type MagicElement = "fire" | "ice" | "lightning" | "earth" | "holy" | "dark" | "poison";
+export type MagicElement = "fire" | "ice" | "lightning" | "earth" | "holy" | "dark" | "poison" | "arcane";
 
 // ============ 생활/제작 스킬 타입 ============
 export type MedicalType = "first_aid" | "herbalism" | "surgery";
@@ -66,6 +66,7 @@ export interface Proficiencies {
   holy: number;
   dark: number;
   poison: number;
+  arcane: number;
 }
 
 // ============ 무기 블록 ============

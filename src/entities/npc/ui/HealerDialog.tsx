@@ -7,7 +7,7 @@ import {
   INJURY_CONFIG,
   type CharacterInjury,
   type InjuryType,
-} from "@/entities/injury";
+} from "@/entities/status";
 import type { Npc } from "@/entities/npc";
 import { healInjuryWithGold, profileKeys } from "@/entities/user";
 import toast from "react-hot-toast";

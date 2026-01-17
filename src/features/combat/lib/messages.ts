@@ -165,6 +165,15 @@ const POISON_ATTACK_MESSAGES = [
   (name: string, dmg: number) => `독의 결정이 ${name}을(를) 관통했다! ${dmg}!`,
 ];
 
+// 비전 마법 메시지
+const ARCANE_ATTACK_MESSAGES = [
+  (name: string, dmg: number) => `비전 화살이 ${name}을(를) 꿰뚫었다! ${dmg} 데미지!`,
+  (name: string, dmg: number) => `${name}이(가) 비전 에너지에 휩싸였다! ${dmg}!`,
+  (name: string, dmg: number) => `순수한 마력이 ${name}을(를) 강타했다! ${dmg} 데미지!`,
+  (name: string, dmg: number) => `시공간이 뒤틀리며 ${name}에게 ${dmg}의 피해!`,
+  (name: string, dmg: number) => `비전 폭발이 ${name}을(를) 삼켰다! ${dmg}!`,
+];
+
 // 공격 타입별 메시지 맵 (전투 숙련도만 해당)
 const ATTACK_MESSAGES: Record<CombatProficiencyType, ((name: string, dmg: number) => string)[]> = {
   light_sword: LIGHT_SWORD_ATTACK_MESSAGES,
@@ -186,6 +195,7 @@ const ATTACK_MESSAGES: Record<CombatProficiencyType, ((name: string, dmg: number
   holy: HOLY_ATTACK_MESSAGES,
   dark: DARK_ATTACK_MESSAGES,
   poison: POISON_ATTACK_MESSAGES,
+  arcane: ARCANE_ATTACK_MESSAGES,
 };
 
 // ============ 크리티컬 히트 메시지 ============

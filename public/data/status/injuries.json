@@ -1,0 +1,56 @@
+{
+  "category": "injury",
+  "statuses": [
+    {
+      "id": "light",
+      "nameKo": "경상",
+      "nameEn": "Light Wound",
+      "icon": "🩹",
+      "description": { "ko": "가벼운 상처. HP 회복 상한 -10%", "en": "Light wound. HP recovery cap -10%" },
+      "category": "injury",
+      "defaultDuration": -1,
+      "stackable": false,
+      "maxStacks": 1,
+      "effectType": "recovery_reduction",
+      "value": 0.10,
+      "healMethod": "first_aid",
+      "naturalHealTime": 30,
+      "requiredProficiency": 0,
+      "color": "#FBBF24"
+    },
+    {
+      "id": "medium",
+      "nameKo": "중상",
+      "nameEn": "Medium Wound",
+      "icon": "🩸",
+      "description": { "ko": "심각한 상처. HP 회복 상한 -25%", "en": "Serious wound. HP recovery cap -25%" },
+      "category": "injury",
+      "defaultDuration": -1,
+      "stackable": false,
+      "maxStacks": 1,
+      "effectType": "recovery_reduction",
+      "value": 0.25,
+      "healMethod": "herbalism",
+      "naturalHealTime": 120,
+      "requiredProficiency": 20,
+      "color": "#F97316"
+    },
+    {
+      "id": "critical",
+      "nameKo": "치명상",
+      "nameEn": "Critical Wound",
+      "icon": "💀",
+      "description": { "ko": "생명이 위험한 상처. HP 회복 상한 -50%", "en": "Life-threatening wound. HP recovery cap -50%" },
+      "category": "injury",
+      "defaultDuration": -1,
+      "stackable": false,
+      "maxStacks": 1,
+      "effectType": "recovery_reduction",
+      "value": 0.50,
+      "healMethod": "surgery",
+      "naturalHealTime": null,
+      "requiredProficiency": 50,
+      "color": "#EF4444"
+    }
+  ]
+}

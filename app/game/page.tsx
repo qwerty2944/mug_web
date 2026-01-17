@@ -11,7 +11,7 @@ import { PlayerList } from "@/entities/player";
 import { MapSelector } from "@/entities/map";
 import { MonsterList } from "@/entities/monster";
 import { NpcList, useNpcsByMap, type Npc } from "@/entities/npc";
-import { InjuryDisplay } from "@/entities/injury";
+import { InjuryDisplay } from "@/entities/status";
 import {
   useProfile,
   getMainCharacter,

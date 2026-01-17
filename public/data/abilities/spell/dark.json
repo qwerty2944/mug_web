@@ -196,6 +196,86 @@
       "requirements": { "skills": { "dark_mastery": 50, "death_coil": 10 }, "karma": -80 },
       "grantsExpTo": ["dark_mastery"],
       "cooldown": 10
+    },
+    {
+      "id": "level_5_death",
+      "nameKo": "레벨 5 데스",
+      "nameEn": "Level 5 Death",
+      "type": "special",
+      "usageContext": "combat_only",
+      "icon": "☠️",
+      "description": { "ko": "레벨이 5의 배수인 대상을 즉사시킨다.", "en": "Instantly kill targets whose level is a multiple of 5." },
+      "maxLevel": 5,
+      "expPerLevel": 400,
+      "levelBonuses": [
+        { "level": 1, "effects": { "levelCondition": 5, "instantKill": true, "mpCost": 80 } },
+        { "level": 3, "effects": { "levelCondition": 5, "instantKill": true, "mpCost": 70, "fallbackDamage": 50 } },
+        { "level": 5, "effects": { "levelCondition": 5, "instantKill": true, "mpCost": 60, "fallbackDamage": 80, "ignoreResist": true } }
+      ],
+      "requirements": { "skills": { "dark_mastery": 40 }, "karma": -60 },
+      "grantsExpTo": ["dark_mastery"],
+      "cooldown": 8,
+      "target": "enemy"
+    },
+    {
+      "id": "level_4_graviga",
+      "nameKo": "레벨 4 그라비가",
+      "nameEn": "Level 4 Graviga",
+      "type": "special",
+      "usageContext": "combat_only",
+      "icon": "🕳️",
+      "description": { "ko": "레벨이 4의 배수인 대상에게 현재 HP의 75% 피해를 준다.", "en": "Deal 75% of current HP as damage to targets whose level is a multiple of 4." },
+      "maxLevel": 5,
+      "expPerLevel": 350,
+      "levelBonuses": [
+        { "level": 1, "effects": { "levelCondition": 4, "hpPercentDamage": 75, "mpCost": 60 } },
+        { "level": 3, "effects": { "levelCondition": 4, "hpPercentDamage": 75, "mpCost": 50, "fallbackDamage": 40 } },
+        { "level": 5, "effects": { "levelCondition": 4, "hpPercentDamage": 75, "mpCost": 45, "fallbackDamage": 60, "slow": true } }
+      ],
+      "requirements": { "skills": { "dark_mastery": 35 }, "karma": -40 },
+      "grantsExpTo": ["dark_mastery"],
+      "cooldown": 6,
+      "target": "enemy"
+    },
+    {
+      "id": "level_3_flare",
+      "nameKo": "레벨 3 플레어",
+      "nameEn": "Level 3 Flare",
+      "type": "special",
+      "usageContext": "combat_only",
+      "icon": "🌟",
+      "description": { "ko": "레벨이 3의 배수인 대상에게 최대 HP 50% + 고정 피해를 준다.", "en": "Deal 50% of max HP plus fixed damage to targets whose level is a multiple of 3." },
+      "maxLevel": 5,
+      "expPerLevel": 300,
+      "levelBonuses": [
+        { "level": 1, "effects": { "levelCondition": 3, "maxHpPercentDamage": 50, "baseDamage": 30, "mpCost": 50 } },
+        { "level": 3, "effects": { "levelCondition": 3, "maxHpPercentDamage": 50, "baseDamage": 50, "mpCost": 45 } },
+        { "level": 5, "effects": { "levelCondition": 3, "maxHpPercentDamage": 50, "baseDamage": 80, "mpCost": 40, "burn": true } }
+      ],
+      "requirements": { "skills": { "dark_mastery": 30 } },
+      "grantsExpTo": ["dark_mastery"],
+      "cooldown": 5,
+      "target": "enemy"
+    },
+    {
+      "id": "level_2_old",
+      "nameKo": "레벨 2 올드",
+      "nameEn": "Level 2 Old",
+      "type": "debuff",
+      "usageContext": "combat_only",
+      "icon": "👴",
+      "description": { "ko": "레벨이 2의 배수인 대상을 노화시켜 약화시킨다.", "en": "Age targets whose level is a multiple of 2, weakening them." },
+      "maxLevel": 5,
+      "expPerLevel": 250,
+      "levelBonuses": [
+        { "level": 1, "effects": { "levelCondition": 2, "statusEffect": "weaken", "statusValue": 25, "statusDuration": 5, "mpCost": 35 } },
+        { "level": 3, "effects": { "levelCondition": 2, "statusEffect": "weaken", "statusValue": 35, "statusDuration": 5, "mpCost": 30, "slow": true } },
+        { "level": 5, "effects": { "levelCondition": 2, "statusEffect": "weaken", "statusValue": 50, "statusDuration": 6, "mpCost": 25, "slow": true, "defenseReduction": 20 } }
+      ],
+      "requirements": { "skills": { "dark_mastery": 25 } },
+      "grantsExpTo": ["dark_mastery"],
+      "cooldown": 4,
+      "target": "enemy"
     }
   ]
 }

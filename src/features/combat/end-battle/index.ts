@@ -35,7 +35,7 @@ import {
   checkInjuryOccurrence,
   getInjuryOccurredMessage,
   INJURY_CONFIG,
-} from "@/entities/injury";
+} from "@/entities/status";
 import { getMapById, useMaps, getMapDisplayName } from "@/entities/map";
 import { useRecordBattleResult } from "@/entities/statistics";
 import toast from "react-hot-toast";

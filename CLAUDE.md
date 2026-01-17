@@ -1,5 +1,50 @@
 # MUD Web - Claude 개발 가이드
 
+> 마지막 업데이트: 2026-01-18
+
+## 목차
+
+### 기본 정보
+- [프로젝트 개요](#프로젝트-개요)
+- [기술 스택](#기술-스택)
+- [아키텍처: FSD](#아키텍처-fsd-feature-sliced-design)
+
+### 개발 규칙
+- [Git 커밋 컨벤션](#git-커밋-컨벤션)
+- [코딩 컨벤션](#코딩-컨벤션)
+- [테마 시스템](#테마-시스템-필수)
+- [성능 최적화 규칙](#성능-최적화-규칙)
+
+### 게임 시스템
+- [전투 시스템](#전투-시스템-combat)
+- [어빌리티 시스템](#어빌리티-시스템-ability)
+- [아이템 시스템](#아이템-시스템-item)
+- [인벤토리/장비 시스템](#인벤토리장비-시스템)
+- [상태 모달 시스템](#상태-모달-시스템-status-modal)
+- [HP/MP 시스템](#hpmp-시스템)
+- [데미지 계산 시스템](#데미지-계산-시스템)
+- [부상 시스템](#부상-시스템-injury)
+- [피로도 시스템](#피로도-시스템-fatigue)
+- [게임 시간 시스템](#게임-시간-시스템-game-time)
+- [날씨 시스템](#날씨-시스템-weather)
+- [월드맵 시스템](#월드맵-시스템-world-map)
+- [PvP 결투 시스템](#pvp-결투-시스템-duel)
+- [통신용 크리스탈 시스템](#통신용-크리스탈-시스템-whisper-crystal)
+
+### 데이터 관리
+- [데이터 생성 시스템](#데이터-생성-시스템)
+- [아이템 데이터](#아이템-데이터-publicdataitems)
+- [종족 데이터](#종족-데이터-publicdataappearanceraces)
+- [능력 데이터](#능력-데이터-publicdataabilities)
+
+### 기타
+- [테스트 페이지](#테스트-페이지-test)
+- [Unity 연동](#unity-연동)
+- [환경 변수](#환경-변수)
+- [주요 명령어](#주요-명령어)
+
+---
+
 ## 프로젝트 개요
 Fantasy MUD 게임 웹 클라이언트. Unity WebGL 캐릭터 빌더 + Supabase 백엔드.
 
@@ -626,6 +671,8 @@ abilities/
 │   ├── earth.json          # 대지 마법
 │   ├── holy.json           # 신성 마법 + 치유 마법
 │   ├── dark.json           # 암흑 마법
+│   ├── poison.json         # 독 마법
+│   ├── arcane.json         # 비전 마법 (시간/공간)
 │   └── metadata.json       # 속성 상성, 요일 강화 등
 ├── lifeskill/              # 생활 스킬
 │   ├── medical.json        # 의료 (응급처치, 약초학, 수술)
@@ -935,6 +982,8 @@ public/data/abilities/
 │   ├── earth.json          # 대지 마법
 │   ├── holy.json           # 신성 마법 + 치유
 │   ├── dark.json           # 암흑 마법
+│   ├── poison.json         # 독 마법
+│   ├── arcane.json         # 비전 마법 (시간/공간)
 │   └── metadata.json       # 속성 상성, 요일 강화
 ├── combatskill/            # 전투 스킬
 │   ├── weapon/             # 무기 스킬
@@ -1015,6 +1064,40 @@ public/data/abilities/
 | holy | ✨ | dark | - |
 | dark | 🌑 | holy | - |
 | poison | ☠️ | - | - |
+| arcane | 🔮 | - | - |
+
+**비전(Arcane) 속성**: 중립 속성으로 모든 상성이 1.0x. 시간/공간 마법 특화.
+
+### 레벨 기반 마법 (Level Magic)
+
+파이널판타지 스타일의 레벨 조건 마법. 대상 레벨이 특정 배수일 때 강력한 효과 발동.
+
+| 마법 | 배수 | 효과 | 속성 |
+|------|------|------|------|
+| Level 5 Death | 5의 배수 | 즉사 | dark |
+| Level 4 Graviga | 4의 배수 | HP 50% 감소 | arcane |
+| Level 3 Flare | 3의 배수 | 고정 200 데미지 | arcane |
+| Level 2 Old | 2의 배수 | 노화 (모든 스탯 -20%) | arcane |
+
+```typescript
+import { checkLevelCondition, calculateLevelMagicEffect } from "@/entities/ability";
+
+// 조건 확인
+const canAffect = checkLevelCondition(targetLevel, 5); // Level 5 Death
+
+// 효과 계산
+const effect = calculateLevelMagicEffect("level_5_death", targetLevel, targetMaxHp);
+// { type: "instant_death", affected: true }
+```
+
+### AP 수정 상태이상
+
+비전 마법으로 부여되는 AP(행동 포인트) 관련 상태이상.
+
+| 상태이상 | 효과 | 비전 마법 |
+|----------|------|----------|
+| `ap_cost_down` | AP 소모 -2 (최소 1) | Haste, Time Acceleration |
+| `ap_cost_up` | AP 소모 +2 | Slow, Time Deceleration |
 
 ### 무기 타입 (WeaponType)
 

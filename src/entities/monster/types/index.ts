@@ -118,6 +118,7 @@ export interface ElementResistance {
   holy?: number;      // 신성 저항
   dark?: number;      // 암흑 저항
   poison?: number;    // 독 저항
+  arcane?: number;    // 비전 저항
 }
 
 export const DEFAULT_ELEMENT_RESISTANCE: ElementResistance = {
@@ -128,6 +129,7 @@ export const DEFAULT_ELEMENT_RESISTANCE: ElementResistance = {
   holy: 1.0,
   dark: 1.0,
   poison: 1.0,
+  arcane: 1.0,
 };
 
 // ============ 몬스터 스탯 ============

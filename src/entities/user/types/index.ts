@@ -1,5 +1,5 @@
 import type { Character, ProfileAppearance } from "@/entities/character";
-import type { CharacterInjury } from "@/entities/injury";
+import type { CharacterInjury } from "@/entities/status";
 
 // ============ 종교 타입 ============
 

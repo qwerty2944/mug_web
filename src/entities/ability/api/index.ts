@@ -372,7 +372,7 @@ export const DEFAULT_PROFICIENCIES: Proficiencies = {
   light_sword: 0, medium_sword: 0, great_sword: 0,
   axe: 0, mace: 0, dagger: 0, spear: 0,
   bow: 0, crossbow: 0, staff: 0, fist: 0, shield: 0,
-  fire: 0, ice: 0, lightning: 0, earth: 0, holy: 0, dark: 0, poison: 0,
+  fire: 0, ice: 0, lightning: 0, earth: 0, holy: 0, dark: 0, poison: 0, arcane: 0,
 };
 
 export const WEAPON_ATTACK_TYPE: Record<WeaponType, PhysicalAttackType> = {

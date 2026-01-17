@@ -11,8 +11,8 @@ import {
 } from "../types";
 import type { EquipmentStats } from "@/entities/item";
 import type { MagicElement, PhysicalAttackType } from "@/entities/ability";
-import type { CharacterInjury } from "@/entities/injury";
-import { calculateTotalRecoveryReduction } from "@/entities/injury";
+import type { CharacterInjury } from "@/entities/status";
+import { calculateTotalRecoveryReduction } from "@/entities/status";
 
 // ============ 파생 스탯 인터페이스 ============
 
@@ -151,6 +151,9 @@ export function calculateDerivedStats(
     poison:
       (baseStats.elementBoost?.poison ?? 0) +
       (equipmentStats.poisonBoost ?? 0),
+    arcane:
+      (baseStats.elementBoost?.arcane ?? 0) +
+      (equipmentStats.arcaneBoost ?? 0),
   };
 
   // 속성 저항 합산
@@ -172,6 +175,9 @@ export function calculateDerivedStats(
     poison:
       (baseStats.elementResist?.poison ?? 0) +
       (equipmentStats.poisonResist ?? 0),
+    arcane:
+      (baseStats.elementResist?.arcane ?? 0) +
+      (equipmentStats.arcaneResist ?? 0),
   };
 
   // 물리 저항 합산 (캐릭터 기본 저항 + 장비 보너스)

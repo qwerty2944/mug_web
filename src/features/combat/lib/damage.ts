@@ -34,6 +34,7 @@ const ELEMENT_ADVANTAGE: Record<MagicElement, MagicElement | null> = {
   holy: "dark",
   dark: "holy",
   poison: null,
+  arcane: null, // 비전은 중립 - 상성 없음
 };
 
 const ELEMENT_WEAKNESS: Record<MagicElement, MagicElement | null> = {
@@ -44,6 +45,7 @@ const ELEMENT_WEAKNESS: Record<MagicElement, MagicElement | null> = {
   holy: null,
   dark: null,
   poison: null,
+  arcane: null, // 비전은 중립 - 상성 없음
 };
 
 /**

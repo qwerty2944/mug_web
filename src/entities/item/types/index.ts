@@ -376,6 +376,7 @@ export interface EquipmentStats {
   holyBoost?: number;
   darkBoost?: number;
   poisonBoost?: number;
+  arcaneBoost?: number;
 
   // 속성 저항 (%)
   fireResist?: number;
@@ -385,6 +386,7 @@ export interface EquipmentStats {
   holyResist?: number;
   darkResist?: number;
   poisonResist?: number;
+  arcaneResist?: number;
 
   // 물리 저항 보너스 (배율 감소, -0.1 = 10% 추가 저항)
   slashResistBonus?: number;  // 베기 저항 보너스

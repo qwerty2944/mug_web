@@ -62,7 +62,7 @@ export type ElementType =
   | "dark"
   | "poison";
 
-// 7속성 강화율 (%)
+// 8속성 강화율 (%)
 export interface ElementBoost {
   fire: number;
   ice: number;
@@ -71,9 +71,10 @@ export interface ElementBoost {
   holy: number;
   dark: number;
   poison: number;
+  arcane: number;
 }
 
-// 7속성 저항율 (%)
+// 8속성 저항율 (%)
 export interface ElementResist {
   fire: number;
   ice: number;
@@ -82,6 +83,7 @@ export interface ElementResist {
   holy: number;
   dark: number;
   poison: number;
+  arcane: number;
 }
 
 export const DEFAULT_ELEMENT_BOOST: ElementBoost = {
@@ -92,6 +94,7 @@ export const DEFAULT_ELEMENT_BOOST: ElementBoost = {
   holy: 0,
   dark: 0,
   poison: 0,
+  arcane: 0,
 };
 
 export const DEFAULT_ELEMENT_RESIST: ElementResist = {
@@ -102,6 +105,7 @@ export const DEFAULT_ELEMENT_RESIST: ElementResist = {
   holy: 0,
   dark: 0,
   poison: 0,
+  arcane: 0,
 };
 
 // ============ 물리 저항 타입 ============

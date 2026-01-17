@@ -1,0 +1,76 @@
+{
+  "version": "1.0.0",
+  "categories": {
+    "buff": {
+      "nameKo": "버프",
+      "nameEn": "Buff",
+      "color": "#22C55E",
+      "icon": "⬆️"
+    },
+    "debuff": {
+      "nameKo": "디버프",
+      "nameEn": "Debuff",
+      "color": "#EF4444",
+      "icon": "⬇️"
+    },
+    "injury": {
+      "nameKo": "부상",
+      "nameEn": "Injury",
+      "color": "#F59E0B",
+      "icon": "🩹"
+    }
+  },
+  "effectTypes": {
+    "stat_modifier": {
+      "nameKo": "능력치 변경",
+      "description": "스탯 증감 효과"
+    },
+    "dot": {
+      "nameKo": "지속 피해",
+      "description": "매 턴 피해를 입힘"
+    },
+    "hot": {
+      "nameKo": "지속 회복",
+      "description": "매 턴 HP 회복"
+    },
+    "shield": {
+      "nameKo": "보호막",
+      "description": "피해 흡수"
+    },
+    "incapacitate": {
+      "nameKo": "행동 불가",
+      "description": "어떤 행동도 할 수 없음"
+    },
+    "silence": {
+      "nameKo": "침묵",
+      "description": "마법 사용 불가"
+    },
+    "counter": {
+      "nameKo": "반격",
+      "description": "피해 반사"
+    },
+    "recovery_reduction": {
+      "nameKo": "회복 감소",
+      "description": "HP 회복 상한 감소"
+    }
+  },
+  "injuryOccurrence": {
+    "hpThreshold": 0.3,
+    "baseChance": {
+      "light": 0.30,
+      "medium": 0.15,
+      "critical": 0.05
+    },
+    "levelDiffMultiplier": {
+      "-5": 0.2,
+      "-3": 0.4,
+      "-1": 0.7,
+      "0": 1.0,
+      "1": 1.2,
+      "3": 1.5,
+      "5": 2.0
+    },
+    "criticalHitMultiplier": 2.0,
+    "maxRecoveryReduction": 0.8
+  }
+}

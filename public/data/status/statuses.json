@@ -1,0 +1,336 @@
+{
+  "version": "1.0.0",
+  "generatedAt": "2026-01-17T15:39:43.702Z",
+  "totalCount": 20,
+  "statistics": {
+    "buff": 8,
+    "debuff": 9,
+    "injury": 3
+  },
+  "statuses": [
+    {
+      "id": "atk_up",
+      "nameKo": "공격 강화",
+      "nameEn": "Attack Up",
+      "icon": "⚔️",
+      "description": {
+        "ko": "공격력이 증가한다",
+        "en": "Attack power increased"
+      },
+      "category": "buff",
+      "defaultDuration": 4,
+      "stackable": false,
+      "maxStacks": 1,
+      "effectType": "stat_modifier",
+      "targetStat": "atk"
+    },
+    {
+      "id": "def_up",
+      "nameKo": "방어 강화",
+      "nameEn": "Defense Up",
+      "icon": "🛡️",
+      "description": {
+        "ko": "방어력이 증가한다",
+        "en": "Defense increased"
+      },
+      "category": "buff",
+      "defaultDuration": 4,
+      "stackable": false,
+      "maxStacks": 1,
+      "effectType": "stat_modifier",
+      "targetStat": "def"
+    },
+    {
+      "id": "spd_up",
+      "nameKo": "속도 강화",
+      "nameEn": "Speed Up",
+      "icon": "💨",
+      "description": {
+        "ko": "속도가 증가한다",
+        "en": "Speed increased"
+      },
+      "category": "buff",
+      "defaultDuration": 3,
+      "stackable": false,
+      "maxStacks": 1,
+      "effectType": "stat_modifier",
+      "targetStat": "spd"
+    },
+    {
+      "id": "regen",
+      "nameKo": "재생",
+      "nameEn": "Regeneration",
+      "icon": "💚",
+      "description": {
+        "ko": "매 턴 HP가 회복된다",
+        "en": "HP regenerates each turn"
+      },
+      "category": "buff",
+      "defaultDuration": 3,
+      "stackable": true,
+      "maxStacks": 3,
+      "effectType": "hot"
+    },
+    {
+      "id": "shield",
+      "nameKo": "보호막",
+      "nameEn": "Shield",
+      "icon": "🔰",
+      "description": {
+        "ko": "피해를 흡수하는 보호막",
+        "en": "Absorbs incoming damage"
+      },
+      "category": "buff",
+      "defaultDuration": 5,
+      "stackable": false,
+      "maxStacks": 1,
+      "effectType": "shield"
+    },
+    {
+      "id": "magic_boost",
+      "nameKo": "마력 증폭",
+      "nameEn": "Magic Boost",
+      "icon": "✨",
+      "description": {
+        "ko": "마법 데미지가 증가한다",
+        "en": "Magic damage increased"
+      },
+      "category": "buff",
+      "defaultDuration": 4,
+      "stackable": false,
+      "maxStacks": 1,
+      "effectType": "stat_modifier",
+      "targetStat": "magic"
+    },
+    {
+      "id": "counter",
+      "nameKo": "반격 자세",
+      "nameEn": "Counter Stance",
+      "icon": "🥋",
+      "description": {
+        "ko": "받는 피해의 일부를 반사한다",
+        "en": "Reflects part of damage taken"
+      },
+      "category": "buff",
+      "defaultDuration": 2,
+      "stackable": false,
+      "maxStacks": 1,
+      "effectType": "counter"
+    },
+    {
+      "id": "ap_cost_down",
+      "nameKo": "시간 가속",
+      "nameEn": "Haste",
+      "icon": "⏱️",
+      "description": {
+        "ko": "AP 소모량이 감소한다",
+        "en": "AP consumption decreased"
+      },
+      "category": "buff",
+      "defaultDuration": 3,
+      "stackable": false,
+      "maxStacks": 1,
+      "effectType": "ap_modifier",
+      "targetStat": "ap"
+    },
+    {
+      "id": "poison",
+      "nameKo": "독",
+      "nameEn": "Poison",
+      "icon": "☠️",
+      "description": {
+        "ko": "매 턴 독 피해를 받는다",
+        "en": "Takes poison damage each turn"
+      },
+      "category": "debuff",
+      "defaultDuration": 4,
+      "stackable": true,
+      "maxStacks": 3,
+      "effectType": "dot"
+    },
+    {
+      "id": "burn",
+      "nameKo": "화상",
+      "nameEn": "Burn",
+      "icon": "🔥",
+      "description": {
+        "ko": "매 턴 화상 피해를 받는다",
+        "en": "Takes burn damage each turn"
+      },
+      "category": "debuff",
+      "defaultDuration": 3,
+      "stackable": true,
+      "maxStacks": 3,
+      "effectType": "dot"
+    },
+    {
+      "id": "freeze",
+      "nameKo": "빙결",
+      "nameEn": "Freeze",
+      "icon": "🧊",
+      "description": {
+        "ko": "얼어붙어 행동할 수 없다",
+        "en": "Frozen and cannot act"
+      },
+      "category": "debuff",
+      "defaultDuration": 1,
+      "stackable": false,
+      "maxStacks": 1,
+      "effectType": "incapacitate"
+    },
+    {
+      "id": "slow",
+      "nameKo": "둔화",
+      "nameEn": "Slow",
+      "icon": "🐌",
+      "description": {
+        "ko": "속도가 감소한다",
+        "en": "Speed decreased"
+      },
+      "category": "debuff",
+      "defaultDuration": 3,
+      "stackable": false,
+      "maxStacks": 1,
+      "effectType": "stat_modifier",
+      "targetStat": "spd"
+    },
+    {
+      "id": "blind",
+      "nameKo": "실명",
+      "nameEn": "Blind",
+      "icon": "🌑",
+      "description": {
+        "ko": "명중률이 크게 감소한다",
+        "en": "Accuracy greatly decreased"
+      },
+      "category": "debuff",
+      "defaultDuration": 2,
+      "stackable": false,
+      "maxStacks": 1,
+      "effectType": "stat_modifier",
+      "targetStat": "accuracy"
+    },
+    {
+      "id": "silence",
+      "nameKo": "침묵",
+      "nameEn": "Silence",
+      "icon": "🤐",
+      "description": {
+        "ko": "마법을 사용할 수 없다",
+        "en": "Cannot use magic"
+      },
+      "category": "debuff",
+      "defaultDuration": 2,
+      "stackable": false,
+      "maxStacks": 1,
+      "effectType": "silence"
+    },
+    {
+      "id": "weaken",
+      "nameKo": "약화",
+      "nameEn": "Weaken",
+      "icon": "📉",
+      "description": {
+        "ko": "공격력이 감소한다",
+        "en": "Attack power decreased"
+      },
+      "category": "debuff",
+      "defaultDuration": 3,
+      "stackable": false,
+      "maxStacks": 1,
+      "effectType": "stat_modifier",
+      "targetStat": "atk"
+    },
+    {
+      "id": "stun",
+      "nameKo": "기절",
+      "nameEn": "Stun",
+      "icon": "💫",
+      "description": {
+        "ko": "기절하여 행동할 수 없다",
+        "en": "Stunned and cannot act"
+      },
+      "category": "debuff",
+      "defaultDuration": 1,
+      "stackable": false,
+      "maxStacks": 1,
+      "effectType": "incapacitate"
+    },
+    {
+      "id": "ap_cost_up",
+      "nameKo": "시간 둔화",
+      "nameEn": "Slow Time",
+      "icon": "⌛",
+      "description": {
+        "ko": "AP 소모량이 증가한다",
+        "en": "AP consumption increased"
+      },
+      "category": "debuff",
+      "defaultDuration": 3,
+      "stackable": false,
+      "maxStacks": 1,
+      "effectType": "ap_modifier",
+      "targetStat": "ap"
+    },
+    {
+      "id": "light",
+      "nameKo": "경상",
+      "nameEn": "Light Wound",
+      "icon": "🩹",
+      "description": {
+        "ko": "가벼운 상처. HP 회복 상한 -10%",
+        "en": "Light wound. HP recovery cap -10%"
+      },
+      "category": "injury",
+      "defaultDuration": -1,
+      "stackable": false,
+      "maxStacks": 1,
+      "effectType": "recovery_reduction",
+      "value": 0.1,
+      "healMethod": "first_aid",
+      "naturalHealTime": 30,
+      "requiredProficiency": 0,
+      "color": "#FBBF24"
+    },
+    {
+      "id": "medium",
+      "nameKo": "중상",
+      "nameEn": "Medium Wound",
+      "icon": "🩸",
+      "description": {
+        "ko": "심각한 상처. HP 회복 상한 -25%",
+        "en": "Serious wound. HP recovery cap -25%"
+      },
+      "category": "injury",
+      "defaultDuration": -1,
+      "stackable": false,
+      "maxStacks": 1,
+      "effectType": "recovery_reduction",
+      "value": 0.25,
+      "healMethod": "herbalism",
+      "naturalHealTime": 120,
+      "requiredProficiency": 20,
+      "color": "#F97316"
+    },
+    {
+      "id": "critical",
+      "nameKo": "치명상",
+      "nameEn": "Critical Wound",
+      "icon": "💀",
+      "description": {
+        "ko": "생명이 위험한 상처. HP 회복 상한 -50%",
+        "en": "Life-threatening wound. HP recovery cap -50%"
+      },
+      "category": "injury",
+      "defaultDuration": -1,
+      "stackable": false,
+      "maxStacks": 1,
+      "effectType": "recovery_reduction",
+      "value": 0.5,
+      "healMethod": "surgery",
+      "naturalHealTime": null,
+      "requiredProficiency": 50,
+      "color": "#EF4444"
+    }
+  ]
+}

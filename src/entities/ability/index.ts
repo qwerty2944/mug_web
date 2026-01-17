@@ -108,3 +108,13 @@ export {
   useIncreaseAbilityExp,
   useUpdateAbilitiesProgress,
 } from "./queries";
+
+// Level Magic Utilities (FF-style level-based magic)
+export {
+  checkLevelCondition,
+  calculateLevelMagicEffect,
+  getLevelMagicMessage,
+  calculateApCostModifier,
+  calculateFinalApCost,
+} from "./lib/levelMagic";
+export type { LevelMagicType, LevelMagicResult } from "./lib/levelMagic";

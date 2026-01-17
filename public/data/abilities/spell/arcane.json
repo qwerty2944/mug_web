@@ -1,0 +1,211 @@
+{
+  "element": "arcane",
+  "nameKo": "비전",
+  "nameEn": "Arcane",
+  "icon": "🔮",
+  "description": "비전 속성 마법. 시간과 공간을 조작하는 중립 속성. 다른 속성과 상성 없음.",
+  "spells": [
+    {
+      "id": "arcane_mastery",
+      "nameKo": "비전 마법 숙련",
+      "nameEn": "Arcane Mastery",
+      "type": "passive",
+      "usageContext": "passive",
+      "icon": "🔮",
+      "description": { "ko": "비전 마법의 위력을 높이는 기본 숙련.", "en": "Basic mastery that increases arcane magic power." },
+      "maxLevel": 50,
+      "expPerLevel": 100,
+      "levelBonuses": [
+        { "level": 1, "effects": { "arcaneDamage": 0 } },
+        { "level": 10, "effects": { "arcaneDamage": 5 } },
+        { "level": 25, "effects": { "arcaneDamage": 12, "mpCostReduction": 5 } },
+        { "level": 40, "effects": { "arcaneDamage": 18, "mpCostReduction": 10 } },
+        { "level": 50, "effects": { "arcaneDamage": 25, "mpCostReduction": 15, "apModifierBonus": 10 } }
+      ],
+      "requirements": {}
+    },
+    {
+      "id": "arcane_bolt",
+      "nameKo": "비전 화살",
+      "nameEn": "Arcane Bolt",
+      "type": "attack",
+      "attackType": "magic",
+      "usageContext": "combat_only",
+      "icon": "🔮",
+      "description": { "ko": "순수한 비전 에너지를 발사한다.", "en": "Fire a bolt of pure arcane energy." },
+      "maxLevel": 30,
+      "expPerLevel": 50,
+      "levelBonuses": [
+        { "level": 1, "effects": { "baseDamage": 25, "mpCost": 8 } },
+        { "level": 10, "effects": { "baseDamage": 35, "mpCost": 10 } },
+        { "level": 20, "effects": { "baseDamage": 48, "mpCost": 12 } },
+        { "level": 30, "effects": { "baseDamage": 65, "mpCost": 14, "ignoreResist": 20 } }
+      ],
+      "requirements": { "skills": { "arcane_mastery": 1 } },
+      "grantsExpTo": ["arcane_mastery"],
+      "cooldown": 0
+    },
+    {
+      "id": "quicken",
+      "nameKo": "퀴큰",
+      "nameEn": "Quicken",
+      "type": "buff",
+      "usageContext": "combat_only",
+      "icon": "⏱️",
+      "description": { "ko": "자신의 시간을 가속하여 AP 소모를 줄인다.", "en": "Accelerate your time to reduce AP consumption." },
+      "maxLevel": 10,
+      "expPerLevel": 80,
+      "levelBonuses": [
+        { "level": 1, "effects": { "statusEffect": "ap_cost_down", "statusValue": 15, "statusDuration": 2, "mpCost": 10 } },
+        { "level": 5, "effects": { "statusEffect": "ap_cost_down", "statusValue": 25, "statusDuration": 3, "mpCost": 15 } },
+        { "level": 10, "effects": { "statusEffect": "ap_cost_down", "statusValue": 40, "statusDuration": 3, "mpCost": 20 } }
+      ],
+      "requirements": { "skills": { "arcane_mastery": 5 } },
+      "grantsExpTo": ["arcane_mastery"],
+      "cooldown": 4,
+      "target": "self"
+    },
+    {
+      "id": "haste",
+      "nameKo": "헤이스트",
+      "nameEn": "Haste",
+      "type": "buff",
+      "usageContext": "combat_only",
+      "icon": "⚡",
+      "description": { "ko": "대상의 시간을 가속하여 AP 소모를 줄인다.", "en": "Accelerate target's time to reduce AP consumption." },
+      "maxLevel": 10,
+      "expPerLevel": 100,
+      "levelBonuses": [
+        { "level": 1, "effects": { "statusEffect": "ap_cost_down", "statusValue": 10, "statusDuration": 3, "mpCost": 15 } },
+        { "level": 5, "effects": { "statusEffect": "ap_cost_down", "statusValue": 20, "statusDuration": 3, "mpCost": 25 } },
+        { "level": 10, "effects": { "statusEffect": "ap_cost_down", "statusValue": 35, "statusDuration": 4, "mpCost": 40 } }
+      ],
+      "requirements": { "skills": { "arcane_mastery": 15, "quicken": 5 } },
+      "grantsExpTo": ["arcane_mastery"],
+      "cooldown": 5,
+      "target": "self"
+    },
+    {
+      "id": "slow_time",
+      "nameKo": "슬로우 타임",
+      "nameEn": "Slow Time",
+      "type": "debuff",
+      "usageContext": "combat_only",
+      "icon": "⌛",
+      "description": { "ko": "적의 시간을 둔화시켜 AP 소모를 증가시킨다.", "en": "Slow enemy's time to increase their AP consumption." },
+      "maxLevel": 10,
+      "expPerLevel": 100,
+      "levelBonuses": [
+        { "level": 1, "effects": { "statusEffect": "ap_cost_up", "statusValue": 25, "statusDuration": 3, "mpCost": 20 } },
+        { "level": 5, "effects": { "statusEffect": "ap_cost_up", "statusValue": 35, "statusDuration": 3, "mpCost": 30 } },
+        { "level": 10, "effects": { "statusEffect": "ap_cost_up", "statusValue": 50, "statusDuration": 4, "mpCost": 45 } }
+      ],
+      "requirements": { "skills": { "arcane_mastery": 20 } },
+      "grantsExpTo": ["arcane_mastery"],
+      "cooldown": 4,
+      "target": "enemy"
+    },
+    {
+      "id": "time_stop",
+      "nameKo": "타임 스톱",
+      "nameEn": "Time Stop",
+      "type": "debuff",
+      "usageContext": "combat_only",
+      "icon": "⏸️",
+      "description": { "ko": "적의 시간을 완전히 멈춰 행동 불가 상태로 만든다.", "en": "Completely stop enemy's time, rendering them unable to act." },
+      "maxLevel": 5,
+      "expPerLevel": 200,
+      "levelBonuses": [
+        { "level": 1, "effects": { "statusEffect": "stun", "statusDuration": 1, "mpCost": 60 } },
+        { "level": 3, "effects": { "statusEffect": "stun", "statusDuration": 1, "mpCost": 70, "aoe": false } },
+        { "level": 5, "effects": { "statusEffect": "stun", "statusDuration": 2, "mpCost": 100, "ignoreResist": true } }
+      ],
+      "requirements": { "skills": { "arcane_mastery": 35, "slow_time": 8 } },
+      "grantsExpTo": ["arcane_mastery"],
+      "cooldown": 8,
+      "target": "enemy"
+    },
+    {
+      "id": "gravity_well",
+      "nameKo": "중력장",
+      "nameEn": "Gravity Well",
+      "type": "attack",
+      "attackType": "magic",
+      "usageContext": "combat_only",
+      "icon": "🌀",
+      "description": { "ko": "중력장을 만들어 피해와 둔화를 준다.", "en": "Create a gravity well dealing damage and slowing." },
+      "maxLevel": 10,
+      "expPerLevel": 120,
+      "levelBonuses": [
+        { "level": 1, "effects": { "baseDamage": 30, "statusEffect": "slow", "statusValue": 20, "statusDuration": 2, "mpCost": 25 } },
+        { "level": 5, "effects": { "baseDamage": 45, "statusEffect": "slow", "statusValue": 30, "statusDuration": 3, "mpCost": 35 } },
+        { "level": 10, "effects": { "baseDamage": 65, "statusEffect": "slow", "statusValue": 40, "statusDuration": 3, "mpCost": 50, "pullEffect": true } }
+      ],
+      "requirements": { "skills": { "arcane_mastery": 25 } },
+      "grantsExpTo": ["arcane_mastery"],
+      "cooldown": 3,
+      "target": "enemy"
+    },
+    {
+      "id": "teleport",
+      "nameKo": "텔레포트",
+      "nameEn": "Teleport",
+      "type": "buff",
+      "usageContext": "combat_only",
+      "icon": "🌟",
+      "description": { "ko": "순간이동하여 회피율을 크게 높인다.", "en": "Teleport to greatly increase dodge chance." },
+      "maxLevel": 5,
+      "expPerLevel": 150,
+      "levelBonuses": [
+        { "level": 1, "effects": { "dodgeBonus": 30, "duration": 1, "mpCost": 30 } },
+        { "level": 3, "effects": { "dodgeBonus": 45, "duration": 1, "mpCost": 40 } },
+        { "level": 5, "effects": { "dodgeBonus": 60, "duration": 2, "mpCost": 50, "counterChance": 20 } }
+      ],
+      "requirements": { "skills": { "arcane_mastery": 30 } },
+      "grantsExpTo": ["arcane_mastery"],
+      "cooldown": 5,
+      "target": "self"
+    },
+    {
+      "id": "temporal_prison",
+      "nameKo": "시간의 감옥",
+      "nameEn": "Temporal Prison",
+      "type": "debuff",
+      "usageContext": "combat_only",
+      "icon": "🔒",
+      "description": { "ko": "시간의 감옥에 가둬 AP 소모를 2배로 만든다.", "en": "Imprison in temporal cage, doubling AP consumption." },
+      "maxLevel": 5,
+      "expPerLevel": 200,
+      "levelBonuses": [
+        { "level": 1, "effects": { "statusEffect": "ap_cost_up", "statusValue": 100, "statusDuration": 2, "mpCost": 50 } },
+        { "level": 3, "effects": { "statusEffect": "ap_cost_up", "statusValue": 100, "statusDuration": 2, "mpCost": 65, "defenseReduction": 15 } },
+        { "level": 5, "effects": { "statusEffect": "ap_cost_up", "statusValue": 100, "statusDuration": 3, "mpCost": 80, "defenseReduction": 25, "ignoreResist": true } }
+      ],
+      "requirements": { "skills": { "arcane_mastery": 40, "slow_time": 10 } },
+      "grantsExpTo": ["arcane_mastery"],
+      "cooldown": 6,
+      "target": "enemy"
+    },
+    {
+      "id": "arcane_explosion",
+      "nameKo": "비전 폭발",
+      "nameEn": "Arcane Explosion",
+      "type": "attack",
+      "attackType": "magic",
+      "usageContext": "combat_only",
+      "icon": "💥",
+      "description": { "ko": "비전 에너지를 폭발시켜 광역 피해를 준다.", "en": "Explode arcane energy dealing area damage." },
+      "maxLevel": 15,
+      "expPerLevel": 150,
+      "levelBonuses": [
+        { "level": 1, "effects": { "baseDamage": 40, "aoe": true, "mpCost": 30 } },
+        { "level": 8, "effects": { "baseDamage": 60, "aoe": true, "mpCost": 40 } },
+        { "level": 15, "effects": { "baseDamage": 85, "aoe": true, "mpCost": 55, "stunChance": 20, "stunDuration": 1 } }
+      ],
+      "requirements": { "skills": { "arcane_mastery": 45, "arcane_bolt": 20 } },
+      "grantsExpTo": ["arcane_mastery"],
+      "cooldown": 4,
+      "target": "all_enemies"
+    }
+  ]
+}

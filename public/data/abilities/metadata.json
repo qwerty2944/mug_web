@@ -146,7 +146,8 @@
         { "id": "lightning", "nameKo": "번개", "nameEn": "Lightning", "icon": "zap", "file": "lightning.json" },
         { "id": "earth", "nameKo": "대지", "nameEn": "Earth", "icon": "mountain", "file": "earth.json" },
         { "id": "holy", "nameKo": "신성", "nameEn": "Holy", "icon": "sun", "file": "holy.json" },
-        { "id": "dark", "nameKo": "암흑", "nameEn": "Dark", "icon": "moon", "file": "dark.json" }
+        { "id": "dark", "nameKo": "암흑", "nameEn": "Dark", "icon": "moon", "file": "dark.json" },
+        { "id": "arcane", "nameKo": "비전", "nameEn": "Arcane", "icon": "crystal-ball", "file": "arcane.json" }
       ]
     },
     "combatskill": {
@@ -283,7 +284,8 @@
       "lightning": { "strong": "earth", "weak": "ice", "multiplierStrong": 1.5, "multiplierWeak": 0.75 },
       "earth": { "strong": "fire", "weak": "lightning", "multiplierStrong": 1.5, "multiplierWeak": 0.75 },
       "holy": { "strong": "dark", "weak": null, "multiplierStrong": 1.5, "multiplierWeak": 1.0 },
-      "dark": { "strong": "holy", "weak": null, "multiplierStrong": 1.5, "multiplierWeak": 1.0 }
+      "dark": { "strong": "holy", "weak": null, "multiplierStrong": 1.5, "multiplierWeak": 1.0 },
+      "arcane": { "strong": null, "weak": null, "multiplierStrong": 1.0, "multiplierWeak": 1.0 }
     }
   },
 

@@ -1,7 +1,7 @@
 import { supabase } from "@/shared/api";
 import type { UserProfile, CrystalTier, ReligionData } from "../types";
-import type { CharacterInjury } from "@/entities/injury";
-import { filterNaturallyHealedInjuries } from "@/entities/injury";
+import type { CharacterInjury } from "@/entities/status";
+import { filterNaturallyHealedInjuries } from "@/entities/status";
 
 // ============ 프로필 조회 API ============
 

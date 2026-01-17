@@ -1,7 +1,7 @@
 "use client";
 
 import { useThemeStore } from "@/shared/config";
-import { INJURY_CONFIG, type CharacterInjury } from "@/entities/injury";
+import { INJURY_CONFIG, type CharacterInjury } from "../types";
 
 interface InjuryDisplayProps {
   injuries: CharacterInjury[];

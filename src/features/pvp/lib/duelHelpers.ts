@@ -167,6 +167,7 @@ export function generateAttackMessage(params: AttackMessageParams): string {
     holy: "신성",
     dark: "암흑",
     poison: "독",
+    arcane: "비전",
   };
 
   const attackName = attackNames[attackType] || attackType;
