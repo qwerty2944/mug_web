@@ -1,0 +1,269 @@
+{
+  "version": "1.0.0",
+  "generatedAt": "2026-01-17T23:53:24.179Z",
+  "totalCount": 11,
+  "statistics": {
+    "healer": 5,
+    "merchant": 2,
+    "trainer": 2,
+    "quest": 2
+  },
+  "npcs": [
+    {
+      "id": "village_healer",
+      "nameKo": "마을 치료사 에린",
+      "nameEn": "Village Healer Erin",
+      "icon": "🏥",
+      "mapId": "starting_village",
+      "description": "상처와 부상을 치료해주는 마을의 치료사입니다.",
+      "dialogues": {
+        "greeting": "어서 오세요, 여행자님. 상처가 있으시군요. 제가 도와드릴게요.",
+        "noInjury": "건강해 보이시네요! 다른 용건이 있으신가요?",
+        "healSuccess": "치료가 완료되었습니다. 앞으로 조심하세요.",
+        "notEnoughGold": "금화가 부족하시군요... 다음에 다시 오세요.",
+        "farewell": "건강하세요!"
+      },
+      "services": {
+        "healing": {
+          "light": {
+            "gold": 50,
+            "description": "경상 치료"
+          },
+          "medium": {
+            "gold": 200,
+            "description": "중상 치료"
+          },
+          "critical": {
+            "gold": 500,
+            "description": "치명상 치료"
+          }
+        }
+      },
+      "type": "healer"
+    },
+    {
+      "id": "market_healer",
+      "nameKo": "시장 약사 마르코",
+      "nameEn": "Market Apothecary Marco",
+      "icon": "💊",
+      "mapId": "market_square",
+      "description": "시장에서 약초와 치료 서비스를 제공하는 약사입니다.",
+      "dialogues": {
+        "greeting": "이런, 부상을 당하셨군요. 제 약이 도움이 될 겁니다.",
+        "noInjury": "오늘은 건강하시네요. 물약이라도 사가시겠습니까?",
+        "healSuccess": "자, 이제 괜찮으실 겁니다.",
+        "notEnoughGold": "흠, 금화가 부족하군요. 약초 채집이라도 해오시죠.",
+        "farewell": "다치지 마세요!"
+      },
+      "services": {
+        "healing": {
+          "light": {
+            "gold": 45,
+            "description": "경상 치료 (시장 할인)"
+          },
+          "medium": {
+            "gold": 180,
+            "description": "중상 치료 (시장 할인)"
+          },
+          "critical": {
+            "gold": 450,
+            "description": "치명상 치료 (시장 할인)"
+          }
+        }
+      },
+      "type": "healer"
+    },
+    {
+      "id": "forest_herbalist",
+      "nameKo": "숲의 약초사 리나",
+      "nameEn": "Forest Herbalist Lina",
+      "icon": "🌿",
+      "mapId": "deep_forest",
+      "description": "숲 깊은 곳에 사는 약초 전문가입니다.",
+      "dialogues": {
+        "greeting": "숲이 당신을 이곳으로 이끌었군요. 상처를 보여주세요.",
+        "noInjury": "자연의 축복이 함께하고 있네요. 건강하시군요.",
+        "healSuccess": "자연의 힘으로 치료했어요. 숲에 감사하세요.",
+        "notEnoughGold": "금화가 부족해요... 대신 약초를 가져다 주시면 치료해드릴게요.",
+        "farewell": "자연이 당신을 지켜줄 거예요."
+      },
+      "services": {
+        "healing": {
+          "light": {
+            "gold": 40,
+            "description": "경상 치료 (숲 할인)"
+          },
+          "medium": {
+            "gold": 160,
+            "description": "중상 치료 (숲 할인)"
+          },
+          "critical": {
+            "gold": 400,
+            "description": "치명상 치료 (숲 할인)"
+          }
+        }
+      },
+      "type": "healer"
+    },
+    {
+      "id": "arena_medic",
+      "nameKo": "투기장 의무병 브루투스",
+      "nameEn": "Arena Medic Brutus",
+      "icon": "⚔️",
+      "mapId": "arena",
+      "description": "투기장에서 부상당한 전사들을 치료하는 의무병입니다.",
+      "dialogues": {
+        "greeting": "또 싸움에서 다쳤군. 어디 보자...",
+        "noInjury": "멀쩡하잖아! 다음 시합 준비나 해.",
+        "healSuccess": "됐어. 이제 다시 싸울 수 있을 거야.",
+        "notEnoughGold": "금화 없이는 치료 안 해. 규칙이야.",
+        "farewell": "다음엔 피하는 법도 배워."
+      },
+      "services": {
+        "healing": {
+          "light": {
+            "gold": 60,
+            "description": "경상 치료 (투기장)"
+          },
+          "medium": {
+            "gold": 250,
+            "description": "중상 치료 (투기장)"
+          },
+          "critical": {
+            "gold": 600,
+            "description": "치명상 치료 (투기장)"
+          }
+        }
+      },
+      "type": "healer"
+    },
+    {
+      "id": "ruins_shaman",
+      "nameKo": "유적의 주술사 카론",
+      "nameEn": "Ruins Shaman Charon",
+      "icon": "💀",
+      "mapId": "ancient_ruins",
+      "description": "고대 유적에서 어둠의 주술로 치료하는 신비한 존재입니다.",
+      "dialogues": {
+        "greeting": "크크크... 죽음의 문턱에서 돌아왔군. 내가 고쳐주지.",
+        "noInjury": "아직 멀쩡하군... 곧 다시 오게 될 거야.",
+        "healSuccess": "어둠이 너를 치유했다. 대가를 치렀으니.",
+        "notEnoughGold": "금화가 부족해... 영혼으로 대신 치르겠나?",
+        "farewell": "조심해. 여긴 위험한 곳이니까..."
+      },
+      "services": {
+        "healing": {
+          "light": {
+            "gold": 30,
+            "description": "경상 치료 (저렴)"
+          },
+          "medium": {
+            "gold": 120,
+            "description": "중상 치료 (저렴)"
+          },
+          "critical": {
+            "gold": 300,
+            "description": "치명상 치료 (저렴)"
+          }
+        }
+      },
+      "type": "healer"
+    },
+    {
+      "id": "basic_merchant",
+      "nameKo": "잡화 상인 톰",
+      "nameEn": "General Merchant Tom",
+      "icon": "🛒",
+      "mapId": "starting_village",
+      "description": "기본적인 소모품과 장비를 판매하는 상인입니다.",
+      "dialogues": {
+        "greeting": "어서 오세요! 무엇을 찾으시나요?",
+        "browse": "천천히 둘러보세요.",
+        "purchase": "좋은 선택이십니다!",
+        "notEnoughGold": "금화가 부족하시네요...",
+        "farewell": "또 오세요!"
+      },
+      "type": "merchant"
+    },
+    {
+      "id": "market_merchant",
+      "nameKo": "시장 상인 루시",
+      "nameEn": "Market Merchant Lucy",
+      "icon": "🏪",
+      "mapId": "market_square",
+      "description": "시장에서 다양한 물품을 거래하는 상인입니다.",
+      "dialogues": {
+        "greeting": "시장에 오신 것을 환영합니다!",
+        "browse": "오늘 좋은 물건들이 많이 들어왔어요.",
+        "purchase": "현명한 선택이에요!",
+        "notEnoughGold": "조금 더 모아서 오세요.",
+        "farewell": "좋은 하루 되세요!"
+      },
+      "type": "merchant"
+    },
+    {
+      "id": "combat_trainer",
+      "nameKo": "전투 교관 그레이",
+      "nameEn": "Combat Instructor Gray",
+      "icon": "⚔️",
+      "mapId": "training_ground",
+      "description": "신규 모험가에게 기본 전투 기술을 가르치는 교관입니다.",
+      "dialogues": {
+        "greeting": "훈련하러 왔나? 좋아!",
+        "train": "자세를 낮추고, 집중해!",
+        "success": "잘했어. 점점 나아지고 있군.",
+        "notEnoughGold": "훈련에도 비용이 든다네.",
+        "farewell": "꾸준히 훈련하게."
+      },
+      "type": "trainer"
+    },
+    {
+      "id": "arena_trainer",
+      "nameKo": "투기장 조련사 막시무스",
+      "nameEn": "Arena Trainer Maximus",
+      "icon": "🏟️",
+      "mapId": "arena",
+      "description": "투기장에서 고급 전투 기술을 가르치는 베테랑 전사입니다.",
+      "dialogues": {
+        "greeting": "강해지고 싶나? 잘 찾아왔다.",
+        "train": "실전이 최고의 스승이지!",
+        "success": "이제 좀 전사다워졌군.",
+        "notEnoughGold": "먼저 돈을 벌어와.",
+        "farewell": "다음엔 더 강해져서 와."
+      },
+      "type": "trainer"
+    },
+    {
+      "id": "village_elder",
+      "nameKo": "마을 장로",
+      "nameEn": "Village Elder",
+      "icon": "👴",
+      "mapId": "starting_village",
+      "description": "마을의 지혜로운 장로. 새로운 모험가들에게 조언을 해줍니다.",
+      "dialogues": {
+        "greeting": "젊은 모험가여, 어서 오게.",
+        "questAvailable": "자네에게 부탁할 일이 있네.",
+        "questComplete": "훌륭하네! 기대한 대로야.",
+        "noQuest": "지금은 특별히 부탁할 일이 없구만.",
+        "farewell": "조심해서 다녀오게."
+      },
+      "type": "quest"
+    },
+    {
+      "id": "innkeeper",
+      "nameKo": "여관 주인 마사",
+      "nameEn": "Innkeeper Martha",
+      "icon": "🍺",
+      "mapId": "starting_village",
+      "description": "여관을 운영하며 여행자들의 이야기를 듣는 것을 좋아합니다.",
+      "dialogues": {
+        "greeting": "어서 오세요, 여행자님!",
+        "questAvailable": "저기... 부탁드릴 게 있는데요.",
+        "questComplete": "정말 감사합니다!",
+        "noQuest": "편히 쉬어가세요.",
+        "farewell": "조심히 가세요!"
+      },
+      "type": "quest"
+    }
+  ]
+}

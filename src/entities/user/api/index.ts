@@ -1,5 +1,5 @@
 import { supabase } from "@/shared/api";
-import type { UserProfile, CrystalTier, ReligionData } from "../types";
+import type { UserProfile, CrystalTier, ReligionData, DailyLoginResult } from "../types";
 import type { CharacterInjury } from "@/entities/status";
 import { filterNaturallyHealedInjuries } from "@/entities/status";
 
@@ -52,6 +52,10 @@ export async function fetchProfile(userId: string): Promise<UserProfile> {
     currentMp: data.current_mp ?? null,
     injuries,
     religion: data.religion as ReligionData | null,
+    // 연속 로그인 시스템
+    loginStreak: data.login_streak || 0,
+    totalLoginDays: data.total_login_days || 0,
+    lastLoginDate: data.last_login_date || null,
   };
 }
 
@@ -327,5 +331,28 @@ export async function healInjuryWithGold(
     success: data?.success ?? false,
     remainingGold: data?.remaining_gold ?? 0,
     removedInjury: data?.removed_injury ?? null,
+  };
+}
+
+// ============ 연속 로그인 체크 API (DB RPC) ============
+
+/**
+ * 일일 로그인 체크 및 스트릭 업데이트
+ * - 새 날이면 streak 업데이트 후 isNewDay: true 반환
+ * - 같은 날이면 업데이트 없이 isNewDay: false 반환
+ */
+export async function checkDailyLogin(userId: string): Promise<DailyLoginResult> {
+  const { data, error } = await supabase.rpc("check_daily_login", {
+    p_user_id: userId,
+  });
+
+  if (error) throw error;
+
+  return {
+    isNewDay: data?.isNewDay ?? false,
+    loginStreak: data?.loginStreak ?? 0,
+    previousStreak: data?.previousStreak ?? 0,
+    totalLoginDays: data?.totalLoginDays ?? 0,
+    streakBroken: data?.streakBroken ?? false,
   };
 }

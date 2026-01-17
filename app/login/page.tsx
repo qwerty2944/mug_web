@@ -1,13 +1,10 @@
 "use client";
 
-import { useState } from "react";
-import { useThemeStore } from "@/shared/config";
-import { ThemeSettingsModal } from "@/shared/ui";
+import { useThemeStore } from "@/application/stores";
 import { LoginForm, SignupForm, useAuth } from "@/features/auth";
 
 export default function LoginPage() {
   const { theme } = useThemeStore();
-  const [showThemeModal, setShowThemeModal] = useState(false);
 
   const {
     mode,
@@ -61,17 +58,7 @@ export default function LoginPage() {
             <span className="font-mono text-sm" style={{ color: theme.colors.textDim }}>
               mud.connect
             </span>
-            <button
-              onClick={() => setShowThemeModal(true)}
-              className="flex items-center gap-1 px-2 py-1 font-mono text-xs transition-colors"
-              style={{ color: theme.colors.textMuted }}
-            >
-              <span
-                className="w-3 h-3 rounded-full"
-                style={{ background: theme.colors.primary }}
-              />
-              테마
-            </button>
+            <div className="w-12" /> {/* Spacer for balance */}
           </div>
 
           <div className="p-6">
@@ -147,9 +134,6 @@ export default function LoginPage() {
           </div>
         </div>
       </div>
-
-      {/* 테마 설정 모달 */}
-      <ThemeSettingsModal open={showThemeModal} onClose={() => setShowThemeModal(false)} />
     </div>
   );
 }

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback, useRef } from "react";
 import { useRouter } from "next/navigation";
 import dynamic from "next/dynamic";
 import toast from "react-hot-toast";
@@ -32,7 +32,9 @@ import { WeatherDisplay } from "@/entities/weather";
 import { useBattleStore, usePvpStore } from "@/application/stores";
 import { useStartBattle, useEndBattle } from "@/features/combat";
 import { useUpdateLocation } from "@/features/player";
-import { useThemeStore } from "@/shared/config";
+import { useCheckDailyLogin } from "@/features/login-streak";
+import { useThemeStore } from "@/application/stores";
+import type { DailyLoginResult } from "@/entities/user";
 
 // 동적 임포트: 조건부 렌더링 컴포넌트 (번들 최적화)
 // @see docs/performance/bundle-optimization.md
@@ -51,19 +53,20 @@ const WorldMapModal = dynamic(
   { ssr: false }
 );
 
-const ThemeSettingsModal = dynamic(
-  () => import("@/shared/ui").then((m) => m.ThemeSettingsModal),
-  { ssr: false }
-);
 
 const HealerDialog = dynamic(
   () => import("@/entities/npc").then((m) => m.HealerDialog),
   { ssr: false }
 );
 
+const LoginStreakModal = dynamic(
+  () => import("@/features/login-streak").then((m) => m.LoginStreakModal),
+  { ssr: false }
+);
+
 export default function GamePage() {
   const router = useRouter();
-  const { theme } = useThemeStore();
+  const { theme, setThemeByTerrain } = useThemeStore();
   const { session, signOut } = useAuthStore();
   const { currentMap, setCurrentMap, isConnected, setMyCharacterName, myCharacterName } =
     useGameStore();
@@ -74,10 +77,15 @@ export default function GamePage() {
 
   // 로컬 UI 상태 - 프로필에서 마지막 위치 로드
   const [mapId, setMapId] = useState<string | null>(null);
-  const [showThemeModal, setShowThemeModal] = useState(false);
   const [showWorldMap, setShowWorldMap] = useState(false);
   const [showStatusModal, setShowStatusModal] = useState(false);
   const [selectedNpc, setSelectedNpc] = useState<Npc | null>(null);
+
+  // 연속 로그인 시스템
+  const [showStreakModal, setShowStreakModal] = useState(false);
+  const [loginResult, setLoginResult] = useState<DailyLoginResult | null>(null);
+  const checkDailyLogin = useCheckDailyLogin();
+  const hasCheckedLogin = useRef(false);
 
   // NPC 조회
   const { data: npcs = [] } = useNpcsByMap(mapId || "starting_village");
@@ -128,6 +136,28 @@ export default function GamePage() {
     }
   }, [session, profile, profileLoading, router, setMyCharacterName]);
 
+  // 연속 로그인 체크 (프로필 로드 후 1회)
+  useEffect(() => {
+    if (
+      profile &&
+      !profileLoading &&
+      session?.user?.id &&
+      !hasCheckedLogin.current &&
+      !checkDailyLogin.isPending
+    ) {
+      hasCheckedLogin.current = true;
+
+      checkDailyLogin.mutate(session.user.id, {
+        onSuccess: (result) => {
+          if (result.isNewDay) {
+            setLoginResult(result);
+            setShowStreakModal(true);
+          }
+        },
+      });
+    }
+  }, [profile, profileLoading, session?.user?.id, checkDailyLogin]);
+
   // 프로필에서 마지막 위치 로드 (초기 로드 시)
   useEffect(() => {
     if (profile && maps.length > 0 && mapId === null) {
@@ -172,6 +202,16 @@ export default function GamePage() {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [profile?.currentMapId, maps, setCurrentMap]);
+
+  // 맵 변경 시 테마 자동 적용 (terrain 기반)
+  useEffect(() => {
+    if (mapId && maps.length > 0) {
+      const currentMapData = getMapById(maps, mapId);
+      if (currentMapData?.terrain) {
+        setThemeByTerrain(currentMapData.terrain);
+      }
+    }
+  }, [mapId, maps, setThemeByTerrain]);
 
   const { sendMessage } = useRealtimeChat({
     mapId: mapId || "town_square",
@@ -350,20 +390,8 @@ export default function GamePage() {
             <WeatherDisplay compact />
           </div>
 
-          {/* 오른쪽: 테마 + 로그아웃 */}
+          {/* 오른쪽: 로그아웃 */}
           <div className="flex items-center gap-1.5 sm:gap-3">
-            <button
-              onClick={() => setShowThemeModal(true)}
-              className="flex items-center gap-1 text-[10px] sm:text-xs font-mono transition-colors p-1"
-              style={{ color: theme.colors.textMuted }}
-              title="테마 설정"
-            >
-              <span
-                className="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full flex-shrink-0"
-                style={{ background: theme.colors.primary }}
-              />
-              <span className="hidden sm:inline">테마</span>
-            </button>
             <button
               onClick={handleSignOut}
               className="text-[10px] sm:text-xs font-mono transition-colors p-1"
@@ -508,9 +536,6 @@ export default function GamePage() {
         />
       )}
 
-      {/* 테마 설정 모달 */}
-      <ThemeSettingsModal open={showThemeModal} onClose={() => setShowThemeModal(false)} />
-
       {/* 월드맵 모달 */}
       <WorldMapModal
         open={showWorldMap}
@@ -533,6 +558,15 @@ export default function GamePage() {
 
       {/* 상태창 모달 */}
       <StatusModal open={showStatusModal} onClose={() => setShowStatusModal(false)} />
+
+      {/* 연속 로그인 모달 */}
+      {loginResult && (
+        <LoginStreakModal
+          open={showStreakModal}
+          onClose={() => setShowStreakModal(false)}
+          result={loginResult}
+        />
+      )}
 
       {/* 시간대별 명도 오버레이 */}
       <div

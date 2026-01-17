@@ -1,0 +1,78 @@
+{
+  "version": "1.0.0",
+  "description": "특성 데이터 메타데이터",
+  "categories": {
+    "appearance": {
+      "nameKo": "외형",
+      "nameEn": "Appearance",
+      "icon": "👁️",
+      "description": "외모와 관련된 특성"
+    },
+    "personality": {
+      "nameKo": "성격",
+      "nameEn": "Personality",
+      "icon": "💭",
+      "description": "성격과 행동 방식 관련 특성"
+    },
+    "health": {
+      "nameKo": "건강",
+      "nameEn": "Health",
+      "icon": "❤️",
+      "description": "체력과 건강 관련 특성"
+    },
+    "talent": {
+      "nameKo": "재능",
+      "nameEn": "Talent",
+      "icon": "⭐",
+      "description": "특별한 재능 관련 특성"
+    },
+    "misc": {
+      "nameKo": "기타",
+      "nameEn": "Miscellaneous",
+      "icon": "📦",
+      "description": "기타 특성"
+    }
+  },
+  "rarities": {
+    "common": {
+      "nameKo": "일반",
+      "nameEn": "Common",
+      "color": "#D1D5DB"
+    },
+    "uncommon": {
+      "nameKo": "고급",
+      "nameEn": "Uncommon",
+      "color": "#22C55E"
+    },
+    "rare": {
+      "nameKo": "희귀",
+      "nameEn": "Rare",
+      "color": "#3B82F6"
+    },
+    "epic": {
+      "nameKo": "서사",
+      "nameEn": "Epic",
+      "color": "#A855F7"
+    },
+    "legendary": {
+      "nameKo": "전설",
+      "nameEn": "Legendary",
+      "color": "#F59E0B"
+    }
+  },
+  "effectTypes": {
+    "statModifiers": "능력치 보정",
+    "specialEffects": "특수 효과",
+    "npcReactions": "NPC 반응 보정"
+  },
+  "specialEffectTypes": {
+    "magic_damage": { "nameKo": "마법 데미지", "isPercentage": true },
+    "persuasion": { "nameKo": "설득력", "isPercentage": true },
+    "intimidation": { "nameKo": "위협", "isPercentage": true },
+    "dodge_chance": { "nameKo": "회피 확률", "isPercentage": true },
+    "hp_regen": { "nameKo": "HP 재생", "isPercentage": false },
+    "mp_regen": { "nameKo": "MP 재생", "isPercentage": false },
+    "learning_speed": { "nameKo": "학습 속도", "isPercentage": true },
+    "exp_bonus": { "nameKo": "경험치 보너스", "isPercentage": true }
+  }
+}

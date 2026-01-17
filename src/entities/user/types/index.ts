@@ -47,6 +47,23 @@ export interface Profile {
   injuries: CharacterInjury[];
   // 종교 시스템
   religion: ReligionData | null;
+  // 연속 로그인 시스템
+  loginStreak: number;
+  totalLoginDays: number;
+  lastLoginDate: string | null;  // YYYY-MM-DD
+}
+
+// ============ 연속 로그인 타입 ============
+
+/**
+ * 일일 로그인 체크 결과
+ */
+export interface DailyLoginResult {
+  isNewDay: boolean;        // 새 날 로그인 여부
+  loginStreak: number;      // 현재 연속 출석일
+  previousStreak: number;   // 이전 연속 출석일
+  totalLoginDays: number;   // 총 출석일
+  streakBroken: boolean;    // 연속 끊김 여부
 }
 
 /** @deprecated Profile을 사용하세요 */

@@ -35,6 +35,11 @@
       "path": "/data/items/misc",
       "files": ["quest.json", "keys.json"],
       "description": "기타 아이템 (퀘스트, 열쇠)"
+    },
+    "runeword": {
+      "path": "/data/items/runewords",
+      "files": ["runewords.json"],
+      "description": "룬워드 (룬 조합 효과)"
     }
   },
   "rarities": [

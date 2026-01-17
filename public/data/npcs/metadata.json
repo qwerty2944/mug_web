@@ -1,0 +1,56 @@
+{
+  "version": "1.0.0",
+  "description": "NPC 데이터 메타데이터",
+  "npcTypes": {
+    "healer": {
+      "nameKo": "치료사",
+      "nameEn": "Healer",
+      "icon": "💊",
+      "file": "healers.json",
+      "description": "부상을 치료해주는 NPC"
+    },
+    "merchant": {
+      "nameKo": "상인",
+      "nameEn": "Merchant",
+      "icon": "🛒",
+      "file": "merchants.json",
+      "description": "아이템을 사고팔 수 있는 NPC"
+    },
+    "trainer": {
+      "nameKo": "훈련사",
+      "nameEn": "Trainer",
+      "icon": "⚔️",
+      "file": "trainers.json",
+      "description": "스킬과 전투를 가르쳐주는 NPC"
+    },
+    "quest": {
+      "nameKo": "퀘스트",
+      "nameEn": "Quest Giver",
+      "icon": "❗",
+      "file": "quests.json",
+      "description": "퀘스트를 제공하는 NPC"
+    }
+  },
+  "dialogueTypes": {
+    "greeting": "인사말",
+    "farewell": "작별 인사",
+    "noInjury": "부상 없을 때 (치료사)",
+    "healSuccess": "치료 성공",
+    "notEnoughGold": "금화 부족"
+  },
+  "serviceTypes": {
+    "healing": {
+      "nameKo": "치료",
+      "description": "부상 치료 서비스",
+      "tiers": ["light", "medium", "critical"]
+    },
+    "shop": {
+      "nameKo": "상점",
+      "description": "아이템 구매/판매"
+    },
+    "training": {
+      "nameKo": "훈련",
+      "description": "스킬 훈련"
+    }
+  }
+}

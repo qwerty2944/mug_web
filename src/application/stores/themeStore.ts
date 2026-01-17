@@ -1,38 +1,47 @@
 "use client";
 
 import { create } from "zustand";
-import { THEMES, DEFAULT_THEME, THEME_STORAGE_KEY, type Theme } from "@/shared/config/themes";
+import {
+  THEMES,
+  DEFAULT_THEME,
+  getThemeByTerrain,
+  type Theme,
+} from "@/shared/config/themes";
+import type { TerrainType } from "@/entities/map";
 
 interface ThemeState {
   themeId: string;
   theme: Theme;
-  setTheme: (themeId: string) => void;
+  currentTerrain: TerrainType | null;
+  setThemeByTerrain: (terrain: TerrainType) => void;
   initTheme: () => void;
 }
 
 export const useThemeStore = create<ThemeState>((set) => ({
   themeId: DEFAULT_THEME,
   theme: THEMES[DEFAULT_THEME],
+  currentTerrain: null,
 
-  setTheme: (themeId) => {
-    const theme = THEMES[themeId] || THEMES[DEFAULT_THEME];
-    set({ themeId, theme });
+  /**
+   * 지형에 맞는 테마 자동 설정
+   */
+  setThemeByTerrain: (terrain: TerrainType) => {
+    const theme = getThemeByTerrain(terrain);
+    set({ themeId: theme.id, theme, currentTerrain: terrain });
 
     if (typeof window !== "undefined") {
-      localStorage.setItem(THEME_STORAGE_KEY, themeId);
-      // CSS 변수 업데이트
       updateCSSVariables(theme);
     }
   },
 
+  /**
+   * 초기 테마 설정 (기본 마을 테마)
+   */
   initTheme: () => {
     if (typeof window === "undefined") return;
 
-    const savedTheme = localStorage.getItem(THEME_STORAGE_KEY);
-    const themeId = savedTheme && THEMES[savedTheme] ? savedTheme : DEFAULT_THEME;
-    const theme = THEMES[themeId];
-
-    set({ themeId, theme });
+    const theme = THEMES[DEFAULT_THEME];
+    set({ themeId: DEFAULT_THEME, theme });
     updateCSSVariables(theme);
   },
 }));
