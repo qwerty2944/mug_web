@@ -19,6 +19,24 @@ import { useThemeStore } from "@/shared/config";
 import { SLOT_CONFIG, type EquipmentSlot } from "@/entities/item";
 import { calculateDerivedStats } from "@/entities/character";
 import type { ProfileAppearance } from "@/entities/character";
+import {
+  getDodgeChance,
+  getBlockChance,
+  getCriticalChance,
+  getCriticalMultiplier,
+} from "@/features/combat";
+import { useRealtimeGameTime, getElementTimeMultiplier } from "@/entities/game-time";
+import { useRealtimeWeather, getWeatherElementMultiplier } from "@/entities/weather";
+import { useMaps } from "@/entities/map";
+import { StatTooltip } from "./StatTooltip";
+import { ElementBonusItem, type ElementBonusData } from "./ElementBonusItem";
+import {
+  STAT_TOOLTIPS,
+  COMBAT_TOOLTIPS,
+  ELEMENTS,
+  TERRAIN_BONUSES,
+  type ElementId,
+} from "../constants/tooltips";
 
 // 스프라이트 데이터 타입
 interface SpriteItem {
@@ -115,6 +133,11 @@ export function StatusModal({ open, onClose }: StatusModalProps) {
   // 장비 스토어
   const equipmentStore = useEquipmentStore();
 
+  // 시간대/날씨/맵 데이터
+  const { gameTime } = useRealtimeGameTime();
+  const { weather } = useRealtimeWeather();
+  const { data: maps } = useMaps();
+
   // 로컬 UI 상태 (탭 전환)
   const [activeTab, setActiveTab] = useState<TabType>("status");
 
@@ -133,6 +156,69 @@ export function StatusModal({ open, onClose }: StatusModalProps) {
       profile?.injuries ?? []
     );
   }, [mainCharacter?.stats, equipmentStore, profile?.level, profile?.injuries]);
+
+  // 전투 스탯 계산
+  const combatStats = useMemo(() => {
+    if (!mainCharacter?.stats || !derivedStats) return null;
+    const stats = mainCharacter.stats;
+    return {
+      dodgeChance: getDodgeChance(stats.dex, derivedStats.totalDodgeChance ?? 0),
+      blockChance: getBlockChance(stats.con, derivedStats.totalBlockChance ?? 0),
+      physicalCritChance: getCriticalChance(stats.lck, stats.dex),
+      magicalCritChance: getCriticalChance(stats.lck, stats.int),
+      critMultiplier: getCriticalMultiplier(stats.lck),
+      physicalAttack: derivedStats.totalPhysicalAttack ?? 0,
+      physicalDefense: derivedStats.totalPhysicalDefense ?? 0,
+      magicAttack: derivedStats.totalMagicAttack ?? 0,
+      magicDefense: derivedStats.totalMagicDefense ?? 0,
+    };
+  }, [mainCharacter?.stats, derivedStats]);
+
+  // 현재 맵 지형 정보
+  const currentMap = useMemo(() => {
+    if (!maps || !profile?.currentMapId) return null;
+    return maps.find((m) => m.id === profile.currentMapId);
+  }, [maps, profile?.currentMapId]);
+
+  // 속성 보너스 계산 (시간대/날씨/지형)
+  const elementBonuses = useMemo((): ElementBonusData[] => {
+    const period = gameTime?.period ?? "day";
+    const currentWeather = weather?.currentWeather ?? "sunny";
+    const terrain = currentMap?.terrain;
+
+    return ELEMENTS.map((el) => {
+      // 기본 보너스 (캐릭터/장비)
+      const baseBonus = 0; // TODO: derivedStats.totalElementBoost[el.id] if exists
+
+      // 시간대 보너스
+      const timeMultiplier = getElementTimeMultiplier(el.id as ElementId, period);
+      const timeBonus = Math.round((timeMultiplier - 1) * 100);
+
+      // 날씨 보너스
+      const weatherMultiplier = getWeatherElementMultiplier(el.id as ElementId, currentWeather);
+      const weatherBonus = Math.round((weatherMultiplier - 1) * 100);
+
+      // 지형 보너스
+      let terrainBonus = 0;
+      if (terrain && TERRAIN_BONUSES[terrain]?.element === el.id) {
+        terrainBonus = Math.round((TERRAIN_BONUSES[terrain].multiplier - 1) * 100);
+      }
+
+      // 총합
+      const totalBonus = baseBonus + timeBonus + weatherBonus + terrainBonus;
+
+      return {
+        id: el.id,
+        nameKo: el.nameKo,
+        icon: el.icon,
+        baseBonus,
+        timeBonus,
+        weatherBonus,
+        terrainBonus,
+        totalBonus,
+      };
+    });
+  }, [gameTime?.period, weather?.currentWeather, currentMap?.terrain]);
 
   // Unity 스프라이트 로드 완료 후 캐릭터 외형 적용
   useEffect(() => {
@@ -407,6 +493,159 @@ export function StatusModal({ open, onClose }: StatusModalProps) {
                       </div>
                     </div>
 
+                    {/* 전투 스탯 */}
+                    {combatStats && (
+                      <div className="p-4" style={{ background: theme.colors.bgDark }}>
+                        <div className="text-sm font-mono mb-3" style={{ color: theme.colors.textMuted }}>전투 스탯</div>
+
+                        {/* 공격력 / 방어력 */}
+                        <div className="grid grid-cols-2 gap-3 mb-3">
+                          <StatTooltip
+                            content={
+                              <div>
+                                <div className="font-bold mb-1" style={{ color: theme.colors.primary }}>{COMBAT_TOOLTIPS.physicalAttack.title}</div>
+                                <div style={{ color: theme.colors.textMuted }}>{COMBAT_TOOLTIPS.physicalAttack.formula}</div>
+                                <div className="mt-1" style={{ color: theme.colors.text }}>{COMBAT_TOOLTIPS.physicalAttack.effect}</div>
+                              </div>
+                            }
+                          >
+                            <div className="p-2" style={{ background: theme.colors.bgLight, border: `1px solid ${theme.colors.border}` }}>
+                              <div className="text-xs font-mono" style={{ color: theme.colors.textMuted }}>공격력</div>
+                              <div className="flex items-center gap-2 mt-1">
+                                <span>⚔️</span>
+                                <span className="font-mono" style={{ color: theme.colors.error }}>{combatStats.physicalAttack}</span>
+                                <span style={{ color: theme.colors.textMuted }}>/</span>
+                                <span>🔮</span>
+                                <span className="font-mono" style={{ color: theme.colors.primary }}>{combatStats.magicAttack}</span>
+                              </div>
+                            </div>
+                          </StatTooltip>
+                          <StatTooltip
+                            content={
+                              <div>
+                                <div className="font-bold mb-1" style={{ color: theme.colors.primary }}>{COMBAT_TOOLTIPS.physicalDefense.title}</div>
+                                <div style={{ color: theme.colors.textMuted }}>{COMBAT_TOOLTIPS.physicalDefense.formula}</div>
+                                <div className="mt-1" style={{ color: theme.colors.text }}>{COMBAT_TOOLTIPS.physicalDefense.effect}</div>
+                              </div>
+                            }
+                          >
+                            <div className="p-2" style={{ background: theme.colors.bgLight, border: `1px solid ${theme.colors.border}` }}>
+                              <div className="text-xs font-mono" style={{ color: theme.colors.textMuted }}>방어력</div>
+                              <div className="flex items-center gap-2 mt-1">
+                                <span>🛡️</span>
+                                <span className="font-mono" style={{ color: theme.colors.success }}>{combatStats.physicalDefense}</span>
+                                <span style={{ color: theme.colors.textMuted }}>/</span>
+                                <span>🔮</span>
+                                <span className="font-mono" style={{ color: theme.colors.primary }}>{combatStats.magicDefense}</span>
+                              </div>
+                            </div>
+                          </StatTooltip>
+                        </div>
+
+                        {/* 회피 / 막기 */}
+                        <div className="grid grid-cols-2 gap-2 text-sm font-mono mb-2">
+                          <StatTooltip
+                            content={
+                              <div>
+                                <div className="font-bold mb-1" style={{ color: theme.colors.primary }}>{COMBAT_TOOLTIPS.dodge.title}</div>
+                                <div style={{ color: theme.colors.textMuted }}>{COMBAT_TOOLTIPS.dodge.formula}</div>
+                                <div style={{ color: theme.colors.warning }}>{COMBAT_TOOLTIPS.dodge.max}</div>
+                                <div className="mt-1" style={{ color: theme.colors.text }}>{COMBAT_TOOLTIPS.dodge.effect}</div>
+                              </div>
+                            }
+                          >
+                            <div className="flex items-center gap-2">
+                              <span>🌀</span>
+                              <span style={{ color: theme.colors.textMuted }}>회피</span>
+                              <span className="ml-auto" style={{ color: theme.colors.text }}>{combatStats.dodgeChance.toFixed(1)}%</span>
+                            </div>
+                          </StatTooltip>
+                          <StatTooltip
+                            content={
+                              <div>
+                                <div className="font-bold mb-1" style={{ color: theme.colors.primary }}>{COMBAT_TOOLTIPS.block.title}</div>
+                                <div style={{ color: theme.colors.textMuted }}>{COMBAT_TOOLTIPS.block.formula}</div>
+                                <div style={{ color: theme.colors.warning }}>{COMBAT_TOOLTIPS.block.max}</div>
+                                <div className="mt-1" style={{ color: theme.colors.text }}>{COMBAT_TOOLTIPS.block.effect}</div>
+                              </div>
+                            }
+                          >
+                            <div className="flex items-center gap-2">
+                              <span>🛡️</span>
+                              <span style={{ color: theme.colors.textMuted }}>막기</span>
+                              <span className="ml-auto" style={{ color: theme.colors.text }}>{combatStats.blockChance.toFixed(1)}%</span>
+                            </div>
+                          </StatTooltip>
+                        </div>
+
+                        {/* 치명타 */}
+                        <div className="grid grid-cols-2 gap-2 text-sm font-mono mb-2">
+                          <StatTooltip
+                            content={
+                              <div>
+                                <div className="font-bold mb-1" style={{ color: theme.colors.primary }}>{COMBAT_TOOLTIPS.physCrit.title}</div>
+                                <div style={{ color: theme.colors.textMuted }}>{COMBAT_TOOLTIPS.physCrit.formula}</div>
+                                <div style={{ color: theme.colors.warning }}>{COMBAT_TOOLTIPS.physCrit.max}</div>
+                              </div>
+                            }
+                          >
+                            <div className="flex items-center gap-2">
+                              <span>💥</span>
+                              <span style={{ color: theme.colors.textMuted }}>물리치명</span>
+                              <span className="ml-auto" style={{ color: theme.colors.error }}>{combatStats.physicalCritChance.toFixed(1)}%</span>
+                            </div>
+                          </StatTooltip>
+                          <StatTooltip
+                            content={
+                              <div>
+                                <div className="font-bold mb-1" style={{ color: theme.colors.primary }}>{COMBAT_TOOLTIPS.magicCrit.title}</div>
+                                <div style={{ color: theme.colors.textMuted }}>{COMBAT_TOOLTIPS.magicCrit.formula}</div>
+                                <div style={{ color: theme.colors.warning }}>{COMBAT_TOOLTIPS.magicCrit.max}</div>
+                              </div>
+                            }
+                          >
+                            <div className="flex items-center gap-2">
+                              <span>✨</span>
+                              <span style={{ color: theme.colors.textMuted }}>마법치명</span>
+                              <span className="ml-auto" style={{ color: theme.colors.primary }}>{combatStats.magicalCritChance.toFixed(1)}%</span>
+                            </div>
+                          </StatTooltip>
+                        </div>
+
+                        {/* 치명타 배율 */}
+                        <StatTooltip
+                          content={
+                            <div>
+                              <div className="font-bold mb-1" style={{ color: theme.colors.primary }}>{COMBAT_TOOLTIPS.critMult.title}</div>
+                              <div style={{ color: theme.colors.textMuted }}>{COMBAT_TOOLTIPS.critMult.formula}</div>
+                              <div style={{ color: theme.colors.warning }}>{COMBAT_TOOLTIPS.critMult.max}</div>
+                            </div>
+                          }
+                        >
+                          <div className="flex items-center gap-2 text-sm font-mono">
+                            <span>⚡</span>
+                            <span style={{ color: theme.colors.textMuted }}>치명 배율</span>
+                            <span className="ml-auto" style={{ color: theme.colors.warning }}>{combatStats.critMultiplier.toFixed(2)}x</span>
+                          </div>
+                        </StatTooltip>
+                      </div>
+                    )}
+
+                    {/* 속성 보너스 */}
+                    <div className="p-4" style={{ background: theme.colors.bgDark }}>
+                      <div className="text-sm font-mono mb-3" style={{ color: theme.colors.textMuted }}>
+                        속성 보너스
+                        <span className="text-xs ml-2" style={{ color: theme.colors.primary }}>
+                          (시간대/날씨/지형)
+                        </span>
+                      </div>
+                      <div className="grid grid-cols-4 gap-1">
+                        {elementBonuses.map((element) => (
+                          <ElementBonusItem key={element.id} element={element} />
+                        ))}
+                      </div>
+                    </div>
+
                     {/* 능력치 */}
                     {mainCharacter?.stats && (
                       <div className="p-4" style={{ background: theme.colors.bgDark }}>
@@ -420,15 +659,34 @@ export function StatusModal({ open, onClose }: StatusModalProps) {
                             { key: "wis", label: "지혜", icon: "🔮" },
                             { key: "cha", label: "매력", icon: "✨" },
                             { key: "lck", label: "행운", icon: "🍀" },
-                          ].map(({ key, label, icon }) => (
-                            <div key={key} className="flex items-center gap-2">
-                              <span className="text-sm">{icon}</span>
-                              <span className="text-xs font-mono" style={{ color: theme.colors.textMuted }}>{label}</span>
-                              <span className="font-mono font-medium ml-auto" style={{ color: theme.colors.text }}>
-                                {(mainCharacter.stats as unknown as Record<string, number>)[key] ?? 10}
-                              </span>
-                            </div>
-                          ))}
+                          ].map(({ key, label, icon }) => {
+                            const tooltip = STAT_TOOLTIPS[key];
+                            return (
+                              <StatTooltip
+                                key={key}
+                                content={
+                                  <div>
+                                    <div className="font-bold mb-1" style={{ color: theme.colors.primary }}>
+                                      {tooltip?.title || label}
+                                    </div>
+                                    {tooltip?.effects.map((effect, i) => (
+                                      <div key={i} style={{ color: theme.colors.textMuted }}>
+                                        {effect}
+                                      </div>
+                                    ))}
+                                  </div>
+                                }
+                              >
+                                <div className="flex items-center gap-2">
+                                  <span className="text-sm">{icon}</span>
+                                  <span className="text-xs font-mono" style={{ color: theme.colors.textMuted }}>{label}</span>
+                                  <span className="font-mono font-medium ml-auto" style={{ color: theme.colors.text }}>
+                                    {(mainCharacter.stats as unknown as Record<string, number>)[key] ?? 10}
+                                  </span>
+                                </div>
+                              </StatTooltip>
+                            );
+                          })}
                         </div>
                       </div>
                     )}
