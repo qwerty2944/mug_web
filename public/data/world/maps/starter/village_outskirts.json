@@ -1,0 +1,54 @@
+{
+  "id": "village_outskirts",
+  "region": "starter",
+  "nameKo": "마을 외곽",
+  "nameEn": "Village Outskirts",
+  "descriptionKo": "마을 바로 바깥의 안전한 초원입니다. 귀여운 토끼들이 뛰놀고 있습니다.",
+  "descriptionEn": "A peaceful meadow just outside the village. Cute rabbits are hopping around.",
+  "icon": "🌾",
+  "terrain": "grassland",
+  "minLevel": 1,
+  "maxPlayers": 50,
+  "isPvp": false,
+  "isSafeZone": false,
+  "connectedMaps": ["starting_village", "forest_entrance"],
+
+  "zones": [
+    {
+      "id": "meadow_entrance",
+      "nameKo": "초원 입구",
+      "type": "spawn_point",
+      "position": { "x": 10, "y": 50, "width": 20, "height": 30 },
+      "isDefault": true,
+      "description": "마을에서 이어지는 길"
+    },
+    {
+      "id": "rabbit_field",
+      "nameKo": "토끼 풀밭",
+      "type": "event_area",
+      "position": { "x": 40, "y": 30, "width": 40, "height": 40 },
+      "description": "토끼들이 뛰어노는 풀밭"
+    },
+    {
+      "id": "forest_path",
+      "nameKo": "숲으로 가는 길",
+      "type": "portal",
+      "position": { "x": 80, "y": 50, "width": 15, "height": 20 },
+      "portalTo": "forest_entrance",
+      "description": "숲 입구로 향하는 길"
+    }
+  ],
+
+  "spawns": [
+    {
+      "monsterId": "rabbit",
+      "spawnType": "always",
+      "spawnRate": 0.7,
+      "maxCount": 8,
+      "zoneId": "rabbit_field",
+      "respawnTime": 30
+    }
+  ],
+
+  "npcs": []
+}

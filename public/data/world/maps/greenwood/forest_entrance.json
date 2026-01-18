@@ -11,7 +11,7 @@
   "maxPlayers": 100,
   "isPvp": false,
   "isSafeZone": false,
-  "connectedMaps": ["starting_village", "deep_forest", "training_ground", "forest_clearing"],
+  "connectedMaps": ["village_outskirts", "starting_village", "deep_forest", "training_ground", "forest_clearing"],
 
   "zones": [
     {
@@ -72,14 +72,6 @@
 
   "spawns": [
     {
-      "monsterId": "rabbit",
-      "spawnType": "always",
-      "spawnRate": 0.6,
-      "maxCount": 6,
-      "zoneId": "meadow",
-      "respawnTime": 45
-    },
-    {
       "monsterId": "squirrel",
       "spawnType": "always",
       "spawnRate": 0.5,
@@ -102,14 +94,6 @@
       "maxCount": 3,
       "zoneId": "meadow",
       "respawnTime": 90
-    },
-    {
-      "monsterId": "giant_beetle",
-      "spawnType": "always",
-      "spawnRate": 0.4,
-      "maxCount": 4,
-      "zoneId": "beetle_hollow",
-      "respawnTime": 120
     }
   ],
 

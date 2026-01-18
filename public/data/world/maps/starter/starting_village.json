@@ -11,7 +11,7 @@
   "maxPlayers": 100,
   "isPvp": false,
   "isSafeZone": true,
-  "connectedMaps": ["forest_entrance", "market_square", "training_ground"],
+  "connectedMaps": ["village_outskirts", "forest_entrance", "market_square", "training_ground"],
 
   "zones": [
     {

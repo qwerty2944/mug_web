@@ -71,6 +71,14 @@
       "respawnTime": 60
     },
     {
+      "monsterId": "giant_beetle",
+      "spawnType": "always",
+      "spawnRate": 0.3,
+      "maxCount": 3,
+      "zoneId": "insect_nest",
+      "respawnTime": 120
+    },
+    {
       "monsterId": "walking_shrub",
       "spawnType": "always",
       "spawnRate": 0.4,

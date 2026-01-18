@@ -24,6 +24,10 @@ export function useRealtimeChat({
 
   const { setOnlineUsers, setConnected } = useGameStore();
   const { data: maps = [] } = useMaps();
+
+  // maps를 ref로 저장하여 항상 최신 값 참조 (클로저 문제 해결)
+  const mapsRef = useRef(maps);
+  mapsRef.current = maps;
   const {
     addMessage,
     addMessages,
@@ -234,8 +238,24 @@ export function useRealtimeChat({
         await loadHistory();
 
         if (mountedRef.current) {
-          const mapName = getMapById(maps, mapId)?.nameKo || mapId;
-          addSystemMessage(`${mapName}에 입장했습니다.`);
+          // maps 로딩 대기 후 메시지 표시
+          let retryCount = 0;
+          const showEntryMessage = () => {
+            if (!mountedRef.current) return;
+
+            const mapData = getMapById(mapsRef.current, mapId);
+            if (mapData?.nameKo) {
+              addSystemMessage(`${mapData.nameKo}에 입장했습니다.`);
+            } else if (mapsRef.current.length === 0 && retryCount < 5) {
+              // maps가 아직 로드되지 않았으면 재시도 (최대 5회)
+              retryCount++;
+              setTimeout(showEntryMessage, 200);
+            } else {
+              // maps는 있지만 해당 맵이 없으면 ID 사용
+              addSystemMessage(`${mapId}에 입장했습니다.`);
+            }
+          };
+          showEntryMessage();
         }
       } else if (status === "CHANNEL_ERROR") {
         console.error("[Realtime] Channel error:", err);
