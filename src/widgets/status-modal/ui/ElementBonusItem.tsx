@@ -50,6 +50,7 @@ export function ElementBonusItem({ element }: ElementBonusItemProps) {
           border: hasBonus
             ? `1px solid ${theme.colors.primary}30`
             : `1px solid ${theme.colors.border}`,
+          minHeight: "72px", // 레이아웃 시프트 방지
         }}
       >
         <span className="text-lg">{element.icon}</span>
@@ -57,9 +58,16 @@ export function ElementBonusItem({ element }: ElementBonusItemProps) {
           {element.totalBonus >= 0 ? "+" : ""}
           {element.totalBonus}%
         </span>
-        {sourceIcons.length > 0 && (
-          <span className="text-[10px] leading-none">{sourceIcons.join("")}</span>
-        )}
+        {/* sourceIcons 영역 - 항상 공간 예약 */}
+        <span
+          className="text-[10px] leading-none"
+          style={{
+            minHeight: "14px",
+            visibility: sourceIcons.length > 0 ? "visible" : "hidden",
+          }}
+        >
+          {sourceIcons.length > 0 ? sourceIcons.join("") : "\u00A0"}
+        </span>
       </div>
 
       {/* 툴팁 */}
