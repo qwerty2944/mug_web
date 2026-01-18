@@ -19,7 +19,22 @@ function getAbilityProgress(
   return null;
 }
 
-export function AbilitiesTab({ theme, learnedSkills, abilities, userAbilities }: AbilitiesTabProps) {
+export function AbilitiesTab({ theme, learnedSkills, abilities, userAbilities, isLoading }: AbilitiesTabProps) {
+  // userAbilities에서 레벨 1 이상인 스킬 목록
+  const dbLearnedSkills = useMemo(() => {
+    if (!userAbilities) return [];
+
+    const result: string[] = [];
+    for (const category of ["combat", "magic", "life"] as const) {
+      for (const [abilityId, progress] of Object.entries(userAbilities[category])) {
+        if (progress.level >= 1) {
+          result.push(abilityId);
+        }
+      }
+    }
+    return result;
+  }, [userAbilities]);
+
   // 레벨 0이지만 경험치가 있는 어빌리티 목록 생성
   const inProgressSkills = useMemo(() => {
     if (!userAbilities) return [];
@@ -27,19 +42,32 @@ export function AbilitiesTab({ theme, learnedSkills, abilities, userAbilities }:
     const result: string[] = [];
     for (const category of ["combat", "magic", "life"] as const) {
       for (const [abilityId, progress] of Object.entries(userAbilities[category])) {
-        // 레벨 0이고 경험치가 있으면서, learnedSkills에 없는 것
-        if (progress.level === 0 && progress.exp > 0 && !learnedSkills.includes(abilityId)) {
+        // 레벨 0이고 경험치가 있는 것
+        if (progress.level === 0 && progress.exp > 0) {
           result.push(abilityId);
         }
       }
     }
     return result;
-  }, [userAbilities, learnedSkills]);
+  }, [userAbilities]);
 
-  // 모든 표시할 스킬 (배운 스킬 + 진행 중 스킬)
+  // 모든 표시할 스킬 (DB 스킬 + 로컬 스킬 + 진행 중 스킬, 중복 제거)
   const allDisplaySkills = useMemo(() => {
-    return [...learnedSkills, ...inProgressSkills];
-  }, [learnedSkills, inProgressSkills]);
+    const combined = new Set([...dbLearnedSkills, ...learnedSkills, ...inProgressSkills]);
+    return Array.from(combined);
+  }, [dbLearnedSkills, learnedSkills, inProgressSkills]);
+
+  // 로딩 상태
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center h-64">
+        <div
+          className="animate-spin w-8 h-8 border-2 border-t-transparent rounded-full"
+          style={{ borderColor: theme.colors.primary, borderTopColor: "transparent" }}
+        />
+      </div>
+    );
+  }
 
   if (allDisplaySkills.length === 0) {
     return (

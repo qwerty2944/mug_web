@@ -144,7 +144,7 @@ export function StatusModal({ open, onClose }: StatusModalProps) {
   const inventoryMaxSlots = inventoryData?.maxSlots ?? 20;
   const { data: allItems = [] } = useItems();
   const { data: abilities = [] } = useAbilities();
-  const { data: userAbilities } = useUserAbilities(session?.user?.id);
+  const { data: userAbilities, isLoading: userAbilitiesLoading } = useUserAbilities(session?.user?.id);
 
   // 장비 스토어
   const equipmentStore = useEquipmentStore();
@@ -372,6 +372,7 @@ export function StatusModal({ open, onClose }: StatusModalProps) {
                     learnedSkills={equipmentStore.learnedSkills}
                     abilities={abilities}
                     userAbilities={userAbilities}
+                    isLoading={userAbilitiesLoading}
                   />
                 </Tabs.Content>
 
