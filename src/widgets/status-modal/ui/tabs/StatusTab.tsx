@@ -7,18 +7,9 @@ import {
   getMaxFatigueFromProfile,
   getCurrentFatigue,
 } from "@/entities/user";
-import {
-  getDodgeChance,
-  getBlockChance,
-  getCriticalChance,
-  getCriticalMultiplier,
-} from "@/features/combat";
 import { StatTooltip } from "../StatTooltip";
 import { ElementBonusItem } from "../ElementBonusItem";
-import {
-  STAT_TOOLTIPS,
-  COMBAT_TOOLTIPS,
-} from "../../constants/tooltips";
+import { STAT_TOOLTIPS } from "../../constants/tooltips";
 import type { StatusTabProps } from "./types";
 
 export function StatusTab({
@@ -110,8 +101,8 @@ export function StatusTab({
         </div>
 
         {/* 전투 스탯 */}
-        {combatStats && (
-          <CombatStatsSection theme={theme} combatStats={combatStats} />
+        {combatStats && derivedStats && (
+          <CombatStatsSection theme={theme} combatStats={combatStats} derivedStats={derivedStats} />
         )}
 
         {/* 속성 보너스 */}
@@ -260,144 +251,130 @@ function MpBar({ theme, profile, derivedStats }: {
 }
 
 // 전투 스탯 섹션
-function CombatStatsSection({ theme, combatStats }: {
+function CombatStatsSection({ theme, combatStats, derivedStats }: {
   theme: StatusTabProps["theme"];
   combatStats: NonNullable<StatusTabProps["combatStats"]>;
+  derivedStats: NonNullable<StatusTabProps["derivedStats"]>;
 }) {
+  // 물리 저항 표시 헬퍼 (1.0 기준, 낮을수록 저항 높음)
+  const formatResist = (value: number) => {
+    const reduction = Math.round((1 - value) * 100);
+    if (reduction > 0) return `+${reduction}%`;
+    if (reduction < 0) return `${reduction}%`;
+    return "0%";
+  };
+
+  const getResistColor = (value: number) => {
+    if (value < 1) return theme.colors.success; // 저항 있음
+    if (value > 1) return theme.colors.error;   // 약점
+    return theme.colors.textMuted;              // 보통
+  };
+
   return (
     <div className="p-4" style={{ background: theme.colors.bgDark }}>
       <div className="text-sm font-mono mb-3" style={{ color: theme.colors.textMuted }}>전투 스탯</div>
 
-      {/* 공격력 / 방어력 */}
-      <div className="grid grid-cols-2 gap-3 mb-3">
+      {/* 공격력 / 방어력 - 4칸 그리드 */}
+      <div className="grid grid-cols-4 gap-2 mb-3 text-sm font-mono">
+        <div className="p-2 text-center" style={{ background: theme.colors.bgLight, border: `1px solid ${theme.colors.border}` }}>
+          <div className="text-xs" style={{ color: theme.colors.textMuted }}>물리공격</div>
+          <div className="mt-1" style={{ color: theme.colors.error }}>{combatStats.physicalAttack}</div>
+        </div>
+        <div className="p-2 text-center" style={{ background: theme.colors.bgLight, border: `1px solid ${theme.colors.border}` }}>
+          <div className="text-xs" style={{ color: theme.colors.textMuted }}>마법공격</div>
+          <div className="mt-1" style={{ color: theme.colors.primary }}>{combatStats.magicAttack}</div>
+        </div>
+        <div className="p-2 text-center" style={{ background: theme.colors.bgLight, border: `1px solid ${theme.colors.border}` }}>
+          <div className="text-xs" style={{ color: theme.colors.textMuted }}>물리방어</div>
+          <div className="mt-1" style={{ color: theme.colors.success }}>{combatStats.physicalDefense}</div>
+        </div>
+        <div className="p-2 text-center" style={{ background: theme.colors.bgLight, border: `1px solid ${theme.colors.border}` }}>
+          <div className="text-xs" style={{ color: theme.colors.textMuted }}>마법방어</div>
+          <div className="mt-1" style={{ color: theme.colors.primary }}>{combatStats.magicDefense}</div>
+        </div>
+      </div>
+
+      {/* 물리 저항 (베기/찌르기/타격) */}
+      <div className="grid grid-cols-3 gap-2 mb-3 text-sm font-mono">
         <StatTooltip
           content={
             <div>
-              <div className="font-bold mb-1" style={{ color: theme.colors.primary }}>{COMBAT_TOOLTIPS.physicalAttack.title}</div>
-              <div style={{ color: theme.colors.textMuted }}>{COMBAT_TOOLTIPS.physicalAttack.formula}</div>
-              <div className="mt-1" style={{ color: theme.colors.text }}>{COMBAT_TOOLTIPS.physicalAttack.effect}</div>
+              <div className="font-bold mb-1" style={{ color: theme.colors.primary }}>베기 저항</div>
+              <div style={{ color: theme.colors.textMuted }}>검, 도끼 등 베기 공격에 대한 저항</div>
+              <div className="mt-1" style={{ color: theme.colors.text }}>
+                받는 데미지: {Math.round(derivedStats.totalPhysicalResistance.slashResist * 100)}%
+              </div>
             </div>
           }
         >
-          <div className="p-2" style={{ background: theme.colors.bgLight, border: `1px solid ${theme.colors.border}` }}>
-            <div className="text-xs font-mono" style={{ color: theme.colors.textMuted }}>공격력</div>
-            <div className="flex items-center gap-2 mt-1">
-              <span>⚔️</span>
-              <span className="font-mono" style={{ color: theme.colors.error }}>{combatStats.physicalAttack}</span>
-              <span style={{ color: theme.colors.textMuted }}>/</span>
-              <span>🔮</span>
-              <span className="font-mono" style={{ color: theme.colors.primary }}>{combatStats.magicAttack}</span>
+          <div className="p-2 text-center" style={{ background: theme.colors.bgLight, border: `1px solid ${theme.colors.border}` }}>
+            <div className="text-xs" style={{ color: theme.colors.textMuted }}>🗡️ 베기</div>
+            <div className="mt-1" style={{ color: getResistColor(derivedStats.totalPhysicalResistance.slashResist) }}>
+              {formatResist(derivedStats.totalPhysicalResistance.slashResist)}
             </div>
           </div>
         </StatTooltip>
         <StatTooltip
           content={
             <div>
-              <div className="font-bold mb-1" style={{ color: theme.colors.primary }}>{COMBAT_TOOLTIPS.physicalDefense.title}</div>
-              <div style={{ color: theme.colors.textMuted }}>{COMBAT_TOOLTIPS.physicalDefense.formula}</div>
-              <div className="mt-1" style={{ color: theme.colors.text }}>{COMBAT_TOOLTIPS.physicalDefense.effect}</div>
+              <div className="font-bold mb-1" style={{ color: theme.colors.primary }}>찌르기 저항</div>
+              <div style={{ color: theme.colors.textMuted }}>창, 단검, 화살 등 찌르기 공격에 대한 저항</div>
+              <div className="mt-1" style={{ color: theme.colors.text }}>
+                받는 데미지: {Math.round(derivedStats.totalPhysicalResistance.pierceResist * 100)}%
+              </div>
             </div>
           }
         >
-          <div className="p-2" style={{ background: theme.colors.bgLight, border: `1px solid ${theme.colors.border}` }}>
-            <div className="text-xs font-mono" style={{ color: theme.colors.textMuted }}>방어력</div>
-            <div className="flex items-center gap-2 mt-1">
-              <span>🛡️</span>
-              <span className="font-mono" style={{ color: theme.colors.success }}>{combatStats.physicalDefense}</span>
-              <span style={{ color: theme.colors.textMuted }}>/</span>
-              <span>🔮</span>
-              <span className="font-mono" style={{ color: theme.colors.primary }}>{combatStats.magicDefense}</span>
+          <div className="p-2 text-center" style={{ background: theme.colors.bgLight, border: `1px solid ${theme.colors.border}` }}>
+            <div className="text-xs" style={{ color: theme.colors.textMuted }}>🔱 찌르기</div>
+            <div className="mt-1" style={{ color: getResistColor(derivedStats.totalPhysicalResistance.pierceResist) }}>
+              {formatResist(derivedStats.totalPhysicalResistance.pierceResist)}
+            </div>
+          </div>
+        </StatTooltip>
+        <StatTooltip
+          content={
+            <div>
+              <div className="font-bold mb-1" style={{ color: theme.colors.primary }}>타격 저항</div>
+              <div style={{ color: theme.colors.textMuted }}>둔기, 주먹 등 타격 공격에 대한 저항</div>
+              <div className="mt-1" style={{ color: theme.colors.text }}>
+                받는 데미지: {Math.round(derivedStats.totalPhysicalResistance.crushResist * 100)}%
+              </div>
+            </div>
+          }
+        >
+          <div className="p-2 text-center" style={{ background: theme.colors.bgLight, border: `1px solid ${theme.colors.border}` }}>
+            <div className="text-xs" style={{ color: theme.colors.textMuted }}>🔨 타격</div>
+            <div className="mt-1" style={{ color: getResistColor(derivedStats.totalPhysicalResistance.crushResist) }}>
+              {formatResist(derivedStats.totalPhysicalResistance.crushResist)}
             </div>
           </div>
         </StatTooltip>
       </div>
 
-      {/* 회피 / 막기 */}
+      {/* 회피 / 막기 / 치명타 */}
       <div className="grid grid-cols-2 gap-2 text-sm font-mono mb-2">
-        <StatTooltip
-          content={
-            <div>
-              <div className="font-bold mb-1" style={{ color: theme.colors.primary }}>{COMBAT_TOOLTIPS.dodge.title}</div>
-              <div style={{ color: theme.colors.textMuted }}>{COMBAT_TOOLTIPS.dodge.formula}</div>
-              <div style={{ color: theme.colors.warning }}>{COMBAT_TOOLTIPS.dodge.max}</div>
-              <div className="mt-1" style={{ color: theme.colors.text }}>{COMBAT_TOOLTIPS.dodge.effect}</div>
-            </div>
-          }
-        >
-          <div className="flex items-center gap-2">
-            <span>🌀</span>
-            <span style={{ color: theme.colors.textMuted }}>회피</span>
-            <span className="ml-auto" style={{ color: theme.colors.text }}>{combatStats.dodgeChance.toFixed(1)}%</span>
-          </div>
-        </StatTooltip>
-        <StatTooltip
-          content={
-            <div>
-              <div className="font-bold mb-1" style={{ color: theme.colors.primary }}>{COMBAT_TOOLTIPS.block.title}</div>
-              <div style={{ color: theme.colors.textMuted }}>{COMBAT_TOOLTIPS.block.formula}</div>
-              <div style={{ color: theme.colors.warning }}>{COMBAT_TOOLTIPS.block.max}</div>
-              <div className="mt-1" style={{ color: theme.colors.text }}>{COMBAT_TOOLTIPS.block.effect}</div>
-            </div>
-          }
-        >
-          <div className="flex items-center gap-2">
-            <span>🛡️</span>
-            <span style={{ color: theme.colors.textMuted }}>막기</span>
-            <span className="ml-auto" style={{ color: theme.colors.text }}>{combatStats.blockChance.toFixed(1)}%</span>
-          </div>
-        </StatTooltip>
-      </div>
-
-      {/* 치명타 */}
-      <div className="grid grid-cols-2 gap-2 text-sm font-mono mb-2">
-        <StatTooltip
-          content={
-            <div>
-              <div className="font-bold mb-1" style={{ color: theme.colors.primary }}>{COMBAT_TOOLTIPS.physCrit.title}</div>
-              <div style={{ color: theme.colors.textMuted }}>{COMBAT_TOOLTIPS.physCrit.formula}</div>
-              <div style={{ color: theme.colors.warning }}>{COMBAT_TOOLTIPS.physCrit.max}</div>
-            </div>
-          }
-        >
-          <div className="flex items-center gap-2">
-            <span>💥</span>
-            <span style={{ color: theme.colors.textMuted }}>물리치명</span>
-            <span className="ml-auto" style={{ color: theme.colors.error }}>{combatStats.physicalCritChance.toFixed(1)}%</span>
-          </div>
-        </StatTooltip>
-        <StatTooltip
-          content={
-            <div>
-              <div className="font-bold mb-1" style={{ color: theme.colors.primary }}>{COMBAT_TOOLTIPS.magicCrit.title}</div>
-              <div style={{ color: theme.colors.textMuted }}>{COMBAT_TOOLTIPS.magicCrit.formula}</div>
-              <div style={{ color: theme.colors.warning }}>{COMBAT_TOOLTIPS.magicCrit.max}</div>
-            </div>
-          }
-        >
-          <div className="flex items-center gap-2">
-            <span>✨</span>
-            <span style={{ color: theme.colors.textMuted }}>마법치명</span>
-            <span className="ml-auto" style={{ color: theme.colors.primary }}>{combatStats.magicalCritChance.toFixed(1)}%</span>
-          </div>
-        </StatTooltip>
-      </div>
-
-      {/* 치명타 배율 */}
-      <StatTooltip
-        content={
-          <div>
-            <div className="font-bold mb-1" style={{ color: theme.colors.primary }}>{COMBAT_TOOLTIPS.critMult.title}</div>
-            <div style={{ color: theme.colors.textMuted }}>{COMBAT_TOOLTIPS.critMult.formula}</div>
-            <div style={{ color: theme.colors.warning }}>{COMBAT_TOOLTIPS.critMult.max}</div>
-          </div>
-        }
-      >
-        <div className="flex items-center gap-2 text-sm font-mono">
+        <div className="flex items-center gap-2">
+          <span>🌀</span>
+          <span style={{ color: theme.colors.textMuted }}>회피</span>
+          <span className="ml-auto" style={{ color: theme.colors.text }}>{combatStats.dodgeChance.toFixed(1)}%</span>
+        </div>
+        <div className="flex items-center gap-2">
+          <span>🛡️</span>
+          <span style={{ color: theme.colors.textMuted }}>막기</span>
+          <span className="ml-auto" style={{ color: theme.colors.text }}>{combatStats.blockChance.toFixed(1)}%</span>
+        </div>
+        <div className="flex items-center gap-2">
+          <span>💥</span>
+          <span style={{ color: theme.colors.textMuted }}>치명타</span>
+          <span className="ml-auto" style={{ color: theme.colors.warning }}>{combatStats.physicalCritChance.toFixed(1)}%</span>
+        </div>
+        <div className="flex items-center gap-2">
           <span>⚡</span>
-          <span style={{ color: theme.colors.textMuted }}>치명 배율</span>
+          <span style={{ color: theme.colors.textMuted }}>치명배율</span>
           <span className="ml-auto" style={{ color: theme.colors.warning }}>{combatStats.critMultiplier.toFixed(2)}x</span>
         </div>
-      </StatTooltip>
+      </div>
     </div>
   );
 }
