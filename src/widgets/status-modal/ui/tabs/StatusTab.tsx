@@ -462,17 +462,16 @@ function ElementResistSection({ theme, elementResist }: {
   theme: StatusTabProps["theme"];
   elementResist: NonNullable<StatusTabProps["derivedStats"]>["totalElementResist"];
 }) {
-  // 저항 표시 헬퍼 (1.0 기준, 낮을수록 저항 높음)
+  // 저항 표시 헬퍼 (퍼센트 기반: 0=저항없음, 50=50%저항)
   const formatResist = (value: number) => {
-    const reduction = Math.round((1 - value) * 100);
-    if (reduction > 0) return `+${reduction}%`;
-    if (reduction < 0) return `${reduction}%`;
+    if (value > 0) return `+${Math.round(value)}%`;
+    if (value < 0) return `${Math.round(value)}%`; // 약점 (음수값)
     return "0%";
   };
 
   const getResistColor = (value: number) => {
-    if (value < 1) return theme.colors.success; // 저항 있음
-    if (value > 1) return theme.colors.error;   // 약점
+    if (value > 0) return theme.colors.success; // 저항 있음
+    if (value < 0) return theme.colors.error;   // 약점
     return theme.colors.textMuted;              // 보통
   };
 
@@ -483,7 +482,7 @@ function ElementResistSection({ theme, elementResist }: {
       </div>
       <div className="grid grid-cols-4 sm:grid-cols-8 gap-1">
         {ELEMENTS.map((el) => {
-          const resistValue = elementResist[el.id as keyof typeof elementResist] ?? 1;
+          const resistValue = elementResist[el.id as keyof typeof elementResist] ?? 0;
           return (
             <StatTooltip
               key={el.id}
@@ -496,7 +495,7 @@ function ElementResistSection({ theme, elementResist }: {
                     {el.nameKo} 속성 공격에 대한 저항
                   </div>
                   <div className="mt-1" style={{ color: theme.colors.text }}>
-                    받는 데미지: {Math.round(resistValue * 100)}%
+                    받는 데미지: {Math.round(100 - resistValue)}%
                   </div>
                 </div>
               }
