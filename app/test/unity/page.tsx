@@ -9,13 +9,17 @@ import { globalStyles } from "@/shared/ui";
 export default function UnityTestPage() {
   const { clearAll, callUnity } = useAppearanceStore();
 
-  // 페이지 진입 시 Unity 상태 초기화 (장비 + 외형)
+  // 페이지 진입 시 Unity 상태 초기화 (장비 + 외형 + 색상)
   useEffect(() => {
     clearAll();
     // 외형도 기본값으로 초기화 (12 = Human_1)
     callUnity("JS_SetBody", "12");
     callUnity("JS_SetHair", "-1");
     callUnity("JS_SetFacehair", "-1");
+    // 색상 초기화
+    callUnity("JS_SetHairColor", "#6B4226");
+    callUnity("JS_SetEyeColor", "#6B4226");
+    callUnity("JS_SetFacehairColor", "#6B4226");
   }, [clearAll, callUnity]);
 
   return (

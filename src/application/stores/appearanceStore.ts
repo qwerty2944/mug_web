@@ -608,6 +608,13 @@ export const useAppearanceStore = create<AppearanceStore>((set, get) => ({
     callUnity("JS_ClearAll");
     // Unity ClearAll에서 수염이 빠져있어서 추가로 호출
     callUnity("JS_SetFacehair", "-1");
+
+    // 스토어 상태도 초기화
+    set({
+      characterState: null,
+      leftHandWeapon: { weaponType: null, index: -1 },
+      rightHandWeapon: { weaponType: null, index: -1 },
+    });
   },
   resetColors: () => get().callUnity("JS_ResetColors"),
 
