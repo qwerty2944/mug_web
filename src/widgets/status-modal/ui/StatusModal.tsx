@@ -336,17 +336,17 @@ export function StatusModal({ open, onClose }: StatusModalProps) {
           </div>
 
           {/* 탭 컨텐츠 */}
-          <div className="flex-1 min-h-0 relative">
+          <div className="flex-1 min-h-0 overflow-y-auto">
             {profileLoading ? (
-              <div className="absolute inset-0 flex items-center justify-center">
+              <div className="flex items-center justify-center h-full">
                 <div
                   className="animate-spin w-8 h-8 border-2 border-t-transparent rounded-full"
                   style={{ borderColor: theme.colors.primary, borderTopColor: "transparent" }}
                 />
               </div>
             ) : (
-              <>
-                <Tabs.Content value="status" className="absolute inset-0 overflow-y-auto p-4 data-[state=inactive]:hidden">
+              <div className="grid grid-cols-1 grid-rows-1 h-full">
+                <Tabs.Content value="status" forceMount className="col-start-1 row-start-1 p-4 overflow-y-auto data-[state=inactive]:hidden">
                   <StatusTab
                     theme={theme}
                     profile={profile}
@@ -357,7 +357,7 @@ export function StatusModal({ open, onClose }: StatusModalProps) {
                   />
                 </Tabs.Content>
 
-                <Tabs.Content value="traits" className="absolute inset-0 overflow-y-auto p-4 data-[state=inactive]:hidden">
+                <Tabs.Content value="traits" forceMount className="col-start-1 row-start-1 p-4 overflow-y-auto data-[state=inactive]:hidden">
                   <TraitsTab
                     theme={theme}
                     characterTraits={characterTraits}
@@ -365,7 +365,7 @@ export function StatusModal({ open, onClose }: StatusModalProps) {
                   />
                 </Tabs.Content>
 
-                <Tabs.Content value="abilities" className="absolute inset-0 overflow-y-auto p-4 data-[state=inactive]:hidden">
+                <Tabs.Content value="abilities" forceMount className="col-start-1 row-start-1 p-4 overflow-y-auto data-[state=inactive]:hidden">
                   <AbilitiesTab
                     theme={theme}
                     learnedSkills={equipmentStore.learnedSkills}
@@ -373,11 +373,11 @@ export function StatusModal({ open, onClose }: StatusModalProps) {
                   />
                 </Tabs.Content>
 
-                <Tabs.Content value="equipment" className="absolute inset-0 overflow-y-auto p-4 data-[state=inactive]:hidden">
+                <Tabs.Content value="equipment" forceMount className="col-start-1 row-start-1 p-4 overflow-y-auto data-[state=inactive]:hidden">
                   <EquipmentTab theme={theme} />
                 </Tabs.Content>
 
-                <Tabs.Content value="inventory" className="absolute inset-0 overflow-y-auto p-4 data-[state=inactive]:hidden">
+                <Tabs.Content value="inventory" forceMount className="col-start-1 row-start-1 p-4 overflow-y-auto data-[state=inactive]:hidden">
                   <InventoryTab
                     theme={theme}
                     inventoryItems={inventoryItems}
@@ -385,7 +385,7 @@ export function StatusModal({ open, onClose }: StatusModalProps) {
                     inventoryMaxSlots={inventoryMaxSlots}
                   />
                 </Tabs.Content>
-              </>
+              </div>
             )}
           </div>
         </Tabs.Root>

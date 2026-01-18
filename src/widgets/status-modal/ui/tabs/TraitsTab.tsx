@@ -50,7 +50,7 @@ export function TraitsTab({ theme, characterTraits, traitEffects }: TraitsTabPro
               );
             })}
             {/* 특수 효과 */}
-            {Array.from(traitEffects.specialEffects.entries()).map(([type, value]) => {
+            {traitEffects.specialEffects && Array.from(traitEffects.specialEffects.entries()).map(([type, value]) => {
               const effectNames: Record<string, string> = {
                 fear_resistance: "공포 저항", disease_resistance: "질병 저항",
                 poison_resistance: "독 저항", physical_damage: "물리 데미지",
